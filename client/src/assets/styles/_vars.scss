@@ -1,0 +1,13 @@
+@use 'sass:math';
+
+$green: #5de4d5;
+$bleu: #30394e;
+$darkGray: #d9d9d9;
+$lithGray: #f5f5f5;
+$red: #d32f2f;
+
+$menuWidth: 250px;
+$smallMenuWidth: 150px;
+$small: 700px;
+$gutter: 1.5rem;
+$halfGutter: math.div($gutter, 2);
