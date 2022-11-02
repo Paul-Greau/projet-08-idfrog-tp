@@ -1,27 +1,57 @@
-/* const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-class Card extends Model {};
+class Project extends Model {};
 
-Card.init({
-	content: {
+Project.init({
+	name: {
 		type: DataTypes.TEXT,
 		allowNull: false,
-		unique: true,
 	},
-	position: {
+	invest_type: {
+		type: DataTypes.TEXT,
+		allowNull: false,
+	},
+	amount_target: {
 		type: DataTypes.INTEGER,
 		allowNull: false,
-		defaultValue: 0,
 	},
-	color: {
+    rate: {
+		type: DataTypes.DECIMAL,
+		allowNull: false,
+	},
+    end_time: {
+		type: DataTypes.DATEONLY,
+		allowNull: false,
+	},
+    img_url: {
+		type: DataTypes.TEXT,
+		allowNull: true,
+	},
+    web_url: {
+		type: DataTypes.TEXT,
+		allowNull: true,
+	},
+    title: {
 		type: DataTypes.TEXT,
 		allowNull: false,
-		defaultValue: '#FFFFFF',
+	},
+    subtitle: {
+		type: DataTypes.TEXT,
+		allowNull: false,
+	},
+    description: {
+		type: DataTypes.TEXT,
+		allowNull: false,
+	},
+    visibility: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false,
+		defaultValue: false,
 	},
 }, {
 	sequelize,
-	tableName: 'card',
+	tableName: 'project',
 });
 
-module.exports = Card; */
+module.exports = Project;
