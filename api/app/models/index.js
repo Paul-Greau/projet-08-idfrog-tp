@@ -27,43 +27,49 @@ foreignKey: 'profile_id'
 
 // Association Profil et Contribution
 Profile.hasMany(Contribution, {
+	as:'contributions',
 	foreignKey:'profile_id'
 });
 Contribution.belongsTo(Profile);
 
-
 // Association Profil et Comment
 Profile.hasMany(Comment, {
+	as: 'comments',
 	foreignKey:'profile_id'
 });
 Comment.belongsTo(Profile);
 
 // Association Project et Contribution
 Project.hasMany(Contribution, {
+	as: 'contributions',
 	foreignKey:'project_id'
 });
 Contribution.belongsTo(Project);
 
 // Association Project et Comment
 Project.hasMany(Comment, {
+	as: 'comments',
 	foreignKey:'project_id'
 });
 Comment.belongsTo(Project);
 
 // Association Project et Category
-Project.hasOne(Category, {
-	as: 'category',
-	foreignKey: 'category_id'
+Category.hasMany(Project, {
+	as:'projects',
+	foreignKey:'category_id'
 });
-
-Category.belongsToMany(Project, {
+Project.belongsTo(Category,{
+as: 'category'
 });
 
 // Association Project et Profile
 Profile.hasMany(Project, {
+	as:'projects',
 	foreignKey:'profile_id'
 });
-Project.belongsTo(Profile);
+Project.belongsTo(Profile, {
+	as: 'profile'
+});
 
 
 module.exports = {

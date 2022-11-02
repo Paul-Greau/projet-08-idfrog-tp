@@ -1,51 +1,26 @@
-/* const { List } = require('../models');
-const { escape } = require('sanitizer');
+const { Project } = require('../models');
+// const { escape } = require('sanitizer');
 
-const listController = {
+const projectController = {
 
-	getAllLists: async (req, res) => {
+	getOneProjectById: async (req, res) => {
 		try {
 
-			const lists = await List.findAll({
-				// include: 'cards'
-				include: {
-					association: 'cards',
-					include: 'tags',
-				},
-				order: [
-					[ 'position', 'ASC' ],
-					[ 'cards', 'position', 'ASC' ],
-				],
+			const projectId = req.params.id;
+			const project = await Project.findByPk(projectId, {
+				 include: ['profile',
+				 'comments',
+				 'contributions',
+				 'category'
+			]
 			});
 
-			res.status(200).json(lists);
-			
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ message: error.message });
-		}
-	},
-
-	getOneListById: async (req, res) => {
-		try {
-
-			const listId = req.params.id;
-			const list = await List.findByPk(listId, {
-				include: {
-					association: 'cards',
-					include: 'tags',
-				},
-				order: [
-					[ 'cards', 'position', 'ASC' ],
-				],
-			});
-
-			if (!list) { // Si `list` == null || undefined || false
-				const error = new Error(`List not found with id ${ listId }`);
+			if (!project) { // Si `project` == null || undefined || false
+				const error = new Error(`Project not found with id ${ projectId }`);
 				return res.status(404).json({ message: error.message });
 			}
 
-			res.status(200).json(list);
+			res.status(200).json(project);
 			
 		} catch (error) {
 			console.error(error);
@@ -53,7 +28,7 @@ const listController = {
 		}
 	},
 
-	createList: async (req, res) => {
+	/* createList: async (req, res) => {
 		try {
 
 			const { name, position } = req.body;
@@ -126,8 +101,8 @@ const listController = {
 			console.error(error);
 			res.status(500).json({ message: error.message });
 		}
-	}
+	} */
 
 };
 
-module.exports = listController; */
+module.exports = projectController; 
