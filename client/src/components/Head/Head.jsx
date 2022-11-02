@@ -30,7 +30,7 @@ function Head() {
 
           <Grid 
             container 
-            spacing={5}
+            spacing={2}
             sx={{
                 paddingTop: "50px"
             }}
