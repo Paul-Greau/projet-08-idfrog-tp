@@ -8,10 +8,10 @@ import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+
 // import PropTypes from "prop-types";
 
-import ProjectProgress from '../projectProgress/projectProgress';
+import ProjectProgress from '../ProjectProgress/ProjectProgress';
 
 import './projectCollectStyles.scss';
 
@@ -45,7 +45,7 @@ function projectCollect() {
 
   return (
     <>
-      <Card sx={{ maxWidth: 345, marginTop: '20px' }}>
+      <Card sx={{ maxWidth: 345 }}>
         <CardContent>
           <Typography
             sx={{ fontSize: 14, marginTop: '20px', marginBottom: '2rem' }}
@@ -93,7 +93,7 @@ function projectCollect() {
       <Card
         sx={{
           maxWidth: 345,
-          marginTop: '20px',
+          margin: '40px',
           marginBottom: '30px',
           textAlign: 'center',
         }}

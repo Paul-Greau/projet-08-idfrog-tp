@@ -52,6 +52,11 @@ export const globalTheme = createTheme({
       main: '#2D394C',
       dark: '#2D3A4D',
       contrastText: 'rgba(0, 0, 0, 0.87)',
+    },
+
+    with:{
+      main: '#FFFFFF'
+
     }
   
   },
@@ -66,5 +71,5 @@ export const globalTheme = createTheme({
       '"Segoe UI Symbol"',
     ].join(','),
   },
-  spacing: [0, 4, 8, 16, 32, 64],
+  //spacing: [0, 4, 8, 16, 32, 64],
 });

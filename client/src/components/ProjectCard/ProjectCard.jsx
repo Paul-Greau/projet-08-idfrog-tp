@@ -9,11 +9,11 @@ import Typography from '@mui/material/Typography';
 // import PropTypes from "prop-types";
 
 import topCardImage from '../../assets/images/PlaceholderImage.jpg';
-import ProjectProgress from '../projectProgress/projectProgress';
+import ProjectProgress from '../ProjectProgress/ProjectProgress';
 
 import './projectCardStyles.scss';
 
-function projectCard() {
+function ProjectCard() {
   const buttonPrimaryStyles = {
     fontSize: 14,
     backgroundColor: '#5de4d5',
@@ -98,8 +98,8 @@ function projectCard() {
     </Card>
   );
 }
-projectCard.propTypes = {};
+ProjectCard.propTypes = {};
 
-projectCard.defaultProps = {};
+ProjectCard.defaultProps = {};
 
-export default React.memo(projectCard);
+export default React.memo(ProjectCard);

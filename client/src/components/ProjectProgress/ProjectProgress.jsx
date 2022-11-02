@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-function LinearProgressWithLabel(props) {
+function ProgressLine(props) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: '100%', mr: 1 }}>
@@ -19,7 +20,7 @@ function LinearProgressWithLabel(props) {
   );
 }
 
-export default function LinearWithValueLabel() {
+export default function ProjectProgress() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -29,11 +30,7 @@ export default function LinearWithValueLabel() {
   return (
     <Box sx={{ width: '100%' }}>
       <Typography></Typography>
-      <LinearProgressWithLabel value={progress} />
+      <ProgressLine value={progress} />
     </Box>
   );
 }
-
-LinearProgressWithLabel.propTypes = {
-  value: PropTypes.number.isRequired,
-};
