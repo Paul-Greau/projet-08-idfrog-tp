@@ -1,39 +1,76 @@
-/* const List = require('./list');
-const Card = require('./card');
-const Tag = require('./tag');
+const Category = require('./category')
+const Comment = require('./comment')
+const Contribution = require('./contribution')
+const Person = require('./person')
+const Profile = require('./profile')
+const Project = require('./project')
+const Society = require('./society')
 
-// Association List et Card
 
-List.hasMany(Card, {
-	as: 'cards',
-	foreignKey: 'list_id',
+// Association Profil et Society
+Profile.hasOne(Society, {
+	as: 'society',
 });
 
-Card.belongsTo(List, {
-	as: 'list',
-	foreignKey: 'list_id',
+Society.belongsTo(Profile, {
+foreignKey: 'profile_id'
 });
 
-// Association Tag et Card
-
-Card.belongsToMany(Tag, {
-	as: 'tags',
-	through: 'card_has_tag',
-	foreignKey: 'card_id',
-	otherKey: 'tag_id',
-	timestamps: false, // empêcher l'intégration par défaut de created_at et updated_at (on gère seulement created_at)
+// Association Profil et Person
+Profile.hasOne(Person, {
+	as: 'person',
 });
 
-Tag.belongsToMany(Card, {
-	as: 'cards',
-	through: 'card_has_tag',
-	foreignKey: 'tag_id',
-	otherKey: 'card_id',
-	timestamps: false,
+Person.belongsTo(Profile, {
+foreignKey: 'profile_id'
 });
+
+// Association Profil et Contribution
+Profile.hasMany(Contribution, {
+	foreignKey:'profile_id'
+});
+Contribution.belongsTo(Profile);
+
+
+// Association Profil et Comment
+Profile.hasMany(Comment, {
+	foreignKey:'profile_id'
+});
+Comment.belongsTo(Profile);
+
+// Association Project et Contribution
+Project.hasMany(Contribution, {
+	foreignKey:'project_id'
+});
+Contribution.belongsTo(Project);
+
+// Association Project et Comment
+Project.hasMany(Comment, {
+	foreignKey:'project_id'
+});
+Comment.belongsTo(Project);
+
+// Association Project et Category
+Project.hasOne(Category, {
+	as: 'category',
+	foreignKey: 'category_id'
+});
+
+Category.belongsToMany(Project, {
+});
+
+// Association Project et Profile
+Profile.hasMany(Project, {
+	foreignKey:'profile_id'
+});
+Project.belongsTo(Profile);
+
 
 module.exports = {
-	List,
-	Card,
-	Tag
-}; */
+Category,
+Comment,
+Contribution, 
+Person, 
+Profile,
+Project
+}
