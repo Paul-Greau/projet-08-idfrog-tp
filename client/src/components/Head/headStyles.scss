@@ -1,0 +1,8 @@
+@use '../../assets/styles/vars';
+
+.head {
+    padding: vars.$gutter;
+    &-logo {
+        max-width: "535px";
+    }
+}
