@@ -1,6 +1,9 @@
 // librairies
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
+const router = require('./app/router');
 const bodyParser = require('body-parser');
 
 
@@ -9,28 +12,15 @@ const port = process.env.PORT || 3002;
 // vars
 const app = express();
 
+app.use(cors({
+	origin: '*'
+}));
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
-/* Middlewares */
-// parse request body
-app.use(bodyParser.json());
-
-// cors
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-
-  // response to preflight request
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  }
-  else {
-    next();
-  }
-});
-
-
+app.use(router);
 
 /*
  * Server
