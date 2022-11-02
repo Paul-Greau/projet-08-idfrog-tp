@@ -8,17 +8,22 @@ const projectController = {
 
 			const projectId = req.params.id;
 			const project = await Project.findByPk(projectId, {
-				 include: ['profile',
-				 'comments',
+				 include: [
+				 'profile',
+				 'comments' ,
 				 'contributions',
-				 'category'
-			]
+				 'category',
+			],
 			});
+
 
 			if (!project) { // Si `project` == null || undefined || false
 				const error = new Error(`Project not found with id ${ projectId }`);
 				return res.status(404).json({ message: error.message });
 			}
+
+			project.profile.email = null;
+			project.profile.password = null;
 
 			res.status(200).json(project);
 			

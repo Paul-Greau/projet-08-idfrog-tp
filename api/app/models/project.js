@@ -36,7 +36,7 @@ Project.init({
 		type: DataTypes.TEXT,
 		allowNull: false,
 	},
-    subtitle: {
+    resume: {
 		type: DataTypes.TEXT,
 		allowNull: false,
 	},
