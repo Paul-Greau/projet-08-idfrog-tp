@@ -18,7 +18,7 @@ function TopFooter() {
         alignItems="center"
         spacing={12}
         sx={{
-            padding: "70px"
+            padding: "60px"
         }}
       >
         <Grid item xs={12} md={8} sx={{}}>
