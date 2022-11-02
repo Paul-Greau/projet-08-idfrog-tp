@@ -3,7 +3,7 @@ const sequelize = require('../database');
 
 class Society extends Model {};
 
-Card.init({
+Society.init({
 	siret: {
 		type: DataTypes.TEXT,
 		allowNull: false,
