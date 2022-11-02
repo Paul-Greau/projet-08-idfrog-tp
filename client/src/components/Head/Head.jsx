@@ -16,28 +16,34 @@ function Head() {
     <div className="head">
       <Grid 
         container
+        justifyContent="center"
+        alignItems="center"
         sx={{
+            paddingLeft: "50px"
         }}
       >
         <Grid item xs={12} md={6} sx={{}}>
-          <Typography variant="h1" sx={{fontSize: "2rem"}}>Avec les solutions IdFrog <span>JE DONNE VIE !</span><span>à mes idées.</span></Typography>
-          <Typography variant="h2" sx={{fontSize: "1rem"}}>Vous lancez un projet qui tient à cœur ? Et Vous avez besoin d'un coup de pouce financier</Typography>
+          <Typography variant="h1" sx={{fontSize: "2rem"}}>Avec les solutions IdFrog </Typography>
+          <Typography variant="h2" sx={{fontSize: "2rem", marginBottom: "20px"}}><span color="primary">JE DONNE VIE !</span><span color="primary"> à mes idées.</span></Typography>
+          <Typography variant="h2" sx={{fontSize: "1rem", marginBottom: "10px"}}>Vous lancez un projet qui tient à cœur ? </Typography>
+          <Typography variant="h2" sx={{fontSize: "1rem"}}>Et Vous avez besoin d'un coup de pouce financier ?</Typography>
 
           <Grid 
             container 
-            spacing={0}
+            spacing={5}
             sx={{
+                paddingTop: "50px"
             }}
           >
             <Grid item xs={12} md={6} sx={{}}>
-              <Button variant="outlined" endIcon={<InputIcon color="primary"/>}>
-                    Delete
+              <Button variant="outlined" endIcon={<InputIcon color="primary"/>} size="medium">
+                    Contribuer au projet
               </Button>
             </Grid>
 
             <Grid item xs={12} md={6} sx={{}}>
               <Button variant="outlined" endIcon={<AddchartIcon />}>
-                Send
+                Déposer mon projet
               </Button>
             </Grid>
           </Grid>
@@ -45,7 +51,7 @@ function Head() {
         </Grid>
 
         <Grid item xs={12} md={6} sx={{}}>
-          <img width="100%" src={headImg} className="head-logo" alt="Head Footer"></img>
+          <img width="80%" src={headImg} className="head-logo" alt="Head Footer"></img>
         </Grid>
         
       </Grid>
