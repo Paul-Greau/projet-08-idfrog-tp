@@ -60,15 +60,17 @@ function ResponsiveAppBar({ userDetails, isLogged }) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img
-            src={IdfrogLogo}
-            alt="Mini Logo Idfrog"
-            style={{
-              display: { xs: 'none', md: 'flex' },
-              mr: 1,
-              padding: '0.4em',
-            }}
-          />
+          <Link to="/">
+            <img
+              src={IdfrogLogo}
+              alt="Mini Logo Idfrog"
+              style={{
+                display: { xs: 'none', md: 'flex' },
+                mr: 1,
+                padding: '0.4em',
+              }}
+            />{' '}
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -100,12 +102,12 @@ function ResponsiveAppBar({ userDetails, isLogged }) {
             >
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography color="primary.dark">
-                  <Link to="/project/login/">Lancer mon projet</Link>
+                  <Link to="/login">Lancer mon projet</Link>
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography color="primary.dark">
-                  <Link to="/project/list/">Liste des Projets</Link>
+                  <Link to="/projects">Liste des Projets</Link>
                 </Typography>
               </MenuItem>
             </Menu>
@@ -114,7 +116,7 @@ function ResponsiveAppBar({ userDetails, isLogged }) {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Typography color="primary.dark">
               <Button
-                href="/project/login/"
+                href="/signin"
                 onClick={handleCloseNavMenu}
                 sx={{
                   pt: 4,
@@ -133,7 +135,7 @@ function ResponsiveAppBar({ userDetails, isLogged }) {
               </Button>
             </Typography>
             <Button
-              href="/project/list/"
+              href="/projects"
               onClick={handleCloseNavMenu}
               sx={{
                 pt: 4,
