@@ -10,19 +10,21 @@ const Society = require('./society')
 // Association Profil et Society
 Profile.hasOne(Society, {
 	as: 'society',
+	foreignKey:'profile_id'
 });
 
 Society.belongsTo(Profile, {
-foreignKey: 'profile_id'
+as: 'profile'
 });
 
 // Association Profil et Person
 Profile.hasOne(Person, {
 	as: 'person',
+	foreignKey:'profile_id'
 });
 
 Person.belongsTo(Profile, {
-foreignKey: 'profile_id'
+	as: 'profile'
 });
 
 // Association Profil et Contribution

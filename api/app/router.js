@@ -8,7 +8,7 @@ const projectCardController= require('./controllers/projectCardController');
 
 
 /** projectCards */ 
-router.get('/projectCards', projectCardController.getAllProjectCards);
+router.get('/project/list', projectCardController.getAllProjectCards);
 
 /* project */
 router.get('/project/:id', projectController.getOneProjectById);
@@ -16,5 +16,6 @@ router.post('/profile/:id/project/create', projectController.createProject)
 
 /* Profile */
 router.post('/login', profileController.login)
+router.get('/profile/:id', profileController.getProfileById)
 
 module.exports = router;
