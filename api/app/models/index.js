@@ -30,14 +30,18 @@ Profile.hasMany(Contribution, {
 	as:'contributions',
 	foreignKey:'profile_id'
 });
-Contribution.belongsTo(Profile);
+Contribution.belongsTo(Profile,{
+	as:'profile',
+});
 
 // Association Profil et Comment
 Profile.hasMany(Comment, {
 	as: 'comments',
 	foreignKey:'profile_id'
 });
-Comment.belongsTo(Profile);
+Comment.belongsTo(Profile, {
+	as: 'profile'
+});
 
 // Association Project et Contribution
 Project.hasMany(Contribution, {
