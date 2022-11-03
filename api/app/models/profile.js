@@ -26,6 +26,18 @@ Profile.init({
 }, {
 	sequelize,
 	tableName: 'profile',
+	defaultScope: {
+		attributes: {
+		  exclude: ['password']
+		},
+	},
+	scopes: {
+		withPassword: {
+		  attributes: {
+			include: ['password']
+		  }
+		}
+	},
 });
 
 module.exports = Profile;
