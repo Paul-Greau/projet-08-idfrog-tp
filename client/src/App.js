@@ -1,17 +1,21 @@
 import React from "react";
-import ProjectCard from "./components/ProjectCard/ProjectCard";
-import ProjectCollect from "./components/ProjectCollect/ProjectCollect";
-import Footer from './components/Footer/Footer'
-import Navigation from "./components/Navigation/Navigation";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import AllProjects from "./pages/AllProjects/AllProjects";
+import Profile from './pages/Profile/Profile'
+import Authentification from "./pages/Authentification/Authentification";
 
 
 function App() {
   return (
     <div className="App">
-      <Navigation/>
-      <ProjectCard/>
-      <ProjectCollect/>
-      <Footer/>
+     <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<AllProjects />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<Authentification />} />
+        <Route path="/signup" element={<Authentification />} />
+      </Routes>
     </div>
   );
 }

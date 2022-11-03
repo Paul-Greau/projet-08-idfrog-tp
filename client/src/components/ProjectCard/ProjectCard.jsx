@@ -6,43 +6,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import { projectCardStyles } from './styles';
+
 // import PropTypes from "prop-types";
 
 import topCardImage from '../../assets/images/PlaceholderImage.jpg';
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 
-import './projectCardStyles.scss';
-
 function ProjectCard() {
-  const buttonPrimaryStyles = {
-    fontSize: 14,
-    backgroundColor: '#5de4d5',
-    border: '2px solid #5de4d5',
-    color: '#ffffff',
-    fontWeight: 700,
-    textTransform: 'none',
-    borderRadius: '50px',
-    padding: '5px 10px',
-    '&:hover': {
-      color: '#5de4d5',
-    },
-  };
-  const buttonSecondaryStyles = {
-    fontSize: 14,
-    backgroundColor: '#d9d9d9',
-    border: '2px solid #d9d9d9',
-    color: '#ffffff',
-    textTransform: 'none',
-    borderRadius: '50px',
-    padding: '5px 10px',
-    '&:hover': {
-      backgroundColor: '#f5f5f5',
-      color: '#30394e',
-    },
-  };
-
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: '100%', marginBottom: '30px', marginTop: '30px' }}>
       <CardMedia
         component="img"
         height="140"
@@ -56,16 +29,7 @@ function ProjectCard() {
         <Typography color="secondary" gutterBottom variant="h5" component="div">
           Application IdFrog
         </Typography>
-        <Typography
-          variant="body2"
-          color="secondary.light"
-          sx={{
-            display: '-webkit-box',
-            overflow: 'hidden',
-            WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 4,
-          }}
-        >
+        <Typography color="secondary.light" sx={projectCardStyles.summary}>
           idFrog serait une plateforme de type boîte à idées. Cette plateforme
           aurait pour but de mettre en relation des personnes ayant une ou
           plusieurs idée(s) et ne sachant pas comment la financer avec une base
@@ -80,18 +44,11 @@ function ProjectCard() {
         <ProjectProgress></ProjectProgress>
       </CardContent>
 
-      <CardActions
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '1rem',
-          padding: '15px',
-        }}
-      >
-        <Button size="small" sx={buttonPrimaryStyles}>
+      <CardActions sx={projectCardStyles.cardAction}>
+        <Button size="small" sx={projectCardStyles.btnPrimary}>
           Contribuer au projet &gt;
         </Button>
-        <Button size="small" sx={buttonSecondaryStyles}>
+        <Button size="small" sx={projectCardStyles.btnSecondary}>
           Partager +
         </Button>
       </CardActions>
