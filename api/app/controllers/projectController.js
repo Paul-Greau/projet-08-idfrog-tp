@@ -58,7 +58,7 @@ const projectController = {
   createProject: async (req, res) => {
   try {
 
-	const profile_id = req.params.id;
+	const profile_id = Number(req.params.id);
 	console.log(profile_id);
     const {
 		category_id,
@@ -81,16 +81,18 @@ const projectController = {
 		const error = new Error(`'profile_id' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
-	
+	if (!req.session.profile) {
+		const error = new Error(`'You must login`);
+		return res.status(401).json({ message: error.message });
+	}	
 	if (profile_id !== req.session.profile.id) {
 		const error = new Error(`'You must login before post a project`);
-		return res.status(400).json({ message: error.message });
+		return res.status(401).json({ message: error.message });
 	}
-
 	if (!category_id) {
 		const error = new Error(`'category_id' property is missing`);
 		return res.status(400).json({ message: error.message });
-	  }
+	}
     if (!name) {
       const error = new Error(`'name' property is missing`);
       return res.status(400).json({ message: error.message });
@@ -144,6 +146,7 @@ const projectController = {
 	  description: escape(description),
 	  visibility	 
     });
+	
     await newProject.save();
 
     res.status(201).json(newProject);
