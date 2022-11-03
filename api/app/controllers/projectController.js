@@ -75,11 +75,18 @@ const projectController = {
 		visibility
 	} = req.body;
 
+	// console.log(req.session);
 
 	if (!profile_id) {
 		const error = new Error(`'profile_id' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
+	
+	if (profile_id !== req.session.profile.id) {
+		const error = new Error(`'You must login before post a project`);
+		return res.status(400).json({ message: error.message });
+	}
+
 	if (!category_id) {
 		const error = new Error(`'category_id' property is missing`);
 		return res.status(400).json({ message: error.message });
