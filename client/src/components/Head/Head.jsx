@@ -23,8 +23,8 @@ function Head() {
         }}
       >
         <Grid item xs={12} md={6} sx={{}}>
-          <Typography variant="h1" color="primary" sx={{fontSize: "2rem"}}>Avec les solutions IdFrog </Typography>
-          <Typography variant="h2" color="primary" sx={{fontSize: "2rem", marginBottom: "20px"}}>JE DONNE VIE ! à mes idées.</Typography>
+          <Typography variant="h1" color="primary" sx={{fontSize: "2rem", fontWeight: "bold"}}>Avec les solutions IdFrog </Typography>
+          <Typography variant="h2" color="primary" sx={{fontSize: "2rem", marginBottom: "20px", fontWeight: "bold"}}>JE DONNE VIE ! à mes idées.</Typography>
           <Typography variant="h2" sx={{fontSize: "1rem", marginBottom: "10px"}}>Vous lancez un projet qui tient à cœur ? </Typography>
           <Typography variant="h2" sx={{fontSize: "1rem"}}>Et Vous avez besoin d'un coup de pouce financier ?</Typography>
 
@@ -42,7 +42,7 @@ function Head() {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <Button variant="outlined" endIcon={<AddchartIcon />} sx={{width: "100%"}}>
+              <Button variant="outlined" endIcon={<AddchartIcon />} sx={{width: "100%", backgroundColor: "#5de4d5", color: "#fff"}}>
                 Déposer mon projet
               </Button>
             </Grid>
