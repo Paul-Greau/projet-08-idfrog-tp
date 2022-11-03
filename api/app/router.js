@@ -11,22 +11,10 @@ const projectCardController= require('./controllers/projectCardController');
 router.get('/projectCards', projectCardController.getAllProjectCards);
 
 /* project */
-
 router.get('/project/:id', projectController.getOneProjectById);
+router.post('/profile/:id/project/create', projectController.createProject)
 
 /* Profile */
 router.post('/login', profileController.login)
-
-/*
-router.get('/lists/:id', listController.getOneListById);
-router.post('/lists', listController.createList);
-router.patch('/lists/:id', listController.updateListById);
-router.delete('/lists/:id', listController.deleteListById); */
-
-/* router.post("/subscription",controller.subscribe);
-router.post("/login",controller.login);*/
-
-
-
 
 module.exports = router;
