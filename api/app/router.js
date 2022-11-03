@@ -1,16 +1,11 @@
 const { Router } = require('express');
 const router = Router();
 
-const projectController= require('./controllers/projectController');
+
+const projectController = require('./controllers/projectController');
+const profileController = require('./controllers/profileController');
 const projectCardController= require('./controllers/projectCardController');
 
-/*const cardController = require('./controllers/cardController');
-const tagController = require('./controllers/tagController'); */
-
-/* router.get('/', (req, res) => {
-	const index = path.join(__dirname, '../assets/index.html');
-	res.sendFile(index);
-});
 
 /** projectCards */ 
 router.get('/projectCards', projectCardController.getAllProjectCards);
@@ -18,6 +13,9 @@ router.get('/projectCards', projectCardController.getAllProjectCards);
 /* project */
 
 router.get('/project/:id', projectController.getOneProjectById);
+
+/* Profile */
+router.post('/login', profileController.login)
 
 /*
 router.get('/lists/:id', listController.getOneListById);
@@ -27,6 +25,7 @@ router.delete('/lists/:id', listController.deleteListById); */
 
 /* router.post("/subscription",controller.subscribe);
 router.post("/login",controller.login);*/
+
 
 
 
