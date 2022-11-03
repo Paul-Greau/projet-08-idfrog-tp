@@ -14,10 +14,6 @@ const tagController = require('./controllers/tagController'); */
 
 /** projectCards */ 
 router.get('/projectCards', projectCardController.getAllProjectCards);
-router.post('/projectCards', projectCardController.createProjectCard);
-router.patch('/projectCards/:id', projectCardController.modifyProjectCard);
-router.delete('/projectCards/:id', projectCardController.deleteProjectCard);
-
 
 /* project */
 
@@ -29,9 +25,8 @@ router.post('/lists', listController.createList);
 router.patch('/lists/:id', listController.updateListById);
 router.delete('/lists/:id', listController.deleteListById); */
 
-router.post("/subscription",controller.subscribe);
-router.post("/login",controller.login);
-
+/* router.post("/subscription",controller.subscribe);
+router.post("/login",controller.login);*/
 
 
 
