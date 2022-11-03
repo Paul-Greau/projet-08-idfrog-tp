@@ -46,6 +46,47 @@ const profileController = {
         }
     },
 
+        /** inscription */
+    suscribe: async (req, res) => {
+        try {
+            const searchedUser = await User.findOne({
+                where: {
+                    email: req.body.email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
+                }
+            });
+            console.log(searchedUser);
+            if (searchedUser) {
+                throw new Error("Email already exists");
+            }
+            // vérifie que le format de l'email est valide ex: user@user.com
+            if (!emailValidator.validate(req.body.email)) {
+                throw new Error("Email format is not valid");
+            }
+            // vérifier que le mdp correspond au mdp à confirmer
+            if (req.body.password !== req.body.passwordConfirm) {
+                throw new Error("Password and confirmPassword does not match");
+            }
+            // encrypter le mdp
+            // ici on encrypte le mdp via le module bcrypt, qui nous demande en premier paramètre le mdp et en deuxième paramètre le nombre de tour de hashage
+            const encryptedMsg =  bcrypt.hashSync(req.body.password, 10);
+
+          const newProfile = Profile.build({
+              email: req.body.email,
+              password: encryptedMsg,
+              pseudo: req.body.pseudo,
+          });
+          
+          await newProfile.save();
+      
+          res.status(201).json(newProfile);
+      
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ message: error.message });
+        }
+      },
+        
+
     getProfileById: async (req,res) => {
 		try {
             //console.log(req.session);
