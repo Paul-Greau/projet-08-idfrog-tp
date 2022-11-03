@@ -42,7 +42,7 @@ function Head() {
             </Grid>
 
             <Grid item xs={12} md={6} sx={{}}>
-              <Button variant="outlined" endIcon={<AddchartIcon />}>
+              <Button variant="outlined" endIcon={<AddchartIcon />} sx={{backgroundColor: "#5de4d5", color: "#fff"}}>
                 Déposer mon projet
               </Button>
             </Grid>

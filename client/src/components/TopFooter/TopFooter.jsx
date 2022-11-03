@@ -22,11 +22,11 @@ function TopFooter() {
         }}
       >
         <Grid item xs={12} md={8} sx={{}}>
-          <Typography variant="h2" sx={{fontSize: "1.3rem"}}>Obtenez un financement non dilutif auprès de vos investisseurs.</Typography>
-          <Typography variant="h2" sx={{fontSize: "1.3rem"}}>Levez de <span color="primary">1 000 €</span> à <span color="primary">500 000 €</span> à votre rythme, de manière publique ou privée</Typography>
+          <Typography variant="h2" sx={{fontSize: "1.3rem", fontWeight: "bold"}}>Obtenez un financement non dilutif auprès de vos investisseurs.</Typography>
+          <Typography variant="h2" sx={{fontSize: "1.3rem", fontWeight: "bold"}}>Levez de <span color="primary">1 000 €</span> à <span color="primary">500 000 €</span> à votre rythme, de manière publique ou privée</Typography>
         </Grid>
         <Grid item xs={12} md={4} sx={{}}>
-            <Button variant="outlined" size="large" color="primary">
+            <Button variant="outlined" size="large" sx={{backgroundColor: "#5de4d5", color: "#fff"}}>
                 Découvrez nos solutions
             </Button>
         </Grid>
