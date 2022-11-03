@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS "logger",
 
 
 -- -----------------------------------------------------
--- Table "user"
+-- Table "logger"
 -- -----------------------------------------------------
 -- On ne peut pas référencé le champ id de la table question ici, car la table n'existe pas encore. On fera une modification à la fin du script pour ajouter la référence.
 CREATE TABLE IF NOT EXISTS "logger" (

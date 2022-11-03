@@ -56,6 +56,33 @@ const projectController = {
 		}
 	},
 
+  createProject: async (req, res) => {
+  try {
+
+    const { title, subtitle, position } = req.body;
+    if (!name) {
+      const error = new Error(`'name' property is missing`);
+      return res.status(400).json({ message: error.message });
+    }
+    if (position == null || position == undefined) {
+      const error = new Error(`'position' property is missing`);
+      return res.status(400).json({ message: error.message });
+    }
+
+    const newList = List.build({
+      name: escape(name), // On empêche l'injection de code HTML et JS. On se protège contre la faille XSS
+      position: +position,
+    });
+    await newList.save();
+
+    res.status(201).json(newList);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+},
+
 	/* createList: async (req, res) => {
 		try {
 
