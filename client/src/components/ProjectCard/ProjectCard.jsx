@@ -42,7 +42,7 @@ function ProjectCard() {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: '100%', marginBottom: '30px', marginTop: '30px' }}>
       <CardMedia
         component="img"
         height="140"

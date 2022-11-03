@@ -56,7 +56,6 @@ export const globalTheme = createTheme({
 
     with:{
       main: '#FFFFFF'
-
     }
   
   },
