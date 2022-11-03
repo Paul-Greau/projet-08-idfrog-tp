@@ -1,10 +1,9 @@
 const sequelize = require('sequelize');
 const {
 	Project,
-	Contribution,
-	// Profile,
 } = require('../models');
-// const { escape } = require('sanitizer');
+
+const { escape } = require('sanitizer');
 
 const projectController = {
 
@@ -59,23 +58,88 @@ const projectController = {
   createProject: async (req, res) => {
   try {
 
-    const { title, subtitle, position } = req.body;
+	const profile_id = req.params.id;
+	console.log(profile_id);
+    const {
+		category_id,
+		name,
+		invest_type,
+		amount_target,
+		rate,
+		end_time,
+		img_url,	// allow Null in table
+		web_url,	// allow Null in table
+		title,
+		resume,
+		description,
+		visibility
+	} = req.body;
+
+
+	if (!profile_id) {
+		const error = new Error(`'profile_id' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	if (!category_id) {
+		const error = new Error(`'category_id' property is missing`);
+		return res.status(400).json({ message: error.message });
+	  }
     if (!name) {
       const error = new Error(`'name' property is missing`);
       return res.status(400).json({ message: error.message });
     }
-    if (position == null || position == undefined) {
-      const error = new Error(`'position' property is missing`);
-      return res.status(400).json({ message: error.message });
-    }
+	if (!invest_type) {
+		const error = new Error(`'invest_type' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	if (!amount_target) {
+		const error = new Error(`'amount_target' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	if (!rate) {
+		const error = new Error(`'rate' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	if (!end_time) {
+		const error = new Error(`'end_time' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	if (!title) {
+		const error = new Error(`'amount_target' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	if (!resume) {
+		const error = new Error(`'amount_target' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	if (!description) {
+		const error = new Error(`'description' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	if (!visibility) {
+		const error = new Error(`'visibility' property is missing`);
+		return res.status(400).json({ message: error.message });
+	}
+	
 
-    const newList = List.build({
-      name: escape(name), // On empêche l'injection de code HTML et JS. On se protège contre la faille XSS
-      position: +position,
+    const newProject = Project.build({
+      profile_id,
+	  category_id,
+	  name: escape(name), // On empêche l'injection de code HTML et JS. On se protège contre la faille XSS
+	  invest_type,
+	  amount_target: Number(amount_target),
+	  rate: Number(rate),
+	  end_time,
+	  img_url,
+	  web_url,	
+	  title: escape(title),
+	  resume: escape(resume),
+	  description: escape(description),
+	  visibility	 
     });
-    await newList.save();
+    await newProject.save();
 
-    res.status(201).json(newList);
+    res.status(201).json(newProject);
 
   } catch (error) {
     console.error(error);
@@ -83,80 +147,6 @@ const projectController = {
   }
 },
 
-	/* createList: async (req, res) => {
-		try {
-
-			const { name, position } = req.body;
-			if (!name) {
-				const error = new Error(`'name' property is missing`);
-				return res.status(400).json({ message: error.message });
-			}
-			if (position == null || position == undefined) {
-				const error = new Error(`'position' property is missing`);
-				return res.status(400).json({ message: error.message });
-			}
-
-			const newList = List.build({
-				name: escape(name), // On empêche l'injection de code HTML et JS. On se protège contre la faille XSS
-				position: +position,
-			});
-			await newList.save();
-
-			res.status(201).json(newList);
-
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ message: error.message });
-		}
-	},
-
-	updateListById: async (req, res) => {
-		try {
-			
-			const listId = req.params.id;
-			const list = await List.findByPk(listId);
-			if (!list) {
-				const error = new Error(`List with id ${listId} does not exist.`);
-				return res.status(404).json({ message: error.message });
-			}
-
-			const { name, position } = req.body;
-
-			if (name) {
-				list.name = escape(name); // On empêche l'injection de code HTML et JS. On se protège contre la faille XSS
-			}
-
-			if (position) {
-				list.position = +position;
-			}
-
-			await list.save();
-
-			res.status(200).json(list);
-
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ message: error.message });
-		}
-	},
-
-	deleteListById: async (req, res) => {
-		try {
-			
-			const listId = req.params.id;
-			const list = await List.findByPk(listId);
-			if (!list) {
-				const error = new Error(`List with id ${listId} does not exist.`);
-				return res.status(404).json({ message: error.message });
-			}
-			await list.destroy();
-			res.status(200).json(list);
-
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ message: error.message });
-		}
-	} */
 
 };
 
