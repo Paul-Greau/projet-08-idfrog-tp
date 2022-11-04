@@ -264,6 +264,8 @@ const profileController = {
             res.status(500).json({ message: error.message });
         }
 
+    },
+    
     logout : (req, res) => {
 
         //console.log(req.session.profile);
