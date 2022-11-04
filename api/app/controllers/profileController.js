@@ -1,8 +1,6 @@
-const {
-Profile,
-Person,
-Society,
-} = require('../models');
+const {Profile, Person} = require('../models');
+
+const Society = require('../models/society')
 
 const emailValidator = require('email-validator');
 
@@ -125,8 +123,8 @@ const profileController = {
 	    	const error = new Error(`You must login`);
 	    	return res.status(401).json({ message: error.message });
 	    }	
-	    if (profileIdparams !== req.session.profile.id) {
-	    	const error = new Error(`You must login before post a project`);
+	    if (Number(profileIdparams) !== Number(req.session.profile.id)) {
+	    	const error = new Error(`You must login before complete a profil`);
 	    	return res.status(401).json({ message: error.message });
 	    }
 
@@ -140,6 +138,28 @@ const profileController = {
         
 
             //todo recuper le profile et vérifier si le profil existe et qu'il n'est pas déjà remplie
+            
+            const profileToFill = await Profile.findByPk(profileIdparams, {
+				include: [
+                    'society',
+                    'person'                    
+				],
+			});
+
+			if (!profileToFill) { // Si `profile` == null || undefined || false
+				const error = new Error(`profile not found with id ${ profileIdparams }`);
+				return res.status(404).json({
+					message: error.message
+				});
+			}
+
+            if (profileToFill.society || profileToFill.person){
+                const error = new Error(`profile already completed`);
+				return res.status(400).json({
+					message: error.message
+				});
+			}
+
 
 
             // Property check for a person or association:
@@ -185,6 +205,12 @@ const profileController = {
                     const error = new Error(`'phone_number' property is missing`);
                     return res.status(401).json({ message: error.message });
                 }
+                if (!avatar_url) {
+                    avatar_url_value = ""
+                } else {
+                    avatar_url_value = avatar_url
+                }
+                
 
                 const fillPerson = Person.build({
                     profile_id: Number(profileIdparams),
@@ -199,7 +225,7 @@ const profileController = {
                     city: city.trim(),
                     zip_code: Number(zip_code),
                     phone_number: phone_number.replace(/\s/g,''),
-                    avatar_url: avatar_url.trim(),
+                    avatar_url: avatar_url_value.trim(),
                   });
 
                   await fillPerson.save();          
