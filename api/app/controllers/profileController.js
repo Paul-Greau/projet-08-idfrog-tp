@@ -92,6 +92,14 @@ const profileController = {
 		}
 	},
 
+    logout : (req, res) => {
+
+        //console.log(req.session.profile);
+        req.session.profile = false;
+       // console.log(req.session.profile);
+        res.status(200).json({message: "Logout"});
+    }
+
 
 };
 
