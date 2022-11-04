@@ -134,10 +134,6 @@ const profileController = {
 	    }
 
         try{
-
-        
-
-            //todo recuper le profile et vérifier si le profil existe et qu'il n'est pas déjà remplie
             
             const profileToFill = await Profile.findByPk(profileIdparams, {
 				include: [
