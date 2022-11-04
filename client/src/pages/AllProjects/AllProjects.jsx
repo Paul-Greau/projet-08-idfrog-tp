@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProjectCardList from '../../components/ProjectCardList/ProjectCardList';
 import Footer from '../../components/Footer/Footer';
 import NavigationHeader from '../../components/Navigation/NavigationHeader/NavigationHeader';
-import { useState } from 'react';
 import { getProjectsList } from '../../services/projects';
+import  Pagination  from '@mui/material/Pagination';
+import  Container  from '@mui/material/Container';
 
 // import PropTypes from 'prop-types';
 
@@ -33,6 +34,9 @@ useEffect(
       <ProjectCardList 
       result={result}
       />
+              <Container component="section" maxWidth="lg" sx={{display: "flex", justifyContent: "center", paddingBottom: "20px"}}>
+        <Pagination count={10} size="large" variant="outlined" sx={{color: "#fff"}}/>
+        </Container>
       <Footer />
     </>
   );

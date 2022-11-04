@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProjectCardList from '../../components/ProjectCardList/ProjectCardList';
 import Footer from '../../components/Footer/Footer';
 // import Navigation from '../../components/Navigation/Navigation';
 import NavigationHeader from '../../components/Navigation/NavigationHeader/NavigationHeader';
-import { Box } from '@mui/material';
+import  Box  from '@mui/material/Box';
 
-import { getProjectsList } from '../../services/projects';
+import  {getProjectsList} from '../../services/projects';
+import  Pagination  from '@mui/material/Pagination';
+import  Container  from '@mui/material/Container';
 
 // import PropTypes from 'prop-types';
 
 import './homeStyles.scss';
 import Head from '../../components/Head/Head';
 import TopFooter from '../../components/TopFooter/TopFooter';
-
-import { useState } from 'react';
 
 function Home() {
 
@@ -45,6 +45,9 @@ useEffect(
         <ProjectCardList
         result={result}
         />
+        <Container component="section" maxWidth="lg" sx={{display: "flex", justifyContent: "center", paddingBottom: "20px"}}>
+        <Pagination count={10} size="large" variant="outlined" color="secondary"/>
+        </Container>
       </Box>
       <TopFooter />
       <Footer />
