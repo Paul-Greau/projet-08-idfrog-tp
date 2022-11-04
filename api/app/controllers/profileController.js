@@ -92,6 +92,7 @@ const profileController = {
 		}
 	},
 
+
     fillProfil : async (req, res) => {
 
         const profileIdparams = req.params.id
@@ -262,6 +263,14 @@ const profileController = {
             console.error(error);
             res.status(500).json({ message: error.message });
         }
+
+    logout : (req, res) => {
+
+        //console.log(req.session.profile);
+        req.session.profile = false;
+       // console.log(req.session.profile);
+        res.status(200).json({message: "Logout"});
+
     }
 
 
