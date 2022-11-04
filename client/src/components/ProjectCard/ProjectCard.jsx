@@ -37,7 +37,7 @@ function ProjectCard({projet, amount, description, profile}) {
 
       <CardContent>
         <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
-          403 630€ sur <span style={{ fontSize: 24 }}>{amount}</span>
+          403 630€ sur <span style={{ fontSize: 24 }}>{amount}€</span>
         </Typography>
         <ProjectProgress></ProjectProgress>
       </CardContent>
