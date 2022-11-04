@@ -4,7 +4,7 @@ export const projectCardStyles = {
         display: '-webkit-box',
         overflow: 'hidden',
         WebkitBoxOrient: 'vertical',
-        WebkitLineClamp: 4,
+        WebkitLineClamp: 2,
     },
 
     cardAction: {

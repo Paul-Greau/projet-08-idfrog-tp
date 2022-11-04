@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -13,7 +14,7 @@ import { projectCardStyles } from './styles';
 import topCardImage from '../../assets/images/PlaceholderImage.jpg';
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 
-function ProjectCard() {
+function ProjectCard({projet, amount, description, profile}) {
   return (
     <Card sx={{ maxWidth: '100%', marginBottom: '30px', marginTop: '30px' }}>
       <CardMedia
@@ -24,22 +25,19 @@ function ProjectCard() {
       />
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
-          John Doe • 4 Feb 2022
+          {profile} • 4 Feb 2022
         </Typography>
         <Typography color="secondary" gutterBottom variant="h5" component="div">
-          Application IdFrog
+          {projet}
         </Typography>
         <Typography color="secondary.light" sx={projectCardStyles.summary}>
-          idFrog serait une plateforme de type boîte à idées. Cette plateforme
-          aurait pour but de mettre en relation des personnes ayant une ou
-          plusieurs idée(s) et ne sachant pas comment la financer avec une base
-          d&apos;investisseurs (Business Angels) inscrits sur la plateforme.
+        {description}
         </Typography>
       </CardContent>
 
       <CardContent>
         <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
-          403 630€ sur <span style={{ fontSize: 24 }}>702 000€</span>
+          403 630€ sur <span style={{ fontSize: 24 }}>{amount}</span>
         </Typography>
         <ProjectProgress></ProjectProgress>
       </CardContent>
