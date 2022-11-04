@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import ProjectCardList from '../../components/ProjectCardList/ProjectCardList';
 import Footer from '../../components/Footer/Footer';
@@ -17,25 +18,33 @@ import TopFooter from '../../components/TopFooter/TopFooter';
 
 function Home() {
 
-const [result, setResult] = useState(null)
-const FetchData = async () => {
-  try{
-   const response = await getProjectsList();
-   console.log(response.data);
-   setResult(response.data);
-  }
-  catch (error) {
-    console.log(error);
-  }
-};
+const [result, setResult] = useState([]);
+const [currentPage, setCurrentPage] = useState(1);
+const [cardsPerPage, setCardsPerPage]= useState(3);
+
+
 
 useEffect(
   () => {
+    const FetchData = async () => {
+      try{
+       const response = await getProjectsList();
+       console.log(response.data);
+       setResult(response.data);
+      }
+      catch (error) {
+        console.log(error);
+      }
+    };
     // mon effet s'executera sur le mount
     FetchData(); // fetchData est asynchrone je l'appele simplement sans attendre la suite
   },
   [], // tableau de dependances vide => effet sur le mount
 );
+
+const indexOfLastCard = currentPage * cardsPerPage;
+const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+const currentCards = result.slice(indexOfFirstCard, indexOfLastCard)
 
   return (
     <>
@@ -43,7 +52,7 @@ useEffect(
       <Head />
       <Box sx={{ backgroundColor: '#5de4d5' }}>
         <ProjectCardList
-        result={result}
+        result={currentCards}
         />
         <Container component="section" maxWidth="lg" sx={{display: "flex", justifyContent: "center", paddingBottom: "20px"}}>
         <Pagination count={10} size="large" variant="outlined" color="secondary"/>
