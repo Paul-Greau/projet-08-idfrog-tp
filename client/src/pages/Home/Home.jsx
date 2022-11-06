@@ -22,7 +22,11 @@ const [result, setResult] = useState([]);
 const [currentPage, setCurrentPage] = useState(1);
 const [cardsPerPage, setCardsPerPage]= useState(3);
 
+const handleChange = (event, value) => {
+  setCurrentPage(value);
+};
 
+const nbPage = Math.ceil(result.length / cardsPerPage)
 
 useEffect(
   () => {
@@ -46,6 +50,10 @@ const indexOfLastCard = currentPage * cardsPerPage;
 const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 const currentCards = result.slice(indexOfFirstCard, indexOfLastCard)
 
+
+
+
+
   return (
     <>
       <NavigationHeader />
@@ -55,7 +63,7 @@ const currentCards = result.slice(indexOfFirstCard, indexOfLastCard)
         result={currentCards}
         />
         <Container component="section" maxWidth="lg" sx={{display: "flex", justifyContent: "center", paddingBottom: "20px"}}>
-        <Pagination count={10} size="large" variant="outlined" color="secondary"/>
+        <Pagination count={nbPage} page={currentPage} onChange={handleChange} />
         </Container>
       </Box>
       <TopFooter />
