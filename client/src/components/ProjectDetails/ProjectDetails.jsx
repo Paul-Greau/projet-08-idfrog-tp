@@ -7,13 +7,13 @@ import {getProjectById} from '../../services/projects';
 import Project from "./Project/Project";
 import Faq from "./FAQ/Faq"
 import Contributes from "./Contributes/Contributes"
-import Comment from "./Comments/Comments"
+import Comments from "./Comments/Comments";
 // Material UI
 import {Tab, Box} from "@mui/material";
 import { TabList, TabContext} from "@mui/lab"
 // CSS
 import "./projectDetailsStyles.scss"
-import Comments from "./Comments/Comments";
+
 
 
 
@@ -43,33 +43,26 @@ const ProjectDetails = () => {
 
         return () => flag.current = true
 
-    }, [])
-    
-      
+    }, [id])
+
+
+    const numberOfContributes = result.contributions?.length
+    const a = `CONTRIBUTIONS : ${numberOfContributes}`
+
+    const numberOfComments = result.comments?.length
+    const b = `COMMENTAIRES : ${numberOfComments}`
+
+
 
     return (
         <div>
-            {/* <Tabs value={value} onChange={handleChange}>
-                <Tab label="PROJET" >
-
-                </Tab>
-                <Tab label="FAQ">
-
-                </Tab>
-                <Tab label=  "CONSTRIBUTIONS:">
-
-                </Tab>
-                <Tab label= "COMMENTAIRES:">
-
-                </Tab>
-            </Tabs> */}
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
                         <Tab label="PROJET" value="1" />
                         <Tab label="FAQ" value="2" />
-                        <Tab label= "CONTRIBUTIONS" value="3" />
-                        <Tab label="COMMENTAIRES" value="4" />
+                        <Tab label= {a} value="3" />
+                        <Tab label= {b} value="4" />
                     </TabList>
                 </Box>
                 {value === "1" &&(<Box>

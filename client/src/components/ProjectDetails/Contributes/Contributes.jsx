@@ -1,18 +1,24 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Contributes = ({contributes}) => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     return (
-        <div>
+        <Grid container>
             {(contributes.map((contribute) => (
-            <Box key={contribute.id} sx={{marginLeft:"10px", borderBottom: "1px solid lightgrey"}}>
-                <Typography sx={{fontWeight: "bold", color: "#5de4d5"}}>{contribute.profile.pseudo}</Typography>
-                <Typography>{contribute.invested_amount}€</Typography>
-                <Typography>{contribute.created_at}</Typography>
-            </Box>
+            <Grid item xs={6} md={4} key={contribute.id} sx={{marginLeft:"10px", borderBottom: "1px solid lightgrey"}}>
+                <Typography sx={{fontWeight: "bold", color: "#5de4d5"}}><AccountCircleIcon/>{contribute.profile.pseudo}</Typography>
+                <Typography sx={{fontSize: "0.7rem"}}>Le {new Date (contribute.created_at).toLocaleDateString("fr-FR", options)}</Typography>
+                <Typography>{contribute.invested_amount}€</Typography>               
+            </Grid>
+            
+                
+
+            
             )))}
-        </div>
+        </Grid>
     );
 };
 
