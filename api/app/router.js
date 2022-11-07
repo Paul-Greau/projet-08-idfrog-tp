@@ -1,11 +1,13 @@
 const { Router } = require('express');
 const router = Router();
 
-
+const contributionController = require('./controllers/contributionController');
 const projectController = require('./controllers/projectController');
 const profileController = require('./controllers/profileController');
 const projectCardController= require('./controllers/projectCardController');
 
+/** projectCards */
+router.post('/profile/:profileId/contribute/:projectId', contributionController.makeContribution)
 
 /** projectCards */ 
 router.get('/project/list', projectCardController.getAllProjectCards);

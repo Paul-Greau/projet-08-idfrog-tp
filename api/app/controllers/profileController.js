@@ -3,11 +3,12 @@ Profile,
 } = require('../models');
 
 const emailValidator = require('email-validator');
+const jsonwebtoken = require('jsonwebtoken');
 
 const profileController = {
 
     login: async (req,res) => {
-
+     const jwtSecret = process.env.JWT_SECRET;
      const {email, password} = req.body
      try {
         const searchedProfile = await Profile.scope('withPassword').findOne({
