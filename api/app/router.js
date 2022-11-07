@@ -18,6 +18,9 @@ router.post('/profile/:id/project/create', projectController.createProject)
 
 /* Profile */
 router.post('/login', profileController.login)
+router.get('/logout', profileController.logout)
 router.get('/profile/:id', profileController.getProfileById)
+router.post('/profile/:id/details', profileController.fillProfil)
+router.post('/subscribe', profileController.suscribe)
 
 module.exports = router;
