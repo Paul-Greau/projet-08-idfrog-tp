@@ -3,12 +3,16 @@ const {Profile, Person} = require('../models');
 const Society = require('../models/society')
 
 const emailValidator = require('email-validator');
+
+const jsonwebtoken = require('jsonwebtoken');
+
 const bcrypt = require('bcrypt');
+
 
 const profileController = {
 
     login: async (req,res) => {
-
+     const jwtSecret = process.env.JWT_SECRET;
      const {email, password} = req.body
      try {
         const searchedProfile = await Profile.scope('withPassword').findOne({
