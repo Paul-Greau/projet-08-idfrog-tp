@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import './signInStyles.scss';
 
 function SignIn() {
   return <></>;
 }
-SignIn.propTypes = {};
+// SignIn.propTypes = {};
 
-SignIn.defaultProps = {};
+// SignIn.defaultProps = {};
 
 export default React.memo(SignIn);

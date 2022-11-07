@@ -5,6 +5,10 @@ export const getProjectsList = () => {
   return sendGetRequest(`/project/list`);
 };
 
+export const getProjectById = (id) => {
+  console.log('dans la req axios');
+  return sendGetRequest(`/project/${id}`);
+};
 
 
 
