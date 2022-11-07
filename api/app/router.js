@@ -16,6 +16,7 @@ router.get('/project/list', projectCardController.getAllProjectCards);
 router.get('/project/:id', projectController.getOneProjectById);
 router.post('/profile/:id/project/create', projectController.createProject)
 router.patch('/profile/:profileId/project/:projectId', projectController.patchProject)
+router.delete('/profile/:profileId/project/:projectId', projectController.deleteProject)
 
 /* Profile */
 router.post('/login', profileController.login)
