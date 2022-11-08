@@ -46,14 +46,6 @@ const ProjectDetails = () => {
     }, [id])
 
 
-    const numberOfContributes = result.contributions?.length
-    const a = `CONTRIBUTIONS : ${numberOfContributes}`
-
-    const numberOfComments = result.comments?.length
-    const b = `COMMENTAIRES : ${numberOfComments}`
-
-
-
     return (
         <div>
             <TabContext value={value}>
@@ -61,8 +53,8 @@ const ProjectDetails = () => {
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
                         <Tab label="PROJET" value="1" />
                         <Tab label="FAQ" value="2" />
-                        <Tab label= {a} value="3" />
-                        <Tab label= {b} value="4" />
+                        <Tab label= {`CONTRIBUTIONS : ${result.contributions?.length}`} value="3" />
+                        <Tab label= {`COMMENTAIRES : ${result.comments?.length}`} value="4" />
                     </TabList>
                 </Box>
                 {value === "1" &&(<Box>
