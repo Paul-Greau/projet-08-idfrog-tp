@@ -1,8 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useRef } from "react";
-import { useParams } from 'react-router-dom';
-// Services
-import {getProjectById} from '../../services/projects';
+import React, { useState } from "react";
 // Components
 import Project from "./Project/Project";
 import Faq from "./FAQ/Faq"
@@ -16,34 +13,13 @@ import "./projectDetailsStyles.scss"
 
 
 
-
-
-const ProjectDetails = () => {
+const ProjectDetails = ({result}) => {
     const [value, setValue] = useState("1")
-    const [result, setResult] = useState([]);
-    const { id } = useParams();
     const handleChange = (e, newValue) => {
         setValue(newValue)
     }
 
 
-    const flag = useRef(false)
-
-    // Récupération de la liste des utilisateurs à l'affichage
-    useEffect(() => {
-        if(flag.current === false){
-            getProjectById(id)
-                .then(res => {
-                    // Liste dans le state
-                    setResult(res.data)
-                    console.log(res.data)
-                })
-                .catch(err => console.log(err))
-        }
-
-        return () => flag.current = true
-
-    }, [id])
 
 
     return (

@@ -32,9 +32,10 @@ export const projectCollectStyles = {
         maxWidth: 345,
         marginBottom: '30px',
         textAlign: 'center',
+        marginTop: "16px",
     },
 
-    carAction:{
+    cardAction:{
         display: 'flex',
         justifyContent: 'space-between',
         marginBottom: '1rem',

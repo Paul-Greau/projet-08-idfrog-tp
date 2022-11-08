@@ -1,6 +1,8 @@
-/* eslint-disable react/prop-types */
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+// import PropTypes from "prop-types";
+
+// Components
+import ProjectProgress from '../ProjectProgress/ProjectProgress';
 
 // Material UI
 import {
@@ -18,46 +20,47 @@ import {
 // CSS
 import { projectCollectStyles } from './styles';
 
-// import PropTypes from "prop-types";
-
-// import topCardImage from '../../assets/images/PlaceholderImage.jpg';
-import ProjectProgress from '../ProjectProgress/ProjectProgress';
-
-function projectCollect({ id, projet, amount, description, profile }) {
+function projectCollect() {
   return (
     <>
-          <Card sx={{ maxWidth: '100%' }}>
-      <Link to={`/project/${id}`}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
-          {profile} • 4 Feb 2022
-        </Typography>
-        <Typography color="secondary" gutterBottom variant="h5" component="div">
-          {projet}
-        </Typography>
-        <Typography color="secondary.light" sx={projectCollectStyles.summary}>
-          {description}
-        </Typography>
-      </CardContent>
-      </Link>
-      <CardContent>
-        <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
-          403 630€ sur <span style={{ fontSize: 24 }}>{amount}€</span>
-        </Typography>
-        <ProjectProgress></ProjectProgress>
-      </CardContent>
+      <Card sx={{ maxWidth: 345, marginBottom: '30px' }}>
+        <CardContent>
+          <Typography
+            sx={{ fontSize: 14, marginTop: '20px', marginBottom: '2rem' }}
+            color="primary"
+          >
+            John Doe • 4 Feb 2022
+          </Typography>
+          <Typography
+            color="secondary"
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
+            Modalités d&apos;investissement
+          </Typography>
+          <Typography variant="body2" color="secondary.light">
+            Votre contribution vous sera intégralement remboursée si le projet
+            n&apos;atteint pas 100% de son objectif.
+          </Typography>
+        </CardContent>
 
-      <CardActions sx={projectCollectStyles.cardAction}>
-        <Link to="subscribe">
+        <CardContent>
+          <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
+            403 630€ sur <span style={{ fontSize: 24 }}>702 000€</span>
+          </Typography>
+          <ProjectProgress></ProjectProgress>
+        </CardContent>
+
+        <CardActions sx={projectCollectStyles.carAction}>
           <Button size="small" sx={projectCollectStyles.btnPrimary}>
             Contribuer au projet &gt;
           </Button>
-        </Link>
-        <Button size="small" sx={projectCollectStyles.btnSecondary}>
-          Partager +
-        </Button>
-      </CardActions>
-    </Card>
+          <Button size="small" sx={projectCollectStyles.btnSecondary}>
+            Partager +
+          </Button>
+        </CardActions>
+      </Card>
       <Card sx={projectCollectStyles.card}>
         <CardContent>
           <Typography

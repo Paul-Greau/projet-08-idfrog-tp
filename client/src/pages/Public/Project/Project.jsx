@@ -5,8 +5,8 @@ import { Grid, CardMedia } from '@mui/material';
 import {getProjectById} from '../../../services/projects';
 // Components
 import ProjectDescription from '../../../components/ProjectDescription/ProjectDescription'
-import ProjectCard from '../../../components/ProjectCard/ProjectCard';
 import ProjectDetails from '../../../components/ProjectDetails/ProjectDetails';
+import ProjectCollect from "../../../components/ProjectCollect/ProjectCollect";
 
 const Project = () => {
 
@@ -33,7 +33,7 @@ const Project = () => {
     }, [id])
 
     return (
-        <Grid container spacing={5} sx={{padding: "0 50px", marginTop: "5px"}}>
+        <Grid container spacing={5} sx={{p: "0 50px", mt: "5px", maxWidth: "80%", margin: "auto"}}>
             <Grid item xs={12} md={12}>
             <CardMedia
                 component="img"
@@ -48,7 +48,7 @@ const Project = () => {
                 />
             </Grid>
             <Grid item xs={12} md={4}>
-                <ProjectCard
+                <ProjectCollect
                 id={result.id}
                 projet={result.name}
                 amount={result.amount_target}
@@ -58,6 +58,7 @@ const Project = () => {
             </Grid>
             <Grid item xs={12} md={12}>
                 <ProjectDetails
+                result={result}
                 />
             </Grid>
         </Grid>
