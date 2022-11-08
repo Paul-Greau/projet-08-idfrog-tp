@@ -6,6 +6,7 @@ const projectController = require('./controllers/projectController');
 const profileController = require('./controllers/profileController');
 const projectCardController= require('./controllers/projectCardController');
 const commentController = require('./controllers/commentControllers');
+const uploadImageController = require('./controllers/uploadImageController');
 
 /** Contribution */
 router.post('/profile/:profileId/contribute/:projectId', contributionController.makeContribution)
@@ -31,5 +32,8 @@ router.post('/subscribe', profileController.suscribe)
 router.post('/profile/:profileId/project/:projectId/comment', commentController.commentProject)
 router.patch('/profile/:profileId/comment/:commentId', commentController.patchComment)
 router.delete('/profile/:profileId/comment/:commentId', commentController.deleteComment)
+
+/* Image */
+router.post('/project/:id/upload', uploadImageController.uploadProjectImage );
 
 module.exports = router;
