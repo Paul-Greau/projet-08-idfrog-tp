@@ -7,8 +7,6 @@ const bcrypt = require('bcrypt');
 
 const jsonwebtoken = require('jsonwebtoken');
 
-
-
 const profileController = {
 
     login: async (req,res) => {

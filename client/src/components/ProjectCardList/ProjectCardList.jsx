@@ -13,7 +13,7 @@ import { Container, Grid, Box } from '@mui/material';
 import { projectCardStyles } from '../ProjectCard/styles';
 
 function ProjectCardList({ result }) {
-  console.log(result);
+ 
   return (
     <Box component="section" maxWidth="medium">
       <Container component="section" maxWidth="lg">
@@ -23,10 +23,12 @@ function ProjectCardList({ result }) {
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
+                  createdAt={res.created_at}
                   projet={res.name}
                   amount={res.amount_target}
                   description={res.description}
                   profile={res.profile.pseudo}
+                  contributions={res.contributions}
                 />
               </Grid>
             ))}
