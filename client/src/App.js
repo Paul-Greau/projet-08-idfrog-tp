@@ -1,21 +1,32 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import AllProjects from "./pages/AllProjects/AllProjects";
-import Profile from './pages/Profile/Profile'
-import Authentification from "./pages/Authentification/Authentification";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import RouterPublic from './pages/Public/RouterPublic'
+import RouterPrivate from './pages/Private/RouterPrivate'
+import RouterAuth from './pages/Authentification/RouterAuth'
+import NavigationHeader from './components/Navigation/NavigationHeader/NavigationHeader'
+import Footer from "./components/Footer/Footer";
+import AuthProvider from "./pages/Authentification/AuthProvider";
 
 
 function App() {
   return (
     <div className="App">
-     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<AllProjects />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signin" element={<Authentification />} />
-        <Route path="/signup" element={<Authentification />} />
-      </Routes>
+      <BrowserRouter>  
+      <NavigationHeader/>
+        <Routes>
+          <Route path="/*" element={<RouterPublic />}/>
+          <Route path="/profile/*" element={
+            <AuthProvider>
+              <RouterPrivate/>
+            </AuthProvider>
+          }/>
+          <Route path="/subscribe/*" element={<RouterAuth/>}>
+            
+          </Route>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }
