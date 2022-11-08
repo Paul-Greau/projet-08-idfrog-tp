@@ -28,7 +28,7 @@ uploadProjectImage : (req, res) => {
       if (err)
         return res.status(500).send(err);
 
-        res.status(201).json({path:uploadPath})
+        res.status(201).json({path:`/data/ProjectsImages/project${projectId}-${projectImage.name}`})
 
     });
   }
