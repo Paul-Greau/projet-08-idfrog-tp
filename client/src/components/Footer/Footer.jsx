@@ -1,14 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 // import PropTypes from "prop-types";
-import { Grid } from '@mui/material';
-import { Link } from '@mui/material';
-import { Typography } from '@mui/material';
 import logoFooter from '../../assets/images/logo-mini.png';
+
+// Material UI
+import { Grid, Link, Typography } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
+// CSS
+import palette from '../../assets/styles/_vars.scss';
 import './footerStyles.scss';
 
 function Footer() {
@@ -83,7 +85,7 @@ function Footer() {
         justifyContent="center"
         alignItems="center"
         sx={{
-          borderTop: '1px solid #30394e',
+          borderTop: `1px solid ${palette.secondary}`,
           paddingTop: '20px',
         }}
       >

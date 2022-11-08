@@ -1,18 +1,19 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 // import PropTypes from "prop-types";
 
-// Mui List
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
+// Material UI
+import {
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+} from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-
-// Mui Icons
 import StarIcon from '@mui/icons-material/Star';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
@@ -24,7 +25,7 @@ function DropDownContributionList({ contributionList }) {
   };
 
   return (
-    <List // liste investissements
+    <List // liste projets
       sx={{ width: '100%', justifyContent: 'space-between' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
@@ -38,23 +39,26 @@ function DropDownContributionList({ contributionList }) {
         <ListItemIcon color="secondary">
           <PeopleAltIcon color="secondary" />
         </ListItemIcon>
-        <ListItemText primary="Liste des contributions" color="secondary" />
+        <ListItemText primary="Liste des projets" />
         {openContribution ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
+
       <Collapse in={openContribution} timeout="auto" unmountOnExit>
         <List
           component="div"
           disablePadding
           sx={{ backgroundColor: '#ffffff80' }}
         >
-          {contributionList?.map((contribution, index) => (
-            <ListItemButton key={index} sx={{ pl: 4 }}>
-              <StarIcon color="secondary" />
-              <ListItemText
-                sx={{ textAlign: 'center' }}
-                primary={contribution.name}
-              />
-            </ListItemButton>
+          {contributionList?.map((project, index) => (
+            <Link key={index} to={`contribut`}>
+              <ListItemButton sx={{ pl: 4 }}>
+                <StarIcon color="secondary" />
+                <ListItemText
+                  sx={{ textAlign: 'center' }}
+                  primary={project.name}
+                />
+              </ListItemButton>
+            </Link>
           ))}
         </List>
       </Collapse>

@@ -1,48 +1,26 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Switch from '@mui/material/Switch';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-
 // import PropTypes from "prop-types";
 
+// Components
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 
-import './projectCollectStyles.scss';
+// Material UI
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+  FormControl,
+} from '@mui/material';
+
+// CSS
+import { projectCollectStyles } from './styles';
 
 function projectCollect() {
-  const buttonPrimaryStyles = {
-    fontSize: 14,
-    backgroundColor: '#5de4d5',
-    border: '2px solid #5de4d5',
-    color: '#ffffff',
-    fontWeight: 700,
-    textTransform: 'none',
-    borderRadius: '50px',
-    padding: '5px 10px',
-    '&:hover': {
-      color: '#5de4d5',
-    },
-  };
-  const buttonSecondaryStyles = {
-    fontSize: 14,
-    backgroundColor: '#d9d9d9',
-    border: '2px solid #d9d9d9',
-    color: '#ffffff',
-    textTransform: 'none',
-    borderRadius: '50px',
-    padding: '5px 10px',
-    '&:hover': {
-      backgroundColor: '#f5f5f5',
-      color: '#30394e',
-    },
-  };
-
   return (
     <>
       <Card sx={{ maxWidth: 345, marginBottom: '30px' }}>
@@ -74,29 +52,16 @@ function projectCollect() {
           <ProjectProgress></ProjectProgress>
         </CardContent>
 
-        <CardActions
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '1rem',
-            padding: '15px',
-          }}
-        >
-          <Button size="small" sx={buttonPrimaryStyles}>
+        <CardActions sx={projectCollectStyles.carAction}>
+          <Button size="small" sx={projectCollectStyles.btnPrimary}>
             Contribuer au projet &gt;
           </Button>
-          <Button size="small" sx={buttonSecondaryStyles}>
+          <Button size="small" sx={projectCollectStyles.btnSecondary}>
             Partager +
           </Button>
         </CardActions>
       </Card>
-      <Card
-        sx={{
-          maxWidth: 345,
-          marginBottom: '30px',
-          textAlign: 'center',
-        }}
-      >
+      <Card sx={projectCollectStyles.card}>
         <CardContent>
           <Typography
             color="secondary"

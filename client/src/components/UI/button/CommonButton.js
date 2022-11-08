@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import Button from '@mui/material/Button';
+
+// Material UI
+import {Button} from '@mui/material';
 
 const CommonButton = ({ children, color, disabled, size, sx, variant }) => {
     return (

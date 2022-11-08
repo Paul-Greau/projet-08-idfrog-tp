@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import LinearProgress from '@mui/material/LinearProgress';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+// import PropTypes from 'prop-types';
+
+// Material UI
+import { LinearProgress, Typography, Box } from '@mui/material';
+
+// CSS
+import { projectProgressStyles } from './styles';
 
 function ProgressLine(props) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: '100%', mr: 1 }}>
+    <Box sx={projectProgressStyles.box1}>
+      <Box sx={projectProgressStyles.box2}>
         <LinearProgress variant="determinate" {...props} />
       </Box>
       <Box sx={{ minWidth: 35 }}>
