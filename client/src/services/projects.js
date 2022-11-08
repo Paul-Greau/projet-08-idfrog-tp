@@ -1,7 +1,13 @@
 import { sendGetRequest } from "../lib/Axios";
 
-const getProjectById = (projectId) => {
-  return sendGetRequest(`posts/${projectId}`);
+export const getProjectsList = () => {
+  console.log('dans la req axios');
+  return sendGetRequest(`/project/list`);
 };
 
-export { getProjectById };
+export const getProjectById = (id) => {
+  console.log('dans la req axios');
+  return sendGetRequest(`/project/${id}`);
+};
+
+

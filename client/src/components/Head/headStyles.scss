@@ -1,0 +1,12 @@
+@use '../../assets/styles/vars';
+
+.head {
+  margin-top: vars.$gutter;
+  &-logo {
+    width: 100%;
+    max-width: '500px';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

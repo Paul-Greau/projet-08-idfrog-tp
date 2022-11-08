@@ -4,20 +4,40 @@ dotenv.config();
 
 const express = require('express');
 const router = require('./app/router');
-const bodyParser = require('body-parser');
+const session = require('express-session');
+const profileMiddleware = require('./app/middlewares/profile');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
+
 
 const port = process.env.PORT || 3002;
 
 // vars
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(fileUpload({
+limits:{fileSize: 2 * 1024 * 1024},
+safeFileNames: true,
+preserveExtension: 4,
+abortOnLimit: true,
+}));
+
 
 app.use(cors({
 	origin: '*'
 }));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(session({
+  saveUninitialized: true,
+  resave: true,
+  secret: process.env.SESSION_SECRET
+}))
+app.use(profileMiddleware);
+
+
+
+
 
 app.use(router);
 
