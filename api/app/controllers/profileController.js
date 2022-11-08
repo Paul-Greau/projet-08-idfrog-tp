@@ -11,8 +11,11 @@ const bcrypt = require('bcrypt');
 
 const profileController = {
 
+        /** connexion */
+
     login: async (req,res) => {
      const jwtSecret = process.env.JWT_SECRET;
+
      const {email, password} = req.body
      try {
         const searchedProfile = await Profile.scope('withPassword').findOne({
@@ -35,6 +38,7 @@ const profileController = {
             });
         }
 
+
         /* if (password !== searchedProfile.password){
             const error = new Error("Login error, Email or Password Invalid");
             return res.status(401).json({
@@ -51,7 +55,22 @@ const profileController = {
 
         console.log(req.session.profile)
         // maintenant que l'user est loggé, on renvoie le json avec les données du profile
-        res.status(200).json(searchedProfile);
+        
+        // res.status(200).json(searchedProfile);
+
+        const jwtContent = { userId: searchedProfile.id };
+        const jwtOptions = { 
+        algorithm: 'HS256', 
+        expiresIn: '3h' 
+        };
+
+        console.log('<< 200', searchedProfile.email);
+
+        res.status(200).json({ 
+            logged: true,
+            pseudo: searchedProfile.pseudo,
+            token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
+        });
 
         } catch(error) {
             console.log(error);
