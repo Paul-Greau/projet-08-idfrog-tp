@@ -210,7 +210,7 @@ patchProject: async (req, res) => {
 			return res.status(401).json({ message: error.message });
 		}	
 		if (profile_id !== req.session.profile.id) {
-			const error = new Error(`You must login before post a project`);
+			const error = new Error(`You must login before edit a project`);
 			return res.status(401).json({ message: error.message });
 		}
 
@@ -289,7 +289,7 @@ deleteProject: async (req, res) => {
 			return res.status(401).json({ message: error.message });
 		}	
 		if (profile_id !== req.session.profile.id) {
-			const error = new Error(`You must login before post a project`);
+			const error = new Error(`You must login before delete a project`);
 			return res.status(401).json({ message: error.message });
 		}
 
@@ -312,7 +312,7 @@ deleteProject: async (req, res) => {
     console.error(error);
     res.status(500).json({ message: error.message });
  	}
-}
+},
 
 };
 

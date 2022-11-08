@@ -5,8 +5,9 @@ const contributionController = require('./controllers/contributionController');
 const projectController = require('./controllers/projectController');
 const profileController = require('./controllers/profileController');
 const projectCardController= require('./controllers/projectCardController');
+const commentController = require('./controllers/commentControllers');
 
-/** projectCards */
+/** Contribution */
 router.post('/profile/:profileId/contribute/:projectId', contributionController.makeContribution)
 
 /** projectCards */ 
@@ -25,5 +26,10 @@ router.get('/profile/:id', profileController.getProfileById)
 router.post('/profile/:id/details', profileController.fillProfil)
 router.patch('/profile/:id/details', profileController.patchProfil)
 router.post('/subscribe', profileController.suscribe)
+
+/* Comment */
+router.post('/profile/:profileId/project/:projectId/comment', commentController.commentProject)
+router.patch('/profile/:profileId/comment/:commentId', commentController.patchComment)
+router.delete('/profile/:profileId/comment/:commentId', commentController.deleteComment)
 
 module.exports = router;
