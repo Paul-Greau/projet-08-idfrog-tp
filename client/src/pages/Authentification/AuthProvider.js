@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Navigate } from "react-router-dom";
+import { isLogged } from '../../services/profileService';
 
 const AuthProvider = ({children}) => {
-    
-    const isLogged = true;
+ const isLogged = true;
 
     if(!isLogged){
 

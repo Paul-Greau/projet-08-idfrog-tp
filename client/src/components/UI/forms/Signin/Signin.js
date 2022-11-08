@@ -4,7 +4,7 @@ import React from 'react';
 // Materail UI 
 import { TextField, Button, Container, Typography, Link } from "@mui/material"
 // Yup Schema
-import { validatinSchema } from "./validationSchema";
+import { validationSchema } from "./validationSchema";
 //Formik 
 import { useFormik } from "formik";
 
@@ -17,7 +17,7 @@ function Signin() {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: validatinSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },

@@ -4,9 +4,12 @@ import React from 'react';
 // Materail UI 
 import { TextField, Button, Container, Typography, Link } from "@mui/material"
 // Yup Schema
-import { validatinSchema } from "./validationSchema";
+import { validationSchema } from "./validationSchema";
 //Formik 
 import { useFormik } from "formik";
+
+// Services
+// import {getLogin} from "../../../../services/profileService"
 
 function Login() {
 
@@ -15,11 +18,15 @@ function Login() {
       email: "",
       password: "",
     },
-    validationSchema: validatinSchema,
+    validationSchema: validationSchema,
+
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    console.log('De login', values);
+      (JSON.stringify(values, null, 2));
     },
+
   });
+
 
   return (
     <Container maxWidth="md">

@@ -1,7 +1,7 @@
-//? Import All from Yup
+// Validation Yup
 import * as yup from "yup";
 
-export const validatinSchema = yup.object().shape({
+export const validationSchema = yup.object().shape({
   pseudo: yup
     .string("string")
     .required("Ce champ est requis !")
@@ -15,7 +15,7 @@ export const validatinSchema = yup.object().shape({
     .required("Ce champ est requis !"),
   email: yup
     .string("string")
-    .email("Email is not Valid")
+    .email("Email non valide")
     .required("Ce champ est requis !"),
   password: yup
     .string("string")

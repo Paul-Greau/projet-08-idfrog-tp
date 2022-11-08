@@ -24,7 +24,7 @@ import { navHeaderStyles } from './styles';
 
 function ResponsiveAppBar() {
   const user = { name: 'IdFrog', id: 24 };
-  const isLogged = false;
+  const isLogged = true;
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -40,7 +40,7 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="100%">
         <Toolbar disableGutters>
-          <Link to="">
+          <Link to="/">
             <img
               src={IdfrogLogo}
               alt="Mini Logo Idfrog"
