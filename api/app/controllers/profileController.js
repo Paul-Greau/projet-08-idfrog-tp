@@ -5,10 +5,15 @@ const Society = require('../models/society')
 const emailValidator = require('email-validator');
 const bcrypt = require('bcrypt');
 
+const jsonwebtoken = require('jsonwebtoken');
+
+const bcrypt = require('bcrypt');
+
+
 const profileController = {
 
     login: async (req,res) => {
-
+     const jwtSecret = process.env.JWT_SECRET;
      const {email, password} = req.body
      try {
         const searchedProfile = await Profile.scope('withPassword').findOne({
@@ -57,10 +62,16 @@ const profileController = {
 
         /** inscription */
     suscribe: async (req, res) => {
+
+        const{  email,
+                password,
+               // confirmPassword,
+                pseudo} = req.body
+
         try {
             const searchedProfile = await Profile.findOne({
                 where: {
-                    email: req.body.email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
+                    email: email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
                 }
             });
             console.log(searchedProfile);
@@ -69,24 +80,37 @@ const profileController = {
             }
             // vérifie que le format de l'email est valide ex: user@user.com
             if (!emailValidator.validate(req.body.email)) {
-                throw new Error("Email format is not valid");
+                const error = new Error("Email format is not valid");
+                return res.status(400).json({ message: error.message });
             }
+            if (!password) {
+                const error = new Error("Password is missing");
+                return res.status(400).json({ message: error.message });
+            }
+            if (!pseudo) {
+                const error = new Error("Pseudo is missing");
+                return res.status(400).json({ message: error.message });
+            }
+            const pseudoValidator = await Profile.findOne({
+                where: {
+                    pseudo: pseudo // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
+                }
+            })
 
-
-            // vérifier que le mdp correspond au mdp à confirmer
-           /*   if (req.body.password !== req.body.passwordConfirm) {
-                throw new Error("Password and confirmPassword does not match");
-            } */
+            if (pseudoValidator){
+                const error = new Error("Pseudo is not Available");
+                return res.status(400).json({ message: error.message });
+            }
 
 
             // encrypter le mdp
             // ici on encrypte le mdp via le module bcrypt, qui nous demande en premier paramètre le mdp et en deuxième paramètre le nombre de tour de hashage
-            const encryptedMsg =  bcrypt.hashSync(req.body.password, 10);
+            const encryptedMsg =  bcrypt.hashSync(password, 10);
 
           const newProfile = Profile.build({
-              email: req.body.email,
+              email: email,
               password: encryptedMsg,
-              pseudo: req.body.pseudo,
+              pseudo: pseudo,
           });
           
           await newProfile.save();
@@ -257,7 +281,7 @@ const profileController = {
                     return res.status(401).json({ message: error.message });
                 }
                 if (!avatar_url) {
-                    avatar_url_value = ""
+                    avatar_url_value = ''
                 } else {
                     avatar_url_value = avatar_url
                 }
@@ -319,6 +343,125 @@ const profileController = {
         }
 
     },
+
+    patchProfil : async (req, res) => {
+
+        const profileIdparams = req.params.id
+        const {
+            status,
+            // Details for a person :
+            first_name,
+            last_name,
+            birth_date,
+            birth_place,
+            gender,            
+            nationality,
+            adress,
+            city,
+            zip_code,
+            phone_number,
+            avatar_url,
+            // Details for a society:
+            siret,
+            name,
+            } = req.body;
+
+        // Global check:             
+	    if (!profileIdparams) {
+	    	const error = new Error(`'profile_id' property is missing`);
+	    	return res.status(400).json({ message: error.message });
+	    }
+	    if (!req.session.profile) {
+	    	const error = new Error(`You must login`);
+	    	return res.status(401).json({ message: error.message });
+	    }	
+	    if (Number(profileIdparams) !== Number(req.session.profile.id)) {
+	    	const error = new Error(`You must login before complete a profil`);
+	    	return res.status(401).json({ message: error.message });
+	    }
+
+        if (!status) {
+	    	const error = new Error(`'status' property is missing`);
+	    	return res.status(401).json({ message: error.message });
+	    }
+
+        try{     
+            
+            
+            const profileToPatch = await Profile.findByPk(profileIdparams, {
+				include: [
+                    'society',
+                    'person'                    
+				],
+			});
+
+			if (!profileToPatch) { // Si `profile` == null || undefined || false
+				const error = new Error(`profile not found with id ${ profileIdparams }`);
+				return res.status(404).json({
+					message: error.message
+				});
+			}
+
+            if (profileToPatch.society){  // It's a society to patch
+                
+                if (typeof(Number(siret)) !== 'number') {
+                        const error = new Error(`'siret' property must be a number`);
+                        return res.status(401).json({ message: error.message });
+                }
+
+                const patchSociety = await Society.update({
+                    siret: Number(siret),
+                    name: name.trim(),
+                    update_at: Date.now(),
+                },
+                {
+                    where: {id: profileToPatch.society.id},
+                    returning:true
+                });
+         
+                res.status(201).json(patchSociety); 
+               }// end check for society //
+
+			
+            if (profileToPatch.person){ // It's a person or association top patch
+
+                if (!avatar_url) {
+                    avatar_url_value = ''
+                } else {
+                    avatar_url_value = avatar_url
+                }
+
+                
+                const patchPerson = await Person.update({
+                    first_name: first_name.trim(),
+                    last_name: last_name.trim(),
+                    birth_date,
+                    birth_place: birth_place.trim(),
+                    gender,            
+                    nationality: nationality.trim(),
+                    adress: adress.trim(),
+                    city: city.trim(),
+                    zip_code: Number(zip_code),
+                    phone_number: phone_number.replace(/\s/g,''),
+                    avatar_url: avatar_url_value.trim(),
+                    update_at: Date.now(),
+                },
+                {
+                    where: {id: profileToPatch.person.id},
+                    returning: true,
+                }
+                  );
+
+            res.status(201).json(patchPerson); 
+             } // end patch for person or association //
+
+            } catch(error){
+            console.error(error);
+            res.status(500).json({ message: error.message });
+        }
+
+    },
+    
     
     logout : (req, res) => {
 
