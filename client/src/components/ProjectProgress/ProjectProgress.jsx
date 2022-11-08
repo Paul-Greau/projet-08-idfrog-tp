@@ -8,15 +8,23 @@ import { LinearProgress, Typography, Box } from '@mui/material';
 // CSS
 import { projectProgressStyles } from './styles';
 
-function ProgressLine(props) {
+function ProgressLine({rate}) {
+
+  const maxRate = (value) => {
+    if(value > 100){
+      return 100
+    }
+    return value
+  };
+  
   return (
     <Box sx={projectProgressStyles.box1}>
       <Box sx={projectProgressStyles.box2}>
-        <LinearProgress variant="determinate" {...props} />
+        <LinearProgress variant='determinate' value={maxRate(rate)} />
       </Box>
       <Box sx={{ minWidth: 35 }}>
         <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.value
+        rate
         )}%`}</Typography>
       </Box>
     </Box>
@@ -30,7 +38,7 @@ export default function ProjectProgress({
   return (
     <Box sx={{ width: '100%' }}>
       <Typography></Typography>
-      <ProgressLine value={progressRate} />
+      <ProgressLine rate={progressRate}/>
     </Box>
   );
 }
