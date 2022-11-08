@@ -7,7 +7,7 @@ import RouterAuth from './pages/Authentification/RouterAuth'
 import NavigationHeader from './components/Navigation/NavigationHeader/NavigationHeader'
 import Footer from "./components/Footer/Footer";
 import AuthProvider from "./pages/Authentification/AuthProvider";
-import ProjectDetails from "./components/ProjectDetails/ProjectDetails"
+import Project from "../src/pages/Public/Project/Project"
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
           
             
           </Route>
-        <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="/project/:id" element={<Project/>} />
         </Routes>
         <Footer />
       </BrowserRouter>
