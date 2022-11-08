@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 
 // Material UI
@@ -23,18 +23,14 @@ function ProgressLine(props) {
   );
 }
 
-export default function ProjectProgress() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    setProgress(progress + 50);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+export default function ProjectProgress({
+  progressRate
+}) {
 
   return (
     <Box sx={{ width: '100%' }}>
       <Typography></Typography>
-      <ProgressLine value={progress} />
+      <ProgressLine value={progressRate} />
     </Box>
   );
 }
