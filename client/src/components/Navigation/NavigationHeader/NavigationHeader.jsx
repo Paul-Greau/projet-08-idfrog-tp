@@ -109,7 +109,7 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={navHeaderStyles.btnPostProject}
                 >
-                  Lancer mon dprojet
+                  Lancer mon projet
                 </Button>
               </Link>
             )}

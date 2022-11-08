@@ -23,6 +23,7 @@ import ProjectProgress from '../ProjectProgress/ProjectProgress';
 function ProjectCard({ id, projet, amount, description, profile }) {
   return (
     <Card sx={{ maxWidth: '100%' }}>
+      <Link to={`/project/${id}`}>
       <CardMedia
         component="img"
         height="140"
@@ -40,7 +41,7 @@ function ProjectCard({ id, projet, amount, description, profile }) {
           {description}
         </Typography>
       </CardContent>
-
+      </Link>
       <CardContent>
         <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
           403 630€ sur <span style={{ fontSize: 24 }}>{amount}€</span>

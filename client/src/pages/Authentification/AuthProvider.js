@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 const AuthProvider = ({children}) => {
     
-    const isLogged = true;
+    const isLogged = false;
 
     if(!isLogged){
 

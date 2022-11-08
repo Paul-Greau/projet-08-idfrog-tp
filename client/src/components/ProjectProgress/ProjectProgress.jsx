@@ -28,6 +28,7 @@ export default function ProjectProgress() {
 
   useEffect(() => {
     setProgress(progress + 50);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

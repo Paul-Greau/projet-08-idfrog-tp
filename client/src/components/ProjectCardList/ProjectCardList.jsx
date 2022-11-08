@@ -9,6 +9,7 @@ import ProjectCard from '../ProjectCard/ProjectCard';
 import { Container, Grid, Box } from '@mui/material';
 
 // CSS
+// eslint-disable-next-line no-unused-vars
 import { projectCardStyles } from '../ProjectCard/styles';
 
 function ProjectCardList({ result }) {
