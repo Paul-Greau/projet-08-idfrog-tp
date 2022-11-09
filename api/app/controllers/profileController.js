@@ -65,7 +65,6 @@ const profileController = {
         console.log('<< 200', searchedProfile.email);
 
         res.status(200).json({ 
-            logged: true,
             pseudo: searchedProfile.pseudo,
             token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
         });
