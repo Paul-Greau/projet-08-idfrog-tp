@@ -72,32 +72,44 @@ function ProjectCardList({ result }) {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label" >Catégorie</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={categoryFilter}
-              label="Age"
-              onChange={event => setCategoryFilter(event.target.value)}
-            >
-              {categories.map((category => (
-                <MenuItem value={category} key={category.index}>{category}</MenuItem>
-              )))}
-            </Select>
+          sx={{
+            mt: 2,
+            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
+            display: { xs: 'row', md: 'colum' },
+          }}
+          id="category"
+          value={categoryFilter}
+          label="Catégories"
+          onChange={(event) => setCategoryFilter(event.target.value)}
+        >
+          {categories.map((category, index) => (
+            <MenuItem key={index} value={category}>
+              {category}
+            </MenuItem>
+          ))}
+        </Select>
           </FormControl>
         </Grid>
         <Grid item xs={12} md={4} sm={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Type de financement</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={financingTypeFilter}
-              label="Age"
-              onChange={event => setFinancingTypeFilter(event.target.value)}
-            >
-              {financingTypes.map((financingType => (
-                <MenuItem value={financingType} key={financingType.index}>{financingType}</MenuItem>
-              )))}
-            </Select>
+          sx={{
+            mt: 2,
+            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
+            display: { xs: 'row', md: 'colum' },
+          }}
+          id="invest_type"
+          value={financingTypeFilter}
+          label="Type de financement"
+          onChange={event => setFinancingTypeFilter(event.target.value)}
+        >
+          {financingTypes.map((financingType, index) => (
+            <MenuItem key={index} value={financingType}>
+              {financingType}
+            </MenuItem>
+          ))}
+        </Select>
           </FormControl>
         </Grid>  
       </Grid>
