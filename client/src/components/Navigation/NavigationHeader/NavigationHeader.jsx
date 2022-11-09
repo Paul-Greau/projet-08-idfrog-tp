@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState} from "recoil";
 import { profileConnexionstate } from "../../../atomes/profileAtomes";
+import { getLogout } from "../../../services/loginService";
 
 import React, { useState } from 'react';
 import IdfrogLogo from '../../../assets/images/logo-mini.png';
@@ -28,10 +29,13 @@ import { navHeaderStyles } from './styles';
 function ResponsiveAppBar() {
 
   const ProfileInfo = useRecoilValue(profileConnexionstate);
+  const SetProfileInfo = useSetRecoilState(profileConnexionstate)
+  
   console.log('ProfileInfo dans la navbar', ProfileInfo);
  
   const user = { name: 'IdFrog', id: 24 };
   // const isLogged = false;
+
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -42,6 +46,13 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const handleLogout = async () => {
+    const res = await getLogout()
+    console.log(res);
+    SetProfileInfo("")
+    localStorage.clear()
+  }
 
   return (
     <AppBar position="static">
@@ -150,7 +161,11 @@ function ResponsiveAppBar() {
                   </Grid>
                   <Grid item xs={7}>
                     <Link to={`profile/${user.id}/logout`}>
-                      <Button size="small" sx={navHeaderStyles.btnSecondary}>
+                      <Button
+                      size="small"
+                      sx={navHeaderStyles.btnSecondary}
+                      onClick={() => {handleLogout()}}
+                      >
                         Se déconnecter
                       </Button>
                     </Link>
