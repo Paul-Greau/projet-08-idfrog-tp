@@ -41,11 +41,13 @@ function ProjectCardList({ result }) {
     "ENFANCE & EDUC.",
     "PATRIMOINE",
     "AUTRES PROJETS",
+    "automobile"
   ]
 
   const financingTypes = [
     "Investissement par don",
-    "Investissement par prêt"
+    "Investissement par prêt",
+    "capital"
   ]
 
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -56,7 +58,7 @@ function ProjectCardList({ result }) {
     <Grid container spacing={2} alignItems="stretch" justifyContent="center" sx={{pb: "20px"}}>
       <Grid item xs={12} md={4} sm={6}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Catégorie</InputLabel>
+          <InputLabel id="demo-simple-select-label" >Catégorie</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -90,7 +92,7 @@ function ProjectCardList({ result }) {
     <Box component="section" maxWidth="medium">
       <Container component="section" maxWidth="lg">
         <Grid container spacing={2} alignItems="stretch">
-          {result &&
+          {/* {result &&
             result.map((res) => (
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
@@ -101,7 +103,17 @@ function ProjectCardList({ result }) {
                   profile={res.profile.pseudo}
                 />
               </Grid>
-            ))}
+            ))} */}
+                {result.filter(res => res.category.name.includes(categoryFilter) && res.invest_type.includes(financingTypeFilter))
+            .map(res => <Grid item xs={12} md={4} sm={6} key={res.id}>
+              <ProjectCard
+                id={res.id}
+                projet={res.name}
+                amount={res.amount_target}
+                description={res.description}
+                profile={res.profile.pseudo}
+              />
+            </Grid>)}
         </Grid>
       </Container>
     </Box>
