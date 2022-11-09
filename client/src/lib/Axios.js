@@ -9,8 +9,16 @@ const axios = Axios.create({
 });
 
 export const sendGetRequest = (url, params = {}, headers = {}) => {
-  return axios.get(url, {
+  return axios.get(url, 
     headers,
     params,
-  });
+  );
+};
+
+export const sendPostRequest = (url, params = {}, headers = {}, ) => {
+  return axios.post(url, 
+    params,
+    headers,
+    
+  );
 };

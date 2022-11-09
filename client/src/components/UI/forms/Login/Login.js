@@ -7,6 +7,7 @@ import { TextField, Button, Container, Typography, Link } from "@mui/material"
 import { validatinSchema } from "./validationSchema";
 //Formik 
 import { useFormik } from "formik";
+import { postLogin } from '../../../../services/login';
 
 function Login() {
 
@@ -16,8 +17,10 @@ function Login() {
       password: "",
     },
     validationSchema: validatinSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+     // alert(JSON.stringify(values, null, 2));
+     let res = await postLogin(values)
+     console.log('response dans login', res.data);
     },
   });
 
