@@ -15,10 +15,18 @@ export const sendGetRequest = (url, params = {}, headers = {}) => {
   );
 };
 
-export const sendPostRequest = (url, params = {}, headers = {}, ) => {
-  return axios.post(url, 
+export const sendPostRequest = async (url, params = {}, headers = {}, ) => {
+ try{
+  let response =  await axios.post(url, 
     params,
-    headers,
-    
-  );
+    headers,   
+  )
+    console.log('res axios', response);
+    return (response)
+  }
+  catch (error){
+    console.log(error);
+    return (error.response)
+  } 
+
 };
