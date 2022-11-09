@@ -2,15 +2,19 @@
 import * as yup from "yup";
 
 export const validationSchema = yup.object().shape({
+  gender: yup
+    .boolean()
+    .required()
+    .oneOf([0 , 1], 'Sélectionez un type de financement'),
   pseudo: yup
     .string("string")
     .required("Ce champ est requis !")
     .min(4, "moins de 4 caractères")
     .max(100, "plus de 100 caractères"),
-  name: yup
+  last_name: yup
     .string("string")
     .required("Ce champ est requis !"),
-  lastname: yup
+  first_name: yup
     .string("string")
     .required("Ce champ est requis !"),
   email: yup
@@ -26,6 +30,29 @@ export const validationSchema = yup.object().shape({
     .string("string")
     .oneOf([yup.ref("password")], "Le mot de passe ne correspond pas")
     .required("Confirmer votre mot de passe"),
+  birth_date: yup
+    .string("string")
+    .required("Ce champ est requis !")
+    .min(4, "moins de 4 caractères")
+    .max(100, "plus de 100 caractères"),
+  birth_place: yup
+    .string("string")
+    .required("Ce champ est requis !"),
+  nationality: yup
+    .string("string")
+    .required("Ce champ est requis !"),
+  city: yup
+    .string("string")
+    .required("Ce champ est requis !"),
+  zip_code: yup
+    .string("string")
+    .required("Ce champ est requis !"),
+  phone_number: yup
+    .string("string")
+    .required("Ce champ est requis !"),
+  adress: yup
+    .string("string")
+    .required("Ce champ est requis !"),
   website: yup
     .string()
     .url()
