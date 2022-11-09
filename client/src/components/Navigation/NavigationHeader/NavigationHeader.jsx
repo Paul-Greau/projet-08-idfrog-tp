@@ -1,4 +1,7 @@
 /* eslint-disable react/prop-types */
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../../atomes/profileAtomes";
+
 import React, { useState } from 'react';
 import IdfrogLogo from '../../../assets/images/logo-mini.png';
 
@@ -23,8 +26,12 @@ import { Link } from 'react-router-dom';
 import { navHeaderStyles } from './styles';
 
 function ResponsiveAppBar() {
+
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
+  console.log('ProfileInfo dans la navbar', ProfileInfo);
+ 
   const user = { name: 'IdFrog', id: 24 };
-  const isLogged = false;
+  // const isLogged = false;
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -94,7 +101,7 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {isLogged ? (
+            {ProfileInfo.isLogged ? (
               <Link to="profile">
                 <Button
                   onClick={handleCloseNavMenu}
@@ -125,7 +132,7 @@ function ResponsiveAppBar() {
 
           <Box>
             <div>
-              {isLogged ? (
+              {ProfileInfo.isLogged ? (
                 <Grid container>
                   <Grid item xs={5}>
                     <Link to={`profile/${user.id}`}>
