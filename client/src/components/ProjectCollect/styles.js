@@ -1,5 +1,12 @@
 export const projectCollectStyles = {
 
+  summary:{
+    display: '-webkit-box',
+    overflow: 'hidden',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: 3,
+  },
+
     btnPrimary: {
         fontSize: 14,
         backgroundColor: '#5de4d5',
