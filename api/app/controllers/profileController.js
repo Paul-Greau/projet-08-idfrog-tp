@@ -3,11 +3,9 @@ const {Profile, Person} = require('../models');
 const Society = require('../models/society')
 
 const emailValidator = require('email-validator');
-
-const jsonwebtoken = require('jsonwebtoken');
-
 const bcrypt = require('bcrypt');
 
+const jsonwebtoken = require('jsonwebtoken');
 
 const profileController = {
 
@@ -119,18 +117,6 @@ const profileController = {
                 const error = new Error("Pseudo is not Available");
                 return res.status(400).json({ message: error.message });
             }
-
-
-            /*
-            if (!confirmPassword) {
-                const error = new Error("confirmPassword is missing");
-                return res.status(400).json({ message: error.message });
-            }
-
-            // vérifier que le mdp correspond au mdp à confirmer
-             if (password !== passwordConfirm) {
-                throw new Error("Password and confirmPassword does not match");
-            } */
 
 
             // encrypter le mdp

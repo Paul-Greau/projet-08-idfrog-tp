@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 // import PropTypes from "prop-types";
-import { Grid } from '@mui/material';
-// import { Link } from "@mui/material";
-import { Typography } from '@mui/material';
-import { Button } from '@mui/material';
-import { Container } from '@mui/material';
 
-import './topFooterStyles.scss';
+// Matrerial UI
+import { Typography, Button, Grid, Container } from '@mui/material';
+
+// CSS
+import palette from '../../assets/styles/_vars.scss';
+import { topFooterStyles } from './topFooterStyles';
 
 function TopFooter() {
   return (
@@ -15,35 +15,29 @@ function TopFooter() {
       <Grid
         container
         direction="row"
-        justifyContent="space-between"
-        alignItems="center"
         spacing={3}
-        sx={{
-          padding: '5%',
-        }}
+        sx={topFooterStyles.topFooterGrid}
       >
         <Grid item xs={12} md={8}>
-          <Typography sx={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
+          <Typography sx={topFooterStyles.boldFont}>
             Obtenez un financement non dilutif auprès de vos investisseurs.
           </Typography>
-          <Typography sx={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
-            Levez de{' '}
-            <span style={{ fontSize: '1.6rem', color: '#5de4d5' }}>
-              10 000 €{' '}
-            </span>{' '}
-            à
-            <span style={{ fontSize: '1.6rem', color: '#5de4d5' }}>
-              {' '}
-              500 000 €
-            </span>{' '}
-            à votre rythme, de manière publique ou privée
+          <Typography sx={topFooterStyles.boldFont}>
+            Levez de
+            <span style={topFooterStyles.boldFontPrimary}> 10 000 € </span> à
+            <span style={topFooterStyles.boldFontPrimary}> 500 000 €</span> à
+            votre rythme, de manière publique ou privée
           </Typography>
         </Grid>
         <Grid item xs={12} md={4}>
           <Button
             variant="contained"
             size="large"
-            sx={{ backgroundColor: '#5de4d5', color: '#fff', width: '100%' }}
+            sx={{
+              backgroundColor: palette.primary,
+              color: '#fff',
+              width: '100%',
+            }}
           >
             Découvrez nos solutions
           </Button>
