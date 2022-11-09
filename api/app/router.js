@@ -5,11 +5,14 @@ const contributionController = require('./controllers/contributionController');
 const projectController = require('./controllers/projectController');
 const profileController = require('./controllers/profileController');
 const projectCardController= require('./controllers/projectCardController');
+
+const authorizationMiddleware= require('./middlewares/jwt');
+
+/** contribution */
+router.post('/profile/:profileId/contribute/:projectId', authorizationMiddleware, contributionController.makeContribution)
+
 const commentController = require('./controllers/commentControllers');
 const uploadImageController = require('./controllers/uploadImageController');
-
-/** Contribution */
-router.post('/profile/:profileId/contribute/:projectId', contributionController.makeContribution)
 
 /** projectCards */ 
 router.get('/project/list', projectCardController.getAllProjectCards);
@@ -27,6 +30,7 @@ router.get('/profile/:id', profileController.getProfileById)
 router.post('/profile/:id/details', profileController.fillProfil)
 router.patch('/profile/:id/details', profileController.patchProfil)
 router.post('/subscribe', profileController.suscribe)
+router.post('/loginjwt', authorizationMiddleware, profileController.login)
 
 /* Comment */
 router.post('/profile/:profileId/project/:projectId/comment', commentController.commentProject)
