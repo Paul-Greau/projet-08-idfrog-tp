@@ -143,6 +143,7 @@ const profileController = {
 		try {
             //console.log(req.session);
 			const profileId = Number(req.params.id);
+            const tokenId = req.auth.userId;
 
             //console.log(profileId);
 
@@ -150,11 +151,11 @@ const profileController = {
                 const error = new Error(`'profileId' property is missing`);
                 return res.status(400).json({ message: error.message });
             }
-            if (!req.session.profile) {
+            if (!tokenId) {
                 const error = new Error(`You must login`);
                 return res.status(401).json({ message: error.message });
             }
-            if (profileId !== req.session.profile.id) {
+            if (profileId !== tokenId) {
                 const error = new Error(`You must login`);
                 return res.status(401).json({ message: error.message });
             }

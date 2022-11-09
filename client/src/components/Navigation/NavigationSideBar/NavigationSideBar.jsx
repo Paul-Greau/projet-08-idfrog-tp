@@ -13,8 +13,15 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 // CSS
 import './navigationSideBarStyles.scss';
+import { useRecoilValue } from 'recoil';
+import { profileConnexionstate } from '../../../atomes/profileAtomes';
 
 function NavigationSideBar() {
+
+  const {token} = useRecoilValue(profileConnexionstate)
+
+  //TODO liste dynamique !!!
+
   const projectList = [
     { name: 'Projet1' },
     { name: 'Projet2' },
