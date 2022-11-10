@@ -9,8 +9,8 @@ import Footer from "./components/Footer/Footer";
 import AuthProvider from "./pages/Authentification/AuthProvider";
 import ProjectDetails from "./components/ProjectDetails/ProjectDetails"
 
-
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>  

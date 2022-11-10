@@ -8,9 +8,34 @@ const axios = Axios.create({
   }
 });
 
-export const sendGetRequest = (url, params = {}, headers = {}) => {
-  return axios.get(url, {
-    headers,
-    params,
-  });
+export const sendGetRequest = async (url, params = {}, headers = {}) => {
+  try{
+    let response =  await axios.get(url, 
+      params,
+      headers,   
+    )
+      console.log('sendGetRequest axios', response);
+      return (response)
+    }
+    catch (error){
+      console.log(error);
+      return (error.response)
+    } 
 };
+
+export const sendPostRequest = async (url, params = {}, headers = {}, ) => {
+ try{
+  let response =  await axios.post(url, 
+    params,
+    headers,   
+  )
+    console.log('sendPostRequest axios', response);
+    return (response)
+  }
+  catch (error){
+    console.log(error);
+    return (error.response)
+  } 
+
+};
+

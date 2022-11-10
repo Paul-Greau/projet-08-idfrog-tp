@@ -1,4 +1,8 @@
 /* eslint-disable react/prop-types */
+import { useRecoilValue, useSetRecoilState} from "recoil";
+import { profileConnexionstate } from "../../../atomes/profileAtomes";
+import { getLogout } from "../../../services/loginService";
+
 import React, { useState } from 'react';
 import IdfrogLogo from '../../../assets/images/logo-mini.png';
 
@@ -23,9 +27,12 @@ import { Link } from 'react-router-dom';
 import { navHeaderStyles } from './styles';
 
 function ResponsiveAppBar() {
-  const user = { name: 'IdFrog', id: 24 };
-  const isLogged = false;
 
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
+  const SetProfileInfo = useSetRecoilState(profileConnexionstate)
+  
+ // console.log('ProfileInfo dans la navbar', ProfileInfo);
+ 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -36,11 +43,18 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
+  const handleLogout = async () => {
+    const res = await getLogout()
+    console.log(res);
+    SetProfileInfo("")
+    localStorage.clear()
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="100%">
         <Toolbar disableGutters>
-          <Link to="">
+          <Link to="/">
             <img
               src={IdfrogLogo}
               alt="Mini Logo Idfrog"
@@ -94,7 +108,7 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {isLogged ? (
+            {ProfileInfo.isLogged ? (
               <Link to="profile">
                 <Button
                   onClick={handleCloseNavMenu}
@@ -125,10 +139,10 @@ function ResponsiveAppBar() {
 
           <Box>
             <div>
-              {isLogged ? (
+              {ProfileInfo.isLogged ? (
                 <Grid container>
                   <Grid item xs={5}>
-                    <Link to={`profile/${user.id}`}>
+                    <Link to={`/profile/`}>
                       <div style={navHeaderStyles.loginUser}>
                         <Avatar
                           sx={{ bgcolor: '#2D3A4D' }}
@@ -137,13 +151,17 @@ function ResponsiveAppBar() {
                         >
                           IF
                         </Avatar>
-                        <p style={navHeaderStyles.p}>{user.name}</p>
+                        <p style={navHeaderStyles.p}>{ProfileInfo.pseudo}</p>
                       </div>
                     </Link>
                   </Grid>
                   <Grid item xs={7}>
-                    <Link to={`profile/${user.id}/logout`}>
-                      <Button size="small" sx={navHeaderStyles.btnSecondary}>
+                    <Link to={`profile/logout`}>
+                      <Button
+                      size="small"
+                      sx={navHeaderStyles.btnSecondary}
+                      onClick={() => {handleLogout()}}
+                      >
                         Se déconnecter
                       </Button>
                     </Link>

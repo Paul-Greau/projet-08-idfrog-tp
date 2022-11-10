@@ -7,12 +7,14 @@ const bcrypt = require('bcrypt');
 
 const jsonwebtoken = require('jsonwebtoken');
 
-
-
 const profileController = {
 
+        /** connexion */
+
     login: async (req,res) => {
+
      const jwtSecret = process.env.JWT_SECRET;
+
      const {email, password} = req.body
      try {
         const searchedProfile = await Profile.scope('withPassword').findOne({
@@ -35,6 +37,7 @@ const profileController = {
             });
         }
 
+
         /* if (password !== searchedProfile.password){
             const error = new Error("Login error, Email or Password Invalid");
             return res.status(401).json({
@@ -49,9 +52,23 @@ const profileController = {
         req.session.profile.password = null;
         searchedProfile.password = null
 
-        console.log(req.session.profile)
+        console.log('login session', req.session.profile)
         // maintenant que l'user est loggé, on renvoie le json avec les données du profile
-        res.status(200).json(searchedProfile);
+        
+        // res.status(200).json(searchedProfile);
+
+        const jwtContent = { userId: searchedProfile.id };
+        const jwtOptions = { 
+        algorithm: 'HS256', 
+        expiresIn: '3h' 
+        };
+
+        console.log('<< 200', searchedProfile.email);
+
+        res.status(200).json({ 
+            pseudo: searchedProfile.pseudo,
+            token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
+        });
 
         } catch(error) {
             console.log(error);
@@ -64,19 +81,11 @@ const profileController = {
 
         const{  email,
                 password,
-               // confirmPassword,
+                confirmPassword,
                 pseudo} = req.body
 
         try {
-            const searchedProfile = await Profile.findOne({
-                where: {
-                    email: email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
-                }
-            });
-            console.log(searchedProfile);
-            if (searchedProfile) {
-                throw new Error("Email already exists");
-            }
+            
             // vérifie que le format de l'email est valide ex: user@user.com
             if (!emailValidator.validate(req.body.email)) {
                 const error = new Error("Email format is not valid");
@@ -86,10 +95,32 @@ const profileController = {
                 const error = new Error("Password is missing");
                 return res.status(400).json({ message: error.message });
             }
+            if (!confirmPassword) {
+                const error = new Error("Confirm Password is missing");
+                return res.status(400).json({ message: error.message });
+            }
+            if (confirmPassword !== password) {
+                const error = new Error("Password and Confirm Password are different");
+                return res.status(400).json({ message: error.message });
+            }
             if (!pseudo) {
                 const error = new Error("Pseudo is missing");
                 return res.status(400).json({ message: error.message });
             }
+
+            const searchedProfile = await Profile.findOne({
+                where: {
+                    email: email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
+                }
+            });
+
+            //console.log(searchedProfile);
+
+            if (searchedProfile) {
+                const error = new Error("Email already exists");
+                return res.status(400).json({ message: error.message });
+            }
+
             const pseudoValidator = await Profile.findOne({
                 where: {
                     pseudo: pseudo // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
@@ -126,27 +157,33 @@ const profileController = {
     getProfileById: async (req,res) => {
 		try {
             //console.log(req.session);
-			const profileId = Number(req.params.id);
+			//const profileId = Number(req.params.id);
+            const tokenId = req.auth.userId;
 
-            //console.log(profileId);
+            console.log('getProfileById session', req.session.profile)
+            console.log(profileId);
 
-            if (!profileId) {
+           /*  if (!profileId) {
                 const error = new Error(`'profileId' property is missing`);
                 return res.status(400).json({ message: error.message });
-            }
-            if (!req.session.profile) {
+            } */
+            if (!tokenId) {
                 const error = new Error(`You must login`);
                 return res.status(401).json({ message: error.message });
             }
-            if (profileId !== req.session.profile.id) {
+          /*   if (profileId !== tokenId) {
                 const error = new Error(`You must login`);
                 return res.status(401).json({ message: error.message });
-            }
+            } */
 
-			const profile = await Profile.findByPk(profileId, {
+			const profile = await Profile.findByPk(tokenId, {
 				include: [
+                    {
+                        association: 'contributions',
+                        include: 'project',
+                        },
 					'projects',
-                    'contributions',
+                   /*  'contributions', */
                     'society',
                     'person'                    
 				],

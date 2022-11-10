@@ -1,34 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 
 // Materail UI 
-import { TextField, Button, Container, Typography, Link } from "@mui/material"
+import { TextField, Button, Container, Typography, Link, Alert } from "@mui/material"
 // Yup Schema
-import { validatinSchema } from "./validationSchema";
+import { validationSchema } from "./validateSigninSchema";
+
 //Formik 
 import { useFormik } from "formik";
+import { postSignin } from '../../../../services/loginService';
+import { useNavigate } from 'react-router-dom'
 
-function PostProjectForm() {
-  
+function Signin() {
+  let navigate = useNavigate()
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+
+  const HandleSignin = async (response) => {
+    console.log('HandleSignin', response);
+
+      if(response.status!==201){
+        setLoginError({
+          status : response.status,
+          message: response.data.message
+        })
+        setShowError(true)
+        return      
+      } 
+    return navigate("/login");
+      }
+
   const formik = useFormik({
     initialValues: {
       pseudo: "",
-      name:"",
-      lastname:"",
       email: "",
-      website: "",
       password: "",
       confirmPassword: "",
     },
-    validationSchema: validatinSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      let res = await postSignin(values)
+      HandleSignin(res)
     },
   });
 
   return (
     <Container maxWidth="md">
   <form onSubmit={formik.handleSubmit} autoComplete="off">
+  {showError &&
+    <Alert severity="error"
+    onClose={() => {setShowError(false)}}
+    >
+    {`Erreur ${loginError.status} - ${loginError.message}`}
+    </Alert>
+    }  
         <TextField
           fullWidth
           required
@@ -43,36 +68,6 @@ function PostProjectForm() {
           helperText={formik.touched.pseudo && formik.errors.pseudo}
           error={formik.errors.pseudo && formik.touched.pseudo}
         />
-
-        <TextField
-          fullWidth
-          required
-          margin="dense"
-          type="text"
-          name="name"
-          id="name"
-          label="Nom"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-          helperText={formik.touched.name && formik.errors.name}
-          error={formik.errors.name && formik.touched.name}
-        />
-
-        <TextField
-          fullWidth
-          required
-          margin="dense"
-          type="text"
-          name="lastname"
-          id="lastname"
-          label="Prenom"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.lastname}
-          helperText={formik.touched.lastname && formik.errors.lastname}
-          error={formik.errors.lastname && formik.touched.lastname}
-        />      
     
         <TextField
           fullWidth
@@ -88,22 +83,6 @@ function PostProjectForm() {
           helperText={formik.touched.email && formik.errors.email}
           error={formik.errors.email && formik.touched.email}
         />
-
-        <TextField
-          fullWidth
-          required
-          margin="dense"
-          type="website"
-          id="website"
-          label="Site Web"
-          name="website"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          values={formik.values.website}
-          helperText={formik.touched.website && formik.errors.website}
-          error={formik.errors.website && formik.touched.website}
-        />
-
         <TextField
           fullWidth
           required
@@ -144,14 +123,14 @@ function PostProjectForm() {
       </Button>
 
       <Typography sx={{ mt: 2 }}>
-      Vus n&apos;avez pas encore de compte ? <Link href="#">S&apos;inscrire</Link>
+      Vous n&apos;avez pas encore de compte ? <Link href="#">S&apos;inscrire</Link>
       </Typography>
       </form>
     </Container>
   );
 }
-PostProjectForm.propTypes = {};
+Signin.propTypes = {};
 
-PostProjectForm.defaultProps = {};
+Signin.defaultProps = {};
 
-export default PostProjectForm;
+export default Signin;

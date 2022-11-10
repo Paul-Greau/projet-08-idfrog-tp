@@ -26,29 +26,37 @@ const ProjectDetails = () => {
         setValue(newValue)
     }
 
+    const handleResult = async (projectId) => {
+        try {
+            const response = await getProjectById(projectId)
+
+            setResult(response.data)
+            console.log(response.data)
+
+        } catch (error){
+            console.log(error);
+        }
+    }
 
     const flag = useRef(false)
 
     // Récupération de la liste des utilisateurs à l'affichage
     useEffect(() => {
-        if(flag.current === false){
-            getProjectById(id)
-                .then(res => {
-                    // Liste dans le state
-                    setResult(res.data)
-                    console.log(res.data)
-                })
-                .catch(err => console.log(err))
-        }
+        handleResult(id)
 
-        return () => flag.current = true
+        //if(flag.current === false){
+           
+     //   }
+
+      //  return () => flag.current = true
 
     }, [id])
 
 
     return (
         <div>
-            <TabContext value={value}>
+            {result.length !== 0 &&(
+                <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
                         <Tab label="PROJET" value="1" />
@@ -88,6 +96,9 @@ const ProjectDetails = () => {
             </Box>)}
 
             </TabContext>
+
+            )}
+            
         </div>
     );
 };

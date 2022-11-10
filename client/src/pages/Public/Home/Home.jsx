@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 //  Services
-import { getProjectsList } from '../../../services/projects';
+import { getProjectsList } from '../../../services/projectService';
 // Components
 import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
 import Head from '../../../components/Head/Head';
@@ -28,22 +28,19 @@ function Home() {
 
   const nbPage = Math.ceil(result.length / cardsPerPage);
 
-  useEffect(
-    () => {
-      const FetchData = async () => {
-        try {
-          const response = await getProjectsList();
-          console.log(response.data);
-          setResult(response.data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      // mon effet s'executera sur le mount
-      FetchData(); // fetchData est asynchrone je l'appele simplement sans attendre la suite
-    },
-    [] // tableau de dependances vide => effet sur le mount
-  );
+  const FetchData = async () => {
+    try {
+      const response = await getProjectsList();
+      console.log(response.data);
+      setResult(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+      FetchData(); 
+    },[]);
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;

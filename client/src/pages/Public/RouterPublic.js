@@ -20,7 +20,6 @@ const PublicRouter = () => {
             <Route path="projects" element={<AllProjects />} />
             <Route path="login" element={<Connection/>}/>
  
-
             <Route path="*" element={<NotFound />} />
           </Route>
 
