@@ -42,6 +42,7 @@ function PostProjectForm() {
       description: '',
       amount_target: '',
       invest_type: '',
+      date: '',
       website: '',
     },
     validationSchema: validationSchema,
@@ -172,7 +173,21 @@ function PostProjectForm() {
           </Card>
         </RadioGroup>
 
-        <Particulier />
+        <InputLabel>Durée de votre campagne:</InputLabel>
+
+        <TextField
+          sx={{ mt: 2 }}
+          fullWidth
+          margin="dense"
+          type="date"
+          id="date"
+          name="date"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          values={formik.values.date}
+          helperText={formik.touched.date && formik.errors.date}
+          error={formik.errors.date && formik.touched.date}
+        />
 
         <TextField
           sx={{ mt: 2 }}
