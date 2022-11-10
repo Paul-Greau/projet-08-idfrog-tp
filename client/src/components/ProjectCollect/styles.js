@@ -1,5 +1,13 @@
 export const projectCollectStyles = {
 
+    summary:{
+      display: '-webkit-box',
+      overflow: 'hidden',
+      WebkitBoxOrient: 'vertical',
+      WebkitLineClamp: 3,
+
+    },
+
     btnPrimary: {
         fontSize: 14,
         backgroundColor: '#5de4d5',
@@ -34,7 +42,7 @@ export const projectCollectStyles = {
         textAlign: 'center',
     },
 
-    carAction:{
+    cardAction:{
         display: 'flex',
         justifyContent: 'space-between',
         marginBottom: '1rem',
