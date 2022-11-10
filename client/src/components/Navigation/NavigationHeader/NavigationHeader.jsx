@@ -31,12 +31,8 @@ function ResponsiveAppBar() {
   const ProfileInfo = useRecoilValue(profileConnexionstate);
   const SetProfileInfo = useSetRecoilState(profileConnexionstate)
   
-  console.log('ProfileInfo dans la navbar', ProfileInfo);
+ // console.log('ProfileInfo dans la navbar', ProfileInfo);
  
-  const user = { name: 'IdFrog', id: 24 };
-  // const isLogged = false;
-
-
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -146,7 +142,7 @@ function ResponsiveAppBar() {
               {ProfileInfo.isLogged ? (
                 <Grid container>
                   <Grid item xs={5}>
-                    <Link to={`profile/${user.id}`}>
+                    <Link to={`/profile/`}>
                       <div style={navHeaderStyles.loginUser}>
                         <Avatar
                           sx={{ bgcolor: '#2D3A4D' }}
@@ -155,12 +151,12 @@ function ResponsiveAppBar() {
                         >
                           IF
                         </Avatar>
-                        <p style={navHeaderStyles.p}>{user.name}</p>
+                        <p style={navHeaderStyles.p}>{ProfileInfo.pseudo}</p>
                       </div>
                     </Link>
                   </Grid>
                   <Grid item xs={7}>
-                    <Link to={`profile/${user.id}/logout`}>
+                    <Link to={`profile/logout`}>
                       <Button
                       size="small"
                       sx={navHeaderStyles.btnSecondary}

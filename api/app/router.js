@@ -26,11 +26,11 @@ router.delete('/profile/:profileId/project/:projectId', projectController.delete
 /* Profile */
 router.post('/login', profileController.login)
 router.get('/logout', profileController.logout)
-router.get('/profile/:id', profileController.getProfileById)
+router.get('/profile', authorizationMiddleware, profileController.getProfileById)
 router.post('/profile/:id/details', profileController.fillProfil)
 router.patch('/profile/:id/details', profileController.patchProfil)
 router.post('/subscribe', profileController.suscribe)
-router.post('/loginjwt', authorizationMiddleware, profileController.login)
+// router.post('/loginjwt', authorizationMiddleware, profileController.login)
 
 /* Comment */
 router.post('/profile/:profileId/project/:projectId/comment', commentController.commentProject)

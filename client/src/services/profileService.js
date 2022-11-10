@@ -1,11 +1,18 @@
+// import { sendPostRequest } from "../lib/Axios";
 import { sendGetRequest } from "../lib/Axios";
 
-const getLogin = () => {
-  return sendGetRequest('/login');
-  
-};
-const isLogged = () => {
-    return sendGetRequest('/profile');
+
+
+export const getProfile = async (token) => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+
+   // console.log(token);
+   
+   return sendGetRequest(`/profile`, config)
+
 }
 
-export {getLogin, isLogged};
+  
+

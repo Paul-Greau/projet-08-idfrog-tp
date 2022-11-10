@@ -49,7 +49,7 @@ function DropDownProjectList({ projectList }) {
           sx={{ backgroundColor: '#ffffff80' }}
         >
           {projectList?.map((project, index) => (
-            <Link key={index} to={`project`}>
+            <Link key={index} to={`/project/${project.id}`}>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemText
                   sx={{ textAlign: 'center' }}

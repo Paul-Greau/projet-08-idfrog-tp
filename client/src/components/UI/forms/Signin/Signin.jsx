@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 
 // Materail UI 
-import { TextField, Button, Container, Typography, Link } from "@mui/material"
+import { TextField, Button, Container, Typography, Link, Alert } from "@mui/material"
 // Yup Schema
 <<<<<<< HEAD:client/src/components/UI/forms/Signin/Signin.jsx
 import { validationSchema } from "./validateSigninSchema";
@@ -11,8 +11,27 @@ import { validationSchema } from "./validationSchema";
 >>>>>>> develop:client/src/components/UI/forms/PostProjectForm/PostProjectForm.js
 //Formik 
 import { useFormik } from "formik";
+import { postSignin } from '../../../../services/loginService';
+import { useNavigate } from 'react-router-dom'
 
 function Signin() {
+  let navigate = useNavigate()
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+
+  const HandleSignin = async (response) => {
+    console.log('HandleSignin', response);
+
+      if(response.status!==201){
+        setLoginError({
+          status : response.status,
+          message: response.data.message
+        })
+        setShowError(true)
+        return      
+      } 
+    return navigate("/login");
+      }
 
   const formik = useFormik({
     initialValues: {
@@ -21,15 +40,23 @@ function Signin() {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: validatinSchema,
+    onSubmit: async (values) => {
+      let res = await postSignin(values)
+      HandleSignin(res)
     },
   });
 
   return (
     <Container maxWidth="md">
   <form onSubmit={formik.handleSubmit} autoComplete="off">
+  {showError &&
+    <Alert severity="error"
+    onClose={() => {setShowError(false)}}
+    >
+    {`Erreur ${loginError.status} - ${loginError.message}`}
+    </Alert>
+    }  
         <TextField
           fullWidth
           required
@@ -99,7 +126,7 @@ function Signin() {
       </Button>
 
       <Typography sx={{ mt: 2 }}>
-      Vus n&apos;avez pas encore de compte ? <Link href="#">S&apos;inscrire</Link>
+      Vous n&apos;avez pas encore de compte ? <Link href="#">S&apos;inscrire</Link>
       </Typography>
       </form>
     </Container>
