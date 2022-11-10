@@ -16,14 +16,13 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import './navigationSideBarStyles.scss';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../../atomes/profileAtomes';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 function NavigationSideBar() {
 
   const {token} = useRecoilValue(profileConnexionstate)
   const [projectList, setProjectList] = useState([]);
   const [contributionList, setcontributionList] = useState([]);
+  
   const [serverError, setServerError] = useState('')
   const [showError, setShowError] = useState(false)
 
@@ -71,8 +70,8 @@ function NavigationSideBar() {
         </Button>
       </Link>
 
-      <DropDownProjectList projectList={profileInfos.projects} />
-      <DropDownContributionList contributionList={profileInfos.contributions} />
+      <DropDownProjectList projectList={projectList} />
+      <DropDownContributionList contributionList={contributionList} />
     </div>
   );
 }

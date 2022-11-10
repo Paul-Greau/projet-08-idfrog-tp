@@ -36,7 +36,7 @@ const [loginError, setLoginError] = useState('')
     }
     response.data.isLogged = true    
     setProfileInfo(response.data)
-    // return navigate("/profile");    
+    return navigate("/profile");    
     }
 
   const formik = useFormik({
@@ -44,20 +44,12 @@ const [loginError, setLoginError] = useState('')
       email: "",
       password: "",
     },
-<<<<<<< HEAD:client/src/components/UI/forms/Login/Login.jsx
     validationSchema: validationSchema,
-
-    onSubmit: (values) => {
-    console.log('De login', values);
-      (JSON.stringify(values, null, 2));
-=======
-    validationSchema: validatinSchema,
     onSubmit: async (values) => {
      
      let res = await postLogin(values)
     // console.log('response dans login', res.data);
      HandleLogin(res)    
->>>>>>> develop:client/src/components/UI/forms/Login/Login.js
     },
 
   });
