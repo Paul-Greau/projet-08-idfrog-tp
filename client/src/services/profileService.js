@@ -8,7 +8,7 @@ export const getProfile = async (token) => {
         headers: { Authorization: `Bearer ${token}` }
     };
 
-    console.log(token);
+   // console.log(token);
    
    return sendGetRequest(`/profile`, config)
 
