@@ -39,7 +39,7 @@ function DropDownContributionList({ contributionList }) {
         <ListItemIcon color="secondary">
           <PeopleAltIcon color="secondary" />
         </ListItemIcon>
-        <ListItemText primary="Liste des projets" />
+        <ListItemText primary="Liste des contributions" />
         {openContribution ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 

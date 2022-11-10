@@ -4,19 +4,20 @@ import React from 'react';
 // Materail UI 
 import { TextField, Button, Container, Typography, Link } from "@mui/material"
 // Yup Schema
+<<<<<<< HEAD:client/src/components/UI/forms/Signin/Signin.jsx
+import { validationSchema } from "./validateSigninSchema";
+=======
 import { validationSchema } from "./validationSchema";
+>>>>>>> develop:client/src/components/UI/forms/PostProjectForm/PostProjectForm.js
 //Formik 
 import { useFormik } from "formik";
 
-function PostProjectForm() {
-  
+function Signin() {
+
   const formik = useFormik({
     initialValues: {
       pseudo: "",
-      name:"",
-      lastname:"",
       email: "",
-      website: "",
       password: "",
       confirmPassword: "",
     },
@@ -43,36 +44,6 @@ function PostProjectForm() {
           helperText={formik.touched.pseudo && formik.errors.pseudo}
           error={formik.errors.pseudo && formik.touched.pseudo}
         />
-
-        <TextField
-          fullWidth
-          required
-          margin="dense"
-          type="text"
-          name="name"
-          id="name"
-          label="Nom"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-          helperText={formik.touched.name && formik.errors.name}
-          error={formik.errors.name && formik.touched.name}
-        />
-
-        <TextField
-          fullWidth
-          required
-          margin="dense"
-          type="text"
-          name="lastname"
-          id="lastname"
-          label="Prenom"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.lastname}
-          helperText={formik.touched.lastname && formik.errors.lastname}
-          error={formik.errors.lastname && formik.touched.lastname}
-        />      
     
         <TextField
           fullWidth
@@ -88,22 +59,6 @@ function PostProjectForm() {
           helperText={formik.touched.email && formik.errors.email}
           error={formik.errors.email && formik.touched.email}
         />
-
-        <TextField
-          fullWidth
-          required
-          margin="dense"
-          type="website"
-          id="website"
-          label="Site Web"
-          name="website"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          values={formik.values.website}
-          helperText={formik.touched.website && formik.errors.website}
-          error={formik.errors.website && formik.touched.website}
-        />
-
         <TextField
           fullWidth
           required
@@ -150,8 +105,8 @@ function PostProjectForm() {
     </Container>
   );
 }
-PostProjectForm.propTypes = {};
+Signin.propTypes = {};
 
-PostProjectForm.defaultProps = {};
+Signin.defaultProps = {};
 
-export default PostProjectForm;
+export default Signin;
