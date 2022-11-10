@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 //  Services
-import { getProjectsList } from '../../../services/projects';
+import { getProjectsList } from '../../../services/projectService';
 // Components
 import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
 import Head from '../../../components/Head/Head';

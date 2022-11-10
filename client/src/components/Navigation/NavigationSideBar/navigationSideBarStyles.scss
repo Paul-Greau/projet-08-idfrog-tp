@@ -3,8 +3,7 @@
 .navigationSideBar {
   background-color: vars.$primary;
   padding: 1rem 0.5rem;
-  height: 100vh;
-  max-width: 290px;
+  min-width: 300px;
 
   &-Top {
     margin: 1rem 0;

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 // Materail UI 
 import { TextField, Button, Container, Typography, Link, Alert } from "@mui/material"
 // Yup Schema
-import { validatinSchema } from "./validationSchema";
+import { validationSchema } from "./validateLoginSchema";
 //Formik 
 import { useFormik } from "formik";
 import { postLogin } from '../../../../services/loginService';
@@ -12,6 +12,9 @@ import { useSetRecoilState } from 'recoil';
 import { profileConnexionstate } from '../../../../atomes/profileAtomes';
 import { useNavigate } from 'react-router-dom'
 
+
+// Services
+// import {getLogin} from "../../../../services/profileService"
 
 function Login() {
 
@@ -33,7 +36,7 @@ const [loginError, setLoginError] = useState('')
     }
     response.data.isLogged = true    
     setProfileInfo(response.data)
-    return navigate("/profile");    
+    // return navigate("/profile");    
     }
 
   const formik = useFormik({
@@ -41,14 +44,24 @@ const [loginError, setLoginError] = useState('')
       email: "",
       password: "",
     },
+<<<<<<< HEAD:client/src/components/UI/forms/Login/Login.jsx
+    validationSchema: validationSchema,
+
+    onSubmit: (values) => {
+    console.log('De login', values);
+      (JSON.stringify(values, null, 2));
+=======
     validationSchema: validatinSchema,
     onSubmit: async (values) => {
      
      let res = await postLogin(values)
     // console.log('response dans login', res.data);
      HandleLogin(res)    
+>>>>>>> develop:client/src/components/UI/forms/Login/Login.js
     },
+
   });
+
 
   return (
     <Container maxWidth="md">    

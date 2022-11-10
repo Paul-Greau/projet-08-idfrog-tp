@@ -54,7 +54,7 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="100%">
         <Toolbar disableGutters>
-          <Link to="">
+          <Link to="/">
             <img
               src={IdfrogLogo}
               alt="Mini Logo Idfrog"

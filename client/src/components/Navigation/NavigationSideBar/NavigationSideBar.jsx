@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { getProfile } from '../../../services/profileService';
 
@@ -71,8 +71,8 @@ function NavigationSideBar() {
         </Button>
       </Link>
 
-      <DropDownProjectList projectList={projectList} />
-      <DropDownContributionList contributionList={contributionList} />
+      <DropDownProjectList projectList={profileInfos.projects} />
+      <DropDownContributionList contributionList={profileInfos.contributions} />
     </div>
   );
 }
