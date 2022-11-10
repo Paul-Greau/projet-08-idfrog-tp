@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { getProfileById } from '../../../services/projects';
+import { profileConnexionstate } from '../../../atomes/profileAtomes';
 
 // Components
 import DropDownProjectList from './DropDownProjectList';
@@ -13,18 +15,37 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 // CSS
 import './navigationSideBarStyles.scss';
+import { useRecoilValue } from 'recoil';
 
 function NavigationSideBar() {
-  const projectList = [
+
+const {id} = useRecoilValue(profileConnexionstate)
+const [profileInfos, setProfileInfos] = useState({})
+
+const fetchProfileInfos = async (id) =>{
+
+ const response = await getProfileById(id)
+ console.log("fetchProfileInfos", response);
+}
+
+  /* const projectList = [
     { name: 'Projet1' },
     { name: 'Projet2' },
     { name: 'Projet3' },
   ];
+  
   const contributionList = [
     { name: 'Contribution1' },
     { name: 'Contribution2' },
     { name: 'Contribution3' },
   ];
+  */
+useEffect(() => {
+
+  fetchProfileInfos(id)
+
+},[id])
+
 
   return (
     <div className="navigationSideBar">
@@ -47,8 +68,8 @@ function NavigationSideBar() {
         </Button>
       </Link>
 
-      <DropDownProjectList projectList={projectList} />
-      <DropDownContributionList contributionList={contributionList} />
+      <DropDownProjectList projectList={profileInfos.projects} />
+      <DropDownContributionList contributionList={profileInfos.contributions} />
     </div>
   );
 }

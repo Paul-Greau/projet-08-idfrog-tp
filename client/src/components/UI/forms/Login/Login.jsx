@@ -36,7 +36,7 @@ const [loginError, setLoginError] = useState('')
     }
     response.data.isLogged = true    
     setProfileInfo(response.data)
-    return navigate("/profile");    
+    // return navigate("/profile");    
     }
 
   const formik = useFormik({

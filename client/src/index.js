@@ -17,5 +17,5 @@ root.render(
       <App />
    </React.StrictMode>
   </ThemeProvider>
-  </RecoilRoot>
+</RecoilRoot>
 );

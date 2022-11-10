@@ -51,7 +51,7 @@ const profileController = {
         req.session.profile.password = null;
         searchedProfile.password = null
 
-        console.log(req.session.profile)
+        console.log('login session', req.session.profile)
         // maintenant que l'user est loggé, on renvoie le json avec les données du profile
         
         // res.status(200).json(searchedProfile);
@@ -142,10 +142,11 @@ const profileController = {
 
     getProfileById: async (req,res) => {
 		try {
-            //console.log(req.session);
+           
 			const profileId = Number(req.params.id);
 
-            //console.log(profileId);
+            console.log('getProfileById session', req.session.profile)
+            console.log(profileId);
 
             if (!profileId) {
                 const error = new Error(`'profileId' property is missing`);
