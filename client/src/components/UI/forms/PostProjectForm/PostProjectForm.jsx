@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 // Components
 import UploadImages from './uploadImg/UploadImages';
 import Particulier from '../ProfileForm/Particulier/Particulier';
-
 // Materail UI
 import {
   TextField,
@@ -27,31 +26,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 // Yup Schema
 import { validationSchema } from './validatePostProjectSchema';
-
 //Formik
 import { useFormik } from 'formik';
-
-const categories = [
-  'TOUTES CATEGORIES',
-  'ANIMAUX',
-  'ART & PHOTO',
-  'ARTISANAT & CUISINE',
-  'AUTOMOBILE',
-  'BD',
-  'EDITION & JOURNAL.',
-  'ENFANCE & EDUC.',
-  'ENVIRONNEMENT',
-  'FILM & VIDÉO',
-  'JEUX',
-  'MODE & DESIGN',
-  'MUSIQUE',
-  'SANTÉ & BIEN-ÊTRE',
-  'SOLIDAIRE & CITOYEN',
-  'SPECTACLE VIVANT',
-  'SPORTS',
-  'TECHNOLOGIE',
-  'AUTRES PROJETS',
-];
+// CSS
+import { postProjectStyles } from './styles';
+// Tableau des categories
+import { category } from './category';
 
 function PostProjectForm() {
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -60,10 +40,9 @@ function PostProjectForm() {
       title: '',
       resume: '',
       description: '',
-      amount_targe: '',
+      amount_target: '',
+      invest_type: '',
       website: '',
-      password: '',
-      confirmPassword: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -74,21 +53,10 @@ function PostProjectForm() {
   return (
     <Box className="postProjectForm">
       <UploadImages />
+
       <form onSubmit={formik.handleSubmit} autoComplete="off">
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '49.2%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProjectStyles.leftInput}
           fullWidth
           required
           margin="dense"
@@ -102,12 +70,9 @@ function PostProjectForm() {
           helperText={formik.touched.title && formik.errors.title}
           error={formik.errors.title && formik.touched.title}
         />
+
         <Select
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProjectStyles.rightInput}
           name="category"
           value={categoryFilter}
           label="Catégories"
@@ -117,12 +82,13 @@ function PostProjectForm() {
           <MenuItem value="">
             <em>CATEGORIES DU PROJET</em>
           </MenuItem>
-          {categories.map((category, index) => (
+          {category.map((category, index) => (
             <MenuItem key={index} value={category}>
               {category}
             </MenuItem>
           ))}
         </Select>
+
         <TextField
           sx={{ my: 2 }}
           fullWidth
@@ -137,9 +103,11 @@ function PostProjectForm() {
           helperText={formik.touched.resume && formik.errors.resume}
           error={formik.errors.resume && formik.touched.resume}
         />
+
         <Typography sx={{ pb: 1, pt: 0.5 }} color="Secondary" variant="h5">
           Décrivez en détail votre projet :
         </Typography>
+
         <TextField
           sx={{ my: 2 }}
           fullWidth
@@ -158,6 +126,7 @@ function PostProjectForm() {
         <Typography sx={{ pb: 2, pt: 0.5 }} color="Secondary" variant="h5">
           Montant dont vous avez besoin ?
         </Typography>
+
         <FormControl fullWidth sx={{ mb: 1 }}>
           <InputLabel htmlFor="amount_target">Montant</InputLabel>
           <OutlinedInput
@@ -171,15 +140,17 @@ function PostProjectForm() {
             error={formik.errors.amount_target && formik.touched.amount_target}
           />
         </FormControl>
+
         <FormControl fullWidth sx={{ mb: 1 }}>
           <Typography sx={{ pb: 0.5, pt: 0.5 }} color="Secondary" variant="h5">
-            Quel type de finencement recherchez vous ?
+            Quel type de financement recherchez vous ?
           </Typography>
           <Typography variant="p" color="secondary">
             Financement participatif non ditutif auoprès d&apos;investisseurs ou
             des dons
           </Typography>
         </FormControl>
+
         <RadioGroup row name="invest_type">
           <Card sx={{ width: '100%', mb: 4 }}>
             <CardHeader
@@ -227,6 +198,7 @@ function PostProjectForm() {
         >
           ENREGISTRER VOTRE PROFILE
         </Button>
+
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
           ANNULER
         </Button>
@@ -234,6 +206,7 @@ function PostProjectForm() {
     </Box>
   );
 }
+
 PostProjectForm.propTypes = {};
 
 PostProjectForm.defaultProps = {};

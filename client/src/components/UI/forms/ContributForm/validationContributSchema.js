@@ -20,7 +20,5 @@ export const validationSchema = yup.object().shape({
     .string("string")
     .required("Ce champ est requis !")
     .min(3, "moins de 3 caractères"),
-  comment: yup
-    .string("string")
-    .required("Ce champ est requis !"),
+
 });

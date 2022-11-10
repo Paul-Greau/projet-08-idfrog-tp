@@ -1,8 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-// Compoments
-
 // Materail UI
 import {
   TextField,
@@ -14,32 +12,22 @@ import {
   Radio,
   FormControl,
 } from '@mui/material';
-
 // Yup Schema
 import { validationSchema } from './validationContributSchema';
-
 //Formik
 import { useFormik } from 'formik';
+// CSS
+import { postContributStyles } from './styles';
 
 function ProfileForm() {
   const formik = useFormik({
     initialValues: {
-      pseudo: '',
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-
-      birth_date: '',
-      birth_place: '',
-      nationality: '',
-      city: '',
-      zip_code: '',
-      phone_number: '',
-      adress: '',
-
-      website: '',
+      invest_type: '',
+      amount_target: '',
+      card_number: '',
+      expiry_date: '',
+      security_code: '',
+      comment: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -50,63 +38,50 @@ function ProfileForm() {
   return (
     <Box className="profileForm" sx={{ p: 9 }}>
       <form onSubmit={formik.handleSubmit} autoComplete="off">
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="gender"
-        >
-          <Typography
-            sx={{ pr: 2, pb: 0.5, width: '100%' }}
-            color="Secondary"
-            variant="h5"
-          >
-            Quel type de contribution souhaitez vous faire ?
-          </Typography>
+        <Typography sx={postContributStyles.titre} variant="h5">
+          Quel type de contribution souhaitez vous faire ?
+        </Typography>
+
+        <RadioGroup row name="invest_type">
           <FormControlLabel
-            value="invest_type"
+            value="don"
             control={<Radio />}
             label="Contribution par Don"
           />
           <FormControlLabel
-            value="invest_type"
+            value="pret"
             control={<Radio />}
             label="Contribution par Prêt"
           />
         </RadioGroup>
-        <Typography sx={{ pb: 1, pt: 0.5 }} color="Secondary" variant="h5">
+
+        <Typography
+          sx={postContributStyles.titre}
+          color="Secondary"
+          variant="h5"
+        >
           Montant :
         </Typography>
+
         <TextField
-          sx={{
-            flexFlow: 1,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '49.2%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postContributStyles.leftInput}
           required
           margin="dense"
           type="text"
-          name="amout_target"
-          id="amout_target"
           label="Montant"
+          name="amount_target"
+          id="amount_target"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.amout_target}
-          helperText={formik.touched.amout_target && formik.errors.amout_target}
-          error={formik.errors.amout_target && formik.touched.amout_target}
+          value={formik.values.amount_target}
+          helperText={
+            formik.touched.amount_target && formik.errors.amount_target
+          }
+          error={formik.errors.amount_target && formik.touched.amount_target}
         />
+
         <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.2%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postContributStyles.rightInput}
           required
           margin="dense"
           type="text"
@@ -119,20 +94,9 @@ function ProfileForm() {
           helperText={formik.touched.card_number && formik.errors.card_number}
           error={formik.errors.card_number && formik.touched.card_number}
         />
+
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '49.2%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postContributStyles.leftInput}
           fullWidth
           required
           margin="dense"
@@ -148,11 +112,7 @@ function ProfileForm() {
         />
 
         <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.2%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postContributStyles.rightInput}
           fullWidth
           required
           margin="dense"
@@ -168,25 +128,28 @@ function ProfileForm() {
           }
           error={formik.errors.security_code && formik.touched.security_code}
         />
+
         <FormControl fullWidth sx={{ mt: 1 }}>
           <Typography sx={{ pt: 0.5 }} color="Secondary" variant="h5">
             Laisser un commentaire :
           </Typography>
+
           <TextField
             sx={{ my: 2 }}
             fullWidth
             label="Votre commentaire"
             multiline
             rows={2}
-            name="resume"
-            id="resume"
+            name="comment"
+            id="comment"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.resume}
-            helperText={formik.touched.resume && formik.errors.resume}
-            error={formik.errors.resume && formik.touched.resume}
+            value={formik.values.comment}
+            helperText={formik.touched.comment && formik.errors.comment}
+            error={formik.errors.comment && formik.touched.comment}
           />
         </FormControl>
+
         <Button
           type="submit"
           color="primary"

@@ -10,16 +10,17 @@ import {
   FormControlLabel,
   Radio,
 } from '@mui/material';
-
 // Yup Schema
 import { validationSchema } from '../validateProfileSchema';
-
 //Formik
 import { useFormik } from 'formik';
+// CSS
+import { postParticulierStyles } from './styles';
 
 function ProfileForm() {
   const formik = useFormik({
     initialValues: {
+      status: '',
       birth_date: '',
       birth_place: '',
       nationality: '',
@@ -40,6 +41,7 @@ function ProfileForm() {
         <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">
           Votre Statut :
         </Typography>
+
         <FormControlLabel
           value="particulier"
           control={<Radio id="2" />}
@@ -51,20 +53,9 @@ function ProfileForm() {
           label="une association"
         />
       </RadioGroup>
+
       <TextField
-        sx={{
-          flexFlow: 1,
-          mt: 2,
-          mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-          width: {
-            xs: '100%',
-            sm: '100%',
-            md: '46.2%',
-            lg: '48.2%',
-            xl: '48.7%',
-          },
-          display: { xs: 'row', md: 'colum' },
-        }}
+        sx={postParticulierStyles.leftInput}
         required
         margin="dense"
         type="text"
@@ -77,12 +68,9 @@ function ProfileForm() {
         helperText={formik.touched.birth_date && formik.errors.birth_date}
         error={formik.errors.birth_date && formik.touched.birth_date}
       />
+
       <TextField
-        sx={{
-          mt: 2,
-          width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-          display: { xs: 'row', md: 'colum' },
-        }}
+        sx={postParticulierStyles.rightInput}
         required
         margin="dense"
         type="text"
@@ -95,21 +83,9 @@ function ProfileForm() {
         helperText={formik.touched.birth_place && formik.errors.birth_place}
         error={formik.errors.birth_place && formik.touched.birth_place}
       />
+
       <TextField
-        sx={{
-          flexFlow: 1,
-          mt: 2,
-          mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-          width: {
-            xs: '100%',
-            sm: '100%',
-            md: '46.2%',
-            lg: '48.2%',
-            xl: '48.7%',
-          },
-          display: { xs: 'row', md: 'colum' },
-        }}
-        fullWidth
+        sx={postParticulierStyles.leftInput}
         required
         margin="dense"
         type="text"
@@ -124,12 +100,7 @@ function ProfileForm() {
       />
 
       <TextField
-        sx={{
-          mt: 2,
-          width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-          display: { xs: 'row', md: 'colum' },
-        }}
-        fullWidth
+        sx={postParticulierStyles.rightInput}
         required
         margin="dense"
         type="text"
@@ -144,20 +115,7 @@ function ProfileForm() {
       />
 
       <TextField
-        sx={{
-          flexFlow: 1,
-          mt: 2,
-          mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-          width: {
-            xs: '100%',
-            sm: '100%',
-            md: '46.2%',
-            lg: '48.2%',
-            xl: '48.7%',
-          },
-          display: { xs: 'row', md: 'colum' },
-        }}
-        fullWidth
+        sx={postParticulierStyles.leftInput}
         required
         margin="dense"
         type="text"
@@ -170,12 +128,9 @@ function ProfileForm() {
         helperText={formik.touched.zip_code && formik.errors.zip_code}
         error={formik.errors.zip_code && formik.touched.zip_code}
       />
+
       <TextField
-        sx={{
-          mt: 2,
-          width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-          display: { xs: 'row', md: 'colum' },
-        }}
+        sx={postParticulierStyles.rightInput}
         fullWidth
         required
         margin="dense"
@@ -191,7 +146,7 @@ function ProfileForm() {
       />
 
       <TextField
-        sx={{ mt: 2 }}
+        sx={postParticulierStyles.marginTop}
         fullWidth
         required
         margin="dense"
@@ -208,6 +163,7 @@ function ProfileForm() {
     </Box>
   );
 }
+
 ProfileForm.propTypes = {};
 
 ProfileForm.defaultProps = {};

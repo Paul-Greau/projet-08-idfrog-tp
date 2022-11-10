@@ -32,9 +32,7 @@ export const validationSchema = yup.object().shape({
     .required("Confirmer votre mot de passe"),
   birth_date: yup
     .string("string")
-    .required("Ce champ est requis !")
-    .min(4, "moins de 4 caractères")
-    .max(100, "plus de 100 caractères"),
+    .required("Ce champ est requis !"),
   birth_place: yup
     .string("string")
     .required("Ce champ est requis !"),
@@ -46,7 +44,9 @@ export const validationSchema = yup.object().shape({
     .required("Ce champ est requis !"),
   zip_code: yup
     .string("string")
-    .required("Ce champ est requis !"),
+    .required("Ce champ est requis !")
+    .min(5, "moins de 5 caractères")
+    .max(5, "plus de 5 caractères"),
   phone_number: yup
     .string("string")
     .required("Ce champ est requis !"),

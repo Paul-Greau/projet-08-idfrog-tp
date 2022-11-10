@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
+// Material UI
 import { Box, Button } from '@mui/material';
 import DownloadingTwoToneIcon from '@mui/icons-material/DownloadingTwoTone';
-
+// CSS
 import './uploadImageStyle.scss';
 
 function UploadImages() {

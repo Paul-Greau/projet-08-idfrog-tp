@@ -3,18 +3,17 @@ import React from 'react';
 
 // Materail UI
 import { TextField, Box, Typography } from '@mui/material';
-
 // Yup Schema
 import { validationSchema } from '../validateProfileSchema';
-
 //Formik
 import { useFormik } from 'formik';
+// CSS
+import { postEntrepriseStyles } from './styles';
 
 function ProfileForm() {
   const formik = useFormik({
     initialValues: {
       siret: '',
-      profile_id: '',
       name: '',
       city: '',
       zip_code: '',
@@ -35,19 +34,7 @@ function ProfileForm() {
         </Typography>
 
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '49.2%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postEntrepriseStyles.leftInput}
           required
           margin="dense"
           type="text"
@@ -61,11 +48,7 @@ function ProfileForm() {
           error={formik.errors.siret && formik.touched.siret}
         />
         <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.2%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postEntrepriseStyles.rightInput}
           required
           margin="dense"
           type="text"
@@ -80,83 +63,7 @@ function ProfileForm() {
         />
 
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '48.7%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
-          required
-          margin="dense"
-          type="text"
-          name="birth_date"
-          id="birth_date"
-          label="Date de naissance"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.birth_date}
-          helperText={formik.touched.birth_date && formik.errors.birth_date}
-          error={formik.errors.birth_date && formik.touched.birth_date}
-        />
-        <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
-          required
-          margin="dense"
-          type="text"
-          name="birth_place"
-          id="birth_place"
-          label="Lieu de naissance"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.birth_place}
-          helperText={formik.touched.birth_place && formik.errors.birth_place}
-          error={formik.errors.birth_place && formik.touched.birth_place}
-        />
-        <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '48.7%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
-          fullWidth
-          required
-          margin="dense"
-          type="text"
-          id="nationality"
-          label="Nationalité"
-          name="nationality"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          values={formik.values.nationality}
-          helperText={formik.touched.nationality && formik.errors.nationality}
-          error={formik.errors.nationality && formik.touched.nationality}
-        />
-
-        <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postEntrepriseStyles.leftInput}
           fullWidth
           required
           margin="dense"
@@ -172,19 +79,7 @@ function ProfileForm() {
         />
 
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '48.7%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postEntrepriseStyles.rightInput}
           fullWidth
           required
           margin="dense"
@@ -199,11 +94,7 @@ function ProfileForm() {
           error={formik.errors.zip_code && formik.touched.zip_code}
         />
         <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postEntrepriseStyles.leftInput}
           fullWidth
           required
           margin="dense"
@@ -219,7 +110,7 @@ function ProfileForm() {
         />
 
         <TextField
-          sx={{ mt: 2 }}
+          sx={postEntrepriseStyles.marginTop}
           fullWidth
           required
           margin="dense"

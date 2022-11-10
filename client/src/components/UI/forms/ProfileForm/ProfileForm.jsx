@@ -4,7 +4,6 @@ import React from 'react';
 // Compoments
 import UploadAvatar from './UploadAvatar/UploadAvatar';
 import Particulier from './Particulier/Particulier';
-
 // Materail UI
 import {
   TextField,
@@ -15,31 +14,23 @@ import {
   RadioGroup,
   Radio,
 } from '@mui/material';
-
 // Yup Schema
 import { validationSchema } from './validateProfileSchema';
-
 //Formik
 import { useFormik } from 'formik';
+// CSS
+import { postProfileStyles } from './styles';
 
 function ProfileForm() {
   const formik = useFormik({
     initialValues: {
+      gender: '',
       pseudo: '',
       first_name: '',
       last_name: '',
       email: '',
       password: '',
       confirmPassword: '',
-
-      birth_date: '',
-      birth_place: '',
-      nationality: '',
-      city: '',
-      zip_code: '',
-      phone_number: '',
-      adress: '',
-
       website: '',
     },
     validationSchema: validationSchema,
@@ -51,36 +42,23 @@ function ProfileForm() {
   return (
     <Box className="profileForm" sx={{ p: 9 }}>
       <form onSubmit={formik.handleSubmit} autoComplete="off">
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="gender"
-        >
-          <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">
-            Votre Profile:
-          </Typography>
+        <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">
+          Votre Profile:
+        </Typography>
+
+        <RadioGroup row name="gender">
           <FormControlLabel
             value="monsieur"
             control={<Radio />}
             label="Monsieur"
           />
           <FormControlLabel value="madame" control={<Radio />} label="Madame" />
+
           <UploadAvatar />
         </RadioGroup>
+
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '49.2%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProfileStyles.leftInput}
           required
           margin="dense"
           type="text"
@@ -93,12 +71,9 @@ function ProfileForm() {
           helperText={formik.touched.pseudo && formik.errors.pseudo}
           error={formik.errors.pseudo && formik.touched.pseudo}
         />
+
         <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.2%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProfileStyles.rightInput}
           required
           margin="dense"
           type="text"
@@ -111,20 +86,9 @@ function ProfileForm() {
           helperText={formik.touched.first_name && formik.errors.first_name}
           error={formik.errors.first_name && formik.touched.first_name}
         />
+
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '49.2%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProfileStyles.leftInput}
           fullWidth
           required
           margin="dense"
@@ -140,11 +104,7 @@ function ProfileForm() {
         />
 
         <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.2%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProfileStyles.rightInput}
           fullWidth
           required
           margin="dense"
@@ -160,19 +120,7 @@ function ProfileForm() {
         />
 
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '49.2%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProfileStyles.leftInput}
           fullWidth
           required
           margin="dense"
@@ -186,12 +134,9 @@ function ProfileForm() {
           helperText={formik.touched.password && formik.errors.password}
           error={formik.errors.password && formik.touched.password}
         />
+
         <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.2%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProfileStyles.rightInput}
           fullWidth
           required
           margin="dense"
@@ -210,22 +155,10 @@ function ProfileForm() {
           }
         />
 
-        <Particulier />
+        <Particulier sx={postProfileStyles.marginBottom} />
 
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 3,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '48.7%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postProfileStyles.leftInput}
           fullWidth
           margin="dense"
           type="text"
@@ -239,6 +172,7 @@ function ProfileForm() {
           helperText={formik.touched.website && formik.errors.website}
           error={formik.errors.website && formik.touched.website}
         />
+
         <Button
           type="submit"
           color="primary"
@@ -247,6 +181,7 @@ function ProfileForm() {
         >
           ENREGISTRER VOTRE PROFILE
         </Button>
+
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
           ANNULER
         </Button>
