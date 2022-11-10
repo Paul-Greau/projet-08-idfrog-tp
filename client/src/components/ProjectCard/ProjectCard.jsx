@@ -20,6 +20,8 @@ import { projectCardStyles } from './styles';
 // import topCardImage from '../../assets/images/PlaceholderImage.jpg';
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 import { useEffect } from 'react';
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../atomes/profileAtomes";
 
 function ProjectCard({ id, projet, amount, description, profile, createdAt, contributions }) {
   
@@ -44,8 +46,10 @@ const progressRate = (contributionslist) => {
 
 useEffect(() => {
   progressRate(contributions)
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[])
 
+const ProfileInfo = useRecoilValue(profileConnexionstate);
 
 return (
     <Card sx={{ maxWidth: '100%' }}>
@@ -78,11 +82,22 @@ return (
       </CardContent>
 
       <CardActions sx={projectCardStyles.cardAction}>
+      {!ProfileInfo.isLogged? (
+
         <Link to="subscribe">
+        <Button size="small" sx={projectCardStyles.btnPrimary}>
+          Contribuer au projet &gt;
+        </Button>
+        </Link>
+        ) : (
+
+          <Link to={`/profile/contribute`}>
           <Button size="small" sx={projectCardStyles.btnPrimary}>
-            Contribuer au projet &gt;
+          Contribuer au projet &gt;
           </Button>
         </Link>
+      )}
+
         <Button size="small" sx={projectCardStyles.btnSecondary}>
           Partager +
         </Button>
