@@ -7,9 +7,10 @@ import RouterAuth from './pages/Authentification/RouterAuth'
 import NavigationHeader from './components/Navigation/NavigationHeader/NavigationHeader'
 import Footer from "./components/Footer/Footer";
 import AuthProvider from "./pages/Authentification/AuthProvider";
-
+import ProjectDetails from "./components/ProjectDetails/ProjectDetails"
 
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>  
@@ -22,8 +23,10 @@ function App() {
             </AuthProvider>
           }/>
           <Route path="/subscribe/*" element={<RouterAuth/>}>
+          
             
           </Route>
+        <Route path="/project/:id" element={<ProjectDetails />} />
         </Routes>
         <Footer />
       </BrowserRouter>

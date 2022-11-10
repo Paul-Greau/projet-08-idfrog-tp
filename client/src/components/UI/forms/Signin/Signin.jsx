@@ -4,7 +4,11 @@ import React from 'react';
 // Materail UI 
 import { TextField, Button, Container, Typography, Link } from "@mui/material"
 // Yup Schema
+<<<<<<< HEAD:client/src/components/UI/forms/Signin/Signin.jsx
 import { validationSchema } from "./validateSigninSchema";
+=======
+import { validationSchema } from "./validationSchema";
+>>>>>>> develop:client/src/components/UI/forms/PostProjectForm/PostProjectForm.js
 //Formik 
 import { useFormik } from "formik";
 
