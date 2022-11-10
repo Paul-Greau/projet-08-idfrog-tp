@@ -81,19 +81,11 @@ const profileController = {
 
         const{  email,
                 password,
-               // confirmPassword,
+                confirmPassword,
                 pseudo} = req.body
 
         try {
-            const searchedProfile = await Profile.findOne({
-                where: {
-                    email: email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
-                }
-            });
-            console.log(searchedProfile);
-            if (searchedProfile) {
-                throw new Error("Email already exists");
-            }
+            
             // vérifie que le format de l'email est valide ex: user@user.com
             if (!emailValidator.validate(req.body.email)) {
                 const error = new Error("Email format is not valid");
@@ -103,10 +95,32 @@ const profileController = {
                 const error = new Error("Password is missing");
                 return res.status(400).json({ message: error.message });
             }
+            if (!confirmPassword) {
+                const error = new Error("Confirm Password is missing");
+                return res.status(400).json({ message: error.message });
+            }
+            if (confirmPassword !== password) {
+                const error = new Error("Password and Confirm Password are different");
+                return res.status(400).json({ message: error.message });
+            }
             if (!pseudo) {
                 const error = new Error("Pseudo is missing");
                 return res.status(400).json({ message: error.message });
             }
+
+            const searchedProfile = await Profile.findOne({
+                where: {
+                    email: email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
+                }
+            });
+
+            //console.log(searchedProfile);
+
+            if (searchedProfile) {
+                const error = new Error("Email already exists");
+                return res.status(400).json({ message: error.message });
+            }
+
             const pseudoValidator = await Profile.findOne({
                 where: {
                     pseudo: pseudo // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where

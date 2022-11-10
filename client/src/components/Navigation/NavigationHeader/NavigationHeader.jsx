@@ -31,12 +31,8 @@ function ResponsiveAppBar() {
   const ProfileInfo = useRecoilValue(profileConnexionstate);
   const SetProfileInfo = useSetRecoilState(profileConnexionstate)
   
-  console.log('ProfileInfo dans la navbar', ProfileInfo);
+ // console.log('ProfileInfo dans la navbar', ProfileInfo);
  
-  const user = { name: 'IdFrog', id: 24 };
-  // const isLogged = false;
-
-
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {

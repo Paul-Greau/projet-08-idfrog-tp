@@ -64,7 +64,6 @@ function Head() {
               <Grid item xs={12} md={6}>
                 <Link to="subscribe">
                   <Button
-                    href="subscribe"
                     variant="outlined"
                     endIcon={<InputIcon />}
                     size="medium"
@@ -88,7 +87,6 @@ function Head() {
               <Grid item xs={12} md={6}>
                 <Link to="subscribe">
                   <Button
-                    href="subscribe"
                     variant="contained"
                     endIcon={<AddchartIcon />}
                     sx={{
