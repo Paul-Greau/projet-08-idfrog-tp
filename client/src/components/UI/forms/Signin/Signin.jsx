@@ -4,11 +4,8 @@ import React, { useState } from 'react';
 // Materail UI 
 import { TextField, Button, Container, Typography, Link, Alert } from "@mui/material"
 // Yup Schema
-<<<<<<< HEAD:client/src/components/UI/forms/Signin/Signin.jsx
 import { validationSchema } from "./validateSigninSchema";
-=======
-import { validationSchema } from "./validationSchema";
->>>>>>> develop:client/src/components/UI/forms/PostProjectForm/PostProjectForm.js
+
 //Formik 
 import { useFormik } from "formik";
 import { postSignin } from '../../../../services/loginService';
@@ -40,7 +37,7 @@ function Signin() {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: validatinSchema,
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       let res = await postSignin(values)
       HandleSignin(res)

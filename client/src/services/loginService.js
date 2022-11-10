@@ -11,12 +11,8 @@ export const getLogout = async () => {
   };
 
 export const postSignin = async (data) => {
-    console.log(data);
-   
+    console.log(data);   
    return sendPostRequest(`/subscribe`, data);
 
   };
 
-export const getLogout = async () => {     
-    return sendGetRequest(`/logout`);
-    };
