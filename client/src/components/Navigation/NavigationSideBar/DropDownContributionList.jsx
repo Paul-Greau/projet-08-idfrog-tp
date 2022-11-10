@@ -39,7 +39,7 @@ function DropDownContributionList({ contributionList }) {
         <ListItemIcon color="secondary">
           <PeopleAltIcon color="secondary" />
         </ListItemIcon>
-        <ListItemText primary="Liste des projets" />
+        <ListItemText primary="Liste des contributions" />
         {openContribution ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
@@ -49,13 +49,13 @@ function DropDownContributionList({ contributionList }) {
           disablePadding
           sx={{ backgroundColor: '#ffffff80' }}
         >
-          {contributionList?.map((project, index) => (
-            <Link key={index} to={`contribut`}>
+          {contributionList?.map((contribution, index) => (
+            <Link key={index} to={`/project/${contribution.project.id}`}>
               <ListItemButton sx={{ pl: 4 }}>
                 <StarIcon color="secondary" />
                 <ListItemText
                   sx={{ textAlign: 'center' }}
-                  primary={project.name}
+                  primary={`${contribution.project.name} / ${contribution.invested_amount}€`}
                 />
               </ListItemButton>
             </Link>

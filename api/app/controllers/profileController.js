@@ -12,6 +12,7 @@ const profileController = {
         /** connexion */
 
     login: async (req,res) => {
+
      const jwtSecret = process.env.JWT_SECRET;
 
      const {email, password} = req.body
@@ -142,28 +143,32 @@ const profileController = {
     getProfileById: async (req,res) => {
 		try {
             //console.log(req.session);
-			const profileId = Number(req.params.id);
+			//const profileId = Number(req.params.id);
             const tokenId = req.auth.userId;
 
             //console.log(profileId);
 
-            if (!profileId) {
+           /*  if (!profileId) {
                 const error = new Error(`'profileId' property is missing`);
                 return res.status(400).json({ message: error.message });
-            }
+            } */
             if (!tokenId) {
                 const error = new Error(`You must login`);
                 return res.status(401).json({ message: error.message });
             }
-            if (profileId !== tokenId) {
+          /*   if (profileId !== tokenId) {
                 const error = new Error(`You must login`);
                 return res.status(401).json({ message: error.message });
-            }
+            } */
 
-			const profile = await Profile.findByPk(profileId, {
+			const profile = await Profile.findByPk(tokenId, {
 				include: [
+                    {
+                        association: 'contributions',
+                        include: 'project',
+                        },
 					'projects',
-                    'contributions',
+                   /*  'contributions', */
                     'society',
                     'person'                    
 				],
