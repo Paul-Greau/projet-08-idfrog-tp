@@ -21,6 +21,7 @@ import {
   InputAdornment,
   Select,
   MenuItem,
+  Container,
 } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
@@ -42,7 +43,7 @@ function PostProjectForm() {
       description: '',
       amount_target: '',
       invest_type: '',
-      date: '',
+      end_time: '',
       website: '',
     },
     validationSchema: validationSchema,
@@ -53,6 +54,9 @@ function PostProjectForm() {
 
   return (
     <Box className="postProjectForm">
+      <Typography variant="h1" sx={{ fontSize: '2em', mb: 2 }}>
+        Quel est votre projet ?
+      </Typography>
       <UploadImages />
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">
@@ -180,13 +184,13 @@ function PostProjectForm() {
           fullWidth
           margin="dense"
           type="date"
-          id="date"
-          name="date"
+          id="end_time"
+          name="end_time"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          values={formik.values.date}
-          helperText={formik.touched.date && formik.errors.date}
-          error={formik.errors.date && formik.touched.date}
+          values={formik.values.end_time}
+          helperText={formik.touched.end_time && formik.errors.end_time}
+          error={formik.errors.end_time && formik.touched.end_time}
         />
 
         <TextField
