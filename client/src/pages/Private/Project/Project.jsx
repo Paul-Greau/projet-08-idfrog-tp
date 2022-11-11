@@ -34,7 +34,7 @@ const Project = () => {
       <Grid item xs={12} md={12}>
         <CardMedia
           component="img"
-          height="140"
+          height="40"
           src={`https://picsum.photos/1200/800?random=${id}`}
           alt={result.projet}
         />

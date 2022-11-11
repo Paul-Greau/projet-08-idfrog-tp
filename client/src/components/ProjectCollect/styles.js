@@ -1,9 +1,13 @@
+
+// CSS VARS
+import palette from '../../assets/styles/_vars.scss'
+
 export const projectCollectStyles = {
 
     btnPrimary: {
         fontSize: 14,
-        backgroundColor: '#5de4d5',
-        border: '2px solid #5de4d5',
+        backgroundColor: palette.primary,
+        border: '2px solid palette.primary',
         color: '#ffffff',
         fontWeight: 700,
         textTransform: 'none',

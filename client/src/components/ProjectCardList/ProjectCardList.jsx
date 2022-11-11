@@ -2,11 +2,9 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 
-// Copoments
+// Components
 import ProjectCard from '../ProjectCard/ProjectCard';
-
 import { categorys, financingTypes } from './categaryFilter';
-
 // Material UI
 import {
   Container,
@@ -17,7 +15,6 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
-
 // CSS
 import { projectCardStyles } from './styles';
 
@@ -46,7 +43,7 @@ function ProjectCardList({ result }) {
           >
             <Grid item xs={12} md={4} sm={6}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Catégorie</InputLabel>
+                <InputLabel>Catégorie</InputLabel>
                 <Select
                   sx={projectCardStyles.selectInput}
                   id="category"
@@ -65,9 +62,7 @@ function ProjectCardList({ result }) {
 
             <Grid item xs={12} md={4} sm={6}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
-                  Type de financement
-                </InputLabel>
+                <InputLabel>Type de financement</InputLabel>
                 <Select
                   sx={projectCardStyles.selectInput}
                   id="invest_type"

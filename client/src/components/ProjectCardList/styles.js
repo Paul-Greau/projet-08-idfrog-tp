@@ -1,5 +1,5 @@
-
-import palette from '../../assets/styles/_vars.scss'
+// CSS VARS
+// import palette from '../../assets/styles/_vars.scss'
 
 export const projectCardStyles = {
 
@@ -19,6 +19,7 @@ export const projectCardStyles = {
     pr: 2,
     borderRadius: '5px',
     backgroundColor: '#FFF',
+    opacity: .8,
     boxShadow: '1px 1px 1px 2px rgba(0, 0, 0, 0.2)',
   
   }

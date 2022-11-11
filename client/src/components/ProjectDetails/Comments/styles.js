@@ -1,0 +1,29 @@
+// CSS VARS
+import palette from '../../../assets/styles/_vars.scss'
+
+export const projectCommentStyles = {
+    
+    avatarBox:{
+        display: 'flex',
+        alignItems: 'center',
+        color: palette.secondary,
+        transition: 'all 0.5s ease-in-out',
+    },
+    pseudoBox:{
+        flexGrow: 1,
+        px: 1,
+        display: { xs: 'none', md: 'flex' },
+    },
+    title:{
+        fontSize: '0.7rem', pl: 1,
+        color: palette.secondary,
+    },
+    date:{
+        fontSize: '0.7rem', pl: 1, pr: 1, pt: 0.5,
+        color: palette.secondary,
+    },
+    subtitle:{
+        borderBottom: '1px solid lightgrey', p: 1 ,
+        color: palette.secondary,
+    }
+};

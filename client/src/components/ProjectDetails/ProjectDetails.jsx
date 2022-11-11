@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // Services
 import { getProjectById } from '../../services/projects';
@@ -18,6 +18,7 @@ const ProjectDetails = () => {
   const [value, setValue] = useState('1');
   const [result, setResult] = useState([]);
   const { id } = useParams();
+
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
@@ -25,7 +26,6 @@ const ProjectDetails = () => {
   const handleResult = async (projectId) => {
     try {
       const response = await getProjectById(projectId);
-
       setResult(response.data);
       console.log(response.data);
     } catch (error) {
@@ -33,17 +33,8 @@ const ProjectDetails = () => {
     }
   };
 
-  const flag = useRef(false);
-
-  // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
     handleResult(id);
-
-    //if(flag.current === false){
-
-    //   }
-
-    //  return () => flag.current = true
   }, [id]);
 
   return (
@@ -51,7 +42,10 @@ const ProjectDetails = () => {
       {result.length !== 0 && (
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <TabList
+              onChange={handleChange}
+              sx={{ backgroundColor: '#f9f9f9' }}
+            >
               <Tab label="PROJET" value="1" />
               <Tab label="FAQ" value="2" />
               <Tab
@@ -73,7 +67,6 @@ const ProjectDetails = () => {
               />
             </Box>
           )}
-
           {value === '2' && (
             <Box>
               <Faq />

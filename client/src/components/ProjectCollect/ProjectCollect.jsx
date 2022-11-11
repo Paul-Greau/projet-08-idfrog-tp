@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// import PropTypes from "prop-types";
+
 // Material UI
 import {
   Card,
@@ -15,22 +17,19 @@ import {
   FormControl,
 } from '@mui/material';
 
+import ProjectProgress from '../ProjectProgress/ProjectProgress';
 // CSS
 import { projectCollectStyles } from './styles';
 
-// import PropTypes from "prop-types";
-
-// import topCardImage from '../../assets/images/PlaceholderImage.jpg';
-import ProjectProgress from '../ProjectProgress/ProjectProgress';
-
+// RECOIL
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../atomes/profileAtomes';
 
-function ProjectCollect({ id, amount, profile, createdAt, contributions }) {
+function ProjectCollect({ amount, profile, createdAt, contributions }) {
   const ProfileInfo = useRecoilValue(profileConnexionstate);
 
   const options = {
-    /* weekday: 'long' ,*/ year: 'numeric',
+    year: 'numeric',
     month: 'short',
     day: 'numeric',
   };
@@ -60,26 +59,25 @@ function ProjectCollect({ id, amount, profile, createdAt, contributions }) {
   return (
     <>
       <Card sx={{ mx: 4, mt: 5 }}>
-        <Link to={`/project/${id}`}>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
-              {profile} •{' '}
-              {new Date(createdAt).toLocaleDateString('fr-FR', options)}
-            </Typography>
-            <Typography
-              color="secondary"
-              gutterBottom
-              variant="h5"
-              component="div"
-            >
-              Modalités d&apos;investissement
-            </Typography>
-            <Typography variant="body2" color="secondary.light">
-              Votre contribution vous sera intégralement remboursée si le projet
-              n&apos;atteint pas 100% de son objectif.
-            </Typography>
-          </CardContent>
-        </Link>
+        <CardContent>
+          <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
+            {profile} •{' '}
+            {new Date(createdAt).toLocaleDateString('fr-FR', options)}
+          </Typography>
+          <Typography
+            color="secondary"
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
+            Modalités d&apos;investissement
+          </Typography>
+          <Typography variant="body2" color="secondary.light">
+            Votre contribution vous sera intégralement remboursée si le projet
+            n&apos;atteint pas 100% de son objectif.
+          </Typography>
+        </CardContent>
+
         <CardContent>
           <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
             {totalContributions}€ sur{' '}
@@ -150,6 +148,7 @@ function ProjectCollect({ id, amount, profile, createdAt, contributions }) {
     </>
   );
 }
+
 ProjectCollect.propTypes = {};
 
 ProjectCollect.defaultProps = {};

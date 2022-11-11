@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+
+// Material UI
 import { Grid, Typography, Box } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
 // CSS
 import palette from '../../../assets/styles/_vars.scss';
+import { projectCommentStyles } from './styles';
 
 const Comments = ({ comments }) => {
   const options = {
@@ -17,31 +19,24 @@ const Comments = ({ comments }) => {
     <Grid container>
       {comments.map((comment) => (
         <Grid item xs={12} md={6} key={comment.id} sx={{ p: 1 }}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              color: palette.secondary,
-              transition: 'all 0.5s ease-in-out',
-            }}
-          >
+          <Box sx={projectCommentStyles.avatarBox}>
             <AccountCircleIcon sx={{ color: palette.primary }} />
-            <Box
-              sx={{
-                flexGrow: 1,
-                px: 1,
-                display: { xs: 'none', md: 'flex' },
-              }}
-            >
+            <Box sx={projectCommentStyles.pseudoBox}>
               <Typography sx={{ fontWeight: 'bold', color: palette.primary }}>
                 {comment.profile.pseudo}
               </Typography>
+              <Typography sx={projectCommentStyles.date}>
+                {' '}
+                /{' '}
+                {new Date(comment.created_at).toLocaleDateString(
+                  'fr-FR',
+                  options
+                )}
+              </Typography>
             </Box>
           </Box>
-          <Typography sx={{ fontSize: '0.7rem', pl: 1 }}>
-            {new Date(comment.created_at).toLocaleDateString('fr-FR', options)}
-          </Typography>
-          <Typography sx={{ borderBottom: '1px solid lightgrey', p: 1 }}>
+
+          <Typography sx={projectCommentStyles.subtitle}>
             {comment.text}
           </Typography>
         </Grid>
