@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useRecoilValue, useSetRecoilState} from "recoil";
-import { profileConnexionstate } from "../../../atomes/profileAtomes";
-import { getLogout } from "../../../services/loginService";
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { profileConnexionstate } from '../../../atomes/profileAtomes';
+import { getLogout } from '../../../services/loginService';
 
 import React, { useState } from 'react';
 import IdfrogLogo from '../../../assets/images/logo-mini.png';
@@ -27,12 +27,11 @@ import { Link } from 'react-router-dom';
 import { navHeaderStyles } from './styles';
 
 function ResponsiveAppBar() {
-
   const ProfileInfo = useRecoilValue(profileConnexionstate);
-  const SetProfileInfo = useSetRecoilState(profileConnexionstate)
-  
- // console.log('ProfileInfo dans la navbar', ProfileInfo);
- 
+  const SetProfileInfo = useSetRecoilState(profileConnexionstate);
+
+  // console.log('ProfileInfo dans la navbar', ProfileInfo);
+
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -44,11 +43,11 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = async () => {
-    const res = await getLogout()
+    const res = await getLogout();
     console.log(res);
-    SetProfileInfo("")
-    localStorage.clear()
-  }
+    SetProfileInfo('');
+    localStorage.clear();
+  };
 
   return (
     <AppBar position="static">
@@ -141,7 +140,7 @@ function ResponsiveAppBar() {
             <div>
               {ProfileInfo.isLogged ? (
                 <Grid container>
-                  <Grid item xs={5}>
+                  <Grid item sx={{ xs: 6 }}>
                     <Link to={`/profile/`}>
                       <div style={navHeaderStyles.loginUser}>
                         <Avatar
@@ -151,16 +150,26 @@ function ResponsiveAppBar() {
                         >
                           IF
                         </Avatar>
-                        <p style={navHeaderStyles.p}>{ProfileInfo.pseudo}</p>
+                        <Box
+                          sx={{
+                            flexGrow: 1,
+                            px: 1,
+                            display: { xs: 'none', md: 'flex' },
+                          }}
+                        >
+                          {ProfileInfo.pseudo}
+                        </Box>
                       </div>
                     </Link>
                   </Grid>
-                  <Grid item xs={7}>
-                    <Link to={`profile/logout`}>
+                  <Grid item sx={{ xs: 6 }}>
+                    <Link to={`/profile/logout`}>
                       <Button
-                      size="small"
-                      sx={navHeaderStyles.btnSecondary}
-                      onClick={() => {handleLogout()}}
+                        size="small"
+                        sx={navHeaderStyles.btnSecondary}
+                        onClick={() => {
+                          handleLogout();
+                        }}
                       >
                         Se déconnecter
                       </Button>

@@ -29,16 +29,17 @@ export const projectCollectStyles = {
       },
 
     card:{
-        maxWidth: 345,
-        marginBottom: '30px',
+        maxWidth: '100%',
+        mt: 4,
+        mx:4,
         textAlign: 'center',
     },
 
     carAction:{
         display: 'flex',
         justifyContent: 'space-between',
-        marginBottom: '1rem',
-        padding: '15px',
+        mb: 1,
+        p: 1,
     }
     
 
