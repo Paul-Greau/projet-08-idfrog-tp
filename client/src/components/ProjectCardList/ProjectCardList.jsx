@@ -7,6 +7,7 @@ import React, {useState} from 'react';
 
 // Copoments
 import ProjectCard from '../ProjectCard/ProjectCard';
+import PlaceHolder from '../../components/ProjectCard/ProjectCardPlaceholder'
 
 // Material UI
 import { 
@@ -24,7 +25,7 @@ from '@mui/material';
 // eslint-disable-next-line no-unused-vars
 import { projectCardStyles } from '../ProjectCard/styles';
 
-function ProjectCardList({ result }) {
+function ProjectCardList({ result, isLoading }) {
   console.log(result);
 
   const categories = [
@@ -130,7 +131,7 @@ function ProjectCardList({ result }) {
                   />
                 </Grid>
               ))} */}
-                  {result.filter(filterByCategoryAndType)
+                  {!isLoading && (result.filter(filterByCategoryAndType)
               .map(res => <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
@@ -141,7 +142,20 @@ function ProjectCardList({ result }) {
                   profile={res.profile.pseudo}
                   contributions={res.contributions}
                 />
-              </Grid>)}
+              </Grid>))}
+              {isLoading && (
+                <Grid
+                container
+                direction="row"
+                justifyContent="space-evenly"
+                alignItems="center"
+                >
+                  <PlaceHolder />
+                  <PlaceHolder />
+                  <PlaceHolder />
+
+                </Grid>
+      )}
           </Grid>
         </Container>
       </Box>
