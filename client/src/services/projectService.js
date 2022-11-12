@@ -1,13 +1,18 @@
-import { sendGetRequest } from "../lib/Axios";
+import { sendGetRequest, sendPostRequest } from "../lib/Axios";
 
-const getProjectsList = () => {
+export const getProjectsList = () => {
   console.log('dans la req axios');
   return sendGetRequest(`/project/list`);
 };
 
-const getProjectById = (id) => {
+export const getProjectById = (id) => {
   console.log('dans la req axios');
   return sendGetRequest(`/project/${id}`);
 };
 
-export {getProjectsList, getProjectById};
+export const postProject = async (token, data) => {
+  const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
+ return sendPostRequest(`/profile/details`, config, data)
+}

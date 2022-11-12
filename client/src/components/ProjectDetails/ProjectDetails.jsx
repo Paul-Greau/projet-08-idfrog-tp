@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from 'react-router-dom';
 // Services
-import {getProjectById} from '../../services/projects';
+import {getProjectById} from '../../services/projectService'
 // Components
 import Project from "./Project/Project";
 import Faq from "./FAQ/Faq"

@@ -101,9 +101,9 @@ function PostProjectForm() {
           <MenuItem value="">
             <em>CATEGORIES DU PROJET</em>
           </MenuItem>
-          {category.map((category, index) => (
-            <MenuItem key={index} value={category}>
-              {category}
+          {category.map((category) => (
+            <MenuItem key={category.id} value={category.id}>
+              {category.name}
             </MenuItem>
           ))}
         </Select>
