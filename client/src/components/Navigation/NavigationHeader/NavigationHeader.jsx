@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useRecoilValue, useSetRecoilState} from "recoil";
-import { profileConnexionstate } from "../../../atomes/profileAtomes";
+import { useRecoilValue, useResetRecoilState, useSetRecoilState} from "recoil";
+import { profileConnexionstate, profileDetailState } from "../../../atomes/profileAtomes";
 import { getLogout } from "../../../services/loginService";
 
 import React, { useState } from 'react';
@@ -29,7 +29,10 @@ import { navHeaderStyles } from './styles';
 function ResponsiveAppBar() {
 
   const ProfileInfo = useRecoilValue(profileConnexionstate);
-  const SetProfileInfo = useSetRecoilState(profileConnexionstate)
+  const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
+  const ResetProfileDetailState = useResetRecoilState(profileDetailState)
+
+  
   
  // console.log('ProfileInfo dans la navbar', ProfileInfo);
  
@@ -46,7 +49,8 @@ function ResponsiveAppBar() {
   const handleLogout = async () => {
     const res = await getLogout()
     console.log(res);
-    SetProfileInfo("")
+    ResetProfileInfo()
+    ResetProfileDetailState()
     localStorage.clear()
   }
 
