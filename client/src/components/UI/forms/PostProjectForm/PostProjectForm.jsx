@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 // Components
 import UploadImages from './uploadImg/UploadImages';
-import Particulier from '../ProfileForm/Particulier/Particulier';
+
 // Materail UI
 import {
   TextField,
@@ -34,7 +34,12 @@ import { postProjectStyles } from './styles';
 import { category } from './category';
 
 function PostProjectForm() {
+
+
+
   const [categoryFilter, setCategoryFilter] = useState('');
+
+  
   const formik = useFormik({
     initialValues: {
       title: '',

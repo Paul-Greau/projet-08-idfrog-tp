@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { getProfile } from '../../../services/profileService';
+
 
 // Components
 import DropDownProjectList from './DropDownProjectList';
@@ -14,39 +14,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 // CSS
 import './navigationSideBarStyles.scss';
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../../atomes/profileAtomes';
 
-function NavigationSideBar() {
-
-  const {token} = useRecoilValue(profileConnexionstate)
-  const [projectList, setProjectList] = useState([]);
-  const [contributionList, setcontributionList] = useState([]);
-  
-  const [serverError, setServerError] = useState('')
-  const [showError, setShowError] = useState(false)
-
-  const FetchProfileData = async (token) => {
-    let response = await getProfile(token)
-    console.log(('getprofile response', response)); 
-     if(response.status!==200){
-      setServerError({
-          status : response.status,
-          message: response.data.message
-        })
-        setShowError(true)
-        return      
-      }
-      setProjectList(response.data.projects);
-      setcontributionList(response.data.contributions)
-
-      }
-
-  useEffect(() => {
-
-    FetchProfileData(token)
-
-  },[]);
+function NavigationSideBar({projectList, contributionList}) {
 
 
   return (
