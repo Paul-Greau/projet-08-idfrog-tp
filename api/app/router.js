@@ -27,6 +27,7 @@ router.delete('/profile/:profileId/project/:projectId', projectController.delete
 router.post('/login', profileController.login)
 router.get('/logout', profileController.logout)
 router.get('/profile', authorizationMiddleware, profileController.getProfileById)
+router.patch('/profile', authorizationMiddleware, profileController.patchProfileById)
 router.post('/profile/details',authorizationMiddleware, profileController.fillProfil)
 router.patch('/profile/details',authorizationMiddleware, profileController.patchProfil)
 router.post('/subscribe', profileController.suscribe)

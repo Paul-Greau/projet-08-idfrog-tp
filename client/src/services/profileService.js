@@ -11,7 +11,15 @@ export const getProfile = async (token) => {
    return sendGetRequest(`/profile`, config)
 }
 
-export const postFIllProfile = async (token, data) => {
+export const patchProfile = async (token, data) => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+   // console.log(token);   
+   return sendPatchRequest(`/profile`, config, data)
+}
+
+export const postFIllProfileDetails = async (token, data) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
@@ -19,7 +27,7 @@ export const postFIllProfile = async (token, data) => {
    return sendPostRequest(`/profile/details`, config, data)
 }
 
-export const patchProfile = async (token, data) => {
+export const patchProfileDetails = async (token, data) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };

@@ -128,7 +128,7 @@ const profileController = {
           
           await newProfile.save();
       
-          res.status(201).json(newProfile);
+          res.status(201).json(newProfile);rs
       
         } catch (error) {
           console.error(error);
@@ -136,6 +136,13 @@ const profileController = {
         }
       },
         
+      patchProfileById: (req, res) => {
+
+        const tokenId = req.auth.userId
+        console.log('in Patch Profile', tokenId);
+        res.status(201).json({ message: 'success' });
+        return
+      },
 
     getProfileById: async (req,res) => {
 		try {

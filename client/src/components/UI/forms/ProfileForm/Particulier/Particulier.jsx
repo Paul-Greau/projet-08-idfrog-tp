@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
-import { patchProfile, postFIllProfile } from '../../../../../services/profileService';
+import { patchProfileDetails, postFIllProfileDetails } from '../../../../../services/profileService';
 
 // Materail UI
 import {
@@ -45,6 +45,12 @@ function ProfileForm({
       setShowError(true)
       return
     }
+    setLoginError({
+      status : response.status,
+      message: response.data.message
+    })
+    setShowError(true)
+    return
   } 
 
   const formik = useFormik({
@@ -67,13 +73,13 @@ function ProfileForm({
       console.log('values du form', values);
       if(person === null){
         console.log('profile vide');
-        const response = await postFIllProfile(token, values);
+        const response = await postFIllProfileDetails(token, values);
         console.log(response);
         handleSubmit(response)
         return      
       } else {
         console.log('person exist deja');
-        const response = await patchProfile(token, values);
+        const response = await patchProfileDetails(token, values);
         console.log(response);
         handleSubmit(response)
         return

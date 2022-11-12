@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
-import { profileDetailState } from '../../../../atomes/profileAtomes';
+import { profileConnexionstate, profileDetailState } from '../../../../atomes/profileAtomes';
+import { patchProfile } from '../../../../services/profileService';
 
 // Compoments
 import Particulier from './Particulier/Particulier';
@@ -11,6 +12,7 @@ import {
   Button,
   Box,
   Typography,
+  Alert,
 //  FormControlLabel,
 //  RadioGroup,
  // Radio,
@@ -26,12 +28,32 @@ import { useEffect } from 'react';
 
 
 function ProfileForm() {
-
-
-
-  // TODO EVOLUTION PRE-REMPLIR LE FORMULAIRE //
+  const {token} = useRecoilValue(profileConnexionstate)
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
   const profileDetail = useRecoilValue(profileDetailState);
+
   console.log("profileDetail in profileForm", profileDetail);
+
+  const handleSubmit = (response) => {
+    if (response.status === 201){
+      setAlertStyle('success')
+      setLoginError({
+        status : null,
+        message: 'Profile mis à jour'
+      })
+      setShowError(true)
+      return
+    }
+    setAlertStyle('error')
+    setLoginError({
+      status : response.status,
+      message: response.data.message
+    })
+    setShowError(true)
+    return
+  } 
 
   let formik = useFormik({
     initialValues: {
@@ -41,11 +63,12 @@ function ProfileForm() {
       confirmPassword: '', */
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-
+    onSubmit: async (values) => {
       console.log(values);
-
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
+      const response = await patchProfile(token, values)
+      handleSubmit(response)
+      //console.log(response);
     },
   });  
 
@@ -143,6 +166,13 @@ function ProfileForm() {
           <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
             ANNULER
           </Button>
+          {showError &&
+          <Alert severity={alertStyle}
+          onClose={() => {setShowError(false)}}
+          >
+          {loginError.status ? `'Erreur' ${loginError.status}` : ''} - {loginError.message}
+          </Alert>
+    } 
         </form>
         <Particulier
             sx={postProfileStyles.marginBottom}
