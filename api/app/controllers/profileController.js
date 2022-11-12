@@ -128,7 +128,7 @@ const profileController = {
           
           await newProfile.save();
       
-          res.status(201).json(newProfile);rs
+          res.status(201).json(newProfile);
       
         } catch (error) {
           console.error(error);
