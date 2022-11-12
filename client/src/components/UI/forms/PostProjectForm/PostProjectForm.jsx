@@ -35,14 +35,11 @@ import { category } from './category';
 
 function PostProjectForm() {
 
-
-
-  const [categoryFilter, setCategoryFilter] = useState('');
-
-  
   const formik = useFormik({
     initialValues: {
+      name: '', 
       title: '',
+      category: '',
       resume: '',
       description: '',
       amount_target: '',
@@ -50,7 +47,7 @@ function PostProjectForm() {
       date: '',
       website: '',
     },
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
@@ -61,6 +58,22 @@ function PostProjectForm() {
       <UploadImages />
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">
+      <TextField
+          sx={postProjectStyles.leftInput}
+          fullWidth
+          required
+          margin="dense"
+          type="text"
+          name="name"
+          id="name"
+          label="Nom de votre projet"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.name}
+          helperText={formik.touched.name && formik.errors.name}
+          error={formik.errors.name && formik.touched.name}
+        />
+        
         <TextField
           sx={postProjectStyles.leftInput}
           fullWidth
@@ -69,7 +82,7 @@ function PostProjectForm() {
           type="text"
           name="title"
           id="title"
-          label="Nom de votre projet"
+          label="Titre de votre projet"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.title}
@@ -80,10 +93,10 @@ function PostProjectForm() {
         <Select
           sx={postProjectStyles.rightInput}
           name="category"
-          value={categoryFilter}
           label="Catégories"
           displayEmpty
-          onChange={(event) => setCategoryFilter(event.target.value)}
+          value={formik.values.category}
+          onChange={formik.handleChange}
         >
           <MenuItem value="">
             <em>CATEGORIES DU PROJET</em>
@@ -157,7 +170,12 @@ function PostProjectForm() {
           </Typography>
         </FormControl>
 
-        <RadioGroup row name="invest_type">
+        <RadioGroup row
+        name="invest_type"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.invest_type}
+        >
           <Card sx={{ width: '100%', mb: 4 }}>
             <CardHeader
               avatar={<StarHalfIcon />}
