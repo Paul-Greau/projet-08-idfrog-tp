@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 // Materail UI
@@ -34,6 +34,10 @@ function ProfileForm() {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Box className="profileForm" sx={{ p: 9 }}>

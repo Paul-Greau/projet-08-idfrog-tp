@@ -20,14 +20,14 @@ const Comments = ({ contributes }) => {
       {contributes.map((contribute) => (
         <Grid item xs={12} md={6} key={contribute.id} sx={{ p: 1 }}>
           <Box sx={projectContributStyles.avatarBox}>
-            <AccountCircleIcon sx={{ color: palette.primary }} />
+            <AccountCircleIcon
+              sx={{ color: palette.primary, fontSize: '2.5rem' }}
+            />
             <Box sx={projectContributStyles.pseudoBox}>
               <Typography sx={{ fontWeight: 'bold', color: palette.primary }}>
                 {contribute.profile.pseudo}
-              </Typography>{' '}
+              </Typography>
               <Typography sx={projectContributStyles.date}>
-                {' '}
-                /{' '}
                 {new Date(contribute.created_at).toLocaleDateString(
                   'fr-FR',
                   options

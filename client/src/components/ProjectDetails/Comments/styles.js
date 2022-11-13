@@ -12,14 +12,13 @@ export const projectCommentStyles = {
     pseudoBox:{
         flexGrow: 1,
         px: 1,
-        display: { xs: 'none', md: 'flex' },
     },
     title:{
         fontSize: '0.7rem', pl: 1,
         color: palette.secondary,
     },
     date:{
-        fontSize: '0.7rem', pl: 1, pr: 1, pt: 0.5,
+        fontSize: '0.7rem',  pt: 0.2,
         color: palette.secondary,
     },
     subtitle:{

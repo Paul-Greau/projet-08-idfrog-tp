@@ -12,7 +12,7 @@ function ProjectDescription({ id, result }) {
   return (
     <div className="projectdescription">
       <Grid container spacing={2}>
-        <Grid item xs={12} md={12} sx={{ mx: 2 }}>
+        <Grid item xs={12} md={12} sx={{ mx: 2, mt: -3 }}>
           <Typography variant="h1" sx={projectDescriptionStyles.title}>
             {result.name}
           </Typography>
@@ -22,7 +22,7 @@ function ProjectDescription({ id, result }) {
           height="240"
           src={`https://picsum.photos/1200/800?random=${id}`}
           alt={result.projet}
-          sx={{ ml: '30px', width: { xl: '96.2%', md: '96.2%', xs: '92.2%' } }}
+          sx={projectDescriptionStyles.img}
         />
         <Grid item xs={12} md={12} sx={{ mx: 4 }}>
           <Typography variant="h6" sx={projectDescriptionStyles.title2}>

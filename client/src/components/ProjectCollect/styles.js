@@ -37,6 +37,7 @@ export const projectCollectStyles = {
         mt: 4,
         mx:4,
         textAlign: 'center',
+        m: { xl: 2, md: 2, xs: 2 }
     },
 
     carAction:{

@@ -16,6 +16,7 @@ const Project = () => {
 
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (flag.current === false) {
       getProjectById(id)
         .then((res) => {
@@ -34,7 +35,7 @@ const Project = () => {
       <Grid item xs={12} md={12}>
         <CardMedia
           component="img"
-          height="40"
+          height="20"
           src={`https://picsum.photos/1200/800?random=${id}`}
           alt={result.projet}
         />
@@ -53,7 +54,7 @@ const Project = () => {
           contributions={result.contributions}
         />
       </Grid>
-      <Grid item xs={12} md={12}>
+      <Grid item xs={12} md={12} sx={{ mt: -4 }}>
         <ProjectDetails result={result} />
       </Grid>
     </Grid>

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 // Components
 import ProjectCard from '../ProjectCard/ProjectCard';
+import CardPlaceholder from '../UI/CardPlaceholder/CardPlaceholder';
 import { categorys, financingTypes } from './categaryFilter';
 // Material UI
 import {
@@ -18,8 +19,9 @@ import {
 // CSS
 import { projectCardStyles } from './styles';
 
-function ProjectCardList({ result }) {
-  console.log(result);
+function ProjectCardList({ result, isLoading }) {
+  // console.log(result);
+  // isLoading = true;
 
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
@@ -83,19 +85,27 @@ function ProjectCardList({ result }) {
           </Grid>
         </Box>
         <Grid container spacing={2} alignItems="stretch">
-          {result.filter(filterByCategoryAndType).map((res) => (
-            <Grid item xs={12} md={4} sm={6} key={res.id}>
-              <ProjectCard
-                id={res.id}
-                createdAt={res.created_at}
-                projet={res.name}
-                amount={res.amount_target}
-                description={res.description}
-                profile={res.profile.pseudo}
-                contributions={res.contributions}
-              />
+          {!isLoading &&
+            result.filter(filterByCategoryAndType).map((res) => (
+              <Grid item xs={12} md={4} sm={6} key={res.id}>
+                <ProjectCard
+                  id={res.id}
+                  createdAt={res.created_at}
+                  projet={res.name}
+                  amount={res.amount_target}
+                  description={res.description}
+                  profile={res.profile.pseudo}
+                  contributions={res.contributions}
+                />
+              </Grid>
+            ))}
+          {isLoading && (
+            <Grid container justifyContent="space-evenly" alignItems="stretch">
+              <CardPlaceholder />
+              <CardPlaceholder />
+              <CardPlaceholder />
             </Grid>
-          ))}
+          )}
         </Grid>
       </Container>
     </>

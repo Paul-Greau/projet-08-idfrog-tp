@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 // Compoments
@@ -39,8 +39,15 @@ function ProfileForm() {
     },
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <Box className="profileForm" sx={{ p: 9 }}>
+    <Box
+      className="profileForm"
+      sx={{ p: { xl: 6, md: 5, xs: 4 }, mt: { xl: 0, md: 0, xs: 5 } }}
+    >
       <form onSubmit={formik.handleSubmit} autoComplete="off">
         <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">
           Votre Profile:

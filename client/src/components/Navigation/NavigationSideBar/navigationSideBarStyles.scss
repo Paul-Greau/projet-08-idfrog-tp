@@ -2,8 +2,8 @@
 
 .navigationSideBar {
   background-color: vars.$primary;
-  padding: 1rem 0.5rem;
-  min-width: 300px;
+  padding: 1rem 1.1rem;
+  min-width: 310px;
 
   &-Top {
     margin: 1rem 0;
@@ -28,6 +28,7 @@
     }
   }
 }
+
 @media only screen and (max-width: 900px) {
   .navigationSideBar {
     display: none;

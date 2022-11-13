@@ -12,6 +12,7 @@ import Comments from './Comments/Comments';
 import { Tab, Box } from '@mui/material';
 import { TabList, TabContext } from '@mui/lab';
 // CSS
+import { projectDetailStyles } from './styles';
 import './projectDetailsStyles.scss';
 
 const ProjectDetails = () => {
@@ -40,7 +41,7 @@ const ProjectDetails = () => {
   return (
     <div className="projectDetail">
       {result.length !== 0 && (
-        <TabContext value={value}>
+        <TabContext value={value} sx={projectDetailStyles.content}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList
               onChange={handleChange}

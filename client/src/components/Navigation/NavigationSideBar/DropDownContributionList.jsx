@@ -11,6 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
+  Divider,
 } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -58,6 +59,7 @@ function DropDownContributionList({ contributionList }) {
                   primary={`${contribution.project.name} / ${contribution.invested_amount}€`}
                 />
               </ListItemButton>
+              <Divider />
             </Link>
           ))}
         </List>

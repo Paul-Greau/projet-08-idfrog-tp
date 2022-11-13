@@ -50,7 +50,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="100%">
         <Toolbar disableGutters>
           <Link to="/">
@@ -93,11 +93,19 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography color="primary.dark">
-                  <Link to="subscribe">Lancer mon projet</Link>
-                </Typography>
-              </MenuItem>
+              {ProfileInfo.isLogged ? (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography color="primary.dark">
+                    <Link to="profile">Mon Profile</Link>
+                  </Typography>
+                </MenuItem>
+              ) : (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography color="primary.dark">
+                    <Link to="subscribe">Lancer mon projet</Link>
+                  </Typography>
+                </MenuItem>
+              )}
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography color="primary.dark">
                   <Link to="projects">Liste des Projets</Link>

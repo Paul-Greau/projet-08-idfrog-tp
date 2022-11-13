@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 // Components
 import UploadImages from './uploadImg/UploadImages';
-import Particulier from '../ProfileForm/Particulier/Particulier';
+
 // Materail UI
 import {
   TextField,
@@ -51,9 +51,21 @@ function PostProjectForm() {
       alert(JSON.stringify(values, null, 2));
     },
   });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
-    <Box className="postProjectForm">
+    <Box
+      className="postProjectForm"
+      sx={{ px: { xl: 2, md: 2, xs: 0 }, mt: { xl: 1, md: 0, xs: 5 } }}
+    >
+      <Typography
+        variant="h1"
+        sx={{ fontSize: '2em', mb: 2, color: palette.secondary }}
+      >
+        Quel est votre projet&nbsp;?
+      </Typography>
       <UploadImages />
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">

@@ -58,7 +58,7 @@ function ProjectCollect({ amount, profile, createdAt, contributions }) {
 
   return (
     <>
-      <Card sx={{ mx: 4, mt: 5 }}>
+      <Card sx={{ mx: 4, mt: 5, m: { xl: 2, md: 2, xs: 2 } }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
             {profile} •{' '}
