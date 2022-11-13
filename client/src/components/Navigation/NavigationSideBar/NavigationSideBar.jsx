@@ -47,6 +47,7 @@ function NavigationSideBar() {
       </Box>
 
       <div className="navigationSideBar">
+        <ButtonProject />
         <SideBarItems />
       </div>
 
