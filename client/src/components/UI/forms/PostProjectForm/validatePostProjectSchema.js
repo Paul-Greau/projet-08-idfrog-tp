@@ -8,7 +8,7 @@ export const validationSchema = yup.object().shape({
   title: yup
     .string("string")
     .required("Ce champ est requis !"),
-  category: yup
+  category_id: yup
   .string("string")
   .required("Ce champ est requis !"),
   resume: yup
@@ -21,10 +21,19 @@ export const validationSchema = yup.object().shape({
     .string("string")
     .required("Ce champ est requis !"),
   invest_type: yup
-    .boolean()
-    .required()
-    .oneOf([0 , 1], 'Sélectionez un type de financement'),
+    .string("string")
+    .required("Sélectionez un type de financement"),
+  rate: yup
+    .string("string"),
+  end_time: yup
+    .string("string")
+    .required("Sélectionez une date de fin de campagne"), 
   website: yup
     .string()
-    .url()
+    .url(),
+  status: yup
+    .string(),
+  visibility: yup
+    .boolean(),
 });
+

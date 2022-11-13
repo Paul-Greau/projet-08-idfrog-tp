@@ -1,4 +1,8 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+
+import { postProject } from '../../../../services/projectService';
+
 // import PropTypes from 'prop-types';
 
 // Components
@@ -21,6 +25,7 @@ import {
   InputAdornment,
   Select,
   MenuItem,
+  Alert,
 } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
@@ -33,23 +38,55 @@ import { postProjectStyles } from './styles';
 // Tableau des categories
 import { category } from './category';
 
-function PostProjectForm() {
+
+function PostProjectForm({
+  token,
+  profileStatus,
+}) {
+  const [showError, setShowError] = useState(false)
+  const [projectError, setProjectError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
+
+  const handleSubmit = (response) => {
+    if (response.status === 201){
+      setAlertStyle('success')
+      setProjectError({
+        status : null,
+        message: 'Projet créé avec succès'
+      })
+      setShowError(true)
+      return
+    }
+    setAlertStyle('error')
+    setProjectError({
+      status : response.status,
+      message: response.data.message
+    })
+    setShowError(true)
+    return
+  } 
 
   const formik = useFormik({
     initialValues: {
       name: '', 
       title: '',
-      category: '',
+      category_id: '',
       resume: '',
       description: '',
       amount_target: '',
       invest_type: '',
-      date: '',
+      rate:'',
+      end_time: '',
       website: '',
+      status: profileStatus,
+      visibility: false,
     },
-    // validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      console.log(values);
+    const response = await postProject(token, values)
+     console.log(response);
+     handleSubmit(response)
     },
   });
 
@@ -92,10 +129,10 @@ function PostProjectForm() {
 
         <Select
           sx={postProjectStyles.rightInput}
-          name="category"
+          name="category_id"
           label="Catégories"
           displayEmpty
-          value={formik.values.category}
+          value={formik.values.category_id}
           onChange={formik.handleChange}
         >
           <MenuItem value="">
@@ -165,7 +202,7 @@ function PostProjectForm() {
             Quel type de financement recherchez vous ?
           </Typography>
           <Typography variant="p" color="secondary">
-            Financement participatif non ditutif auoprès d&apos;investisseurs ou
+            Financement participatif non ditutif auprès d&apos;investisseurs ou
             des dons
           </Typography>
         </FormControl>
@@ -183,7 +220,7 @@ function PostProjectForm() {
                 <FormControlLabel value="pret" control={<Radio id="0" />} />
               }
               title="Financement avec prêt"
-              subheader="Retour sur investisseme par rapport à la mise"
+              subheader="Retour sur investissement par rapport à la mise"
             />
             <CardHeader
               avatar={<FavoriteIcon />}
@@ -196,20 +233,38 @@ function PostProjectForm() {
           </Card>
         </RadioGroup>
 
-        <InputLabel>Durée de votre campagne:</InputLabel>
+       {formik.values.invest_type === 'pret' &&
+       <>
+       <InputLabel>Taux de retour sur investissement:</InputLabel>
+       <FormControl fullWidth sx={{ mb: 1 }}>
+         <OutlinedInput
+           startAdornment={<InputAdornment position="end"></InputAdornment>}
+           name="rate"
+           id="rate"
+           onChange={formik.handleChange}
+           onBlur={formik.handleBlur}
+           value={formik.values.rate}
+           error={formik.errors.rate && formik.touched.rate}
+         />
+       </FormControl>
+       </>
+       } 
+        
+
+        <InputLabel>Date de fin de la campagne:</InputLabel>
 
         <TextField
           sx={{ mt: 2 }}
           fullWidth
           margin="dense"
           type="date"
-          id="date"
-          name="date"
+          id="end_time"
+          name="end_time"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          values={formik.values.date}
-          helperText={formik.touched.date && formik.errors.date}
-          error={formik.errors.date && formik.touched.date}
+          values={formik.values.end_time}
+          helperText={formik.touched.end_time && formik.errors.end_time}
+          error={formik.errors.end_time && formik.touched.end_time}
         />
 
         <TextField
@@ -234,12 +289,19 @@ function PostProjectForm() {
           variant="contained"
           sx={{ mt: 4, mb: 4, mr: 2 }}
         >
-          ENREGISTRER VOTRE PROFILE
+          ENREGISTRER VOTRE PROJET
         </Button>
 
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
           ANNULER
         </Button>
+        {showError &&
+          <Alert severity={alertStyle}
+          onClose={() => {setShowError(false)}}
+          >
+          {projectError.status ? `'Erreur' ${projectError.status}` : ''} - {projectError.message}
+          </Alert>
+        } 
       </form>
     </Box>
   );

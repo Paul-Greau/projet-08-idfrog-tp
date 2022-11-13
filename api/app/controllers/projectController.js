@@ -57,9 +57,9 @@ const projectController = {
 
   createProject: async (req, res) => {
   try {
+	const tokenId = req.auth.userId
+	// const profile_id = Number(req.params.id);
 
-	const profile_id = Number(req.params.id);
-	console.log(profile_id);
     const {
 		category_id,
 		name,
@@ -78,20 +78,12 @@ const projectController = {
 	// console.log(req.session);
 
 	// Check to be sure that the session ID = the profile_id requested
-	if (!profile_id) {
+	if (!tokenId) {
 		const error = new Error(`'profile_id' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
-	if (!req.session.profile) {
-		const error = new Error(`You must login`);
-		return res.status(401).json({ message: error.message });
-	}	
-	if (profile_id !== req.session.profile.id) {
-		const error = new Error(`You must login before post a project`);
-		return res.status(401).json({ message: error.message });
-	}
-
-	const creatorProfile = await Profile.findByPk(profile_id,{
+	
+	const creatorProfile = await Profile.findByPk(tokenId,{
 		include: [
 		'person',
 		'society'
@@ -126,7 +118,7 @@ const projectController = {
 		const error = new Error(`'amount_target' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
-	if (!rate) {
+	if (invest_type === 'pret' && !rate) {
 		const error = new Error(`'rate' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
@@ -154,7 +146,7 @@ const projectController = {
 	
 
     const newProject = Project.build({
-      profile_id,
+	  profile_id: tokenId,
 	  category_id,
 	  name: escape(name), // On empêche l'injection de code HTML et JS. On se protège contre la faille XSS
 	  invest_type,

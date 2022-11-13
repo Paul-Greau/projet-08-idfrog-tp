@@ -1,6 +1,6 @@
 import React, {useState, useEffect}  from 'react';
 import { Outlet } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
 import { getProfile } from '../../services/profileService';
 
@@ -16,8 +16,9 @@ const LayoutPrivate = () => {
     const {token} = useRecoilValue(profileConnexionstate)
     const [projectList, setProjectList] = useState([]);
     const [contributionList, setcontributionList] = useState([]);
-    const setProfileDetail = useSetRecoilState(profileDetailState)
+    const [ProfileDetail, setProfileDetail] = useRecoilState(profileDetailState)
 
+    console.log("ProfileDetail layout private", ProfileDetail);
     // eslint-disable-next-line no-unused-vars
     const [serverError, setServerError] = useState('')
     // eslint-disable-next-line no-unused-vars
@@ -49,15 +50,18 @@ const LayoutPrivate = () => {
 
     return (       
         <div className="layoutPrivate">
-            <div className="profile" style={{display:'flex'}}>
-                <NavigationSideBar 
-                projectList={projectList}
-                contributionList={contributionList}
-                className="sideBar" />
-                <div className="profile-container">
-                <Outlet />
-                </div>
-            </div>
+          {ProfileDetail.id && 
+          <div className="profile" style={{display:'flex'}}>
+          <NavigationSideBar 
+          projectList={projectList}
+          contributionList={contributionList}
+          className="sideBar" />
+          <div className="profile-container">
+          <Outlet />
+          </div>
+          </div>
+          }
+            
         </div>
     );
 };
