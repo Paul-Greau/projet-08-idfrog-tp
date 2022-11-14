@@ -29,8 +29,6 @@ import { validationSchema } from './validateProfileSchema';
 import { useFormik } from 'formik';
 // CSS
 import { postProfileStyles } from './styles';
-import { useEffect } from 'react';
-
 
 
 function ProfileForm() {

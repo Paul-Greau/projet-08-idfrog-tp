@@ -109,8 +109,6 @@ function PostProjectForm({
     window.scrollTo(0, 0);
   }, []);
 
-etImageUrl(URL.createObjectURL(img))
-  }
 
 const handleImgUpload = (img) => {
     console.log('formproject', img);
@@ -286,7 +284,11 @@ const handleImgUpload = (img) => {
 
        {formik.values.invest_type === 'pret' &&
        <>
-       <InputLabel>Taux de retour sur investissement:</InputLabel sx={{ color: palette.secondary }}>
+       <InputLabel
+       sx={{ color: palette.secondary }}
+       >
+      Taux de retour sur investissement:
+      </InputLabel>
           
        <FormControl fullWidth sx={{ mb: 1 }}>
          <OutlinedInput

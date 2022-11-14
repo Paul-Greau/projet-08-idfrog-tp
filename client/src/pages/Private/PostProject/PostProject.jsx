@@ -10,7 +10,6 @@ import PostProjectForm from '../../../components/UI/forms/PostProjectForm/PostPr
 // CSS
 import './postProjectStyles.scss';
 
-
 function PostProject() {
 
 const {token} = useRecoilValue(profileConnexionstate)
@@ -19,9 +18,6 @@ const profileDetail = useRecoilValue(profileDetailState);
 console.log('PostProject', profileDetail);
   return (
     <div className="post-project-container">
-      <Typography variant="h1" sx={{ fontSize: '2em', mb: 2 }}>
-        Quel est votre projet ?
-      </Typography>
       {profileDetail.id &&
       <PostProjectForm
       token={token}
