@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Grid, CardMedia } from '@mui/material';
 // Services
-import { getProjectById } from '../../../services/projects';
+import { getProjectById } from '../../../services/projectService';
 // Components
 import ProjectDescription from '../../../components/ProjectDescription/ProjectDescription';
 import ProjectDetails from '../../../components/ProjectDetails/ProjectDetails';
