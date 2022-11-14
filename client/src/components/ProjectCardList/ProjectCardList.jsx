@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 // Components
 import ProjectCard from '../ProjectCard/ProjectCard';
-import CardPlaceholder from '../UI/CardPlaceholder/CardPlaceholder';
+import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
 import { categorys, financingTypes } from './categaryFilter';
 // Material UI
 import {
