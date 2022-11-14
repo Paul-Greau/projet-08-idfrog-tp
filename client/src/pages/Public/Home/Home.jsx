@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // import PropTypes from 'prop-types';
 
 //  Services
-import { getProjectsList } from '../../../services/projectService';
+import { getProjectsList } from "../../../services/projectService";
 // Components
-import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
-import Head from '../../../components/Head/Head';
-import TopFooter from '../../../components/TopFooter/TopFooter';
+import ProjectCardList from "../../../components/ProjectCardList/ProjectCardList";
+import Head from "../../../components/Head/Head";
+import TopFooter from "../../../components/TopFooter/TopFooter";
 
 // Material UI
-import { Container, Box, Pagination } from '@mui/material';
+import { Container, Box, Pagination } from "@mui/material";
 
 // CSS
-import './homeStyles.scss';
+import "./homeStyles.scss";
 
 function Home() {
   const [result, setResult] = useState([]);
@@ -42,8 +42,8 @@ function Home() {
   };
 
   useEffect(() => {
-      FetchData(); 
-    },[]);
+    FetchData();
+  }, []);
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -53,13 +53,13 @@ function Home() {
     <>
       <Head />
       <Box className="allCards">
-        <ProjectCardList result={currentCards} isLoading={isLoading}/>
+        <ProjectCardList result={currentCards} isLoading={isLoading} />
         <Container
           component="section"
           maxWidth="lg"
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
           }}
         >
           <Pagination
