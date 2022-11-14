@@ -136,12 +136,35 @@ const profileController = {
         }
       },
         
-      patchProfileById: (req, res) => {
+      patchProfileById: async (req, res) => {
 
         const tokenId = req.auth.userId
-        console.log('in Patch Profile', tokenId);
-        res.status(201).json({ message: 'success' });
-        return
+
+        const {
+            pseudo,
+            email,
+            } = req.body;
+
+        try{
+        const profileToPatch = await Profile.findByPk(tokenId);
+
+        if(pseudo){
+            profileToPatch.pseudo = pseudo
+        }
+
+        if (email){
+            profileToPatch.email = email
+        }
+
+        await profileToPatch.save()
+       //  console.log('in Patch Profile', tokenId);
+        res.status(201).json(profileToPatch);
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).json({ message: error.message });
+        }
+
       },
 
     getProfileById: async (req,res) => {
