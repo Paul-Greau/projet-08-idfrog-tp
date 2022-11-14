@@ -6,8 +6,7 @@ import { useRecoilValue } from 'recoil';
 
 // Componenets
 import PostProjectForm from '../../../components/UI/forms/PostProjectForm/PostProjectForm';
-// Materail UI
-import { Typography } from '@mui/material';
+
 // CSS
 import './postProjectStyles.scss';
 

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { patchProject, postProject } from '../../../../services/projectService';
 
@@ -35,6 +35,7 @@ import { validationSchema } from './validatePostProjectSchema';
 import { useFormik } from 'formik';
 // CSS
 import { postProjectStyles } from './styles';
+import palette from '../../../../assets/styles/_vars.scss';
 // Tableau des categories
 import { category } from './category';
 import { uploadProjectImage } from '../../../../services/imgService';
@@ -104,6 +105,12 @@ function PostProjectForm({
      handleSubmit(response, uploadUrl.data.path)
     },
   });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+etImageUrl(URL.createObjectURL(img))
+  }
 
 const handleImgUpload = (img) => {
     console.log('formproject', img);
@@ -112,7 +119,17 @@ const handleImgUpload = (img) => {
   }
 
   return (
-    <Box className="postProjectForm">
+    
+    <Box
+      className="postProjectForm"
+      sx={{ px: { xl: 2, md: 2, xs: 0 }, mt: { xl: 1, md: 0, xs: 5 } }}
+    >
+      <Typography
+        variant="h1"
+        sx={{ fontSize: '2em', mb: 2, color: palette.secondary }}
+      >
+        Quel est votre projet&nbsp;?
+      </Typography>
       <UploadImages 
       handleImgUpload={handleImgUpload}
       img_url={img_url}
@@ -185,7 +202,10 @@ const handleImgUpload = (img) => {
           error={formik.errors.resume && formik.touched.resume}
         />
 
-        <Typography sx={{ pb: 1, pt: 0.5 }} color="Secondary" variant="h5">
+        <Typography
+          sx={{ pb: 1, pt: 0.5, color: palette.secondary }}
+          variant="h5"
+        >
           Décrivez en détail votre projet :
         </Typography>
 
@@ -204,7 +224,10 @@ const handleImgUpload = (img) => {
           error={formik.errors.description && formik.touched.description}
         />
 
-        <Typography sx={{ pb: 2, pt: 0.5 }} color="Secondary" variant="h5">
+        <Typography
+          sx={{ pb: 2, pt: 0.5, color: palette.secondary }}
+          variant="h5"
+        >
           Montant dont vous avez besoin ?
         </Typography>
 
@@ -223,10 +246,13 @@ const handleImgUpload = (img) => {
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 1 }}>
-          <Typography sx={{ pb: 0.5, pt: 0.5 }} color="Secondary" variant="h5">
+          <Typography
+            sx={{ pb: 0.5, pt: 0.5, color: palette.secondary }}
+            variant="h5"
+          >
             Quel type de financement recherchez vous ?
           </Typography>
-          <Typography variant="p" color="secondary">
+          <Typography variant="p" sx={{ color: palette.secondary }}>
             Financement participatif non ditutif auprès d&apos;investisseurs ou
             des dons
           </Typography>
@@ -240,7 +266,7 @@ const handleImgUpload = (img) => {
         >
           <Card sx={{ width: '100%', mb: 4 }}>
             <CardHeader
-              avatar={<StarHalfIcon />}
+              avatar={<StarHalfIcon sx={{ color: palette.primary }} />}
               action={
                 <FormControlLabel value="pret" control={<Radio id="0" />} />
               }
@@ -248,7 +274,7 @@ const handleImgUpload = (img) => {
               subheader="Retour sur investissement par rapport à la mise"
             />
             <CardHeader
-              avatar={<FavoriteIcon />}
+              avatar={<FavoriteIcon sx={{ color: palette.primary }} />}
               action={
                 <FormControlLabel value="dons" control={<Radio id="1" />} />
               }
@@ -260,7 +286,8 @@ const handleImgUpload = (img) => {
 
        {formik.values.invest_type === 'pret' &&
        <>
-       <InputLabel>Taux de retour sur investissement:</InputLabel>
+       <InputLabel>Taux de retour sur investissement:</InputLabel sx={{ color: palette.secondary }}>
+          
        <FormControl fullWidth sx={{ mb: 1 }}>
          <OutlinedInput
            startAdornment={<InputAdornment position="end"></InputAdornment>}
@@ -276,10 +303,11 @@ const handleImgUpload = (img) => {
        } 
         
 
-        <InputLabel>Date de fin de la campagne:</InputLabel>
+        <InputLabel>Date de fin de la campagne:
+        </InputLabel>
 
         <TextField
-          sx={{ mt: 2 }}
+          sx={postProjectStyles.leftInput}
           fullWidth
           margin="dense"
           type="date"
@@ -293,7 +321,7 @@ const handleImgUpload = (img) => {
         />
 
         <TextField
-          sx={{ mt: 2 }}
+          sx={postProjectStyles.rightInput}
           fullWidth
           margin="dense"
           type="text"

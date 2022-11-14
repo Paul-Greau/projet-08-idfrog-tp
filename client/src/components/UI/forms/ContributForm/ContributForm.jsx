@@ -38,6 +38,10 @@ function ProfileForm({
     },
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Box className="profileForm" sx={{ p: 9 }}>
       <form onSubmit={formik.handleSubmit} autoComplete="off">

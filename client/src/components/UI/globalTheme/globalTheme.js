@@ -70,6 +70,8 @@ export const globalTheme = createTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    
   },
+  
   //spacing: [0, 4, 8, 16, 32, 64],
 });

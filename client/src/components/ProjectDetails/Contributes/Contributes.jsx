@@ -1,9 +1,14 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Grid, Typography } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const Contributes = ({ contributes }) => {
+// Material UI
+import { Grid, Typography, Box } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// CSS
+import palette from '../../../assets/styles/_vars.scss';
+import { projectContributStyles } from './styles';
+
+const Comments = ({ contributes }) => {
   const options = {
     weekday: 'long',
     year: 'numeric',
@@ -13,28 +18,31 @@ const Contributes = ({ contributes }) => {
   return (
     <Grid container>
       {contributes.map((contribute) => (
-        <Grid
-          item
-          xs={6}
-          md={4}
-          key={contribute.id}
-          sx={{ marginLeft: '10px', borderBottom: '1px solid lightgrey' }}
-        >
-          <Typography sx={{ fontWeight: 'bold', color: '#5de4d5' }}>
-            <AccountCircleIcon />
-            {contribute.profile.pseudo}
+        <Grid item xs={12} md={6} key={contribute.id} sx={{ p: 1 }}>
+          <Box sx={projectContributStyles.avatarBox}>
+            <AccountCircleIcon
+              sx={{ color: palette.primary, fontSize: '2.5rem' }}
+            />
+            <Box sx={projectContributStyles.pseudoBox}>
+              <Typography sx={{ fontWeight: 'bold', color: palette.primary }}>
+                {contribute.profile.pseudo}
+              </Typography>
+              <Typography sx={projectContributStyles.date}>
+                {new Date(contribute.created_at).toLocaleDateString(
+                  'fr-FR',
+                  options
+                )}
+              </Typography>
+            </Box>
+          </Box>
+
+          <Typography sx={{ borderBottom: '1px solid lightgrey', p: 1 }}>
+            Contribution de : {contribute.invested_amount}€
           </Typography>
-          <Typography sx={{ fontSize: '0.7rem' }}>
-            {new Date(contribute.created_at).toLocaleDateString(
-              'fr-FR',
-              options
-            )}
-          </Typography>
-          <Typography>{contribute.invested_amount}€</Typography>
         </Grid>
       ))}
     </Grid>
   );
 };
 
-export default Contributes;
+export default Comments;
