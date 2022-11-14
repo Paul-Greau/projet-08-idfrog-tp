@@ -1,5 +1,4 @@
-import { sendGetRequest, sendPostRequest } from "../lib/Axios";
-
+import { sendGetRequest, sendPatchRequest, sendPostRequest } from "../lib/Axios";
 
 
 export const getProjectsList = () => {
@@ -17,4 +16,11 @@ export const postProject = async (token, data) => {
       headers: { Authorization: `Bearer ${token}` }
   };
  return sendPostRequest(`/profile/project/create`, config, data)
+}
+
+export const patchProject = async (projectId, token, data) => {
+  const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
+ return sendPatchRequest(`/profile/project/${projectId}`, config, data)
 }

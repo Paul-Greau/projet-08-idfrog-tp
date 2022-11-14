@@ -20,7 +20,7 @@ router.get('/project/list', projectCardController.getAllProjectCards);
 /* project */
 router.get('/project/:id', projectController.getOneProjectById);
 router.post('/profile/project/create', authorizationMiddleware, projectController.createProject)
-router.patch('/profile/:profileId/project/:projectId', projectController.patchProject)
+router.patch('/profile/project/:projectId',authorizationMiddleware , projectController.patchProject)
 router.delete('/profile/:profileId/project/:projectId', projectController.deleteProject)
 
 /* Profile */
@@ -39,7 +39,7 @@ router.patch('/profile/:profileId/comment/:commentId', commentController.patchCo
 router.delete('/profile/:profileId/comment/:commentId', commentController.deleteComment)
 
 /* Image */
-router.post('/project/:id/upload', uploadImageController.uploadProjectImage );
+router.post('/project/img/upload',authorizationMiddleware, uploadImageController.uploadProjectImage );
 
 
 module.exports = router;

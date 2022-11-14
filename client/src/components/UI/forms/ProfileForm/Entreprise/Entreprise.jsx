@@ -11,15 +11,13 @@ import { validationSchema } from './validateSocietySchema';
 import { useFormik } from 'formik';
 // CSS
 import { postEntrepriseStyles } from './styles';
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../../../../atomes/profileAtomes';
 
 function EntrepriseProfileForm({
   society,  
   profileStatus,
+  token
 }) {
 
-  const {token} = useRecoilValue(profileConnexionstate)
   const [showError, setShowError] = useState(false)
   const [loginError, setLoginError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')

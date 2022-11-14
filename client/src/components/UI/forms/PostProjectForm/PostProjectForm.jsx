@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
-import { postProject } from '../../../../services/projectService';
+import { patchProject, postProject } from '../../../../services/projectService';
 
 // import PropTypes from 'prop-types';
 
@@ -37,18 +37,27 @@ import { useFormik } from 'formik';
 import { postProjectStyles } from './styles';
 // Tableau des categories
 import { category } from './category';
+import { uploadProjectImage } from '../../../../services/imgService';
 
 
 function PostProjectForm({
   token,
   profileStatus,
 }) {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [img_url, setImageUrl] = useState(null);
   const [showError, setShowError] = useState(false)
   const [projectError, setProjectError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
 
-  const handleSubmit = (response) => {
-    if (response.status === 201){
+  //TODO improve Img Upload  - Alert on upload Img Error
+  /* const [showImgError, setShowImgError] = useState(false)
+  const [imgError, setImgError] = useState('') */
+
+    const handleSubmit = async (response, imgUploadedUrl) => {
+    if (response.status === 201){          
+    const patchResponse = await patchProject(response.data.id, token, {img_url:imgUploadedUrl})
+    console.log(patchResponse);
       setAlertStyle('success')
       setProjectError({
         status : null,
@@ -68,6 +77,7 @@ function PostProjectForm({
 
   const formik = useFormik({
     initialValues: {
+     // img_url: '',
       name: '', 
       title: '',
       category_id: '',
@@ -81,18 +91,36 @@ function PostProjectForm({
       status: profileStatus,
       visibility: false,
     },
-    validationSchema: validationSchema,
+     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
-    const response = await postProject(token, values)
-     console.log(response);
-     handleSubmit(response)
+    const uploadUrl = await uploadProjectImage(token, {projectImage :selectedImage})
+    if(uploadUrl.status !== 201){
+      setAlertStyle('error')
+      setProjectError({
+        status : uploadUrl.status,
+        message: uploadUrl.statusText
+      })
+      setShowError(true)
+      return
+    }
+     const response = await postProject(token, values)
+     handleSubmit(response, uploadUrl.data.path)
     },
   });
 
+const handleImgUpload = (img) => {
+    console.log('formproject', img);
+    setSelectedImage(img)
+    setImageUrl(URL.createObjectURL(img))
+  }
+
   return (
     <Box className="postProjectForm">
-      <UploadImages />
+      <UploadImages 
+      handleImgUpload={handleImgUpload}
+      img_url={img_url}
+      selectedImage={selectedImage}
+      />
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">
       <TextField

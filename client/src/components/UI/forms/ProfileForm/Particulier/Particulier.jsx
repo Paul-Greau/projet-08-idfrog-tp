@@ -21,16 +21,15 @@ import { validationSchema } from '../validatePersonSchema.js';
 import { useFormik} from 'formik';
 // CSS
 import { postParticulierStyles } from './styles';
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../../../../atomes/profileAtomes';
 
 function ProfileForm({
   // eslint-disable-next-line react/prop-types
   person,
   profileStatus,
-}) {
- console.log("person", person);
-  const {token} = useRecoilValue(profileConnexionstate)
+  token,
+}){
+
+  console.log("person", person);
   const [showError, setShowError] = useState(false)
   const [loginError, setLoginError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
@@ -147,7 +146,7 @@ function ProfileForm({
         sx={postParticulierStyles.leftInput}
         required
         margin="dense"
-        type="text"
+        type="date"
         name="birth_date"
         id="birth_date"
         label="Date de naissance"

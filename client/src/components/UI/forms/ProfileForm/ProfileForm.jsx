@@ -215,6 +215,7 @@ function ProfileForm() {
             sx={postProfileStyles.marginBottom}
             person={profileDetail.person}
             profileStatus={profileStatus}
+            token={token}
             />
         } 
 
@@ -223,6 +224,7 @@ function ProfileForm() {
         sx={postProfileStyles.marginBottom}
         society={profileDetail.society}
         profileStatus={profileStatus}
+        token={token}
         />  
         }      
 
