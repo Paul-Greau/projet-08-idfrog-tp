@@ -1,4 +1,8 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
+
+import { patchProject, postProject } from '../../../../services/projectService';
+
 // import PropTypes from 'prop-types';
 
 // Components
@@ -21,6 +25,7 @@ import {
   InputAdornment,
   Select,
   MenuItem,
+  Alert,
 } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
@@ -33,34 +38,86 @@ import { postProjectStyles } from './styles';
 import palette from '../../../../assets/styles/_vars.scss';
 // Tableau des categories
 import { category } from './category';
-
-function PostProjectForm() {
-
+import { uploadProjectImage } from '../../../../services/imgService';
 
 
-  const [categoryFilter, setCategoryFilter] = useState('');
-
+function PostProjectForm({
+  token,
+  profileStatus,
+}) {
   
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [img_url, setImageUrl] = useState(null);
+  const [showError, setShowError] = useState(false)
+  const [projectError, setProjectError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
+
+    const handleSubmit = async (response, imgUploadedUrl) => {
+      if (response.status === 201){          
+      const patchResponse = await patchProject(response.data.id, token, {img_url:imgUploadedUrl})
+      console.log(patchResponse);
+        setAlertStyle('success')
+        setProjectError({
+          status : null,
+          message: 'Projet créé avec succès'
+        })
+        setShowError(true)
+        return
+      }
+      setAlertStyle('error')
+      setProjectError({
+        status : response.status,
+        message: response.data.message
+      })
+      setShowError(true)
+      return
+    } 
+
   const formik = useFormik({
     initialValues: {
+     // img_url: '',
+      name: '', 
       title: '',
+      category_id: '',
       resume: '',
       description: '',
       amount_target: '',
       invest_type: '',
-      date: '',
+      rate:'',
+      end_time: '',
       website: '',
+      status: profileStatus,
+      visibility: false,
     },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+     validationSchema: validationSchema,
+    onSubmit: async (values) => {
+    const uploadUrl = await uploadProjectImage(token, {projectImage :selectedImage})
+    if(uploadUrl.status !== 201){
+      setAlertStyle('error')
+      setProjectError({
+        status : uploadUrl.status,
+        message: uploadUrl.statusText
+      })
+      setShowError(true)
+      return
+    }
+     const response = await postProject(token, values)
+     handleSubmit(response, uploadUrl.data.path)
     },
   });
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+
+const handleImgUpload = (img) => {
+    console.log('formproject', img);
+    setSelectedImage(img)
+    setImageUrl(URL.createObjectURL(img))
+  }
+
   return (
+    
     <Box
       className="postProjectForm"
       sx={{ px: { xl: 2, md: 2, xs: 0 }, mt: { xl: 1, md: 0, xs: 5 } }}
@@ -71,9 +128,29 @@ function PostProjectForm() {
       >
         Quel est votre projet&nbsp;?
       </Typography>
-      <UploadImages />
+      <UploadImages 
+      handleImgUpload={handleImgUpload}
+      img_url={img_url}
+      selectedImage={selectedImage}
+      />
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">
+      <TextField
+          sx={postProjectStyles.leftInput}
+          fullWidth
+          required
+          margin="dense"
+          type="text"
+          name="name"
+          id="name"
+          label="Nom de votre projet"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.name}
+          helperText={formik.touched.name && formik.errors.name}
+          error={formik.errors.name && formik.touched.name}
+        />
+        
         <TextField
           sx={postProjectStyles.leftInput}
           fullWidth
@@ -82,7 +159,7 @@ function PostProjectForm() {
           type="text"
           name="title"
           id="title"
-          label="Nom de votre projet"
+          label="Titre de votre projet"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.title}
@@ -92,18 +169,18 @@ function PostProjectForm() {
 
         <Select
           sx={postProjectStyles.rightInput}
-          name="category"
-          value={categoryFilter}
+          name="category_id"
           label="Catégories"
           displayEmpty
-          onChange={(event) => setCategoryFilter(event.target.value)}
+          value={formik.values.category_id}
+          onChange={formik.handleChange}
         >
           <MenuItem value="">
             <em>CATEGORIES DU PROJET</em>
           </MenuItem>
-          {category.map((category, index) => (
-            <MenuItem key={index} value={category}>
-              {category}
+          {category.map((category) => (
+            <MenuItem key={category.id} value={category.id}>
+              {category.name}
             </MenuItem>
           ))}
         </Select>
@@ -174,12 +251,17 @@ function PostProjectForm() {
             Quel type de financement recherchez vous ?
           </Typography>
           <Typography variant="p" sx={{ color: palette.secondary }}>
-            Financement participatif non ditutif auoprès d&apos;investisseurs ou
+            Financement participatif non ditutif auprès d&apos;investisseurs ou
             des dons
           </Typography>
         </FormControl>
 
-        <RadioGroup row name="invest_type">
+        <RadioGroup row
+        name="invest_type"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.invest_type}
+        >
           <Card sx={{ width: '100%', mb: 4 }}>
             <CardHeader
               avatar={<StarHalfIcon sx={{ color: palette.primary }} />}
@@ -187,7 +269,7 @@ function PostProjectForm() {
                 <FormControlLabel value="pret" control={<Radio id="0" />} />
               }
               title="Financement avec prêt"
-              subheader="Retour sur investisseme par rapport à la mise"
+              subheader="Retour sur investissement par rapport à la mise"
             />
             <CardHeader
               avatar={<FavoriteIcon sx={{ color: palette.primary }} />}
@@ -200,8 +282,30 @@ function PostProjectForm() {
           </Card>
         </RadioGroup>
 
-        <InputLabel sx={{ color: palette.secondary }}>
-          Durée de votre campagne:
+       {formik.values.invest_type === 'pret' &&
+       <>
+       <InputLabel
+       sx={{ color: palette.secondary }}
+       >
+      Taux de retour sur investissement:
+      </InputLabel>
+          
+       <FormControl fullWidth sx={{ mb: 1 }}>
+         <OutlinedInput
+           startAdornment={<InputAdornment position="end"></InputAdornment>}
+           name="rate"
+           id="rate"
+           onChange={formik.handleChange}
+           onBlur={formik.handleBlur}
+           value={formik.values.rate}
+           error={formik.errors.rate && formik.touched.rate}
+         />
+       </FormControl>
+       </>
+       } 
+        
+
+        <InputLabel>Date de fin de la campagne:
         </InputLabel>
 
         <TextField
@@ -209,13 +313,13 @@ function PostProjectForm() {
           fullWidth
           margin="dense"
           type="date"
-          id="date"
-          name="date"
+          id="end_time"
+          name="end_time"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          values={formik.values.date}
-          helperText={formik.touched.date && formik.errors.date}
-          error={formik.errors.date && formik.touched.date}
+          values={formik.values.end_time}
+          helperText={formik.touched.end_time && formik.errors.end_time}
+          error={formik.errors.end_time && formik.touched.end_time}
         />
 
         <TextField
@@ -240,12 +344,19 @@ function PostProjectForm() {
           variant="contained"
           sx={{ mt: 4, mb: 4, mr: 2 }}
         >
-          POSTER VOTRE PROJET
+          ENREGISTRER VOTRE PROJET
         </Button>
 
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
           ANNULER
         </Button>
+        {showError &&
+          <Alert severity={alertStyle}
+          onClose={() => {setShowError(false)}}
+          >
+          {projectError.status ? `'Erreur' ${projectError.status}` : ''} - {projectError.message}
+          </Alert>
+        } 
       </form>
     </Box>
   );

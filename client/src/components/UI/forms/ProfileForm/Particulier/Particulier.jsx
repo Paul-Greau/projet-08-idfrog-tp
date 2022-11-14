@@ -10,7 +10,6 @@ import {
   TextField,
   Box,
   RadioGroup,
-  Typography,
   FormControlLabel,
   Radio,
   Button,
@@ -22,15 +21,15 @@ import { validationSchema } from '../validatePersonSchema.js';
 import { useFormik} from 'formik';
 // CSS
 import { postParticulierStyles } from './styles';
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../../../../atomes/profileAtomes';
 
 function ProfileForm({
   // eslint-disable-next-line react/prop-types
   person,
-}) {
- console.log("person", person);
-  const {token} = useRecoilValue(profileConnexionstate)
+  profileStatus,
+  token,
+}){
+
+  console.log("person", person);
   const [showError, setShowError] = useState(false)
   const [loginError, setLoginError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
@@ -58,7 +57,7 @@ function ProfileForm({
       gender:person?.gender ?? "",
       first_name:person?.first_name ?? "",
       last_name:person?.last_name ?? "",
-      status: person?.status ?? "",
+      status: profileStatus,
       birth_date: person?.birth_date ?? "",
       birth_place: person?.birth_place ?? "",
       nationality: person?.nationality ?? "",
@@ -91,28 +90,6 @@ function ProfileForm({
   return (
     <Box className="profileForm">
       <form onSubmit={formik.handleSubmit} autoComplete="off">
-      <RadioGroup
-      row
-      name="status"
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      value={formik.values.status}
-      >
-        <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">
-          Votre Statut :
-        </Typography>
-
-        <FormControlLabel
-          value="person"
-          control={<Radio/> }
-          label="un particulier"
-        />
-        <FormControlLabel
-          value="association"
-          control={<Radio/>}
-          label="une association"
-        />    
-      </RadioGroup>
 
       <RadioGroup
           row
@@ -169,7 +146,7 @@ function ProfileForm({
         sx={postParticulierStyles.leftInput}
         required
         margin="dense"
-        type="text"
+        type="date"
         name="birth_date"
         id="birth_date"
         label="Date de naissance"

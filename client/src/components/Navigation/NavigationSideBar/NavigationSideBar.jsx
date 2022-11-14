@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */<<<<<<< drawer
+/* eslint-disable react/prop-types */
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';

@@ -8,6 +8,7 @@ import { patchProfile } from '../../../../services/profileService';
 
 // Compoments
 import Particulier from './Particulier/Particulier';
+import Entreprise from './Entreprise/Entreprise';
 // Materail UI
 import {
   TextField,
@@ -15,6 +16,9 @@ import {
   Box,
   Typography,
   Alert,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 //  FormControlLabel,
 //  RadioGroup,
  // Radio,
@@ -25,8 +29,6 @@ import { validationSchema } from './validateProfileSchema';
 import { useFormik } from 'formik';
 // CSS
 import { postProfileStyles } from './styles';
-import { useEffect } from 'react';
-
 
 
 function ProfileForm() {
@@ -34,6 +36,8 @@ function ProfileForm() {
   const [showError, setShowError] = useState(false)
   const [loginError, setLoginError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
+  const [profileStatus, setProfileStatus] = useState('');
+
   const profileDetail = useRecoilValue(profileDetailState);
 
   console.log("profileDetail in profileForm", profileDetail);
@@ -78,7 +82,8 @@ function ProfileForm() {
 
 
   useEffect(() => {  
-
+    const status = profileDetail.person?.status ?? profileDetail.society?.status
+    setProfileStatus(status)
   },[profileDetail])
 
   useEffect(() => {
@@ -184,12 +189,54 @@ function ProfileForm() {
           </Alert>
     } 
         </form>
+
+        <RadioGroup
+      row
+      name="status"
+      onChange={(e) => setProfileStatus(e.target.value)}
+      value={profileStatus}
+      >
+        <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">
+          Votre Statut :
+        </Typography>
+
+        <FormControlLabel
+          value="person"
+          control={<Radio/> }
+          label="un particulier"
+        />
+        <FormControlLabel
+          value="association"
+          control={<Radio/> }
+          label="association"
+        />
+        <FormControlLabel
+          value="society"
+          control={<Radio/>}
+          label="une société"
+        />    
+      </RadioGroup>
+
+        {(profileStatus === 'person' || profileStatus === 'association')
+        &&
         <Particulier
             sx={postProfileStyles.marginBottom}
             person={profileDetail.person}
-            />        
+            profileStatus={profileStatus}
+            token={token}
+            />
+        } 
 
-            </>)}
+        {profileStatus === 'society' &&
+        <Entreprise
+        sx={postProfileStyles.marginBottom}
+        society={profileDetail.society}
+        profileStatus={profileStatus}
+        token={token}
+        />  
+        }      
+
+      </>)}
       
     </Box>
   );
