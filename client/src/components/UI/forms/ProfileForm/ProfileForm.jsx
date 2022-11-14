@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+
+import React, { useEffect, useState } from 'react';
+
 // import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate, profileDetailState } from '../../../../atomes/profileAtomes';
@@ -79,9 +81,17 @@ function ProfileForm() {
 
   },[profileDetail])
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    
-    <Box className="profileForm" sx={{ p: 9 }}>
+
+    <Box
+      className="profileForm"
+      sx={{ p: { xl: 6, md: 5, xs: 4 }, mt: { xl: 0, md:4, xs: 5 } }}
+    >
+  
       {profileDetail.pseudo &&(
 
         <><form onSubmit={formik.handleSubmit} autoComplete="off">

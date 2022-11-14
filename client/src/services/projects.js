@@ -1,5 +1,4 @@
 import { sendGetRequest } from "../lib/Axios";
-// import { sendPostRequest } from "../lib/Axios";
 
 export const getProjectsList = () => {
   console.log('dans la req axios getProjectsList');

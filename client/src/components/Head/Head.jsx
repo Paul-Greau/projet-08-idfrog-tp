@@ -12,9 +12,14 @@ import AddchartIcon from '@mui/icons-material/Addchart';
 
 // CSS
 import palette from '../../assets/styles/_vars.scss';
+import { headStyles } from './styles';
 import './headStyles.scss';
 
+import { useRecoilValue } from 'recoil';
+import { profileConnexionstate } from '../../atomes/profileAtomes';
+
 function Head() {
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
   return (
     <div className="head">
       <Container component="section" maxWidth="lg">
@@ -62,41 +67,53 @@ function Head() {
               }}
             >
               <Grid item xs={12} md={6}>
-                <Link to="subscribe">
-                  <Button
-                    variant="outlined"
-                    endIcon={<InputIcon />}
-                    size="medium"
-                    sx={{
-                      width: '100%',
-                      fontWeight: 700,
-                      border: `2px solid ${palette.primary}`,
-                      '&:hover': {
-                        color: palette.secondary,
-                        backgroundColor: palette.primary,
-                        border: `2px solid ${palette.primary}`,
-                        background: ' rgba(0, 0, 0, 0.1)',
-                      },
-                    }}
-                  >
-                    Contribuer au projet
-                  </Button>
-                </Link>
+                {!ProfileInfo.isLogged ? (
+                  <Link to="/subscribe">
+                    <Button
+                      variant="outlined"
+                      endIcon={<InputIcon />}
+                      size="medium"
+                      sx={headStyles.btn}
+                    >
+                      Contribuer au projet
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/profile/contribut">
+                    <Button
+                      variant="outlined"
+                      endIcon={<InputIcon />}
+                      size="medium"
+                      sx={headStyles.btn}
+                    >
+                      Contribuer au projet
+                    </Button>
+                  </Link>
+                )}
               </Grid>
 
               <Grid item xs={12} md={6}>
-                <Link to="subscribe">
-                  <Button
-                    variant="contained"
-                    endIcon={<AddchartIcon />}
-                    sx={{
-                      width: '100%',
-                      color: '#fff',
-                    }}
-                  >
-                    Déposer mon projet
-                  </Button>
-                </Link>
+                {!ProfileInfo.isLogged ? (
+                  <Link to="/subscribe">
+                    <Button
+                      variant="contained"
+                      endIcon={<AddchartIcon />}
+                      sx={headStyles.btnWith}
+                    >
+                      Déposer mon projet
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/profile/postproject">
+                    <Button
+                      variant="contained"
+                      endIcon={<AddchartIcon />}
+                      sx={headStyles.btnWith}
+                    >
+                      Déposer mon projet
+                    </Button>
+                  </Link>
+                )}
               </Grid>
             </Grid>
           </Grid>

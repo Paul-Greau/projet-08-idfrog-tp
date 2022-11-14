@@ -5,17 +5,16 @@ import { Box, Typography } from '@mui/material';
 const Project = ({ resume, description, name }) => {
   return (
     <div>
-      <Box sx={{ padding: '15px' }}>
-        <Typography sx={{ fontWeight: 'bold', paddingBottom: '10px' }}>
-          Le mot du porteur de projet
-        </Typography>
-        <Typography> {resume}</Typography>
+      <Box sx={{ padding: '5px' }}>
+        <Typography sx={{ fontWeight: 'bold', pb: 1 }}> {name} :</Typography>
       </Box>
-      <Box sx={{ padding: '15px' }}>
-        <Typography sx={{ fontWeight: 'bold', paddingBottom: '10px' }}>
-          {name}, c&apos;est quoi concrètement ?
+      <Box sx={{ padding: '5px' }}>
+        <Typography sx={{ fontWeight: 'bold', pb: 2 }}>
+          c&apos;est quoi concrètement ?
         </Typography>
-        <Typography> {description}</Typography>
+        <Typography sx={{ textAlign: 'justify', pb: 2 }}>
+          {description}
+        </Typography>
       </Box>
     </div>
   );

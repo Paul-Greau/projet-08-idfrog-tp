@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 // Components
@@ -30,6 +30,7 @@ import { validationSchema } from './validatePostProjectSchema';
 import { useFormik } from 'formik';
 // CSS
 import { postProjectStyles } from './styles';
+import palette from '../../../../assets/styles/_vars.scss';
 // Tableau des categories
 import { category } from './category';
 
@@ -55,9 +56,21 @@ function PostProjectForm() {
       alert(JSON.stringify(values, null, 2));
     },
   });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
-    <Box className="postProjectForm">
+    <Box
+      className="postProjectForm"
+      sx={{ px: { xl: 2, md: 2, xs: 0 }, mt: { xl: 1, md: 0, xs: 5 } }}
+    >
+      <Typography
+        variant="h1"
+        sx={{ fontSize: '2em', mb: 2, color: palette.secondary }}
+      >
+        Quel est votre projet&nbsp;?
+      </Typography>
       <UploadImages />
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">
@@ -110,7 +123,10 @@ function PostProjectForm() {
           error={formik.errors.resume && formik.touched.resume}
         />
 
-        <Typography sx={{ pb: 1, pt: 0.5 }} color="Secondary" variant="h5">
+        <Typography
+          sx={{ pb: 1, pt: 0.5, color: palette.secondary }}
+          variant="h5"
+        >
           Décrivez en détail votre projet :
         </Typography>
 
@@ -129,7 +145,10 @@ function PostProjectForm() {
           error={formik.errors.description && formik.touched.description}
         />
 
-        <Typography sx={{ pb: 2, pt: 0.5 }} color="Secondary" variant="h5">
+        <Typography
+          sx={{ pb: 2, pt: 0.5, color: palette.secondary }}
+          variant="h5"
+        >
           Montant dont vous avez besoin ?
         </Typography>
 
@@ -148,10 +167,13 @@ function PostProjectForm() {
         </FormControl>
 
         <FormControl fullWidth sx={{ mb: 1 }}>
-          <Typography sx={{ pb: 0.5, pt: 0.5 }} color="Secondary" variant="h5">
+          <Typography
+            sx={{ pb: 0.5, pt: 0.5, color: palette.secondary }}
+            variant="h5"
+          >
             Quel type de financement recherchez vous ?
           </Typography>
-          <Typography variant="p" color="secondary">
+          <Typography variant="p" sx={{ color: palette.secondary }}>
             Financement participatif non ditutif auoprès d&apos;investisseurs ou
             des dons
           </Typography>
@@ -160,7 +182,7 @@ function PostProjectForm() {
         <RadioGroup row name="invest_type">
           <Card sx={{ width: '100%', mb: 4 }}>
             <CardHeader
-              avatar={<StarHalfIcon />}
+              avatar={<StarHalfIcon sx={{ color: palette.primary }} />}
               action={
                 <FormControlLabel value="pret" control={<Radio id="0" />} />
               }
@@ -168,7 +190,7 @@ function PostProjectForm() {
               subheader="Retour sur investisseme par rapport à la mise"
             />
             <CardHeader
-              avatar={<FavoriteIcon />}
+              avatar={<FavoriteIcon sx={{ color: palette.primary }} />}
               action={
                 <FormControlLabel value="dons" control={<Radio id="1" />} />
               }
@@ -178,10 +200,12 @@ function PostProjectForm() {
           </Card>
         </RadioGroup>
 
-        <InputLabel>Durée de votre campagne:</InputLabel>
+        <InputLabel sx={{ color: palette.secondary }}>
+          Durée de votre campagne:
+        </InputLabel>
 
         <TextField
-          sx={{ mt: 2 }}
+          sx={postProjectStyles.leftInput}
           fullWidth
           margin="dense"
           type="date"
@@ -195,7 +219,7 @@ function PostProjectForm() {
         />
 
         <TextField
-          sx={{ mt: 2 }}
+          sx={postProjectStyles.rightInput}
           fullWidth
           margin="dense"
           type="text"
@@ -216,7 +240,7 @@ function PostProjectForm() {
           variant="contained"
           sx={{ mt: 4, mb: 4, mr: 2 }}
         >
-          ENREGISTRER VOTRE PROFILE
+          POSTER VOTRE PROJET
         </Button>
 
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
