@@ -44,36 +44,33 @@ function PostProjectForm({
   token,
   profileStatus,
 }) {
+  
   const [selectedImage, setSelectedImage] = useState(null);
   const [img_url, setImageUrl] = useState(null);
   const [showError, setShowError] = useState(false)
   const [projectError, setProjectError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
 
-  //TODO improve Img Upload  - Alert on upload Img Error
-  /* const [showImgError, setShowImgError] = useState(false)
-  const [imgError, setImgError] = useState('') */
-
     const handleSubmit = async (response, imgUploadedUrl) => {
-    if (response.status === 201){          
-    const patchResponse = await patchProject(response.data.id, token, {img_url:imgUploadedUrl})
-    console.log(patchResponse);
-      setAlertStyle('success')
+      if (response.status === 201){          
+      const patchResponse = await patchProject(response.data.id, token, {img_url:imgUploadedUrl})
+      console.log(patchResponse);
+        setAlertStyle('success')
+        setProjectError({
+          status : null,
+          message: 'Projet créé avec succès'
+        })
+        setShowError(true)
+        return
+      }
+      setAlertStyle('error')
       setProjectError({
-        status : null,
-        message: 'Projet créé avec succès'
+        status : response.status,
+        message: response.data.message
       })
       setShowError(true)
       return
-    }
-    setAlertStyle('error')
-    setProjectError({
-      status : response.status,
-      message: response.data.message
-    })
-    setShowError(true)
-    return
-  } 
+    } 
 
   const formik = useFormik({
     initialValues: {
