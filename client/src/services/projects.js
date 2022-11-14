@@ -10,11 +10,3 @@ export const getProjectById = (id) => {
   return sendGetRequest(`/project/${id}`);
 };
 
-
-export const getProfileById = (id) => {
-  console.log('dans la req axiosgetProfile', id);
- 
- return sendGetRequest(`/profile/${id}`
-  );
-
-};

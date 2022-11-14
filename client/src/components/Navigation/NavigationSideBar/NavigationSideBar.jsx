@@ -1,6 +1,8 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types */<<<<<<< drawer
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 
 // Components
 import SideBarItems from './SideBarItems';
@@ -12,6 +14,7 @@ import IdfrogLogo from '../../../assets/images/logo-mini.png';
 import FrogMenu from '../../../assets/images/frogmenu.png';
 // CSS
 import './navigationSideBarStyles.scss';
+
 import palette from '../../../assets/styles/_vars.scss';
 import { navSideBarStyles } from './styles';
 
@@ -38,6 +41,7 @@ function NavigationSideBar() {
       <SideBarItems />
     </Box>
   );
+
   return (
     <>
       <Box sx={navSideBarStyles.frogMenu}>

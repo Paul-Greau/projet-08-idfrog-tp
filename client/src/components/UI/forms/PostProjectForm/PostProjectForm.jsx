@@ -35,7 +35,12 @@ import palette from '../../../../assets/styles/_vars.scss';
 import { category } from './category';
 
 function PostProjectForm() {
+
+
+
   const [categoryFilter, setCategoryFilter] = useState('');
+
+  
   const formik = useFormik({
     initialValues: {
       title: '',
