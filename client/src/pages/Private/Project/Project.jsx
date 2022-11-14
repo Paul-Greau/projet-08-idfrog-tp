@@ -13,7 +13,7 @@ import ProjectPageSkeleton from '../../../components/UI/Placeholder/ProjectPageS
 const Project = ({ isLoading }) => {
   const [result, setResult] = useState([]);
   const { id } = useParams();
-  isLoading = true;
+  // isLoading = true;
   const flag = useRef(false);
 
   // Récupération de la liste des utilisateurs à l'affichage
