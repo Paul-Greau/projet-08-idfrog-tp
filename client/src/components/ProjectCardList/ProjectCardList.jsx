@@ -15,6 +15,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Pagination,
 } from '@mui/material';
 // CSS
 import { projectCardStyles } from './styles';
@@ -23,8 +24,22 @@ function ProjectCardList({ result, isLoading }) {
   // console.log(result);
   // isLoading = true;
 
+// Pagination
+  const [filterResult, setFilterResult] = useState(result)
+// end pagination  
+console.log(filterResult);
+
+const handleChange = (filter) => {
+  setCategoryFilter(filter) 
+  const reultat = result.filter(project => project.category.name.includes(filter));
+  setFilterResult(reultat)
+
+}
+
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
+
+  console.log(categoryFilter);
 
   const filterByCategoryAndType = (res) =>
     (res.category.name.includes(categoryFilter) ||
@@ -51,11 +66,15 @@ function ProjectCardList({ result, isLoading }) {
                   id="category"
                   value={categoryFilter}
                   label="Catégories"
-                  onChange={(event) => setCategoryFilter(event.target.value)}
+                  onChange={(event) => handleChange(event.target.value)
+                    /* setCategoryFilter(event.target.value) */}
                 >
                   {categorys.map((category, index) => (
-                    <MenuItem key={index} value={category}>
-                      {category}
+                    <MenuItem 
+                    key={index}
+                    value={category}
+                    >
+                    {category}
                     </MenuItem>
                   ))}
                 </Select>
@@ -106,6 +125,14 @@ function ProjectCardList({ result, isLoading }) {
               <CardPlaceholder />
             </Grid>
           )}
+
+{/*            <Pagination
+            count={nbPage}
+            page={currentPage}
+            onChange={handleChange}
+            sx={{ p: 2 }}
+          /> */}
+
         </Grid>
       </Container>
     </>

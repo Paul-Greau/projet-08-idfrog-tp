@@ -25,8 +25,13 @@ import { projectCollectStyles } from './styles';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../atomes/profileAtomes';
 
-function ProjectCollect({ amount, profile, createdAt, contributions }) {
+function ProjectCollect({ amount, profile, createdAt, contributions, visibility }) {
+
   const ProfileInfo = useRecoilValue(profileConnexionstate);
+  const [visibilityState, setvisibilityState ]=useState(visibility);
+
+
+console.log('visibility', visibilityState);
 
   const options = {
     year: 'numeric',
@@ -118,21 +123,28 @@ function ProjectCollect({ amount, profile, createdAt, contributions }) {
             Souhaitez vous que votre projet soit :
           </Typography>
           <FormControl component="fieldset" sx={{ margin: '0.5em' }}>
-            <FormGroup aria-label="position" row>
-              <FormControlLabel
-                value="prive"
-                control={<Switch color="primary" />}
-                label="Privé"
-                labelPlacement="end"
-              />
-              <FormControlLabel
-                value="public"
-                control={<Switch color="primary" />}
-                label="Public"
-                labelPlacement="end"
-              />
-            </FormGroup>
-          </FormControl>
+          <FormGroup aria-label="position" row
+          value={visibility}
+          >
+            <FormControlLabel
+              checked={!visibilityState}
+              onChange={(e) => setvisibilityState(!visibilityState)}
+              value="false"
+              control={<Switch color="primary" />}
+              label="Privé"
+              labelPlacement="end"
+            />
+            <FormControlLabel
+              checked={visibilityState}
+              onChange={(e) => setvisibilityState(!visibilityState)}
+              value="true"
+              control={<Switch color="primary" />}
+              label="Public"
+              labelPlacement="end"
+            />
+          </FormGroup>
+        </FormControl>
+         
           <Typography
             color="secondary"
             gutterBottom

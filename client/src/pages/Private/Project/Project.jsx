@@ -44,15 +44,19 @@ const Project = () => {
         <ProjectDescription result={result} />
       </Grid>
       <Grid item xs={12} md={4}>
+        {result.id &&
         <ProjectCollect
-          id={result.id}
-          createdAt={result.created_at}
-          projet={result.name}
-          amount={result.amount_target}
-          description={result.description}
-          profile={result.profile?.pseudo}
-          contributions={result.contributions}
-        />
+        id={result.id}
+        createdAt={result.created_at}
+        projet={result.name}
+        amount={result.amount_target}
+        description={result.description}
+        profile={result.profile?.pseudo}
+        contributions={result.contributions}
+        visibility={result.visibility}
+      />
+        }
+        
       </Grid>
       <Grid item xs={12} md={12} sx={{ mt: -4 }}>
         <ProjectDetails result={result} />

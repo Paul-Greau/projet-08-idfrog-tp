@@ -9,7 +9,7 @@ const projectCardController= require('./controllers/projectCardController');
 const authorizationMiddleware= require('./middlewares/jwt');
 
 /** contribution */
-router.post('/profile/:profileId/contribute/:projectId', authorizationMiddleware, contributionController.makeContribution)
+router.post('/profile/contribute/:projectId', authorizationMiddleware, contributionController.makeContribution)
 
 const commentController = require('./controllers/commentControllers');
 const uploadImageController = require('./controllers/uploadImageController');
@@ -21,7 +21,7 @@ router.get('/project/list', projectCardController.getAllProjectCards);
 router.get('/project/:id', projectController.getOneProjectById);
 router.post('/profile/project/create', authorizationMiddleware, projectController.createProject)
 router.patch('/profile/project/:projectId',authorizationMiddleware , projectController.patchProject)
-router.delete('/profile/:profileId/project/:projectId', projectController.deleteProject)
+router.delete('/profile/project/:projectId',authorizationMiddleware , projectController.deleteProject)
 
 /* Profile */
 router.post('/login', profileController.login)
