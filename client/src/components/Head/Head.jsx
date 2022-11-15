@@ -27,7 +27,7 @@ function Head() {
 
   return (
     <div className="head">
-      {isLoading ? (
+      {!isLoading ? (
         <Container component="section" maxWidth="lg">
           <Grid container justifyContent="center" alignItems="center">
             <Grid item xs={12} md={6}>
