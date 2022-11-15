@@ -21,7 +21,7 @@ import {
 // CSS
 import { projectCardStyles } from './styles';
 
-function ProjectCardList({ result, isLoading }) {
+function ProjectCardList({ result, isLoading, cardPerPages, }) {
  // console.log('ProjectCardList', result);
  // console.log(financingTypes);
 
@@ -31,7 +31,7 @@ function ProjectCardList({ result, isLoading }) {
 
 // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(3);
+  const [cardsPerPage, setCardsPerPage] = useState(cardPerPages);
   
   const handleChange = (event, value) => {
     event.preventDefault();

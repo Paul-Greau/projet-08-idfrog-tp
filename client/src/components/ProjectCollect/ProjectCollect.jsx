@@ -103,18 +103,17 @@ console.log('visibility', visibilityState);
   };
 
   const handleDeleteProject = async () => {
-    console.log(project_id, ProfileInfo.token);
-   const response = await deleteProject(project_id, ProfileInfo.token)
-  console.log(response);
-  if (response.status === 201){
-    return navigate("/");
-  }
-  setLoginError({
-    status : response.status,
-    message: response.data.message
-  })
-  setShowError(true)
-  return 
+    const response = await deleteProject(project_id, ProfileInfo.token)
+    console.log(response);
+    if (response.status === 201){
+      return navigate("/");
+    }
+    setLoginError({
+      status : response.status,
+      message: response.data.message
+    })
+    setShowError(true)
+    return 
   }
 
   useEffect(() => {
