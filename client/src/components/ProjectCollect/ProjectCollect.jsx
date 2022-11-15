@@ -24,12 +24,29 @@ import { projectCollectStyles } from './styles';
 // RECOIL
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../atomes/profileAtomes';
+import { patchProject } from '../../services/projectService';
 
-function ProjectCollect({ amount, profile, createdAt, contributions, visibility }) {
+function ProjectCollect({
+  amount,
+  profile,
+  createdAt,
+  contributions,
+  visibility,
+  project_id
+}) {
 
+  const {token} = useRecoilValue(profileConnexionstate)
   const ProfileInfo = useRecoilValue(profileConnexionstate);
   const [visibilityState, setvisibilityState ]=useState(visibility);
 
+const handleVisibilityState = () => {
+    // req axios patch project
+
+  console.log(project_id, token);
+  const response = patchProject(project_id, token, {visibility: !visibilityState})
+  console.log(response);
+  setvisibilityState(!visibilityState)
+}
 
 console.log('visibility', visibilityState);
 
@@ -128,7 +145,7 @@ console.log('visibility', visibilityState);
           >
             <FormControlLabel
               checked={!visibilityState}
-              onChange={(e) => setvisibilityState(!visibilityState)}
+              onChange={() => handleVisibilityState()}
               value="false"
               control={<Switch color="primary" />}
               label="Privé"
@@ -136,7 +153,7 @@ console.log('visibility', visibilityState);
             />
             <FormControlLabel
               checked={visibilityState}
-              onChange={(e) => setvisibilityState(!visibilityState)}
+              onChange={() => handleVisibilityState()}
               value="true"
               control={<Switch color="primary" />}
               label="Public"

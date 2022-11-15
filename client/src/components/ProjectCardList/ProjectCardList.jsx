@@ -36,7 +36,7 @@ function ProjectCardList({ result, isLoading }) {
   const handleChange = (event, value) => {
     event.preventDefault();
     setCurrentPage(value);
-    setCardsPerPage;
+    //setCardsPerPage;
   }; 
 
    const nbPage = Math.ceil(filterResult.length / cardsPerPage);
@@ -64,8 +64,10 @@ useEffect(() => {
     return false;
   });
 
-  console.log('results', filteredResults);
+
+  // console.log('results', filteredResults);
   setFilterResult(filteredResults)
+  setCurrentPage(1)
 
 },[categoryFilter, financingTypeFilter, result]);
 
@@ -151,6 +153,7 @@ useEffect(() => {
           )}
 
             <Pagination
+            siblingCount={0}
             count={nbPage}
             page={currentPage}
             onChange={handleChange}

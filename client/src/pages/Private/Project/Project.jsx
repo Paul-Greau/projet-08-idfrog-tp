@@ -30,6 +30,7 @@ const Project = () => {
     return () => (flag.current = true);
   }, [id]);
 
+
   return (
     <Grid container spacing={5}>
       <Grid item xs={12} md={12}>
@@ -46,7 +47,7 @@ const Project = () => {
       <Grid item xs={12} md={4}>
         {result.id &&
         <ProjectCollect
-        id={result.id}
+        project_id={result.id}
         createdAt={result.created_at}
         projet={result.name}
         amount={result.amount_target}
