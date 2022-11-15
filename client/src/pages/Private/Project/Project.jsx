@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Grid, CardMedia } from '@mui/material';
 // Services
 import { getProjectById } from '../../../services/projectService';
@@ -9,6 +9,8 @@ import ProjectDetails from '../../../components/ProjectDetails/ProjectDetails';
 import ProjectCollect from '../../../components/ProjectCollect/ProjectCollect';
 
 const Project = () => {
+
+  let navigate = useNavigate()
   const [result, setResult] = useState([]);
   const { id } = useParams();
 
@@ -22,9 +24,17 @@ const Project = () => {
         .then((res) => {
           // Liste dans le state
           setResult(res.data);
-          console.log(res.data);
+          console.log('reponse dans project', res); 
+          if (res.status === 404) {
+            return navigate("/");
+          }         
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>console.log(err)      
+        )
+
+      
+
+        
     }
 
     return () => (flag.current = true);
