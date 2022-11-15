@@ -29,6 +29,21 @@ function ProjectCardList({ result, isLoading }) {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
 
+// Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage, setCardsPerPage] = useState(3);
+  
+  const handleChange = (event, value) => {
+    event.preventDefault();
+    setCurrentPage(value);
+    setCardsPerPage;
+  }; 
+
+   const nbPage = Math.ceil(filterResult.length / cardsPerPage);
+   const indexOfLastCard = currentPage * cardsPerPage;
+   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+   const currentCards = filterResult.slice(indexOfFirstCard, indexOfLastCard);
+
 useEffect(() => {
 
   let filteredResults = result.filter((item) => {
@@ -114,7 +129,7 @@ useEffect(() => {
         </Box>
         <Grid container spacing={2} alignItems="stretch">
           {!isLoading &&
-            filterResult.map((res) => (
+            currentCards.map((res) => (
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
@@ -135,12 +150,12 @@ useEffect(() => {
             </Grid>
           )}
 
-{/*            <Pagination
+            <Pagination
             count={nbPage}
             page={currentPage}
             onChange={handleChange}
             sx={{ p: 2 }}
-          /> */}
+          /> 
 
         </Grid>
       </Container>
