@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 // Components
@@ -19,9 +19,8 @@ import {
 // CSS
 import { projectCardStyles } from './styles';
 
-function ProjectCardList({ result, isLoading }) {
-  // console.log(result);
-  // isLoading = true;
+function ProjectCardList({ result }) {
+  const [isLoading, setIsLoading] = useState(true);
 
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
@@ -31,6 +30,10 @@ function ProjectCardList({ result, isLoading }) {
       categoryFilter === 'TOUTES CATEGORIES') &&
     (res.invest_type.includes(financingTypeFilter) ||
       financingTypeFilter === 'Tout type de financement');
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   return (
     <>
@@ -84,9 +87,9 @@ function ProjectCardList({ result, isLoading }) {
             </Grid>
           </Grid>
         </Box>
-        <Grid container spacing={2} alignItems="stretch">
-          {!isLoading &&
-            result.filter(filterByCategoryAndType).map((res) => (
+        {!isLoading ? (
+          <Grid container spacing={2} alignItems="stretch">
+            {result.filter(filterByCategoryAndType).map((res) => (
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
@@ -99,14 +102,14 @@ function ProjectCardList({ result, isLoading }) {
                 />
               </Grid>
             ))}
-          {isLoading && (
-            <Grid container justifyContent="space-evenly" alignItems="stretch">
-              <CardPlaceholder />
-              <CardPlaceholder />
-              <CardPlaceholder />
-            </Grid>
-          )}
-        </Grid>
+          </Grid>
+        ) : (
+          <Grid container spacing={2} alignItems="stretch">
+            <CardPlaceholder />
+            <CardPlaceholder />
+            <CardPlaceholder />
+          </Grid>
+        )}
       </Container>
     </>
   );

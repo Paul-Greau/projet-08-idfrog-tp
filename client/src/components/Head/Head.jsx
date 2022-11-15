@@ -3,7 +3,7 @@ import React from 'react';
 // import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 
-import headImg from '../../assets/images/logo-bigfrog.png';
+import headImg from '../../assets/images/BigFrog.svg';
 
 // Material UI
 import { Typography, Grid, Button, Container } from '@mui/material';

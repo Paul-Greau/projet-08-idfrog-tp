@@ -9,11 +9,13 @@ import ProjectDescription from '../../../components/ProjectDescription/ProjectDe
 import ProjectDetails from '../../../components/ProjectDetails/ProjectDetails';
 import ProjectCollect from '../../../components/ProjectCollect/ProjectCollect';
 import ProjectPageSkeleton from '../../../components/UI/Placeholder/ProjectPageSkeleton';
+import LoadingBar from '../../../components/UI/Placeholder/LoadingBar';
 
-const Project = ({ isLoading }) => {
+const Project = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [result, setResult] = useState([]);
   const { id } = useParams();
-  // isLoading = true;
+
   const flag = useRef(false);
 
   // Récupération de la liste des utilisateurs à l'affichage
@@ -25,6 +27,7 @@ const Project = ({ isLoading }) => {
           // Liste dans le state
           setResult(res.data);
           console.log(res.data);
+          setIsLoading(false);
         })
         .catch((err) => console.log(err));
     }
@@ -34,7 +37,7 @@ const Project = ({ isLoading }) => {
 
   return (
     <>
-      {!isLoading && (
+      {!isLoading ? (
         <Grid container spacing={5}>
           <Grid item xs={12} md={12}>
             <CardMedia
@@ -62,8 +65,12 @@ const Project = ({ isLoading }) => {
             <ProjectDetails result={result} />
           </Grid>
         </Grid>
+      ) : (
+        <>
+          <LoadingBar />
+          <ProjectPageSkeleton />
+        </>
       )}
-      {isLoading && <ProjectPageSkeleton />}
     </>
   );
 };
