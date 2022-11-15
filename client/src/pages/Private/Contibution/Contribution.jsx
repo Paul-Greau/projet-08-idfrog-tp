@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
 //import PropTypes from 'prop-types';
 
-import ContributForm from '../../../components/UI/forms/ContributForm/ContributForm';
+import ContributForm from "../../../components/UI/forms/ContributForm/ContributForm";
+import ContributPlaceholder from "../../../components/UI/Placeholder/ContributPlaceholder";
 
 // CSS
-import './contributionStyles.scss';
+import "./contributionStyles.scss";
 
 function Contribution() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
   return (
     <div className="contribut-container">
-      <ContributForm />
+      {!isLoading ? <ContributPlaceholder /> : <ContributForm />}
     </div>
   );
 }
