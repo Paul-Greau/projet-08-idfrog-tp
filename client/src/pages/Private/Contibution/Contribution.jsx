@@ -17,7 +17,7 @@ function Contribution() {
 
   return (
     <div className="contribut-container">
-      {!isLoading ? <ContributPlaceholder /> : <ContributForm />}
+      {!isLoading ? <ContributForm /> : <ContributPlaceholder />}
     </div>
   );
 }

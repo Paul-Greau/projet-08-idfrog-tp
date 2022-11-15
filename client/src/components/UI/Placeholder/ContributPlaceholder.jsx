@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { Skeleton, Box } from "@mui/material";
 // Yup Schema
 
-function ProfileForm() {
+function ProfileFormPlaceholder() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -73,8 +73,8 @@ function ProfileForm() {
     </Box>
   );
 }
-ProfileForm.propTypes = {};
+ProfileFormPlaceholder.propTypes = {};
 
-ProfileForm.defaultProps = {};
+ProfileFormPlaceholder.defaultProps = {};
 
-export default ProfileForm;
+export default ProfileFormPlaceholder;

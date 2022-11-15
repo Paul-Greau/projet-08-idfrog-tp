@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import PropTypes from 'prop-types';
 
 // Components
-import ProjectCard from '../ProjectCard/ProjectCard';
-import CardPlaceholder from '../UI/CardPlaceholder/CardPlaceholder';
-import { categorys, financingTypes } from './categaryFilter';
+import ProjectCard from "../ProjectCard/ProjectCard";
+import CardPlaceholder from "../UI/Placeholder/CardPlaceholder";
+import { categorys, financingTypes } from "./categaryFilter";
 // Material UI
 import {
   Container,
@@ -15,22 +15,22 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from '@mui/material';
+} from "@mui/material";
 // CSS
-import { projectCardStyles } from './styles';
+import { projectCardStyles } from "./styles";
 
 function ProjectCardList({ result, isLoading }) {
   // console.log(result);
   // isLoading = true;
 
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [financingTypeFilter, setFinancingTypeFilter] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [financingTypeFilter, setFinancingTypeFilter] = useState("");
 
   const filterByCategoryAndType = (res) =>
     (res.category.name.includes(categoryFilter) ||
-      categoryFilter === 'TOUTES CATEGORIES') &&
+      categoryFilter === "TOUTES CATEGORIES") &&
     (res.invest_type.includes(financingTypeFilter) ||
-      financingTypeFilter === 'Tout type de financement');
+      financingTypeFilter === "Tout type de financement");
 
   return (
     <>
