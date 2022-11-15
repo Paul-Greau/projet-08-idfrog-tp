@@ -17,16 +17,16 @@ import './homeStyles.scss';
 
 function Home() {
   const [result, setResult] = useState([]);
- const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(3);
+/*  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage, setCardsPerPage] = useState(3); */
 
-  const handleChange = (event, value) => {
+/*   const handleChange = (event, value) => {
     event.preventDefault();
     setCurrentPage(value);
     setCardsPerPage;
   }; 
 
-   const nbPage = Math.ceil(result.length / cardsPerPage);
+   const nbPage = Math.ceil(result.length / cardsPerPage); */
  
   const FetchData = async () => {
     try {
@@ -43,15 +43,15 @@ function Home() {
       FetchData(); 
     },[]);
 
-  const indexOfLastCard = currentPage * cardsPerPage;
+/*   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = result.slice(indexOfFirstCard, indexOfLastCard);
+  const currentCards = result.slice(indexOfFirstCard, indexOfLastCard); */
  
   return (
     <>
       <Head />
       <Box className="allCards">
-        <ProjectCardList result={currentCards} />
+        <ProjectCardList result={result} />
         <Container
           component="section"
           maxWidth="lg"
@@ -60,12 +60,12 @@ function Home() {
             justifyContent: 'center',
           }}
         >
-          <Pagination
+{/*           <Pagination
             count={nbPage}
             page={currentPage}
             onChange={handleChange}
             sx={{ p: 2 }}
-          />
+          /> */}
         </Container> 
       </Box>
       <TopFooter />

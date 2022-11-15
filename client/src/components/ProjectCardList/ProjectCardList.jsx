@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 
 // Components
 import ProjectCard from '../ProjectCard/ProjectCard';
 import CardPlaceholder from '../UI/CardPlaceholder/CardPlaceholder';
-import { categorys, financingTypes } from './categaryFilter';
+
+import { category, financingTypes } from '../UI/forms/PostProjectForm/category';
 // Material UI
 import {
   Container,
@@ -21,31 +22,39 @@ import {
 import { projectCardStyles } from './styles';
 
 function ProjectCardList({ result, isLoading }) {
-  // console.log(result);
-  // isLoading = true;
+ // console.log('ProjectCardList', result);
+ // console.log(financingTypes);
 
-// Pagination
   const [filterResult, setFilterResult] = useState(result)
-// end pagination  
-console.log(filterResult);
-
-const handleChange = (filter) => {
-  setCategoryFilter(filter) 
-  const reultat = result.filter(project => project.category.name.includes(filter));
-  setFilterResult(reultat)
-
-}
-
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
 
-  console.log(categoryFilter);
+useEffect(() => {
 
-  const filterByCategoryAndType = (res) =>
-    (res.category.name.includes(categoryFilter) ||
-      categoryFilter === 'TOUTES CATEGORIES') &&
-    (res.invest_type.includes(financingTypeFilter) ||
-      financingTypeFilter === 'Tout type de financement');
+  let filteredResults = result.filter((item) => {
+    // Boucle sur chaque projet de l'objet result
+
+    if(categoryFilter === item.category_id && financingTypeFilter === item.invest_type){
+      return true;
+    }
+    if((categoryFilter === '' || categoryFilter === 0 ) && financingTypeFilter === item.invest_type){
+      return true;
+    }
+    if((financingTypeFilter === '' || financingTypeFilter === 'all' ) && categoryFilter === item.category_id){
+      return true;
+    }
+    if((categoryFilter === '' || categoryFilter === 0 ) && (financingTypeFilter === '' || financingTypeFilter === 'all' )){
+      return true;
+    }
+    return false;
+  });
+
+  console.log('results', filteredResults);
+  setFilterResult(filteredResults)
+
+},[categoryFilter, financingTypeFilter, result]);
+
+
 
   return (
     <>
@@ -66,15 +75,15 @@ const handleChange = (filter) => {
                   id="category"
                   value={categoryFilter}
                   label="Catégories"
-                  onChange={(event) => handleChange(event.target.value)
+                  onChange={(event) => setCategoryFilter(event.target.value)
                     /* setCategoryFilter(event.target.value) */}
                 >
-                  {categorys.map((category, index) => (
+                  {category.map((category, index) => (
                     <MenuItem 
                     key={index}
-                    value={category}
+                    value={category.id}
                     >
-                    {category}
+                    {category.name}
                     </MenuItem>
                   ))}
                 </Select>
@@ -94,8 +103,8 @@ const handleChange = (filter) => {
                   }
                 >
                   {financingTypes.map((financingType, index) => (
-                    <MenuItem key={index} value={financingType}>
-                      {financingType}
+                    <MenuItem key={index} value={financingType.value}>
+                      {financingType.title}
                     </MenuItem>
                   ))}
                 </Select>
@@ -105,7 +114,7 @@ const handleChange = (filter) => {
         </Box>
         <Grid container spacing={2} alignItems="stretch">
           {!isLoading &&
-            result.filter(filterByCategoryAndType).map((res) => (
+            filterResult.map((res) => (
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
