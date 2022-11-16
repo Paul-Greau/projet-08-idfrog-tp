@@ -1,7 +1,7 @@
 @use '../../assets/styles/vars';
 
 .head {
-    padding: vars.$gutter;
+    padding: vars.$gutter vars.$gutter*2 0 vars.$gutter*2;
     &-logo {
         max-width: "535px";
     }

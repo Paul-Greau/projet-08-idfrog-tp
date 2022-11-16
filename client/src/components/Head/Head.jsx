@@ -19,12 +19,12 @@ function Head() {
         justifyContent="center"
         alignItems="center"
         sx={{
-            paddingLeft: "50px"
+            
         }}
       >
         <Grid item xs={12} md={6} sx={{}}>
-          <Typography variant="h1" sx={{fontSize: "2rem"}}>Avec les solutions IdFrog </Typography>
-          <Typography variant="h2" sx={{fontSize: "2rem", marginBottom: "20px"}}><span color="primary">JE DONNE VIE !</span><span color="primary"> à mes idées.</span></Typography>
+          <Typography variant="h1" color="primary" sx={{fontSize: "2rem", fontWeight: "bold"}}>Avec les solutions IdFrog </Typography>
+          <Typography variant="h2" color="primary" sx={{fontSize: "2rem", marginBottom: "20px", fontWeight: "bold"}}>JE DONNE VIE ! à mes idées.</Typography>
           <Typography variant="h2" sx={{fontSize: "1rem", marginBottom: "10px"}}>Vous lancez un projet qui tient à cœur ? </Typography>
           <Typography variant="h2" sx={{fontSize: "1rem"}}>Et Vous avez besoin d'un coup de pouce financier ?</Typography>
 
@@ -32,17 +32,16 @@ function Head() {
             container 
             spacing={2}
             sx={{
-                paddingTop: "50px"
+                paddingTop: "50px",
             }}
           >
             <Grid item xs={12} md={6} sx={{}}>
-              <Button variant="outlined" endIcon={<InputIcon color="primary"/>} size="medium">
+              <Button variant="outlined" endIcon={<InputIcon/>} size="medium" sx={{width: "100%"}}>
                     Contribuer au projet
               </Button>
             </Grid>
-
-            <Grid item xs={12} md={6} sx={{}}>
-              <Button variant="outlined" endIcon={<AddchartIcon />} sx={{backgroundColor: "#5de4d5", color: "#fff"}}>
+            <Grid item xs={12} md={6}>
+              <Button variant="outlined" endIcon={<AddchartIcon />} sx={{width: "100%", backgroundColor: "#5de4d5", color: "#fff"}}>
                 Déposer mon projet
               </Button>
             </Grid>
@@ -50,7 +49,7 @@ function Head() {
 
         </Grid>
 
-        <Grid item xs={12} md={6} sx={{}}>
+        <Grid item xs={12} md={6} sx={{textAlign: "center"}}>
           <img width="80%" src={headImg} className="head-logo" alt="Head Footer"></img>
         </Grid>
         
