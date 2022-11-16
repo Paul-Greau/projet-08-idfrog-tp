@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
+
 import React, { useState, useEffect } from 'react';
+
 // import PropTypes from 'prop-types';
 
 // Components
 import ProjectCard from '../ProjectCard/ProjectCard';
+
 import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
 import { categorys, financingTypes } from './categaryFilter';
+
 // Material UI
 import {
   Container,
@@ -15,21 +19,63 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Pagination,
 } from '@mui/material';
 // CSS
 import { projectCardStyles } from './styles';
 
+
 function ProjectCardList({ result }) {
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const [filterResult, setFilterResult] = useState(result)
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
 
-  const filterByCategoryAndType = (res) =>
-    (res.category.name.includes(categoryFilter) ||
-      categoryFilter === 'TOUTES CATEGORIES') &&
-    (res.invest_type.includes(financingTypeFilter) ||
-      financingTypeFilter === 'Tout type de financement');
+// Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage, setCardsPerPage] = useState(cardPerPages);
+  
+  const handleChange = (event, value) => {
+    event.preventDefault();
+    setCurrentPage(value);
+    //setCardsPerPage;
+  }; 
+
+   const nbPage = Math.ceil(filterResult.length / cardsPerPage);
+   const indexOfLastCard = currentPage * cardsPerPage;
+   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+   const currentCards = filterResult.slice(indexOfFirstCard, indexOfLastCard);
+
+useEffect(() => {
+
+  let filteredResults = result.filter((item) => {
+    // Boucle sur chaque projet de l'objet result
+
+    if(categoryFilter === item.category_id && financingTypeFilter === item.invest_type){
+      return true;
+    }
+    if((categoryFilter === '' || categoryFilter === 0 ) && financingTypeFilter === item.invest_type){
+      return true;
+    }
+    if((financingTypeFilter === '' || financingTypeFilter === 'all' ) && categoryFilter === item.category_id){
+      return true;
+    }
+    if((categoryFilter === '' || categoryFilter === 0 ) && (financingTypeFilter === '' || financingTypeFilter === 'all' )){
+      return true;
+    }
+    return false;
+  });
+
+
+  // console.log('results', filteredResults);
+  setFilterResult(filteredResults)
+  setCurrentPage(1)
+
+},[categoryFilter, financingTypeFilter, result]);
+
+
 
   useEffect(() => {
     setIsLoading(false);
@@ -54,11 +100,15 @@ function ProjectCardList({ result }) {
                   id="category"
                   value={categoryFilter}
                   label="Catégories"
-                  onChange={(event) => setCategoryFilter(event.target.value)}
+                  onChange={(event) => setCategoryFilter(event.target.value)
+                    /* setCategoryFilter(event.target.value) */}
                 >
-                  {categorys.map((category, index) => (
-                    <MenuItem key={index} value={category}>
-                      {category}
+                  {category.map((category, index) => (
+                    <MenuItem 
+                    key={index}
+                    value={category.id}
+                    >
+                    {category.name}
                     </MenuItem>
                   ))}
                 </Select>
@@ -78,8 +128,8 @@ function ProjectCardList({ result }) {
                   }
                 >
                   {financingTypes.map((financingType, index) => (
-                    <MenuItem key={index} value={financingType}>
-                      {financingType}
+                    <MenuItem key={index} value={financingType.value}>
+                      {financingType.title}
                     </MenuItem>
                   ))}
                 </Select>
@@ -87,9 +137,11 @@ function ProjectCardList({ result }) {
             </Grid>
           </Grid>
         </Box>
+
         {!isLoading ? (
           <Grid container spacing={2} alignItems="stretch">
             {result.filter(filterByCategoryAndType).map((res) => (
+
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
@@ -102,6 +154,7 @@ function ProjectCardList({ result }) {
                 />
               </Grid>
             ))}
+
           </Grid>
         ) : (
           <Grid container spacing={2} alignItems="stretch">
@@ -110,6 +163,7 @@ function ProjectCardList({ result }) {
             <CardPlaceholder />
           </Grid>
         )}
+
       </Container>
     </>
   );

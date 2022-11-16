@@ -55,3 +55,18 @@ export const sendPatchRequest = async (url, params = {}, headers = {}, ) => {
  
  };
 
+ export const sendDeleteRequest = async (url, headers = {}, ) => {
+  try{
+   let response =  await axios.delete(url, 
+     headers,       
+   )
+     // console.log('sendDeleteRequest axios', response);
+     return (response)
+   }
+   catch (error){
+     console.log(error);
+     return (error.response)
+   } 
+ 
+ };
+

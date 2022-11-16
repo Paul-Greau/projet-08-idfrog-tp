@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Grid, CardMedia } from '@mui/material';
 // Services
 import { getProjectById } from '../../../services/projectService';
@@ -12,7 +12,12 @@ import ProjectPageSkeleton from '../../../components/UI/Placeholder/ProjectPageS
 import LoadingBar from '../../../components/UI/Placeholder/LoadingBar';
 
 const Project = () => {
+
   const [isLoading, setIsLoading] = useState(true);
+
+
+  let navigate = useNavigate()
+
   const [result, setResult] = useState([]);
   const { id } = useParams();
 
@@ -26,16 +31,27 @@ const Project = () => {
         .then((res) => {
           // Liste dans le state
           setResult(res.data);
-          console.log(res.data);
-          setIsLoading(false);
+
+          console.log('reponse dans project', res); 
+          if (res.status === 404) {
+            return navigate("/");
+          }         
+
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>console.log(err)      
+        )
+
+      
+
+        
     }
 
     return () => (flag.current = true);
   }, [id]);
 
+
   return (
+
     <>
       {!isLoading ? (
         <Grid container spacing={5}>
@@ -72,6 +88,7 @@ const Project = () => {
         </>
       )}
     </>
+
   );
 };
 

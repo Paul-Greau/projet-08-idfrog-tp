@@ -97,6 +97,7 @@ INSERT INTO "society" ("siret", "profile_id", "name", "status") VALUES
 -- Déchargement des données de la table "project"
 --
 
+
 INSERT INTO "project" ("profile_id", "category_id", "name", "invest_type", "amount_target", "rate", "end_time", "title", "subtitle", "description", "visibility") VALUES
 (17, 2, 'Delorean 2022', 'capital', '200000', 2.5,  '2022-12-16', 'Delorean 2K22', 'En hommage à retour vers le futur', 'Une super voiture qui vous permettra de voyager dans le temps', false),
 (21, 9, 'Actiively', 'capital', '150000', 3,  '2023-12-31', 'Actiively', "Trouvez une activité sportive/artistique qui correspond à vos critères !", "Une plateforme pour rechercher des activités (sportives, artistiques…) en fonction de critères précis : lieu, tarif, niveau (débutant, confirmé…), jour de la semaine, genre (mixte, femmes, hommes), inscription possible ou non à un instant T
@@ -124,7 +125,6 @@ Greg, de Paris, et ses amis, souhaiteraient prendre 8 douzaines eux ! André peu
  false),
 (28, 18, 'Miimosa', 'capital', '100000', 2,5, '2022-12-31', 'Miimosa', 'Le financement participatif dédié à la transition agricole et alimentaire', 'Sur MiiMOSA, l’agriculture et l’alimentation de demain se financent aujourd’hui. Depuis 2015, nous proposons aux citoyens et aux entreprises de financer des projets d’agriculture et d’alimentation durables sur le modèle du don avec contrepartie ou du prêt rémunéré.', 
  false);
-
 --
 -- Déchargement des données de la table "comment"
 --
@@ -153,6 +153,7 @@ INSERT INTO "comment" ("profile_id", "project_id", "text") VALUES
 --
 
 INSERT INTO "contribution" ("profile_id", "project_id", "invested_amount", "sold") VALUES
+
 (1, 1, 5000, false),
 (6, 1, 150000, false),
 (14, 2, 30000, false),
@@ -171,6 +172,7 @@ INSERT INTO "contribution" ("profile_id", "project_id", "invested_amount", "sold
 (18, 8, 32000, false),
 (2, 9, 14500, false),
 (20, 9, 11000, false);
+
 
 
 COMMIT;

@@ -39,3 +39,11 @@ export const category = [
     id: 18},
 
   ];
+
+
+export const financingTypes = [
+    {title: 'Tout type de financement', value : 'all'},
+    {title: 'Investissement par don', value : 'dons'},
+    {title: 'Investissement avec prêt', value : 'pret'},
+    {title: 'capital', value : 'capital'},
+  ];
