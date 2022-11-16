@@ -148,6 +148,7 @@ INSERT INTO "comment" ("profile_id", "project_id", "text") VALUES
 (14, 8, "Pressée de voir ce projet fini. J'ai un projet perso que j'aimerais pousser.");
 (18, 9, 'Curieuse de voir ce projet abouti!');
 
+
 --
 -- Déchargement des données de la table "contribution"
 --
