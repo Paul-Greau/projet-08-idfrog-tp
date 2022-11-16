@@ -1,4 +1,15 @@
 import React from 'react';
+<<<<<<< HEAD
+import { Card, Skeleton } from '@mui/material';
+const ProjectCardPlaceholder = () => {
+  return (
+    <Card sx={{ marginLeft: 2, marginBottom: 2, marginTop: 1 }}>
+      <Skeleton height={380} width={373} />
+      <Skeleton height={24} style={{ marginTop: 22 }} />
+      <Skeleton height={20} style={{ marginTop: 10, marginBottom: 22 }} />
+      <Skeleton height={14} count={3} style={{ marginTop: 4 }} />
+      <Skeleton height={21} width={80} style={{ marginTop: 14 }} />
+=======
 import { Card, Skeleton, CardActions, Box } from '@mui/material';
 
 const ProjectCardPlaceholder = () => {
@@ -38,6 +49,7 @@ const ProjectCardPlaceholder = () => {
           style={{ marginTop: 14 }}
         />
       </CardActions>
+>>>>>>> a6988febd69fb7ab63ea8c0c8e1eb9dec79b2243
     </Card>
   );
 };
