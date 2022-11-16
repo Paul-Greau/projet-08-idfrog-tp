@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS "project" (
   "img_url" text NULL,
   "web_url" text NULL,
   "title" text NOT NULL,
-  "subtitle" text NOT NULL,
+  "resume" text NOT NULL,
   "description" text NOT NULL,
   "visibility" boolean NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT NOW(), 
@@ -108,7 +108,9 @@ CREATE TABLE IF NOT EXISTS "comment" (
   "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "profile_id" INT NOT NULL REFERENCES "profile" ("id"),
   "project_id" INT NOT NULL REFERENCES "project" ("id"),
-  "text" text NOT NULL
+  "text" text NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT NOW(),
+  "updated_at" timestamptz
 );
 
 -- -----------------------------------------------------
@@ -120,11 +122,12 @@ CREATE TABLE IF NOT EXISTS "contribution" (
   "profile_id" INT NOT NULL REFERENCES "profile" ("id"),
   "project_id" INT NOT NULL REFERENCES "project" ("id"),
   "invested_amount" INT NOT NULL,
-  "sold" boolean NOT NULL
+  "sold" boolean NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT NOW(),
+  "updated_at" timestamptz
 );
 
 
 
 -- Pour mettre fin à au bloc de transaction et l'exécuter
 COMMIT;
-

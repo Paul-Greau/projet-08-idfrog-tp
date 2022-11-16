@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 
 // Components
 import SideBarItems from './SideBarItems';
 import ButtonProject from './ButtonProject';
+import SideBarPlaceholder from '../../UI/Placeholder/SideBarPlaceholder';
 // Material UI
 import { Button, Drawer, Box, Divider } from '@mui/material';
 
@@ -17,13 +17,26 @@ import './navigationSideBarStyles.scss';
 
 import palette from '../../../assets/styles/_vars.scss';
 import { navSideBarStyles } from './styles';
+import { useRecoilValue } from 'recoil';
+import { isLoadingState } from '../../../atomes/profileAtomes';
 
-function NavigationSideBar() {
+function NavigationSideBar({projectList,
+  contributionList
+}) {
+
+
+  const isLoading = useRecoilValue(isLoadingState)
+  
+
   // Open toogle mobile
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    console.log("NavigationSideBar is loading", isLoading);
+  },[isLoading]);
 
   const list = () => (
     <Box sx={navSideBarStyles.drawerMobileBox}>
@@ -38,7 +51,10 @@ function NavigationSideBar() {
         <ButtonProject />
         <Divider />
       </Box>
-      <SideBarItems />
+      <SideBarItems
+      projectList={projectList}
+      contributionList={contributionList}
+      />
     </Box>
   );
 
@@ -49,11 +65,19 @@ function NavigationSideBar() {
           <img src={FrogMenu} alt="MenuIdfrog" />
         </Button>
       </Box>
-
-      <div className="navigationSideBar">
-        <ButtonProject />
-        <SideBarItems />
-      </div>
+      {projectList ? (
+        <div className="navigationSideBar">
+          <ButtonProject />
+          <SideBarItems
+      projectList={projectList}
+      contributionList={contributionList}
+      />
+        </div>
+      ) : (
+        <div className="navigationSideBar">
+          <SideBarPlaceholder />
+        </div>
+      )}
 
       <div className="drawerMobile">
         {['left'].map((anchor) => (

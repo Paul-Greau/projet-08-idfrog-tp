@@ -32,6 +32,7 @@ function ProjectCard({
   createdAt,
   contributions,
 }) {
+
   const options = {
     /* weekday: 'long' ,*/ year: 'numeric',
     month: 'short',
@@ -99,13 +100,13 @@ function ProjectCard({
 
       <CardActions sx={projectCardStyles.cardAction}>
         {!ProfileInfo.isLogged ? (
-          <Link to="/subscribe">
+          <Link to="/login">
             <Button size="small" sx={projectCardStyles.btnPrimary}>
               Contribuer au projet &gt;
             </Button>
           </Link>
         ) : (
-          <Link to={`/profile/contribut`}>
+          <Link to={`/profile/contribut/${id}`}>
             <Button size="small" sx={projectCardStyles.btnPrimary}>
               Contribuer au projet &gt;
             </Button>

@@ -264,27 +264,23 @@ patchProject: async (req, res) => {
 
 deleteProject: async (req, res) => {
 	try {
-	    const profile_id = Number(req.params.profileId);
+	    const tokenId = req.auth.userId
 		const project_id = Number(req.params.projectId);
 
-
 		// Check to be sure that the session ID = the profile_id requested
-		if (!profile_id) {
+		if (!tokenId) {
 			const error = new Error(`'profile_id' property is missing`);
 			return res.status(400).json({ message: error.message });
-		}
-		if (!req.session.profile) {
-			const error = new Error(`You must login`);
-			return res.status(401).json({ message: error.message });
-		}	
-		if (profile_id !== req.session.profile.id) {
-			const error = new Error(`You must login before delete a project`);
-			return res.status(401).json({ message: error.message });
 		}
 
 		const projectToDelete = await Project.findByPk(project_id,{
 			include: 'contributions'
 		});
+
+		if(projectToDelete.profile_id !== tokenId){
+			const error = new Error(`You're not the owner of this project`);
+			return res.status(401).json({ message: error.message });
+		}
 
 		if(projectToDelete.contributions.length > 0){
 			const error = new Error(`You can't delete a project with contributions`);
@@ -292,7 +288,6 @@ deleteProject: async (req, res) => {
 		}
 		
 		await projectToDelete.destroy();
-
 	  
 		  res.status(201).json(projectToDelete);
 
