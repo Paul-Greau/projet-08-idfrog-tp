@@ -4,6 +4,7 @@ import ProjectCollect from "./components/ProjectCollect/ProjectCollect";
 import Footer from './components/Footer/Footer'
 import Navigation from "./components/Navigation/Navigation";
 import Head from "./components/Head/Head";
+import TopFooter from "./components/TopFooter/TopFooter";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Head/>
       <ProjectCard/>
       <ProjectCollect/>
+      <TopFooter/>
       <Footer/>
     </div>
   );

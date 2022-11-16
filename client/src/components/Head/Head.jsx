@@ -30,7 +30,7 @@ function Head() {
 
           <Grid 
             container 
-            spacing={5}
+            spacing={2}
             sx={{
                 paddingTop: "50px",
             }}
@@ -40,7 +40,6 @@ function Head() {
                     Contribuer au projet
               </Button>
             </Grid>
-
             <Grid item xs={12} md={6}>
               <Button variant="outlined" endIcon={<AddchartIcon />} sx={{width: "100%", backgroundColor: "#5de4d5", color: "#fff"}}>
                 Déposer mon projet
