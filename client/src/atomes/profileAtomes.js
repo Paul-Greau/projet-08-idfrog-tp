@@ -27,3 +27,10 @@ export const profileDetailState = atom({
         website: '',
     },
 })
+
+export const isLoadingState = atom({
+    key: 'isLoading',
+    default: {
+        isLoadingBoolean: false,
+    }
+})

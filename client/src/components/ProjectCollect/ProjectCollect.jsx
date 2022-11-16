@@ -43,25 +43,17 @@ function ProjectCollect({
 
   let navigate = useNavigate()
 
-
-function ProjectCollect({
-  amount,
-  profile,
-  createdAt,
-  contributions,
-  project_id,
-}) {
-
   const ProfileInfo = useRecoilValue(profileConnexionstate);
   const ProfileDetail = useRecoilValue(profileDetailState)
   const [visibilityState, setvisibilityState ]=useState(visibility);
   const [showError, setShowError] = useState(false)
   const [loginError, setLoginError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
-  const [open, setOpen] = React.useState(false);
+  const [totalContributions, setTotalContributions] = useState(0);
+  const [progressRatio, setProgressRatio] = useState(0);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
 
   console.log('ProfileInfo', ProfileDetail);
   console.log('profile', profile);
@@ -95,13 +87,6 @@ console.log('visibility', visibilityState);
     month: 'short',
     day: 'numeric',
   };
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const [totalContributions, setTotalContributions] = useState(0);
-  const [progressRatio, setProgressRatio] = useState(0);
 
   const progressRate = (contributionslist) => {
     let totalContribution = 0;
@@ -290,3 +275,4 @@ ProjectCollect.propTypes = {};
 ProjectCollect.defaultProps = {};
 
 export default React.memo(ProjectCollect);
+

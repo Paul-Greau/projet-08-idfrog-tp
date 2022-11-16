@@ -5,7 +5,7 @@ import CardPlaceholder from '../../../components/UI/Placeholder/CardPlaceholder'
 import { getProjectsList } from '../../../services/projectService';
 
 // Material UI
-import { Pagination, Container } from '@mui/material';
+import { Container } from '@mui/material';
 
 // CSS
 import './allProjectsStyles.scss';
@@ -13,13 +13,11 @@ import './allProjectsStyles.scss';
 // import PropTypes from 'prop-types';
 
 function AllProject() {
+
   const [result, setResult] = useState([]);
   const flag = useRef(false);
 
-  const nbPage = Math.ceil(result.length / cardsPerPage);
   const [isLoading, setIsLoading] = useState(true);
-
-
 
   useEffect(() => {
     if (flag.current === false) {
@@ -39,6 +37,7 @@ function AllProject() {
     <div className="allProjects">
       <ProjectCardList result={result}
       cardPerPages={6}
+      isLoading={isLoading}
       />
       <Container
         component="section"
