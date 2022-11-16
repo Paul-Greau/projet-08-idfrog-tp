@@ -46,7 +46,10 @@ export const projectCollectStyles = {
         mb: 1,
         p: 1,
     },
+<<<<<<< project-placeholder
+=======
 
+>>>>>>> develop
     modal:{
       position: 'absolute',
       top: '50%',
@@ -58,7 +61,11 @@ export const projectCollectStyles = {
       border: '2px solid palette.primary',
       boxShadow: 24,
       p: 2,
+<<<<<<< project-placeholder
+    
+=======
 
+>>>>>>> develop
     }
     
 

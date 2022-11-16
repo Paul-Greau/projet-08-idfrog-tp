@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 // Materail UI
@@ -27,6 +27,7 @@ import { postContribution } from '../../../../services/contributionService';
 import { postComment } from '../../../../services/CommentService';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../../../atomes/profileAtomes';
+
 
 function ContributForm({
   projectId
@@ -105,9 +106,10 @@ function ContributForm({
   }, []);
 
   return (
-    <Box className="profileForm" sx={{ p: 9 }}>
+    <Box className="profileForm" sx={{ p: 6 }}>
       <form onSubmit={formik.handleSubmit} autoComplete="off">
         <Typography sx={postContributStyles.titre} variant="h5">
+
           Quel type de contribution souhaitez vous faire pour le projet:
           <Link to={`/project/${projectDetail.id}`}>
           {" "}&apos;{projectDetail.name}&apos;?

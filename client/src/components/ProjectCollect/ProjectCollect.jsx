@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 
+
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 // CSS
 import { projectCollectStyles } from './styles';
@@ -41,6 +42,15 @@ function ProjectCollect({
 }) {
 
   let navigate = useNavigate()
+
+
+function ProjectCollect({
+  amount,
+  profile,
+  createdAt,
+  contributions,
+  project_id,
+}) {
 
   const ProfileInfo = useRecoilValue(profileConnexionstate);
   const ProfileDetail = useRecoilValue(profileDetailState)
@@ -85,6 +95,10 @@ console.log('visibility', visibilityState);
     month: 'short',
     day: 'numeric',
   };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const [totalContributions, setTotalContributions] = useState(0);
   const [progressRatio, setProgressRatio] = useState(0);
@@ -155,6 +169,7 @@ console.log('visibility', visibilityState);
 
         <CardActions sx={projectCollectStyles.carAction}>
           {!ProfileInfo.isLogged ? (
+
             <Link to="/login">
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
@@ -175,6 +190,7 @@ console.log('visibility', visibilityState);
       </Card>
       {ProfileInfo.pseudo === profile &&
       <Card sx={projectCollectStyles.card}>
+
       <CardContent>
         <Typography
           color="secondary"
@@ -228,6 +244,7 @@ console.log('visibility', visibilityState);
       </CardContent>
 
       <CardActions>
+
           <Button color="error" onClick={handleOpen}>
             SUPRIMER LE PROJET
           </Button>
@@ -251,6 +268,7 @@ console.log('visibility', visibilityState);
                 color="primary"
                 sx={{ width: '47%' }}
                 variant="outlined"
+
                 onClick={() => handleDeleteProject()}
               >
                 VALIDER
@@ -258,9 +276,11 @@ console.log('visibility', visibilityState);
             </Box>
           </Modal>
         </CardActions>
+
     </Card>
       }
       
+
     </>
   );
 }

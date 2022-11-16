@@ -46,4 +46,6 @@ const useConfirm = (title, message) => {
   return [Modal, confirm];
 };
 
+
 export default useConfirm;
+

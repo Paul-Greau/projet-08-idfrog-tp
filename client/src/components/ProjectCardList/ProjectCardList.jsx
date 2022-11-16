@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
+
 // import PropTypes from 'prop-types';
 
 // Components
 import ProjectCard from '../ProjectCard/ProjectCard';
-import CardPlaceholder from '../UI/CardPlaceholder/CardPlaceholder';
 
-import { category, financingTypes } from '../UI/forms/PostProjectForm/category';
+import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
+import { categorys, financingTypes } from './categaryFilter';
+
 // Material UI
 import {
   Container,
@@ -21,9 +24,10 @@ import {
 // CSS
 import { projectCardStyles } from './styles';
 
-function ProjectCardList({ result, isLoading, cardPerPages, }) {
- // console.log('ProjectCardList', result);
- // console.log(financingTypes);
+
+function ProjectCardList({ result }) {
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const [filterResult, setFilterResult] = useState(result)
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -72,6 +76,10 @@ useEffect(() => {
 },[categoryFilter, financingTypeFilter, result]);
 
 
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   return (
     <>
@@ -129,9 +137,11 @@ useEffect(() => {
             </Grid>
           </Grid>
         </Box>
-        <Grid container spacing={2} alignItems="stretch">
-          {!isLoading &&
-            currentCards.map((res) => (
+
+        {!isLoading ? (
+          <Grid container spacing={2} alignItems="stretch">
+            {result.filter(filterByCategoryAndType).map((res) => (
+
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
@@ -144,23 +154,16 @@ useEffect(() => {
                 />
               </Grid>
             ))}
-          {isLoading && (
-            <Grid container justifyContent="space-evenly" alignItems="stretch">
-              <CardPlaceholder />
-              <CardPlaceholder />
-              <CardPlaceholder />
-            </Grid>
-          )}
 
-            <Pagination
-            siblingCount={0}
-            count={nbPage}
-            page={currentPage}
-            onChange={handleChange}
-            sx={{ p: 2 }}
-          /> 
+          </Grid>
+        ) : (
+          <Grid container spacing={2} alignItems="stretch">
+            <CardPlaceholder />
+            <CardPlaceholder />
+            <CardPlaceholder />
+          </Grid>
+        )}
 
-        </Grid>
       </Container>
     </>
   );

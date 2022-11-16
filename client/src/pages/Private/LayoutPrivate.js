@@ -54,14 +54,14 @@ const LayoutPrivate = () => {
     return (       
         <div className="layoutPrivate">
           {ProfileDetail.id && 
-          <div className="profile" style={{display:'flex'}}>
-          <NavigationSideBar 
-          projectList={projectList}
-          contributionList={contributionList}
-          className="sideBar" />
-          <div className="profile-container">
-          <Outlet />
-          </div>
+            <div className="profile" style={{display:'flex'}}>
+                <NavigationSideBar 
+                projectList={projectList}
+                contributionList={contributionList}
+                className="sideBar" />
+             <div className="profile-container">
+              <Outlet />
+            </div>
           </div>
           }
             

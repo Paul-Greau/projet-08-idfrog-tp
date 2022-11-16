@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
-
+import CardPlaceholder from '../../../components/UI/Placeholder/CardPlaceholder';
 // Services
 import { getProjectsList } from '../../../services/projectService';
 
@@ -16,6 +16,10 @@ function AllProject() {
   const [result, setResult] = useState([]);
   const flag = useRef(false);
 
+  const nbPage = Math.ceil(result.length / cardsPerPage);
+  const [isLoading, setIsLoading] = useState(true);
+
+
 
   useEffect(() => {
     if (flag.current === false) {
@@ -23,6 +27,7 @@ function AllProject() {
         .then((res) => {
           // Liste dans le state
           setResult(res.data);
+          setIsLoading(false);
         })
         .catch((err) => console.log(err));
     }
