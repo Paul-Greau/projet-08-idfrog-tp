@@ -9,9 +9,6 @@ import {
   Box,
   Typography,
   Alert,
-  FormControlLabel,
-  RadioGroup,
-  Radio,
   FormControl,
 } from '@mui/material';
 // Yup Schema
@@ -28,97 +25,91 @@ import { postComment } from '../../../../services/CommentService';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../../../atomes/profileAtomes';
 
+function ContributForm({ projectId }) {
+  let navigate = useNavigate();
 
-function ContributForm({
-  projectId
-}) {
-
-  let navigate = useNavigate()
-
-  const {token} = useRecoilValue(profileConnexionstate);
+  const { token } = useRecoilValue(profileConnexionstate);
   const [projectDetail, setProjectDetail] = useState('');
-  const [showError, setShowError] = useState(false)
-  const [projectError, setProjectError] = useState('')
-  const [alertStyle, setAlertStyle] = useState('error')
+  const [showError, setShowError] = useState(false);
+  const [projectError, setProjectError] = useState('');
+  const [alertStyle, setAlertStyle] = useState('error');
 
   const FetchProjectDetail = async () => {
     const response = await getProjectById(projectId);
     console.log(response);
-    if (response.status !== 200){
-      return navigate("/");
+    if (response.status !== 200) {
+      return navigate('/');
     }
-    setProjectDetail(response.data)
-  }
+    setProjectDetail(response.data);
+  };
 
   const formik = useFormik({
     initialValues: {
-      invested_amount : '',
+      invested_amount: '',
       text: '',
       sold: false,
- /*   card_number: '',
+      /*   card_number: '',
       expiry_date: '',
-      security_code: '', */      
+      security_code: '', */
     },
     validationSchema: validationSchema,
-    onSubmit: async (values, {resetForm}) => {
+    onSubmit: async (values, { resetForm }) => {
       // alert(JSON.stringify(values, null, 2));
-      const response = await postContribution(token, projectId, values)
+      const response = await postContribution(token, projectId, values);
       console.log(response);
-      if(response.status !== 201){
-          console.log('error in contribution');
-          setAlertStyle('error')
-          setProjectError({
-            status : response.status,
-            message: response.data.message
-          })
-          setShowError(true)
-          return
+      if (response.status !== 201) {
+        console.log('error in contribution');
+        setAlertStyle('error');
+        setProjectError({
+          status: response.status,
+          message: response.data.message,
+        });
+        setShowError(true);
+        return;
       }
       // Si ok on envoie le comment
-      const res = await postComment(token, projectId, values)
-      if(res.status !== 201){
-          console.log('error in comment');
-         setAlertStyle('error')
-         setProjectError({
-           status : response.status,
-           message: response.data.message
-         })
-         setShowError(true)
-         return
-         }
-      // Si tout ok message succès   
-      setAlertStyle('success')
+      const res = await postComment(token, projectId, values);
+      if (res.status !== 201) {
+        console.log('error in comment');
+        setAlertStyle('error');
+        setProjectError({
+          status: response.status,
+          message: response.data.message,
+        });
+        setShowError(true);
+        return;
+      }
+      // Si tout ok message succès
+      setAlertStyle('success');
       setProjectError({
-        status : null,
-        message: 'Contribution envoyée avec succès'
-      })
-      setShowError(true)
-      resetForm()
-      return
-
+        status: null,
+        message: 'Contribution envoyée avec succès',
+      });
+      setShowError(true);
+      resetForm();
+      return;
     },
   });
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    FetchProjectDetail()
-
+    FetchProjectDetail();
   }, []);
 
   return (
     <Box className="profileForm" sx={{ p: 6 }}>
       <form onSubmit={formik.handleSubmit} autoComplete="off">
         <Typography sx={postContributStyles.titre} variant="h5">
-
           Quel type de contribution souhaitez vous faire pour le projet:
           <Link to={`/project/${projectDetail.id}`}>
-          {" "}&apos;{projectDetail.name}&apos;?
+            {' '}
+            &apos;{projectDetail.name}&apos;?
           </Link>
-          <br/>
+          <br />
           Type d&apos;investissement : &apos;{projectDetail.invest_type}&apos;
         </Typography>
 
-       {/*  <RadioGroup row name="invest_type">
+        {/*  <RadioGroup row name="invest_type">
           <FormControlLabel
             value="don"
             control={<Radio />}
@@ -153,7 +144,9 @@ function ContributForm({
           helperText={
             formik.touched.invested_amount && formik.errors.invested_amount
           }
-          error={formik.errors.invested_amount && formik.touched.invested_amount}
+          error={
+            formik.errors.invested_amount && formik.touched.invested_amount
+          }
         />
 
         {/* <TextField
@@ -237,13 +230,17 @@ function ContributForm({
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
           ANNULER
         </Button>
-        {showError &&
-          <Alert severity={alertStyle}
-          onClose={() => {setShowError(false)}}
+        {showError && (
+          <Alert
+            severity={alertStyle}
+            onClose={() => {
+              setShowError(false);
+            }}
           >
-          {projectError.status ? `'Erreur' ${projectError.status}` : ''} - {projectError.message}
+            {projectError.status ? `'Erreur' ${projectError.status}` : ''} -{' '}
+            {projectError.message}
           </Alert>
-        } 
+        )}
       </form>
     </Box>
   );

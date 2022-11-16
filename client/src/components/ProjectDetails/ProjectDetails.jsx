@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // Services
-import {getProjectById} from '../../services/projectService'
+import { getProjectById } from '../../services/projectService';
 // Components
 import Project from './Project/Project';
 import Faq from './FAQ/Faq';
@@ -46,6 +46,8 @@ const ProjectDetails = () => {
             <TabList
               onChange={handleChange}
               sx={{ backgroundColor: '#f9f9f9' }}
+              variant="scrollable"
+              allowScrollButtonsMobile
             >
               <Tab label="PROJET" value="1" />
               <Tab label="FAQ" value="2" />

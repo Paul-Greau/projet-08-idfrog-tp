@@ -40,84 +40,81 @@ import palette from '../../../../assets/styles/_vars.scss';
 import { category } from './category';
 import { uploadProjectImage } from '../../../../services/imgService';
 
-
-function PostProjectForm({
-  token,
-  profileStatus,
-}) {
-  
+function PostProjectForm({ token, profileStatus }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [img_url, setImageUrl] = useState(null);
-  const [showError, setShowError] = useState(false)
-  const [projectError, setProjectError] = useState('')
-  const [alertStyle, setAlertStyle] = useState('error')
+  const [showError, setShowError] = useState(false);
+  const [projectError, setProjectError] = useState('');
+  const [alertStyle, setAlertStyle] = useState('error');
 
-    const handleSubmit = async (response, imgUploadedUrl) => {
-      if (response.status === 201){          
-      const patchResponse = await patchProject(response.data.id, token, {img_url:imgUploadedUrl})
+  const handleSubmit = async (response, imgUploadedUrl) => {
+    if (response.status === 201) {
+      const patchResponse = await patchProject(response.data.id, token, {
+        img_url: imgUploadedUrl,
+      });
       console.log(patchResponse);
-        setAlertStyle('success')
-        setProjectError({
-          status : null,
-          message: 'Projet créé avec succès'
-        })
-        setShowError(true)
-        return
-      }
-      setAlertStyle('error')
+      setAlertStyle('success');
       setProjectError({
-        status : response.status,
-        message: response.data.message
-      })
-      setShowError(true)
-      return
-    } 
+        status: null,
+        message: 'Projet créé avec succès',
+      });
+      setShowError(true);
+      return;
+    }
+    setAlertStyle('error');
+    setProjectError({
+      status: response.status,
+      message: response.data.message,
+    });
+    setShowError(true);
+    return;
+  };
 
   const formik = useFormik({
     initialValues: {
-     // img_url: '',
-      name: '', 
+      // img_url: '',
+      name: '',
       title: '',
       category_id: '',
       resume: '',
       description: '',
       amount_target: '',
       invest_type: '',
-      rate:'',
+      rate: '',
       end_time: '',
       website: '',
       status: profileStatus,
       visibility: false,
     },
-     validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
-    const uploadUrl = await uploadProjectImage(token, {projectImage :selectedImage})
-    if(uploadUrl.status !== 201){
-      setAlertStyle('error')
-      setProjectError({
-        status : uploadUrl.status,
-        message: uploadUrl.statusText
-      })
-      setShowError(true)
-      return
-    }
-     const response = await postProject(token, values)
-     handleSubmit(response, uploadUrl.data.path)
+      const uploadUrl = await uploadProjectImage(token, {
+        projectImage: selectedImage,
+      });
+      if (uploadUrl.status !== 201) {
+        setAlertStyle('error');
+        setProjectError({
+          status: uploadUrl.status,
+          message: uploadUrl.statusText,
+        });
+        setShowError(true);
+        return;
+      }
+      const response = await postProject(token, values);
+      handleSubmit(response, uploadUrl.data.path);
     },
   });
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-
-const handleImgUpload = (img) => {
+  const handleImgUpload = (img) => {
     console.log('formproject', img);
-    setSelectedImage(img)
-    setImageUrl(URL.createObjectURL(img))
-  }
+    setSelectedImage(img);
+    setImageUrl(URL.createObjectURL(img));
+  };
 
   return (
-    
     <Box
       className="postProjectForm"
       sx={{ px: { xl: 2, md: 2, xs: 0 }, mt: { xl: 1, md: 0, xs: 5 } }}
@@ -128,14 +125,14 @@ const handleImgUpload = (img) => {
       >
         Quel est votre projet&nbsp;?
       </Typography>
-      <UploadImages 
-      handleImgUpload={handleImgUpload}
-      img_url={img_url}
-      selectedImage={selectedImage}
+      <UploadImages
+        handleImgUpload={handleImgUpload}
+        img_url={img_url}
+        selectedImage={selectedImage}
       />
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">
-      <TextField
+        <TextField
           sx={postProjectStyles.leftInput}
           fullWidth
           required
@@ -150,7 +147,7 @@ const handleImgUpload = (img) => {
           helperText={formik.touched.name && formik.errors.name}
           error={formik.errors.name && formik.touched.name}
         />
-        
+
         <TextField
           sx={postProjectStyles.leftInput}
           fullWidth
@@ -256,11 +253,12 @@ const handleImgUpload = (img) => {
           </Typography>
         </FormControl>
 
-        <RadioGroup row
-        name="invest_type"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.invest_type}
+        <RadioGroup
+          row
+          name="invest_type"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.invest_type}
         >
           <Card sx={{ width: '100%', mb: 4 }}>
             <CardHeader
@@ -282,31 +280,29 @@ const handleImgUpload = (img) => {
           </Card>
         </RadioGroup>
 
-       {formik.values.invest_type === 'pret' &&
-       <>
-       <InputLabel
-       sx={{ color: palette.secondary }}
-       >
-      Taux de retour sur investissement:
-      </InputLabel>
-          
-       <FormControl fullWidth sx={{ mb: 1 }}>
-         <OutlinedInput
-           startAdornment={<InputAdornment position="end"></InputAdornment>}
-           name="rate"
-           id="rate"
-           onChange={formik.handleChange}
-           onBlur={formik.handleBlur}
-           value={formik.values.rate}
-           error={formik.errors.rate && formik.touched.rate}
-         />
-       </FormControl>
-       </>
-       } 
-        
+        {formik.values.invest_type === 'pret' && (
+          <>
+            <InputLabel sx={{ color: palette.secondary }}>
+              Taux de retour sur investissement:
+            </InputLabel>
 
-        <InputLabel>Date de fin de la campagne:
-        </InputLabel>
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <OutlinedInput
+                startAdornment={
+                  <InputAdornment position="end"></InputAdornment>
+                }
+                name="rate"
+                id="rate"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.rate}
+                error={formik.errors.rate && formik.touched.rate}
+              />
+            </FormControl>
+          </>
+        )}
+
+        <InputLabel>Date de fin de la campagne:</InputLabel>
 
         <TextField
           sx={postProjectStyles.leftInput}
@@ -350,13 +346,17 @@ const handleImgUpload = (img) => {
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
           ANNULER
         </Button>
-        {showError &&
-          <Alert severity={alertStyle}
-          onClose={() => {setShowError(false)}}
+        {showError && (
+          <Alert
+            severity={alertStyle}
+            onClose={() => {
+              setShowError(false);
+            }}
           >
-          {projectError.status ? `'Erreur' ${projectError.status}` : ''} - {projectError.message}
+            {projectError.status ? `'Erreur' ${projectError.status}` : ''} -{' '}
+            {projectError.message}
           </Alert>
-        } 
+        )}
       </form>
     </Box>
   );
