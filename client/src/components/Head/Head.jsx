@@ -68,7 +68,7 @@ function Head() {
             >
               <Grid item xs={12} md={6}>
                 {!ProfileInfo.isLogged ? (
-                  <Link to="/subscribe">
+                  <Link to="/login">
                     <Button
                       variant="outlined"
                       endIcon={<InputIcon />}
@@ -94,7 +94,7 @@ function Head() {
 
               <Grid item xs={12} md={6}>
                 {!ProfileInfo.isLogged ? (
-                  <Link to="/subscribe">
+                  <Link to="/login">
                     <Button
                       variant="contained"
                       endIcon={<AddchartIcon />}

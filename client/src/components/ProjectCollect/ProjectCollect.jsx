@@ -36,7 +36,8 @@ function ProjectCollect({
   createdAt,
   contributions,
   visibility,
-  project_id
+  project_id,
+  invest_type,
 }) {
 
   let navigate = useNavigate()
@@ -55,7 +56,7 @@ function ProjectCollect({
   console.log('ProfileInfo', ProfileDetail);
   console.log('profile', profile);
 
-const handleVisibilityState = async () => {
+  const handleVisibilityState = async () => {
    
   const response = await patchProject(project_id, ProfileInfo.token, {visibility: !visibilityState})
   console.log(response);
@@ -139,7 +140,8 @@ console.log('visibility', visibilityState);
           </Typography>
           <Typography variant="body2" color="secondary.light">
             Votre contribution vous sera intégralement remboursée si le projet
-            n&apos;atteint pas 100% de son objectif.
+            n&apos;atteint pas 100% de son objectif. <br />
+            Type d&apos;investissement: &apos;{invest_type}&apos;
           </Typography>
         </CardContent>
 
@@ -153,13 +155,13 @@ console.log('visibility', visibilityState);
 
         <CardActions sx={projectCollectStyles.carAction}>
           {!ProfileInfo.isLogged ? (
-            <Link to="/subscribe">
+            <Link to="/login">
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>
             </Link>
           ) : (
-            <Link to="/profile/contribut">
+            <Link to={`/profile/contribut/${project_id}`}>
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>

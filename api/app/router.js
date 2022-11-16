@@ -34,7 +34,7 @@ router.post('/subscribe', profileController.suscribe)
 // router.post('/loginjwt', authorizationMiddleware, profileController.login)
 
 /* Comment */
-router.post('/profile/:profileId/project/:projectId/comment', commentController.commentProject)
+router.post('/profile/project/:projectId/comment',authorizationMiddleware , commentController.commentProject)
 router.patch('/profile/:profileId/comment/:commentId', commentController.patchComment)
 router.delete('/profile/:profileId/comment/:commentId', commentController.deleteComment)
 

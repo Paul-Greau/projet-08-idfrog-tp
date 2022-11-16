@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 //import PropTypes from 'prop-types';
 
@@ -7,10 +8,17 @@ import ContributForm from '../../../components/UI/forms/ContributForm/ContributF
 // CSS
 import './contributionStyles.scss';
 
+
+
 function Contribution() {
+  const { id } = useParams()
+  console.log('contributions', id);
+
   return (
     <div className="contribut-container">
-      <ContributForm />
+      <ContributForm 
+      projectId={id}
+      />
     </div>
   );
 }

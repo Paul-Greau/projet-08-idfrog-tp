@@ -1,6 +1,6 @@
 import React, {useState, useEffect}  from 'react';
-import { Outlet } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { Outlet, useNavigate} from 'react-router-dom';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
 import { getProfile } from '../../services/profileService';
 
@@ -13,10 +13,12 @@ import './layoutPrivateStyles.scss'
 
 const LayoutPrivate = () => {
 
-    const {token} = useRecoilValue(profileConnexionstate)
+    let navigate = useNavigate();
+    const {token} = useRecoilValue(profileConnexionstate);
+    const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
     const [projectList, setProjectList] = useState([]);
     const [contributionList, setcontributionList] = useState([]);
-    const [ProfileDetail, setProfileDetail] = useRecoilState(profileDetailState)
+    const [ProfileDetail, setProfileDetail] = useRecoilState(profileDetailState);
 
     console.log("ProfileDetail layout private", ProfileDetail);
     // eslint-disable-next-line no-unused-vars
@@ -34,7 +36,8 @@ const LayoutPrivate = () => {
           message: response.data.message
         })
         setShowError(true)
-        return      
+        ResetProfileInfo()
+        return navigate("/login");    
       }
 
       setProjectList(response.data.projects);

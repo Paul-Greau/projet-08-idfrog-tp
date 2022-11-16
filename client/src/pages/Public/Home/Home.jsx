@@ -37,9 +37,12 @@ function Home() {
     <>
       <Head />
       <Box className="allCards">
+        {result && 
         <ProjectCardList result={result}
         cardPerPages={3}
         />
+        }
+        
         <Container
           component="section"
           maxWidth="lg"

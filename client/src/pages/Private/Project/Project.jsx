@@ -65,6 +65,7 @@ const Project = () => {
         profile={result.profile?.pseudo}
         contributions={result.contributions}
         visibility={result.visibility}
+        invest_type={result.invest_type}
       />
         }
         
