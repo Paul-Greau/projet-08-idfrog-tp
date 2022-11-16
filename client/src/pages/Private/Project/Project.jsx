@@ -13,41 +13,35 @@ import LoadingBar from '../../../components/UI/Placeholder/LoadingBar';
 
 const Project = () => {
 
-  const [isLoading, setIsLoading] = useState(true);
-
-
-  let navigate = useNavigate()
-
+  const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState([]);
   const { id } = useParams();
 
   const flag = useRef(false);
 
+  let navigate = useNavigate()
+
+
+
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
+    setIsLoading(true)
     window.scrollTo(0, 0);
     if (flag.current === false) {
       getProjectById(id)
         .then((res) => {
           // Liste dans le state
           setResult(res.data);
-
+          setIsLoading(false)
           console.log('reponse dans project', res); 
           if (res.status === 404) {
             return navigate("/");
-          }         
-
+          } 
         })
-        .catch((err) =>console.log(err)      
-        )
-
-      
-
-        
-    }
-
+        .catch((err) =>console.log(err)
+        )}
     return () => (flag.current = true);
-  }, [id]);
+  },[id]);
 
 
   return (
