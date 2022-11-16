@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // import PropTypes from "prop-types";
 
@@ -15,7 +15,12 @@ import {
   FormGroup,
   FormControlLabel,
   FormControl,
+  Modal,
+  Box,
+  Alert,
 } from '@mui/material';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
+
 
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 // CSS
@@ -23,19 +28,65 @@ import { projectCollectStyles } from './styles';
 
 // RECOIL
 import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../atomes/profileAtomes';
+import { profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
+import { deleteProject, patchProject } from '../../services/projectService';
 
-function ProjectCollect({ amount, profile, createdAt, contributions }) {
+function ProjectCollect({
+  amount,
+  profile,
+  createdAt,
+  contributions,
+  visibility,
+  project_id,
+  invest_type,
+}) {
+
+  let navigate = useNavigate()
+
   const ProfileInfo = useRecoilValue(profileConnexionstate);
+  const ProfileDetail = useRecoilValue(profileDetailState)
+  const [visibilityState, setvisibilityState ]=useState(visibility);
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
+  const [totalContributions, setTotalContributions] = useState(0);
+  const [progressRatio, setProgressRatio] = useState(0);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  console.log('ProfileInfo', ProfileDetail);
+  console.log('profile', profile);
+
+  const handleVisibilityState = async () => {
+   
+  const response = await patchProject(project_id, ProfileInfo.token, {visibility: !visibilityState})
+  console.log(response);
+  setvisibilityState(!visibilityState)
+  if (response.status === 201){
+    setAlertStyle('success')
+    setLoginError({
+      status : null,
+      message: 'Projet mis à jour'
+    })
+    setShowError(true)
+    return
+  }
+  setLoginError({
+    status : response.status,
+    message: response.data.message
+  })
+  setShowError(true)
+  return
+}
+
+console.log('visibility', visibilityState);
 
   const options = {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   };
-
-  const [totalContributions, setTotalContributions] = useState(0);
-  const [progressRatio, setProgressRatio] = useState(0);
 
   const progressRate = (contributionslist) => {
     let totalContribution = 0;
@@ -50,6 +101,20 @@ function ProjectCollect({ amount, profile, createdAt, contributions }) {
     setTotalContributions(totalContribution);
     setProgressRatio(rate);
   };
+
+  const handleDeleteProject = async () => {
+    const response = await deleteProject(project_id, ProfileInfo.token)
+    console.log(response);
+    if (response.status === 201){
+      return navigate("/");
+    }
+    setLoginError({
+      status : response.status,
+      message: response.data.message
+    })
+    setShowError(true)
+    return 
+  }
 
   useEffect(() => {
     progressRate(contributions);
@@ -74,7 +139,8 @@ function ProjectCollect({ amount, profile, createdAt, contributions }) {
           </Typography>
           <Typography variant="body2" color="secondary.light">
             Votre contribution vous sera intégralement remboursée si le projet
-            n&apos;atteint pas 100% de son objectif.
+            n&apos;atteint pas 100% de son objectif. <br />
+            Type d&apos;investissement: &apos;{invest_type}&apos;
           </Typography>
         </CardContent>
 
@@ -88,13 +154,14 @@ function ProjectCollect({ amount, profile, createdAt, contributions }) {
 
         <CardActions sx={projectCollectStyles.carAction}>
           {!ProfileInfo.isLogged ? (
-            <Link to="/subscribe">
+
+            <Link to="/login">
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>
             </Link>
           ) : (
-            <Link to="/profile/contribut">
+            <Link to={`/profile/contribut/${project_id}`}>
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>
@@ -106,45 +173,99 @@ function ProjectCollect({ amount, profile, createdAt, contributions }) {
           </Button>
         </CardActions>
       </Card>
+      {ProfileInfo.pseudo === profile &&
       <Card sx={projectCollectStyles.card}>
-        <CardContent>
-          <Typography
-            color="secondary"
-            gutterBottom
-            variant="h7"
-            component="div"
-            sx={{ fontWeight: '500' }}
-          >
-            Souhaitez vous que votre projet soit :
-          </Typography>
-          <FormControl component="fieldset" sx={{ margin: '0.5em' }}>
-            <FormGroup aria-label="position" row>
-              <FormControlLabel
-                value="prive"
-                control={<Switch color="primary" />}
-                label="Privé"
-                labelPlacement="end"
-              />
-              <FormControlLabel
-                value="public"
-                control={<Switch color="primary" />}
-                label="Public"
-                labelPlacement="end"
-              />
-            </FormGroup>
-          </FormControl>
-          <Typography
-            color="secondary"
-            gutterBottom
-            variant="p"
-            component="div"
-            sx={{ fontWeight: '100', fontSize: '12px' }}
-          >
-            privé: votre projet ne sera pas publié sur la page d&apos;acceuil
-            public votre projet sera visible en page d’acceuil
-          </Typography>
-        </CardContent>
-      </Card>
+
+      <CardContent>
+        <Typography
+          color="secondary"
+          gutterBottom
+          variant="h7"
+          component="div"
+          sx={{ fontWeight: '500' }}
+        >
+          Souhaitez vous que votre projet soit :
+        </Typography>
+        <FormControl component="fieldset" sx={{ margin: '0.5em' }}>
+        <FormGroup aria-label="position" row
+        value={visibility}
+        >
+          <FormControlLabel
+            checked={!visibilityState}
+            onChange={() => handleVisibilityState()}
+            value="false"
+            control={<Switch color="primary" />}
+            label="Privé"
+            labelPlacement="end"
+          />
+          <FormControlLabel
+            checked={visibilityState}
+            onChange={() => handleVisibilityState()}
+            value="true"
+            control={<Switch color="primary" />}
+            label="Public"
+            labelPlacement="end"
+          />
+        </FormGroup>
+      </FormControl>
+       
+        <Typography
+          color="secondary"
+          gutterBottom
+          variant="p"
+          component="div"
+          sx={{ fontWeight: '100', fontSize: '12px' }}
+        >
+          privé: votre projet ne sera pas publié sur la page d&apos;acceuil
+          public votre projet sera visible en page d’acceuil
+        </Typography>
+        {showError &&
+        <Alert severity={alertStyle}
+        onClose={() => {setShowError(false)}}
+        >
+        {loginError.status ? `'Erreur' ${loginError.status}` : ''} - {loginError.message}
+        </Alert>
+  } 
+      </CardContent>
+
+      <CardActions>
+
+          <Button color="error" onClick={handleOpen}>
+            SUPRIMER LE PROJET
+          </Button>
+          <Modal open={open} onClose={handleClose}>
+            <Box sx={projectCollectStyles.modal}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                <WarningAmberIcon color="error" /> Valider la suppression
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ my: 2 }}>
+                Souhaitez vous réellement supprimer votre projet ?
+              </Typography>
+              <Button
+                color="error"
+                sx={{ mr: 2, width: '47%' }}
+                variant="outlined"
+                onClick={handleClose}
+              >
+                ANNULER
+              </Button>
+              <Button
+                color="primary"
+                sx={{ width: '47%' }}
+                variant="outlined"
+
+                onClick={() => handleDeleteProject()}
+              >
+                VALIDER
+              </Button>
+            </Box>
+          </Modal>
+        </CardActions>
+
+    </Card>
+      }
+      
+
     </>
   );
 }
@@ -154,3 +275,4 @@ ProjectCollect.propTypes = {};
 ProjectCollect.defaultProps = {};
 
 export default React.memo(ProjectCollect);
+
