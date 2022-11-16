@@ -14,16 +14,8 @@ import './allProjectsStyles.scss';
 
 function AllProject() {
   const [result, setResult] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(6);
   const flag = useRef(false);
-  const nbPage = Math.ceil(result.length / cardsPerPage);
 
-  const handleChange = (event, value) => {
-    event.preventDefault();
-    setCurrentPage(value);
-    setCardsPerPage;
-  };
 
   useEffect(() => {
     if (flag.current === false) {
@@ -38,13 +30,11 @@ function AllProject() {
     return () => (flag.current = true);
   }, []);
 
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = result.slice(indexOfFirstCard, indexOfLastCard);
-
   return (
     <div className="allProjects">
-      <ProjectCardList result={currentCards} />
+      <ProjectCardList result={result}
+      cardPerPages={6}
+      />
       <Container
         component="section"
         maxWidth="lg"
@@ -53,12 +43,6 @@ function AllProject() {
           justifyContent: 'center',
         }}
       >
-        <Pagination
-          count={nbPage}
-          page={currentPage}
-          onChange={handleChange}
-          sx={{ pt: 4 }}
-        />
       </Container>
     </div>
   );

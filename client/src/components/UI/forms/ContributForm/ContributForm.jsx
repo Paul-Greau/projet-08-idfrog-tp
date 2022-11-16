@@ -8,6 +8,7 @@ import {
   Button,
   Box,
   Typography,
+  Alert,
   FormControlLabel,
   RadioGroup,
   Radio,
@@ -19,37 +20,103 @@ import { validationSchema } from './validationContributSchema';
 import { useFormik } from 'formik';
 // CSS
 import { postContributStyles } from './styles';
+import { useState } from 'react';
+import { getProjectById } from '../../../../services/projectService';
+import { Link, useNavigate } from 'react-router-dom';
+import { postContribution } from '../../../../services/contributionService';
+import { postComment } from '../../../../services/CommentService';
+import { useRecoilValue } from 'recoil';
+import { profileConnexionstate } from '../../../../atomes/profileAtomes';
 
-function ProfileForm({
+function ContributForm({
   projectId
 }) {
+
+  let navigate = useNavigate()
+
+  const {token} = useRecoilValue(profileConnexionstate);
+  const [projectDetail, setProjectDetail] = useState('');
+  const [showError, setShowError] = useState(false)
+  const [projectError, setProjectError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
+
+  const FetchProjectDetail = async () => {
+    const response = await getProjectById(projectId);
+    console.log(response);
+    if (response.status !== 200){
+      return navigate("/");
+    }
+    setProjectDetail(response.data)
+  }
+
   const formik = useFormik({
     initialValues: {
-      project_id : projectId,
-/*       invest_type: '',
-      card_number: '',
+      invested_amount : '',
+      text: '',
+      sold: false,
+ /*   card_number: '',
       expiry_date: '',
-      security_code: '', */
-      comment: '',
+      security_code: '', */      
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values, {resetForm}) => {
+      // alert(JSON.stringify(values, null, 2));
+      const response = await postContribution(token, projectId, values)
+      console.log(response);
+      if(response.status !== 201){
+          console.log('error in contribution');
+          setAlertStyle('error')
+          setProjectError({
+            status : response.status,
+            message: response.data.message
+          })
+          setShowError(true)
+          return
+      }
+      // Si ok on envoie le comment
+      const res = await postComment(token, projectId, values)
+      if(res.status !== 201){
+          console.log('error in comment');
+         setAlertStyle('error')
+         setProjectError({
+           status : response.status,
+           message: response.data.message
+         })
+         setShowError(true)
+         return
+         }
+      // Si tout ok message succès   
+      setAlertStyle('success')
+      setProjectError({
+        status : null,
+        message: 'Contribution envoyée avec succès'
+      })
+      setShowError(true)
+      resetForm()
+      return
+
     },
   });
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    FetchProjectDetail()
+
   }, []);
 
   return (
     <Box className="profileForm" sx={{ p: 9 }}>
       <form onSubmit={formik.handleSubmit} autoComplete="off">
         <Typography sx={postContributStyles.titre} variant="h5">
-          Quel type de contribution souhaitez vous faire ?
+          Quel type de contribution souhaitez vous faire pour le projet:
+          <Link to={`/project/${projectDetail.id}`}>
+          {" "}&apos;{projectDetail.name}&apos;?
+          </Link>
+          <br/>
+          Type d&apos;investissement : &apos;{projectDetail.invest_type}&apos;
         </Typography>
 
-        <RadioGroup row name="invest_type">
+       {/*  <RadioGroup row name="invest_type">
           <FormControlLabel
             value="don"
             control={<Radio />}
@@ -60,7 +127,7 @@ function ProfileForm({
             control={<Radio />}
             label="Contribution par Prêt"
           />
-        </RadioGroup>
+        </RadioGroup> */}
 
         <Typography
           sx={postContributStyles.titre}
@@ -75,19 +142,19 @@ function ProfileForm({
           required
           margin="dense"
           type="text"
-          label="Montant"
-          name="amount_target"
-          id="amount_target"
+          label="Montant (€)"
+          name="invested_amount"
+          id="invested_amount"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.amount_target}
+          value={formik.values.invested_amount}
           helperText={
-            formik.touched.amount_target && formik.errors.amount_target
+            formik.touched.invested_amount && formik.errors.invested_amount
           }
-          error={formik.errors.amount_target && formik.touched.amount_target}
+          error={formik.errors.invested_amount && formik.touched.invested_amount}
         />
 
-        <TextField
+        {/* <TextField
           sx={postContributStyles.rightInput}
           required
           margin="dense"
@@ -134,7 +201,7 @@ function ProfileForm({
             formik.touched.security_code && formik.errors.security_code
           }
           error={formik.errors.security_code && formik.touched.security_code}
-        />
+        /> */}
 
         <FormControl fullWidth sx={{ mt: 1 }}>
           <Typography sx={{ pt: 0.5 }} color="Secondary" variant="h5">
@@ -147,13 +214,13 @@ function ProfileForm({
             label="Votre commentaire"
             multiline
             rows={2}
-            name="comment"
-            id="comment"
+            name="text"
+            id="text"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.comment}
-            helperText={formik.touched.comment && formik.errors.comment}
-            error={formik.errors.comment && formik.touched.comment}
+            value={formik.values.text}
+            helperText={formik.touched.text && formik.errors.text}
+            error={formik.errors.text && formik.touched.text}
           />
         </FormControl>
 
@@ -168,12 +235,19 @@ function ProfileForm({
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
           ANNULER
         </Button>
+        {showError &&
+          <Alert severity={alertStyle}
+          onClose={() => {setShowError(false)}}
+          >
+          {projectError.status ? `'Erreur' ${projectError.status}` : ''} - {projectError.message}
+          </Alert>
+        } 
       </form>
     </Box>
   );
 }
-ProfileForm.propTypes = {};
+ContributForm.propTypes = {};
 
-ProfileForm.defaultProps = {};
+ContributForm.defaultProps = {};
 
-export default ProfileForm;
+export default ContributForm;

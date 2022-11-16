@@ -6,26 +6,18 @@ const commentController = {
 
   commentProject: async (req, res) => {
 
-   // /profile/:profileId/comment/:projectId
+   
+   const tokenId = req.auth.userId
 
     try {
       const project_id = Number(req.params.projectId);
-      const profile_id = Number(req.params.profileId)
       
       const { text } = req.body;
 
-	      if (!profile_id) {
+	      if (!tokenId) {
 		    const error = new Error(`'profile_id' property is missing`);
 		    return res.status(400).json({ message: error.message });
 	      }
-        if (!req.session.profile) {
-            const error = new Error(`'You must login`);
-            return res.status(401).json({ message: error.message });
-        }	
-        if (profile_id !== req.session.profile.id) {
-            const error = new Error(`'You must login before making a contribution`);
-            return res.status(401).json({ message: error.message });
-        }
        
         if (!text) {
           const error = new Error(`'text' property is missing`);
@@ -33,7 +25,7 @@ const commentController = {
         }
 
       const newComment = Comment.build({
-        profile_id,
+        profile_id: tokenId,
         project_id,
         text : text.trim(),
       });

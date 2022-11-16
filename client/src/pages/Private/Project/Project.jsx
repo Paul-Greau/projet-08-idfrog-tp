@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Grid, CardMedia } from '@mui/material';
 // Services
 import { getProjectById } from '../../../services/projectService';
@@ -9,6 +9,8 @@ import ProjectDetails from '../../../components/ProjectDetails/ProjectDetails';
 import ProjectCollect from '../../../components/ProjectCollect/ProjectCollect';
 
 const Project = () => {
+
+  let navigate = useNavigate()
   const [result, setResult] = useState([]);
   const { id } = useParams();
 
@@ -22,13 +24,22 @@ const Project = () => {
         .then((res) => {
           // Liste dans le state
           setResult(res.data);
-          console.log(res.data);
+          console.log('reponse dans project', res); 
+          if (res.status === 404) {
+            return navigate("/");
+          }         
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>console.log(err)      
+        )
+
+      
+
+        
     }
 
     return () => (flag.current = true);
   }, [id]);
+
 
   return (
     <Grid container spacing={5}>
@@ -44,15 +55,20 @@ const Project = () => {
         <ProjectDescription result={result} />
       </Grid>
       <Grid item xs={12} md={4}>
+        {result.id &&
         <ProjectCollect
-          id={result.id}
-          createdAt={result.created_at}
-          projet={result.name}
-          amount={result.amount_target}
-          description={result.description}
-          profile={result.profile?.pseudo}
-          contributions={result.contributions}
-        />
+        project_id={result.id}
+        createdAt={result.created_at}
+        projet={result.name}
+        amount={result.amount_target}
+        description={result.description}
+        profile={result.profile?.pseudo}
+        contributions={result.contributions}
+        visibility={result.visibility}
+        invest_type={result.invest_type}
+      />
+        }
+        
       </Grid>
       <Grid item xs={12} md={12} sx={{ mt: -4 }}>
         <ProjectDetails result={result} />

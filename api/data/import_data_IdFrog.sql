@@ -48,7 +48,7 @@ INSERT INTO "society" ("siret", "profile_id", "name", "status") VALUES
 -- Déchargement des données de la table "project"
 --
 
-INSERT INTO "project" ("profile_id", "category_id", "name", "invest_type", "amount_target", "rate", "end_time", "title", "subtitle", "description", "visibility") VALUES
+INSERT INTO "project" ("profile_id", "category_id", "name", "invest_type", "amount_target", "rate", "end_time", "title", "resume", "description", "visibility") VALUES
 (1, 2, 'Delorean 2022', 'capital', '200000', 2.5,  '2022-12-16', 'Delorean 2K22', 'En hommage à retour vers le futur', 'Une super voiture qui vous permettra de voyager dans le temps', false);
 
 
