@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import PropTypes from 'prop-types';
 
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
@@ -19,11 +19,11 @@ import {
   Alert,
 } from '@mui/material';
 // Yup Schema
-import { validationSchema } from '../validatePersonSchema.js';
+import { validationSchema } from "../validatePersonSchema.js";
 //Formik
 import { useFormik } from 'formik';
 // CSS
-import { postParticulierStyles } from './styles';
+import { postParticulierStyles } from "./styles";
 
 function ProfileForm({
   // eslint-disable-next-line react/prop-types
@@ -79,7 +79,7 @@ function ProfileForm({
         handleSubmit(response);
         return;
       } else {
-        console.log('person exist deja');
+        console.log("person exist deja");
         const response = await patchProfileDetails(token, values);
         console.log(response);
         handleSubmit(response);

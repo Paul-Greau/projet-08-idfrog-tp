@@ -23,7 +23,7 @@ import {
 
 } from '@mui/material';
 // CSS
-import { projectCardStyles } from './styles';
+import { projectCardStyles } from "./styles";
 
 
 function ProjectCardList({
