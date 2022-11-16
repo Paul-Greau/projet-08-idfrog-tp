@@ -1,7 +1,5 @@
-
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
-
+import { useParams } from "react-router-dom";
 
 //import PropTypes from 'prop-types';
 
@@ -11,28 +9,13 @@ import ContributPlaceholder from "../../../components/UI/Placeholder/ContributPl
 // CSS
 import "./contributionStyles.scss";
 
-
-
 function Contribution() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+  const { id } = useParams();
+  console.log("contributions", id);
 
   return (
     <div className="contribut-container">
-
-      {!isLoading ? <ContributPlaceholder /> : <ContributForm />}
-
-  const { id } = useParams()
-  console.log('contributions', id);
-
-  return (
-    <div className="contribut-container">
-      <ContributForm 
-      projectId={id}
-      />
+      <ContributForm projectId={id} />
     </div>
   );
 }
