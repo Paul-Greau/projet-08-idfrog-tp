@@ -8,7 +8,7 @@ import React, { useState, useEffect } from 'react';
 import ProjectCard from '../ProjectCard/ProjectCard';
 
 import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
-import { categorys, financingTypes } from './categaryFilter';
+import {category, financingTypes } from '../UI/forms/PostProjectForm/category';
 
 // Material UI
 import {
@@ -20,14 +20,15 @@ import {
   Select,
   MenuItem,
   Pagination,
+
 } from '@mui/material';
 // CSS
 import { projectCardStyles } from './styles';
 
 
-function ProjectCardList({ result }) {
-  const [isLoading, setIsLoading] = useState(true);
-
+function ProjectCardList({
+  result, isLoading, cardPerPages,
+}) {
 
   const [filterResult, setFilterResult] = useState(result)
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -75,10 +76,8 @@ useEffect(() => {
 
 },[categoryFilter, financingTypeFilter, result]);
 
-
-
   useEffect(() => {
-    setIsLoading(false);
+  
   }, []);
 
   return (
@@ -140,7 +139,7 @@ useEffect(() => {
 
         {!isLoading ? (
           <Grid container spacing={2} alignItems="stretch">
-            {result.filter(filterByCategoryAndType).map((res) => (
+            {currentCards.map((res) => (
 
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
@@ -163,7 +162,13 @@ useEffect(() => {
             <CardPlaceholder />
           </Grid>
         )}
-
+          <Pagination
+            siblingCount={0}
+            count={nbPage}
+            page={currentPage}
+            onChange={handleChange}
+            sx={{ p: 2 }}
+          /> 
       </Container>
     </>
   );

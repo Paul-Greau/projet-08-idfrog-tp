@@ -1,7 +1,7 @@
 import React, {useState, useEffect}  from 'react';
 import { Outlet, useNavigate} from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import { profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
+import { isLoadingState, profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
 import { getProfile } from '../../services/profileService';
 
 
@@ -19,14 +19,17 @@ const LayoutPrivate = () => {
     const [projectList, setProjectList] = useState([]);
     const [contributionList, setcontributionList] = useState([]);
     const [ProfileDetail, setProfileDetail] = useRecoilState(profileDetailState);
+    const [isLoading, setIsLoading] = useRecoilState(isLoadingState)
 
-    console.log("ProfileDetail layout private", ProfileDetail);
+    // console.log("ProfileDetail layout private", ProfileDetail);
     // eslint-disable-next-line no-unused-vars
     const [serverError, setServerError] = useState('')
     // eslint-disable-next-line no-unused-vars
     const [showError, setShowError] = useState(false)
+    
 
   const FetchProfileData = async (token) => {
+
     let response = await getProfile(token)
     console.log('getprofile response', response); 
 
@@ -37,18 +40,19 @@ const LayoutPrivate = () => {
         })
         setShowError(true)
         ResetProfileInfo()
+        setIsLoading(false)
         return navigate("/login");    
       }
-
       setProjectList(response.data.projects);
       setcontributionList(response.data.contributions)
       setProfileDetail(response.data)
+
      }
 
   useEffect(() => {
-
+    setIsLoading(true)
     FetchProfileData(token)
-
+    setIsLoading(false)
   },[]);
 
     return (       

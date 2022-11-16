@@ -1,7 +1,7 @@
 import { default as Axios } from "axios";
 
 const axios = Axios.create({
-  baseURL:  "http://localhost:3001",
+  baseURL:  "http://localhost:8080",
   timeout: 10000,
   headers: {
     // 'CSRF-Token': csrfToken

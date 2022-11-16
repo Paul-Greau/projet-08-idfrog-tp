@@ -17,9 +17,11 @@ import './homeStyles.scss';
 
 function Home() {
   const [result, setResult] = useState([]);
+  const [isLoading, setIsLoading] = useState([false]);
 
   const FetchData = async () => {
     try {
+      setIsLoading(true)
       const response = await getProjectsList();
       console.log(response.data);
       setResult(response.data);
@@ -27,6 +29,7 @@ function Home() {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false)
   };
 
   useEffect(() => {
@@ -40,6 +43,7 @@ function Home() {
         {result && 
         <ProjectCardList result={result}
         cardPerPages={3}
+        isLoading={isLoading}
         />
         }
         
