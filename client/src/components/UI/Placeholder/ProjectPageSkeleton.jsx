@@ -1,7 +1,6 @@
 import React from 'react';
-import { Card, Skeleton, Grid } from '@mui/material';
-import { CardActions } from '@mui/material';
-import { CardContent } from '@mui/material';
+import { Card, Skeleton, Grid, CardActions, CardContent } from '@mui/material';
+
 const ProjectCardPlaceholder = () => {
   return (
     <Grid container spacing={5} sx={{ px: 5, pb: 5, pt: 2 }}>
