@@ -26,8 +26,8 @@ export const sendGetRequest = async (url, params = {}, headers = {}) => {
 export const sendPostRequest = async (url, params = {}, headers = {}, ) => {
  try{
   let response =  await axios.post(url, 
-    params,
-    headers,   
+    headers,
+    params,       
   )
     console.log('sendPostRequest axios', response);
     return (response)
@@ -38,4 +38,20 @@ export const sendPostRequest = async (url, params = {}, headers = {}, ) => {
   } 
 
 };
+
+export const sendPatchRequest = async (url, params = {}, headers = {}, ) => {
+  try{
+   let response =  await axios.patch(url,
+    headers,   
+     params,      
+   )
+     console.log('sendPatchRequest axios', response);
+     return (response)
+   }
+   catch (error){
+     console.log(error);
+     return (error.response)
+   } 
+ 
+ };
 

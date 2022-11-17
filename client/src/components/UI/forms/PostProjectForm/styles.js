@@ -1,3 +1,4 @@
+
 export const postProjectStyles = {
 
     leftInput: {
@@ -21,5 +22,6 @@ export const postProjectStyles = {
         display: { xs: 'row', md: 'colum' },
       
       },   
+    
 
 };

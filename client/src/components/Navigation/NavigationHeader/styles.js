@@ -74,6 +74,14 @@ export const navHeaderStyles ={
     paddingLeft: '0.5rem',
     textAlign: 'right',
     color: palette.secondary,
+
+  },
+  pseudoText:{
+    paddingLeft: '0.5rem',
+    textAlign: 'right',
+    color: palette.secondary,
+    display: { xs: 'none', md: 'none' } 
+
   },
 
 };

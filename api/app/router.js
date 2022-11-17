@@ -19,16 +19,17 @@ router.get('/project/list', projectCardController.getAllProjectCards);
 
 /* project */
 router.get('/project/:id', projectController.getOneProjectById);
-router.post('/profile/:id/project/create', projectController.createProject)
-router.patch('/profile/:profileId/project/:projectId', projectController.patchProject)
+router.post('/profile/project/create', authorizationMiddleware, projectController.createProject)
+router.patch('/profile/project/:projectId',authorizationMiddleware , projectController.patchProject)
 router.delete('/profile/:profileId/project/:projectId', projectController.deleteProject)
 
 /* Profile */
 router.post('/login', profileController.login)
 router.get('/logout', profileController.logout)
 router.get('/profile', authorizationMiddleware, profileController.getProfileById)
-router.post('/profile/:id/details', profileController.fillProfil)
-router.patch('/profile/:id/details', profileController.patchProfil)
+router.patch('/profile', authorizationMiddleware, profileController.patchProfileById)
+router.post('/profile/details',authorizationMiddleware, profileController.fillProfil)
+router.patch('/profile/details',authorizationMiddleware, profileController.patchProfil)
 router.post('/subscribe', profileController.suscribe)
 // router.post('/loginjwt', authorizationMiddleware, profileController.login)
 
@@ -38,7 +39,7 @@ router.patch('/profile/:profileId/comment/:commentId', commentController.patchCo
 router.delete('/profile/:profileId/comment/:commentId', commentController.deleteComment)
 
 /* Image */
-router.post('/project/:id/upload', uploadImageController.uploadProjectImage );
+router.post('/project/img/upload',authorizationMiddleware, uploadImageController.uploadProjectImage );
 
 
 module.exports = router;

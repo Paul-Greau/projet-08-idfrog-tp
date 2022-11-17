@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 // import PropTypes from 'prop-types';
 
 // Material UI
@@ -7,15 +8,24 @@ import DownloadingTwoToneIcon from '@mui/icons-material/DownloadingTwoTone';
 // CSS
 import './uploadImageStyle.scss';
 
-function UploadImages() {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [img_url, setImageUrl] = useState(null);
+function UploadImages({
+  handleImgUpload,
+  selectedImage,
+  img_url
 
+}) {
+  
+/*   const [img_url, setImageUrl] = useState(null);
+
+console.log(img_url);
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
+     
+      console.log('selectedImage', selectedImage);
+      console.log('img_url', img_url);
     }
-  }, [selectedImage]);
+  }, [selectedImage]); */
 
   return (
     <>
@@ -24,7 +34,8 @@ function UploadImages() {
         type="file"
         id="select-image"
         style={{ display: 'none' }}
-        onChange={(e) => setSelectedImage(e.target.files[0])}
+        /* onChange={(e) => setSelectedImage(e.target.files[0])} */
+        onChange= {(e) => handleImgUpload(e.target.files[0])}
       />
 
       {img_url && selectedImage && (

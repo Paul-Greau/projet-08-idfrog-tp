@@ -15,3 +15,15 @@ export const profileConnexionstate = atom({
     },
     effects_UNSTABLE: [persistAtom],
 })
+
+export const profileDetailState = atom({
+    key: "profileDetail",
+    default: {
+        pseudo: '',
+        gender: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        website: '',
+    },
+})

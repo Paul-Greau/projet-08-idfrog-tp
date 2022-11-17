@@ -38,24 +38,7 @@ const profileController = {
         }
 
 
-        /* if (password !== searchedProfile.password){
-            const error = new Error("Login error, Email or Password Invalid");
-            return res.status(401).json({
-                message: error.message
-            });
-        } */
-
-        // si tout va bien, rajoute l'utilisateur dans la session
-        req.session.profile = searchedProfile.dataValues;
-        // pour éviter tout problème, on va supprimer le mdp de la session
-
-        req.session.profile.password = null;
         searchedProfile.password = null
-
-        console.log('login session', req.session.profile)
-        // maintenant que l'user est loggé, on renvoie le json avec les données du profile
-        
-        // res.status(200).json(searchedProfile);
 
         const jwtContent = { userId: searchedProfile.id };
         const jwtOptions = { 
@@ -153,6 +136,36 @@ const profileController = {
         }
       },
         
+      patchProfileById: async (req, res) => {
+
+        const tokenId = req.auth.userId
+
+        const {
+            pseudo,
+            email,
+            } = req.body;
+
+        try{
+        const profileToPatch = await Profile.findByPk(tokenId);
+
+        if(pseudo){
+            profileToPatch.pseudo = pseudo
+        }
+
+        if (email){
+            profileToPatch.email = email
+        }
+
+        await profileToPatch.save()
+       //  console.log('in Patch Profile', tokenId);
+        res.status(201).json(profileToPatch);
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).json({ message: error.message });
+        }
+
+      },
 
     getProfileById: async (req,res) => {
 		try {
@@ -160,8 +173,7 @@ const profileController = {
 			//const profileId = Number(req.params.id);
             const tokenId = req.auth.userId;
 
-            console.log('getProfileById session', req.session.profile)
-            console.log(profileId);
+            console.log('getProfileById session', req.session.profile)           
 
            /*  if (!profileId) {
                 const error = new Error(`'profileId' property is missing`);
@@ -209,7 +221,8 @@ const profileController = {
 
     fillProfil : async (req, res) => {
 
-        const profileIdparams = req.params.id
+        const tokenId = req.auth.userId;
+       // const profileIdparams = req.params.id
         const {
             status,
             // Details for a person :
@@ -230,19 +243,10 @@ const profileController = {
             } = req.body;
 
         // Global check:             
-	    if (!profileIdparams) {
+	    if (!tokenId) {
 	    	const error = new Error(`'profile_id' property is missing`);
 	    	return res.status(400).json({ message: error.message });
 	    }
-	    if (!req.session.profile) {
-	    	const error = new Error(`You must login`);
-	    	return res.status(401).json({ message: error.message });
-	    }	
-	    if (Number(profileIdparams) !== Number(req.session.profile.id)) {
-	    	const error = new Error(`You must login before complete a profil`);
-	    	return res.status(401).json({ message: error.message });
-	    }
-
         if (!status) {
 	    	const error = new Error(`'status' property is missing`);
 	    	return res.status(401).json({ message: error.message });
@@ -250,7 +254,7 @@ const profileController = {
 
         try{
             
-            const profileToFill = await Profile.findByPk(profileIdparams, {
+            const profileToFill = await Profile.findByPk(tokenId, {
 				include: [
                     'society',
                     'person'                    
@@ -258,7 +262,7 @@ const profileController = {
 			});
 
 			if (!profileToFill) { // Si `profile` == null || undefined || false
-				const error = new Error(`profile not found with id ${ profileIdparams }`);
+				const error = new Error(`profile not found with id ${ tokenId }`);
 				return res.status(404).json({
 					message: error.message
 				});
@@ -324,7 +328,7 @@ const profileController = {
                 
 
                 const fillPerson = Person.build({
-                    profile_id: Number(profileIdparams),
+                    profile_id: Number(tokenId),
                     status,
                     first_name: first_name.trim(),
                     last_name: last_name.trim(),
@@ -360,7 +364,7 @@ const profileController = {
                 }
 
                 const fillSociety = Society.build({
-                    profile_id: Number(profileIdparams),
+                    profile_id: Number(tokenId),
                     siret: Number(siret),
                     name: name.trim(),
                     status,
@@ -382,7 +386,7 @@ const profileController = {
 
     patchProfil : async (req, res) => {
 
-        const profileIdparams = req.params.id
+        const profileIdparams = req.auth.userId;
         const {
             status,
             // Details for a person :
@@ -407,15 +411,7 @@ const profileController = {
 	    	const error = new Error(`'profile_id' property is missing`);
 	    	return res.status(400).json({ message: error.message });
 	    }
-	    if (!req.session.profile) {
-	    	const error = new Error(`You must login`);
-	    	return res.status(401).json({ message: error.message });
-	    }	
-	    if (Number(profileIdparams) !== Number(req.session.profile.id)) {
-	    	const error = new Error(`You must login before complete a profil`);
-	    	return res.status(401).json({ message: error.message });
-	    }
-
+	    
         if (!status) {
 	    	const error = new Error(`'status' property is missing`);
 	    	return res.status(401).json({ message: error.message });
