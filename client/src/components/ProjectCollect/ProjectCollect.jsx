@@ -45,7 +45,7 @@ function projectCollect() {
 
   return (
     <>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, marginBottom: '30px' }}>
         <CardContent>
           <Typography
             sx={{ fontSize: 14, marginTop: '20px', marginBottom: '2rem' }}
@@ -93,7 +93,6 @@ function projectCollect() {
       <Card
         sx={{
           maxWidth: 345,
-          margin: '40px',
           marginBottom: '30px',
           textAlign: 'center',
         }}

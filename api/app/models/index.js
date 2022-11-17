@@ -10,19 +10,21 @@ const Society = require('./society')
 // Association Profil et Society
 Profile.hasOne(Society, {
 	as: 'society',
+	foreignKey:'profile_id'
 });
 
 Society.belongsTo(Profile, {
-foreignKey: 'profile_id'
+as: 'profile'
 });
 
 // Association Profil et Person
 Profile.hasOne(Person, {
 	as: 'person',
+	foreignKey:'profile_id'
 });
 
 Person.belongsTo(Profile, {
-foreignKey: 'profile_id'
+	as: 'profile'
 });
 
 // Association Profil et Contribution
@@ -30,14 +32,18 @@ Profile.hasMany(Contribution, {
 	as:'contributions',
 	foreignKey:'profile_id'
 });
-Contribution.belongsTo(Profile);
+Contribution.belongsTo(Profile,{
+	as:'profile',
+});
 
 // Association Profil et Comment
 Profile.hasMany(Comment, {
 	as: 'comments',
 	foreignKey:'profile_id'
 });
-Comment.belongsTo(Profile);
+Comment.belongsTo(Profile, {
+	as: 'profile'
+});
 
 // Association Project et Contribution
 Project.hasMany(Contribution, {
