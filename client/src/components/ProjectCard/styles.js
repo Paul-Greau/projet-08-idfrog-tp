@@ -7,6 +7,7 @@ export const projectCardStyles = {
       WebkitLineClamp: 2,
   },
 
+
   cardAction: {
       display: 'flex',
       justifyContent: 'space-between',

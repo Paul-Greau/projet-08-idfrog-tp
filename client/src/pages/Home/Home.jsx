@@ -16,6 +16,8 @@ import './homeStyles.scss';
 import Head from '../../components/Head/Head';
 import TopFooter from '../../components/TopFooter/TopFooter';
 
+import { useState } from 'react';
+
 function Home() {
 
 const [result, setResult] = useState([]);
@@ -40,6 +42,7 @@ useEffect(
         console.log(error);
       }
     };
+
     // mon effet s'executera sur le mount
     FetchData(); // fetchData est asynchrone je l'appele simplement sans attendre la suite
   },
@@ -49,10 +52,6 @@ useEffect(
 const indexOfLastCard = currentPage * cardsPerPage;
 const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 const currentCards = result.slice(indexOfFirstCard, indexOfLastCard)
-
-
-
-
 
   return (
     <>
@@ -65,6 +64,7 @@ const currentCards = result.slice(indexOfFirstCard, indexOfLastCard)
         <Container component="section" maxWidth="lg" sx={{display: "flex", justifyContent: "center", paddingBottom: "20px"}}>
         <Pagination count={nbPage} page={currentPage} onChange={handleChange} />
         </Container>
+
       </Box>
       <TopFooter />
       <Footer />

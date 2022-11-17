@@ -16,6 +16,7 @@ import ProjectProgress from '../ProjectProgress/ProjectProgress';
 import { Link } from 'react-router-dom';
 
 function ProjectCard({projet, amount, description, profile, id, date}) {
+
   return (
     <Card sx={{ maxWidth: '100%', marginBottom: '30px', marginTop: '30px' }}>
       <Link to={`/project/${id}`}>

@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+
 import React from 'react';
 // import PropTypes from "prop-types";
 import { Grid } from '@mui/material';
@@ -10,6 +11,7 @@ import InputIcon from '@mui/icons-material/Input';
 import AddchartIcon from '@mui/icons-material/Addchart';
 import { Container } from '@mui/material';
 import './headStyles.scss';
+
 
 function Head() {
   return (
@@ -98,6 +100,7 @@ function Head() {
           </Grid>
         </Grid>
       </Container>
+
     </div>
   );
 }
