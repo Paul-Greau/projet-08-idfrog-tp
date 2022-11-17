@@ -1,12 +1,13 @@
 import { default as Axios } from "axios";
 
 const axios = Axios.create({
-  baseURL:  "http://localhost:8080",
+  baseURL:  "nicolasortigue-server.cloud:8080",
   timeout: 10000,
   headers: {
     // 'CSRF-Token': csrfToken
   }
 });
+
 
 export const sendGetRequest = async (url, params = {}, headers = {}) => {
   try{
