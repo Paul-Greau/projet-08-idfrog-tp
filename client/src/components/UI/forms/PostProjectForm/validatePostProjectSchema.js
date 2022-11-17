@@ -34,11 +34,6 @@ export const validationSchema = yup.object().shape({
   adress: yup
     .string("string")
     .required("Ce champ est requis !"),
-  end_time: yup
-    .string("string")
-    .nullable()
-    .required("Ce champ est requis !"),
-
   website: yup
     .string()
     .url(),

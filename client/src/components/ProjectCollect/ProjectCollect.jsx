@@ -1,11 +1,8 @@
 /* eslint-disable react/prop-types */
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-=======
-import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
->>>>>>> origin/fix-gitflow-process
+
+// import PropTypes from "prop-types";
 
 // Material UI
 import {
@@ -29,14 +26,10 @@ import ProjectProgress from '../ProjectProgress/ProjectProgress';
 // CSS
 import { projectCollectStyles } from './styles';
 
-<<<<<<< HEAD
 // RECOIL
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
 import { deleteProject, patchProject } from '../../services/projectService';
-=======
-// import PropTypes from "prop-types";
->>>>>>> origin/fix-gitflow-process
 
 function ProjectCollect({
   amount,
@@ -89,8 +82,12 @@ function ProjectCollect({
 
 console.log('visibility', visibilityState);
 
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  };
 
-<<<<<<< HEAD
   const progressRate = (contributionslist) => {
     let totalContribution = 0;
     if (contributionslist?.length === 0) {
@@ -123,39 +120,10 @@ console.log('visibility', visibilityState);
     progressRate(contributions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progressRate]);
-=======
-function ProjectCollect({ id, projet, amount, description, profile, createdAt, contributions }) {
-
-    console.log({contributions})
-
-    const options = { /* weekday: 'long' ,*/ year: 'numeric', month: 'short', day: 'numeric' };
-
-const [totalContributions, setTotalContributions] = useState(0)
-const [progressRatio, setProgressRatio] = useState(0)
-
-const progressRate = (contributionslist) => {
-  let totalContribution = 0;
-  if(contributionslist?.length === 0){
-    setTotalContributions(0)
-    setProgressRatio(0)
-  }
-  contributionslist?.map((contribution) => (
-    totalContribution += contribution.invested_amount
-  ));
-  const rate = Number((100 * totalContribution / amount))
-  setTotalContributions(totalContribution)
-  setProgressRatio(rate)
-}  
-
-useEffect(() => {
-  progressRate(contributions)
-// eslint-disable-next-line react-hooks/exhaustive-deps
-},[progressRate])
->>>>>>> origin/fix-gitflow-process
 
   return (
     <>
-    <Card sx={{ mx: 4, mt: 5, m: { xl: 2, md: 2, xs: 2 } }}>
+      <Card sx={{ mx: 4, mt: 5, m: { xl: 2, md: 2, xs: 2 } }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
             {profile} •{' '}
@@ -203,18 +171,9 @@ useEffect(() => {
           <Button size="small" sx={projectCollectStyles.btnSecondary}>
             Partager +
           </Button>
-<<<<<<< HEAD
         </CardActions>
       </Card>
       {ProfileInfo.pseudo === profile &&
-=======
-        </Link>
-        <Button size="small" sx={projectCollectStyles.btnSecondary}>
-          Partager +
-        </Button>
-      </CardActions>
-    </Card>
->>>>>>> origin/fix-gitflow-process
       <Card sx={projectCollectStyles.card}>
 
       <CardContent>
@@ -310,6 +269,7 @@ useEffect(() => {
     </>
   );
 }
+
 ProjectCollect.propTypes = {};
 
 ProjectCollect.defaultProps = {};

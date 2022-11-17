@@ -10,18 +10,13 @@ import Head from "../../../components/Head/Head";
 import TopFooter from "../../../components/TopFooter/TopFooter";
 
 // Material UI
-<<<<<<< HEAD
 import { Container, Box } from '@mui/material';
-=======
-import { Container, Box, Pagination } from "@mui/material";
->>>>>>> origin/fix-gitflow-process
 
 // CSS
 import "./homeStyles.scss";
 
 function Home() {
   const [result, setResult] = useState([]);
-<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState([false]);
 
   const FetchData = async () => {
@@ -31,27 +26,6 @@ function Home() {
       console.log(response.data);
       setResult(response.data);
       // TODO redirect vers 404 si status 404
-=======
-  const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(3);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleChange = (event, value) => {
-    event.preventDefault();
-    setCurrentPage(value);
-    setCardsPerPage;
-  };
-
-  const nbPage = Math.ceil(result.length / cardsPerPage);
-
-  const FetchData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await getProjectsList();
-      console.log(response.data);
-      setResult(response.data);
-      setIsLoading(false);
->>>>>>> origin/fix-gitflow-process
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +40,6 @@ function Home() {
     <>
       <Head />
       <Box className="allCards">
-<<<<<<< HEAD
         {result && 
         <ProjectCardList result={result}
         cardPerPages={3}
@@ -74,9 +47,6 @@ function Home() {
         />
         }
         
-=======
-        <ProjectCardList result={currentCards} isLoading={isLoading} />
->>>>>>> origin/fix-gitflow-process
         <Container
           component="section"
           maxWidth="lg"

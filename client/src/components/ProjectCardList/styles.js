@@ -1,7 +1,7 @@
 // CSS VARS
 // import palette from '../../assets/styles/_vars.scss'
 
-// export const projectCardStyles = {
+export const projectCardStyles = {
 
   selectInput:{
     width: { xs: '100%', sm: '95%', md: '95%', lg: '97%' },
@@ -10,6 +10,7 @@
     mb:2,
     pl: 0.3
   },
+
   selectBox:{
     px: 4,
     pt:3,

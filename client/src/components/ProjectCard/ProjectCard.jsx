@@ -106,11 +106,7 @@ function ProjectCard({
             </Button>
           </Link>
         ) : (
-<<<<<<< HEAD
           <Link to={`/profile/contribut/${id}`}>
-=======
-          <Link to={`project/${id}`}>
->>>>>>> origin/fix-gitflow-process
             <Button size="small" sx={projectCardStyles.btnPrimary}>
               Contribuer au projet &gt;
             </Button>

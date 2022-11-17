@@ -1,13 +1,8 @@
 /* eslint-disable react/prop-types */
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // Services
 import { getProjectById } from "../../services/projectService";
-=======
-import React, { useState } from "react";
-
->>>>>>> origin/fix-gitflow-process
 // Components
 import Project from "./Project/Project";
 import Faq from "./FAQ/Faq";
@@ -17,7 +12,6 @@ import Comments from "./Comments/Comments";
 import { Tab, Box } from "@mui/material";
 import { TabList, TabContext } from "@mui/lab";
 // CSS
-<<<<<<< HEAD
 import { projectDetailStyles } from "./styles";
 import "./projectDetailsStyles.scss";
 
@@ -25,17 +19,6 @@ const ProjectDetails = () => {
   const [value, setValue] = useState("1");
   const [result, setResult] = useState([]);
   const { id } = useParams();
-=======
-import "./projectDetailsStyles.scss"
-
-
-
-const ProjectDetails = ({result}) => {
-    const [value, setValue] = useState("1")
-    const handleChange = (e, newValue) => {
-        setValue(newValue)
-    }
->>>>>>> origin/fix-gitflow-process
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
