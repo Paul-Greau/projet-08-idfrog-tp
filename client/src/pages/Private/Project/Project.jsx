@@ -38,7 +38,7 @@ const Project = () => {
             return navigate("/");
           } 
         })
-        .catch((err) =>console.log(err)      
+        .catch((err) =>console.log(err)
         )}
     return () => (flag.current = true);
   },[id]);
