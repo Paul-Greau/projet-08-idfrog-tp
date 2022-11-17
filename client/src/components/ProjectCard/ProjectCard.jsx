@@ -32,6 +32,7 @@ function ProjectCard({
   createdAt,
   contributions,
 }) {
+
   const options = {
     /* weekday: 'long' ,*/ year: "numeric",
     month: "short",
@@ -99,13 +100,17 @@ function ProjectCard({
 
       <CardActions sx={projectCardStyles.cardAction}>
         {!ProfileInfo.isLogged ? (
-          <Link to="/subscribe">
+          <Link to="/login">
             <Button size="small" sx={projectCardStyles.btnPrimary}>
               Contribuer au projet &gt;
             </Button>
           </Link>
         ) : (
+<<<<<<< HEAD
+          <Link to={`/profile/contribut/${id}`}>
+=======
           <Link to={`project/${id}`}>
+>>>>>>> origin/fix-gitflow-process
             <Button size="small" sx={projectCardStyles.btnPrimary}>
               Contribuer au projet &gt;
             </Button>

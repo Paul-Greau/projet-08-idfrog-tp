@@ -10,13 +10,28 @@ import Head from "../../../components/Head/Head";
 import TopFooter from "../../../components/TopFooter/TopFooter";
 
 // Material UI
+<<<<<<< HEAD
+import { Container, Box } from '@mui/material';
+=======
 import { Container, Box, Pagination } from "@mui/material";
+>>>>>>> origin/fix-gitflow-process
 
 // CSS
 import "./homeStyles.scss";
 
 function Home() {
   const [result, setResult] = useState([]);
+<<<<<<< HEAD
+  const [isLoading, setIsLoading] = useState([false]);
+
+  const FetchData = async () => {
+    try {
+      setIsLoading(true)
+      const response = await getProjectsList();
+      console.log(response.data);
+      setResult(response.data);
+      // TODO redirect vers 404 si status 404
+=======
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,24 +51,32 @@ function Home() {
       console.log(response.data);
       setResult(response.data);
       setIsLoading(false);
+>>>>>>> origin/fix-gitflow-process
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false)
   };
 
   useEffect(() => {
     FetchData();
   }, []);
 
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = result.slice(indexOfFirstCard, indexOfLastCard);
-
   return (
     <>
       <Head />
       <Box className="allCards">
+<<<<<<< HEAD
+        {result && 
+        <ProjectCardList result={result}
+        cardPerPages={3}
+        isLoading={isLoading}
+        />
+        }
+        
+=======
         <ProjectCardList result={currentCards} isLoading={isLoading} />
+>>>>>>> origin/fix-gitflow-process
         <Container
           component="section"
           maxWidth="lg"
@@ -62,13 +85,7 @@ function Home() {
             justifyContent: "center",
           }}
         >
-          <Pagination
-            count={nbPage}
-            page={currentPage}
-            onChange={handleChange}
-            sx={{ p: 2 }}
-          />
-        </Container>
+        </Container> 
       </Box>
       <TopFooter />
     </>

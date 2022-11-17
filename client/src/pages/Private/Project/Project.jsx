@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react';
+<<<<<<< HEAD
+import { useParams, useNavigate } from 'react-router-dom';
+=======
 
 import { useParams } from 'react-router-dom';
+>>>>>>> origin/fix-gitflow-process
 import { Grid, CardMedia } from '@mui/material';
 // Services
 import {getProjectById} from '../../../services/projects';
@@ -15,30 +19,40 @@ import LoadingBar from '../../../components/UI/Placeholder/LoadingBar';
 
 
 const Project = () => {
-  const [isLoading, setIsLoading] = useState(true);
+
+  const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState([]);
   const { id } = useParams();
 
   const flag = useRef(false);
 
+  let navigate = useNavigate()
+
+
+
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
+    setIsLoading(true)
     window.scrollTo(0, 0);
     if (flag.current === false) {
       getProjectById(id)
         .then((res) => {
           // Liste dans le state
           setResult(res.data);
-          console.log(res.data);
-          setIsLoading(false);
+          setIsLoading(false)
+          console.log('reponse dans project', res); 
+          if (res.status === 404) {
+            return navigate("/");
+          } 
         })
-        .catch((err) => console.log(err));
-    }
-
+        .catch((err) =>console.log(err)
+        )}
     return () => (flag.current = true);
-  }, [id]);
+  },[id]);
+
 
   return (
+
     <>
       {!isLoading ? (
         <Grid container spacing={5}>
@@ -75,6 +89,7 @@ const Project = () => {
         </>
       )}
     </>
+
   );
 };
 

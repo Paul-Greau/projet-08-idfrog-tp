@@ -1,6 +1,11 @@
 /* eslint-disable react/prop-types */
+<<<<<<< HEAD
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+=======
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
+>>>>>>> origin/fix-gitflow-process
 
 // Material UI
 import {
@@ -15,25 +20,110 @@ import {
   FormControl,
   Modal,
   Box,
+  Alert,
 } from '@mui/material';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
+
 
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
 // CSS
 import { projectCollectStyles } from './styles';
 
+<<<<<<< HEAD
+// RECOIL
+import { useRecoilValue } from 'recoil';
+import { profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
+import { deleteProject, patchProject } from '../../services/projectService';
+=======
 // import PropTypes from "prop-types";
+>>>>>>> origin/fix-gitflow-process
 
 function ProjectCollect({
   amount,
   profile,
   createdAt,
   contributions,
+  visibility,
   project_id,
+  invest_type,
 }) {
+
+  let navigate = useNavigate()
+
   const ProfileInfo = useRecoilValue(profileConnexionstate);
+  const ProfileDetail = useRecoilValue(profileDetailState)
+  const [visibilityState, setvisibilityState ]=useState(visibility);
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
+  const [totalContributions, setTotalContributions] = useState(0);
+  const [progressRatio, setProgressRatio] = useState(0);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  console.log('ProfileInfo', ProfileDetail);
+  console.log('profile', profile);
+
+  const handleVisibilityState = async () => {
+   
+  const response = await patchProject(project_id, ProfileInfo.token, {visibility: !visibilityState})
+  console.log(response);
+  setvisibilityState(!visibilityState)
+  if (response.status === 201){
+    setAlertStyle('success')
+    setLoginError({
+      status : null,
+      message: 'Projet mis à jour'
+    })
+    setShowError(true)
+    return
+  }
+  setLoginError({
+    status : response.status,
+    message: response.data.message
+  })
+  setShowError(true)
+  return
+}
+
+console.log('visibility', visibilityState);
 
 
+<<<<<<< HEAD
+  const progressRate = (contributionslist) => {
+    let totalContribution = 0;
+    if (contributionslist?.length === 0) {
+      setTotalContributions(0);
+      setProgressRatio(0);
+    }
+    contributionslist?.map(
+      (contribution) => (totalContribution += contribution.invested_amount)
+    );
+    const rate = Number((100 * totalContribution) / amount);
+    setTotalContributions(totalContribution);
+    setProgressRatio(rate);
+  };
+
+  const handleDeleteProject = async () => {
+    const response = await deleteProject(project_id, ProfileInfo.token)
+    console.log(response);
+    if (response.status === 201){
+      return navigate("/");
+    }
+    setLoginError({
+      status : response.status,
+      message: response.data.message
+    })
+    setShowError(true)
+    return 
+  }
+
+  useEffect(() => {
+    progressRate(contributions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progressRate]);
+=======
 function ProjectCollect({ id, projet, amount, description, profile, createdAt, contributions }) {
 
     console.log({contributions})
@@ -61,6 +151,7 @@ useEffect(() => {
   progressRate(contributions)
 // eslint-disable-next-line react-hooks/exhaustive-deps
 },[progressRate])
+>>>>>>> origin/fix-gitflow-process
 
   return (
     <>
@@ -80,7 +171,8 @@ useEffect(() => {
           </Typography>
           <Typography variant="body2" color="secondary.light">
             Votre contribution vous sera intégralement remboursée si le projet
-            n&apos;atteint pas 100% de son objectif.
+            n&apos;atteint pas 100% de son objectif. <br />
+            Type d&apos;investissement: &apos;{invest_type}&apos;
           </Typography>
         </CardContent>
 
@@ -94,17 +186,14 @@ useEffect(() => {
 
         <CardActions sx={projectCollectStyles.carAction}>
           {!ProfileInfo.isLogged ? (
-            <Link to="/subscribe">
-              <Button
-                size="small"
-                sx={projectCollectStyles.btnPrimary}
-                id={project_id}
-              >
+
+            <Link to="/login">
+              <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>
             </Link>
           ) : (
-            <Link to="/profile/contribut">
+            <Link to={`/profile/contribut/${project_id}`}>
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>
@@ -114,51 +203,74 @@ useEffect(() => {
           <Button size="small" sx={projectCollectStyles.btnSecondary}>
             Partager +
           </Button>
+<<<<<<< HEAD
+        </CardActions>
+      </Card>
+      {ProfileInfo.pseudo === profile &&
+=======
         </Link>
         <Button size="small" sx={projectCollectStyles.btnSecondary}>
           Partager +
         </Button>
       </CardActions>
     </Card>
+>>>>>>> origin/fix-gitflow-process
       <Card sx={projectCollectStyles.card}>
-        <CardContent>
-          <Typography
-            color="secondary"
-            gutterBottom
-            variant="h7"
-            component="div"
-            sx={{ fontWeight: '500' }}
-          >
-            Souhaitez vous que votre projet soit :
-          </Typography>
-          <FormControl component="fieldset" sx={{ margin: '0.5em' }}>
-            <FormGroup aria-label="position" row>
-              <FormControlLabel
-                value="prive"
-                control={<Switch color="primary" />}
-                label="Privé"
-                labelPlacement="end"
-              />
-              <FormControlLabel
-                value="public"
-                control={<Switch color="primary" />}
-                label="Public"
-                labelPlacement="end"
-              />
-            </FormGroup>
-          </FormControl>
-          <Typography
-            color="secondary"
-            gutterBottom
-            variant="p"
-            component="div"
-            sx={{ fontWeight: '100', fontSize: '12px' }}
-          >
-            privé: votre projet ne sera pas publié sur la page d&apos;acceuil
-            public votre projet sera visible en page d’acceuil
-          </Typography>
-        </CardContent>
-        <CardActions>
+
+      <CardContent>
+        <Typography
+          color="secondary"
+          gutterBottom
+          variant="h7"
+          component="div"
+          sx={{ fontWeight: '500' }}
+        >
+          Souhaitez vous que votre projet soit :
+        </Typography>
+        <FormControl component="fieldset" sx={{ margin: '0.5em' }}>
+        <FormGroup aria-label="position" row
+        value={visibility}
+        >
+          <FormControlLabel
+            checked={!visibilityState}
+            onChange={() => handleVisibilityState()}
+            value="false"
+            control={<Switch color="primary" />}
+            label="Privé"
+            labelPlacement="end"
+          />
+          <FormControlLabel
+            checked={visibilityState}
+            onChange={() => handleVisibilityState()}
+            value="true"
+            control={<Switch color="primary" />}
+            label="Public"
+            labelPlacement="end"
+          />
+        </FormGroup>
+      </FormControl>
+       
+        <Typography
+          color="secondary"
+          gutterBottom
+          variant="p"
+          component="div"
+          sx={{ fontWeight: '100', fontSize: '12px' }}
+        >
+          privé: votre projet ne sera pas publié sur la page d&apos;acceuil
+          public votre projet sera visible en page d’acceuil
+        </Typography>
+        {showError &&
+        <Alert severity={alertStyle}
+        onClose={() => {setShowError(false)}}
+        >
+        {loginError.status ? `'Erreur' ${loginError.status}` : ''} - {loginError.message}
+        </Alert>
+  } 
+      </CardContent>
+
+      <CardActions>
+
           <Button color="error" onClick={handleOpen}>
             SUPRIMER LE PROJET
           </Button>
@@ -182,14 +294,19 @@ useEffect(() => {
                 color="primary"
                 sx={{ width: '47%' }}
                 variant="outlined"
-                onClick={console.log('projet supprimer')}
+
+                onClick={() => handleDeleteProject()}
               >
                 VALIDER
               </Button>
             </Box>
           </Modal>
         </CardActions>
-      </Card>
+
+    </Card>
+      }
+      
+
     </>
   );
 }
@@ -198,3 +315,4 @@ ProjectCollect.propTypes = {};
 ProjectCollect.defaultProps = {};
 
 export default React.memo(ProjectCollect);
+

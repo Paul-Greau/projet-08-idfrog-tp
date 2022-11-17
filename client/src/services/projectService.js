@@ -1,4 +1,4 @@
-import { sendGetRequest, sendPatchRequest, sendPostRequest } from "../lib/Axios";
+import { sendDeleteRequest, sendGetRequest, sendPatchRequest, sendPostRequest } from "../lib/Axios";
 
 
 export const getProjectsList = () => {
@@ -24,3 +24,11 @@ export const patchProject = async (projectId, token, data) => {
   };
  return sendPatchRequest(`/profile/project/${projectId}`, config, data)
 }
+
+export const deleteProject = async (projectId, token) => {
+  const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
+ return sendDeleteRequest(`/profile/project/${projectId}`, config)
+}
+

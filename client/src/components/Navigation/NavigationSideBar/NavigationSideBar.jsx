@@ -17,17 +17,26 @@ import './navigationSideBarStyles.scss';
 
 import palette from '../../../assets/styles/_vars.scss';
 import { navSideBarStyles } from './styles';
+import { useRecoilValue } from 'recoil';
+import { isLoadingState } from '../../../atomes/profileAtomes';
 
-function NavigationSideBar() {
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+function NavigationSideBar({projectList,
+  contributionList
+}) {
+
+
+  const isLoading = useRecoilValue(isLoadingState)
+  
+
   // Open toogle mobile
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    console.log("NavigationSideBar is loading", isLoading);
+  },[isLoading]);
 
   const list = () => (
     <Box sx={navSideBarStyles.drawerMobileBox}>
@@ -42,7 +51,10 @@ function NavigationSideBar() {
         <ButtonProject />
         <Divider />
       </Box>
-      <SideBarItems />
+      <SideBarItems
+      projectList={projectList}
+      contributionList={contributionList}
+      />
     </Box>
   );
 
@@ -53,10 +65,13 @@ function NavigationSideBar() {
           <img src={FrogMenu} alt="MenuIdfrog" />
         </Button>
       </Box>
-      {!isLoading ? (
+      {projectList ? (
         <div className="navigationSideBar">
           <ButtonProject />
-          <SideBarItems />
+          <SideBarItems
+      projectList={projectList}
+      contributionList={contributionList}
+      />
         </div>
       ) : (
         <div className="navigationSideBar">

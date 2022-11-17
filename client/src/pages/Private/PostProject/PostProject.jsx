@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
-import { profileConnexionstate } from '../../../atomes/profileAtomes';
+import { isLoadingState, profileConnexionstate } from '../../../atomes/profileAtomes';
 import { profileDetailState } from '../../../atomes/profileAtomes';
 import { useRecoilValue } from 'recoil';
 
@@ -16,12 +16,9 @@ import PostProjectPlaceholder from '../../../components/UI/Placeholder/PostProje
 function PostProject() {
   const { token } = useRecoilValue(profileConnexionstate);
   const profileDetail = useRecoilValue(profileDetailState);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+  const isLoading = useRecoilValue(isLoadingState)
+  console.log("PostProject is loading", isLoading, isLoadingState, token);
 
-  console.log('PostProject', profileDetail);
   return (
     <>
       {!isLoading ? (

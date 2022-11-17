@@ -55,6 +55,7 @@ export const projectCollectStyles = {
         mb: 1,
         p: 1,
     },
+    
     modal:{
       position: 'absolute',
       top: '50%',

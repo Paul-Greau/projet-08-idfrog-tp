@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 //import PropTypes from 'prop-types';
 
-import ContributForm from '../../../components/UI/forms/ContributForm/ContributForm';
+import ContributForm from "../../../components/UI/forms/ContributForm/ContributForm";
+import ContributPlaceholder from "../../../components/UI/Placeholder/ContributPlaceholder";
 
 // CSS
-import './contributionStyles.scss';
+import "./contributionStyles.scss";
 
 function Contribution() {
+  const { id } = useParams();
+  console.log("contributions", id);
+
   return (
     <div className="contribut-container">
-      <ContributForm />
+      <ContributForm projectId={id} />
     </div>
   );
 }

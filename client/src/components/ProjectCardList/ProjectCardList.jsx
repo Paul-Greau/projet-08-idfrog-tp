@@ -1,13 +1,22 @@
 /* eslint-disable react/prop-types */
+
 import React, { useState, useEffect } from 'react';
 
 // import PropTypes from 'prop-types';
 
+<<<<<<< HEAD
+// Components
+import ProjectCard from '../ProjectCard/ProjectCard';
+
+import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
+import {category, financingTypes } from '../UI/forms/PostProjectForm/category';
+=======
 // Copoments
 import ProjectCard from "../ProjectCard/ProjectCard";
 import PlaceHolder from "../../components/ProjectCard/ProjectCardPlaceholder";
 
 import { categorys, financingTypes } from "./categaryFilter";
+>>>>>>> origin/fix-gitflow-process
 
 // Material UI
 
@@ -19,6 +28,14 @@ import {
   InputLabel,
   Select,
   MenuItem,
+<<<<<<< HEAD
+  Pagination,
+
+} from '@mui/material';
+// CSS
+import { projectCardStyles } from "./styles";
+
+=======
   LinearProgress,
 } from "@mui/material";
 
@@ -58,19 +75,69 @@ function ProjectCardList({ result, isLoading }) {
     "Investissement avec prêt",
     "capital"
   ]
+>>>>>>> origin/fix-gitflow-process
 
+function ProjectCardList({
+  result, isLoading, cardPerPages,
+}) {
+
+  const [filterResult, setFilterResult] = useState(result)
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
 
+<<<<<<< HEAD
+// Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage, setCardsPerPage] = useState(cardPerPages);
+  
+  const handleChange = (event, value) => {
+    event.preventDefault();
+    setCurrentPage(value);
+    //setCardsPerPage;
+  }; 
+
+   const nbPage = Math.ceil(filterResult.length / cardsPerPage);
+   const indexOfLastCard = currentPage * cardsPerPage;
+   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+   const currentCards = filterResult.slice(indexOfFirstCard, indexOfLastCard);
+
+useEffect(() => {
+
+  let filteredResults = result.filter((item) => {
+    // Boucle sur chaque projet de l'objet result
+
+    if(categoryFilter === item.category_id && financingTypeFilter === item.invest_type){
+      return true;
+    }
+    if((categoryFilter === '' || categoryFilter === 0 ) && financingTypeFilter === item.invest_type){
+      return true;
+    }
+    if((financingTypeFilter === '' || financingTypeFilter === 'all' ) && categoryFilter === item.category_id){
+      return true;
+    }
+    if((categoryFilter === '' || categoryFilter === 0 ) && (financingTypeFilter === '' || financingTypeFilter === 'all' )){
+      return true;
+    }
+    return false;
+  });
+
+
+  // console.log('results', filteredResults);
+  setFilterResult(filteredResults)
+  setCurrentPage(1)
+
+},[categoryFilter, financingTypeFilter, result]);
+=======
   const filterByCategoryAndType = (res) => 
     (res.category.name.includes(categoryFilter) || categoryFilter === "TOUTES CATEGORIES") 
     && (res.invest_type.includes(financingTypeFilter) || financingTypeFilter === "Tout type de financement")
     
   
 
+>>>>>>> origin/fix-gitflow-process
 
   useEffect(() => {
-    setIsLoading(false);
+  
   }, []);
 
   return (
@@ -92,11 +159,15 @@ function ProjectCardList({ result, isLoading }) {
                   id="category"
                   value={categoryFilter}
                   label="Catégories"
-                  onChange={(event) => setCategoryFilter(event.target.value)}
+                  onChange={(event) => setCategoryFilter(event.target.value)
+                    /* setCategoryFilter(event.target.value) */}
                 >
-                  {categorys.map((category, index) => (
-                    <MenuItem key={index} value={category}>
-                      {category}
+                  {category.map((category, index) => (
+                    <MenuItem 
+                    key={index}
+                    value={category.id}
+                    >
+                    {category.name}
                     </MenuItem>
                   ))}
                 </Select>
@@ -116,8 +187,8 @@ function ProjectCardList({ result, isLoading }) {
                   }
                 >
                   {financingTypes.map((financingType, index) => (
-                    <MenuItem key={index} value={financingType}>
-                      {financingType}
+                    <MenuItem key={index} value={financingType.value}>
+                      {financingType.title}
                     </MenuItem>
                   ))}
                 </Select>
@@ -125,9 +196,11 @@ function ProjectCardList({ result, isLoading }) {
             </Grid>
           </Grid>
         </Box>
+
         {!isLoading ? (
           <Grid container spacing={2} alignItems="stretch">
-            {result.filter(filterByCategoryAndType).map((res) => (
+            {currentCards.map((res) => (
+
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
@@ -141,6 +214,23 @@ function ProjectCardList({ result, isLoading }) {
               </Grid>
             ))}
 
+<<<<<<< HEAD
+          </Grid>
+        ) : (
+          <Grid container spacing={2} alignItems="stretch">
+            <CardPlaceholder />
+            <CardPlaceholder />
+            <CardPlaceholder />
+          </Grid>
+        )}
+          <Pagination
+            siblingCount={0}
+            count={nbPage}
+            page={currentPage}
+            onChange={handleChange}
+            sx={{ p: 2 }}
+          /> 
+=======
           {isLoading && (
             <Grid
               container
@@ -160,6 +250,7 @@ function ProjectCardList({ result, isLoading }) {
             </Grid>
           )}
         </Grid>
+>>>>>>> origin/fix-gitflow-process
       </Container>
     </>
   );

@@ -9,7 +9,7 @@ const projectCardController= require('./controllers/projectCardController');
 const authorizationMiddleware= require('./middlewares/jwt');
 
 /** contribution */
-router.post('/profile/:profileId/contribute/:projectId', authorizationMiddleware, contributionController.makeContribution)
+router.post('/profile/contribute/:projectId', authorizationMiddleware, contributionController.makeContribution)
 
 const commentController = require('./controllers/commentControllers');
 const uploadImageController = require('./controllers/uploadImageController');
@@ -21,7 +21,7 @@ router.get('/project/list', projectCardController.getAllProjectCards);
 router.get('/project/:id', projectController.getOneProjectById);
 router.post('/profile/project/create', authorizationMiddleware, projectController.createProject)
 router.patch('/profile/project/:projectId',authorizationMiddleware , projectController.patchProject)
-router.delete('/profile/:profileId/project/:projectId', projectController.deleteProject)
+router.delete('/profile/project/:projectId',authorizationMiddleware , projectController.deleteProject)
 
 /* Profile */
 router.post('/login', profileController.login)
@@ -34,7 +34,7 @@ router.post('/subscribe', profileController.suscribe)
 // router.post('/loginjwt', authorizationMiddleware, profileController.login)
 
 /* Comment */
-router.post('/profile/:profileId/project/:projectId/comment', commentController.commentProject)
+router.post('/profile/project/:projectId/comment',authorizationMiddleware , commentController.commentProject)
 router.patch('/profile/:profileId/comment/:commentId', commentController.patchComment)
 router.delete('/profile/:profileId/comment/:commentId', commentController.deleteComment)
 

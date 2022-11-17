@@ -17,8 +17,12 @@ const AdminRouter = () => {
             <Route path="profile" element={<Profile/>}/>
             <Route path="postproject" element={<PostProject/>}/>
             <Route path="project" element={<Project/>}/>
+<<<<<<< HEAD
+            <Route path="contribut/:id" element={<Contribution/>}/>
+=======
             <Route path="contribut" element={<Contribution/>}/>
             <Route path="/profile/:id/contribute/:id" element={<Contribution/>}/>
+>>>>>>> origin/fix-gitflow-process
             
             <Route path="*" element={<NotFound/>}/>
         </Route>

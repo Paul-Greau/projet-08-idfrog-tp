@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
-import { getProfile } from '../../../services/profileService';
+import React, { useState } from 'react';
 
 // Components
 import DropDownProjectList from './DropDownProjectList';
@@ -11,36 +10,17 @@ import { Box, List } from '@mui/material';
 
 // CSS
 import './navigationSideBarStyles.scss';
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../../atomes/profileAtomes';
 
-function SideBarItems() {
-  const { token } = useRecoilValue(profileConnexionstate);
-  const [projectList, setProjectList] = useState([]);
-  const [contributionList, setcontributionList] = useState([]);
+function SideBarItems({
+  projectList,
+  contributionList
+}) {
 
-  const [serverError, setServerError] = useState('');
-  const [showError, setShowError] = useState(false);
-
-  const FetchProfileData = async (token) => {
-    let response = await getProfile(token);
-    console.log(('getprofile response', response));
-    if (response.status !== 200) {
-      setServerError({
-        status: response.status,
-        message: response.data.message,
-      });
-      setShowError(true);
-      return;
-    }
-    setProjectList(response.data.projects);
-    setcontributionList(response.data.contributions);
-  };
-
+  console.log( projectList,
+    contributionList);
   // Open toogle Drawer
-  const [state, setState] = useState({
-    left: false,
-  });
+  const [state, setState] = useState({left: false,});
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === 'keydown' &&
@@ -50,10 +30,6 @@ function SideBarItems() {
     }
     setState({ ...state, [anchor]: open });
   };
-
-  useEffect(() => {
-    FetchProfileData(token);
-  }, []);
 
   return (
     <div>

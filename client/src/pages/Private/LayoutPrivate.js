@@ -1,7 +1,7 @@
 import React, {useState, useEffect}  from 'react';
-import { Outlet } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
+import { Outlet, useNavigate} from 'react-router-dom';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { isLoadingState, profileConnexionstate, profileDetailState } from '../../atomes/profileAtomes';
 import { getProfile } from '../../services/profileService';
 
 
@@ -13,18 +13,23 @@ import './layoutPrivateStyles.scss'
 
 const LayoutPrivate = () => {
 
-    const {token} = useRecoilValue(profileConnexionstate)
+    let navigate = useNavigate();
+    const {token} = useRecoilValue(profileConnexionstate);
+    const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
     const [projectList, setProjectList] = useState([]);
     const [contributionList, setcontributionList] = useState([]);
-    const [ProfileDetail, setProfileDetail] = useRecoilState(profileDetailState)
+    const [ProfileDetail, setProfileDetail] = useRecoilState(profileDetailState);
+    const [isLoading, setIsLoading] = useRecoilState(isLoadingState)
 
-    console.log("ProfileDetail layout private", ProfileDetail);
+    // console.log("ProfileDetail layout private", ProfileDetail);
     // eslint-disable-next-line no-unused-vars
     const [serverError, setServerError] = useState('')
     // eslint-disable-next-line no-unused-vars
     const [showError, setShowError] = useState(false)
+    
 
   const FetchProfileData = async (token) => {
+
     let response = await getProfile(token)
     console.log('getprofile response', response); 
 
@@ -34,18 +39,20 @@ const LayoutPrivate = () => {
           message: response.data.message
         })
         setShowError(true)
-        return      
+        ResetProfileInfo()
+        setIsLoading(false)
+        return navigate("/login");    
       }
-
       setProjectList(response.data.projects);
       setcontributionList(response.data.contributions)
       setProfileDetail(response.data)
+
      }
 
   useEffect(() => {
-
+    setIsLoading(true)
     FetchProfileData(token)
-
+    setIsLoading(false)
   },[]);
 
     return (       
