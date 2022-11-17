@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { isLoadingState, profileConnexionstate } from '../../../atomes/profileAtomes';
 import { profileDetailState } from '../../../atomes/profileAtomes';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 // Componenets
 import PostProjectForm from '../../../components/UI/forms/PostProjectForm/PostProjectForm';
@@ -15,7 +15,9 @@ function PostProject() {
   const { token } = useRecoilValue(profileConnexionstate);
   const profileDetail = useRecoilValue(profileDetailState);
   const isLoading = useRecoilValue(isLoadingState)
-  console.log("PostProject is loading", isLoading, isLoadingState, token);
+  console.log("PostProject is loading", isLoading);
+
+
 
   return (
     <>

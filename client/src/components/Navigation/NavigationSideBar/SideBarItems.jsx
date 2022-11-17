@@ -16,8 +16,6 @@ function SideBarItems({
   contributionList
 }) {
 
-  console.log( projectList,
-    contributionList);
   // Open toogle Drawer
   const [state, setState] = useState({left: false,});
 

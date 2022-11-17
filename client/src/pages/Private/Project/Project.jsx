@@ -34,7 +34,7 @@ const Project = () => {
           setResult(res.data);
           setIsLoading(false)
           console.log('reponse dans project', res); 
-          if (res.status === 404) {
+          if (res.status === 404) {            
             return navigate("/");
           } 
         })
