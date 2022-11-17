@@ -23,7 +23,7 @@ function Footer() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginLeft: '-22px',
+
           marginBottom: '10px',
           paddingBottom: '5px',
           paddingTop: '30px',

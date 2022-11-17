@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, {useEffect} from 'react';
 // import PropTypes from 'prop-types';
 
 // Materail UI
@@ -19,14 +20,16 @@ import { useFormik } from 'formik';
 // CSS
 import { postContributStyles } from './styles';
 
-function ProfileForm() {
+function ProfileForm({
+  projectId
+}) {
   const formik = useFormik({
     initialValues: {
-      invest_type: '',
-      amount_target: '',
+      project_id : projectId,
+/*       invest_type: '',
       card_number: '',
       expiry_date: '',
-      security_code: '',
+      security_code: '', */
       comment: '',
     },
     validationSchema: validationSchema,
@@ -34,6 +37,10 @@ function ProfileForm() {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Box className="profileForm" sx={{ p: 9 }}>

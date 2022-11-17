@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 
 // Materail UI 
-import { TextField, Button, Container, Typography, Link } from "@mui/material"
+import { TextField, Button, Container, Typography, Link, Alert } from "@mui/material"
 // Yup Schema
 import { validationSchema } from "./validateSigninSchema";
+
 //Formik 
 import { useFormik } from "formik";
+import { postSignin } from '../../../../services/loginService';
+import { useNavigate } from 'react-router-dom'
 
 function Signin() {
+  let navigate = useNavigate()
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+
+  const HandleSignin = async (response) => {
+    console.log('HandleSignin', response);
+
+      if(response.status!==201){
+        setLoginError({
+          status : response.status,
+          message: response.data.message
+        })
+        setShowError(true)
+        return      
+      } 
+    return navigate("/login");
+      }
 
   const formik = useFormik({
     initialValues: {
@@ -18,14 +38,22 @@ function Signin() {
       confirmPassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      let res = await postSignin(values)
+      HandleSignin(res)
     },
   });
 
   return (
     <Container maxWidth="md">
   <form onSubmit={formik.handleSubmit} autoComplete="off">
+  {showError &&
+    <Alert severity="error"
+    onClose={() => {setShowError(false)}}
+    >
+    {`Erreur ${loginError.status} - ${loginError.message}`}
+    </Alert>
+    }  
         <TextField
           fullWidth
           required
@@ -95,7 +123,7 @@ function Signin() {
       </Button>
 
       <Typography sx={{ mt: 2 }}>
-      Vus n&apos;avez pas encore de compte ? <Link href="#">S&apos;inscrire</Link>
+      Vous n&apos;avez pas encore de compte ? <Link href="#">S&apos;inscrire</Link>
       </Typography>
       </form>
     </Container>

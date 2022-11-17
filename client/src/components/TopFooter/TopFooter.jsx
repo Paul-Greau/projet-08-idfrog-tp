@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 // import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 
 // Matrerial UI
 import { Typography, Button, Grid, Container } from '@mui/material';
@@ -13,6 +14,7 @@ function TopFooter() {
   return (
     <Container component="section" maxWidth="lg">
       <Grid
+
         container
         direction="row"
         spacing={3}
@@ -30,20 +32,23 @@ function TopFooter() {
           </Typography>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              backgroundColor: palette.primary,
-              color: '#fff',
-              width: '100%',
-            }}
-          >
-            Découvrez nos solutions
-          </Button>
+          <Link to="/faq">
+            <Button
+              variant="contained"
+              size="large"
+              sx={{
+                backgroundColor: palette.primary,
+                color: '#fff',
+                width: '100%',
+              }}
+            >
+              Découvrez nos solutions
+            </Button>
+          </Link>
         </Grid>
       </Grid>
     </Container>
+
   );
 }
 // TopFooter.PropType = {};
@@ -51,3 +56,4 @@ function TopFooter() {
 TopFooter.defaultProps = {};
 
 export default React.memo(TopFooter);
+

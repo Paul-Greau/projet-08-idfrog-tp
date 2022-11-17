@@ -1,3 +1,4 @@
+
 export const postProjectStyles = {
 
 
@@ -23,5 +24,6 @@ export const postProjectStyles = {
         display: { xs: 'row', md: 'colum' },
       
       },   
+    
 
 };
