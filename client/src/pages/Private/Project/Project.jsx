@@ -62,7 +62,7 @@ const Project = () => {
           </Grid>
           <Grid item xs={12} md={4}>
             <ProjectCollect
-              id={result.id}
+              project_id={result.id}
               createdAt={result.created_at}
               projet={result.name}
               amount={result.amount_target}
