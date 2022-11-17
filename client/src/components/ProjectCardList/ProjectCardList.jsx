@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 // import PropTypes from 'prop-types';
 
-// Components
-import ProjectCard from '../ProjectCard/ProjectCard';
-import CardPlaceholder from '../UI/CardPlaceholder/CardPlaceholder';
-import { categorys, financingTypes } from './categaryFilter';
+// Copoments
+import ProjectCard from "../ProjectCard/ProjectCard";
+import PlaceHolder from "../../components/ProjectCard/ProjectCardPlaceholder";
+
+import { categorys, financingTypes } from "./categaryFilter";
+
 // Material UI
+
 import {
   Container,
   Grid,
@@ -15,22 +19,59 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from '@mui/material';
+  LinearProgress,
+} from "@mui/material";
+
 // CSS
-import { projectCardStyles } from './styles';
+import { projectCardStyles } from "./styles";
+
 
 function ProjectCardList({ result, isLoading }) {
-  // console.log(result);
-  // isLoading = true;
+  console.log(result);
+
+  const categories = [
+    "TOUTES CATEGORIES",
+    "ANIMAUX",
+    "ART & PHOTO",
+    "ARTISANAT & CUISINE",
+    "AUTOMOBILE",
+    "BD",
+    "EDITION & JOURNAL.",
+    "ENFANCE & EDUC.",
+    "ENVIRONNEMENT",
+    "FILM & VIDÉO",
+    "JEUX",
+    "MODE & DESIGN",
+    "MUSIQUE",
+    "SANTÉ & BIEN-ÊTRE",
+    "SOLIDAIRE & CITOYEN",
+    "SPECTACLE VIVANT",
+    "SPORTS",
+    "TECHNOLOGIE",
+    "AUTRES PROJETS",
+
+  ]
+
+  const financingTypes = [
+    "Tout type de financement",
+    "Investissement par don",
+    "Investissement avec prêt",
+    "capital"
+  ]
 
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
 
-  const filterByCategoryAndType = (res) =>
-    (res.category.name.includes(categoryFilter) ||
-      categoryFilter === 'TOUTES CATEGORIES') &&
-    (res.invest_type.includes(financingTypeFilter) ||
-      financingTypeFilter === 'Tout type de financement');
+  const filterByCategoryAndType = (res) => 
+    (res.category.name.includes(categoryFilter) || categoryFilter === "TOUTES CATEGORIES") 
+    && (res.invest_type.includes(financingTypeFilter) || financingTypeFilter === "Tout type de financement")
+    
+  
+
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   return (
     <>
@@ -84,9 +125,9 @@ function ProjectCardList({ result, isLoading }) {
             </Grid>
           </Grid>
         </Box>
-        <Grid container spacing={2} alignItems="stretch">
-          {!isLoading &&
-            result.filter(filterByCategoryAndType).map((res) => (
+        {!isLoading ? (
+          <Grid container spacing={2} alignItems="stretch">
+            {result.filter(filterByCategoryAndType).map((res) => (
               <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
@@ -99,11 +140,23 @@ function ProjectCardList({ result, isLoading }) {
                 />
               </Grid>
             ))}
+
           {isLoading && (
-            <Grid container justifyContent="space-evenly" alignItems="stretch">
-              <CardPlaceholder />
-              <CardPlaceholder />
-              <CardPlaceholder />
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{
+                padding: "16px 0 0 16px",
+              }}
+            >
+              <Box sx={{ width: "100%", marginBottom: "20px" }}>
+                <LinearProgress />
+              </Box>
+              <PlaceHolder />
+              <PlaceHolder />
+              <PlaceHolder />
             </Grid>
           )}
         </Grid>
@@ -112,8 +165,8 @@ function ProjectCardList({ result, isLoading }) {
   );
 }
 
-ProjectCardList.PropType = {};
+// ProjectCardList.PropType = {};
 
-ProjectCardList.defaultProps = {};
+// ProjectCardList.defaultProps = {};
 
 export default React.memo(ProjectCardList);

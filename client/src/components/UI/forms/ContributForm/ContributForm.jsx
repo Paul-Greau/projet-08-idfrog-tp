@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 // Materail UI
@@ -20,13 +20,11 @@ import { useFormik } from 'formik';
 // CSS
 import { postContributStyles } from './styles';
 
-function ProfileForm({
-  projectId
-}) {
+function ProfileForm({ projectId }) {
   const formik = useFormik({
     initialValues: {
-      project_id : projectId,
-/*       invest_type: '',
+      project_id: projectId,
+      /*       invest_type: '',
       card_number: '',
       expiry_date: '',
       security_code: '', */
@@ -43,10 +41,10 @@ function ProfileForm({
   }, []);
 
   return (
-    <Box className="profileForm" sx={{ p: 9 }}>
+    <Box className="profileForm" sx={{ p: 6 }}>
       <form onSubmit={formik.handleSubmit} autoComplete="off">
         <Typography sx={postContributStyles.titre} variant="h5">
-          Quel type de contribution souhaitez vous faire ?
+          Quel type de contribution souhaitez vous faire&nbsp;?
         </Typography>
 
         <RadioGroup row name="invest_type">
