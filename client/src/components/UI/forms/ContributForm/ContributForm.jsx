@@ -18,31 +18,22 @@ import { useFormik } from 'formik';
 // CSS
 import { postContributStyles } from './styles';
 import { useState } from 'react';
-import { getProjectById } from '../../../../services/projectService';
-import { Link, useNavigate } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
 import { postContribution } from '../../../../services/contributionService';
 import { postComment } from '../../../../services/CommentService';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../../../atomes/profileAtomes';
 
-function ContributForm({ projectId }) {
-  let navigate = useNavigate();
+function ContributForm({
+  projectId,
+  projectDetail,
 
-  const { token } = useRecoilValue(profileConnexionstate);
-  const [projectDetail, setProjectDetail] = useState('');
-  const [showError, setShowError] = useState(false);
-  const [projectError, setProjectError] = useState('');
-  const [alertStyle, setAlertStyle] = useState('error');
-
-  const FetchProjectDetail = async () => {
-    const response = await getProjectById(projectId);
-    console.log(response);
-    if (response.status !== 200) {
-      return navigate('/');
-    }
-    setProjectDetail(response.data);
-  };
-
+}) {
+  const {token} = useRecoilValue(profileConnexionstate);
+  const [showError, setShowError] = useState(false)
+  const [projectError, setProjectError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
   const formik = useFormik({
     initialValues: {
       invested_amount: '',
@@ -93,7 +84,6 @@ function ContributForm({ projectId }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    FetchProjectDetail();
   }, []);
 
   return (

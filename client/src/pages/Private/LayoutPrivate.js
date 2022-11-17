@@ -15,13 +15,12 @@ const LayoutPrivate = () => {
 
     let navigate = useNavigate();
     const {token} = useRecoilValue(profileConnexionstate);
-    const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
     const [projectList, setProjectList] = useState([]);
     const [contributionList, setcontributionList] = useState([]);
     const [ProfileDetail, setProfileDetail] = useRecoilState(profileDetailState);
     const [isLoading, setIsLoading] = useRecoilState(isLoadingState)
+    const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
 
-    // console.log("ProfileDetail layout private", ProfileDetail);
     // eslint-disable-next-line no-unused-vars
     const [serverError, setServerError] = useState('')
     // eslint-disable-next-line no-unused-vars
@@ -29,7 +28,7 @@ const LayoutPrivate = () => {
     
 
   const FetchProfileData = async (token) => {
-
+    setIsLoading(true)
     let response = await getProfile(token)
     console.log('getprofile response', response); 
 
@@ -46,13 +45,12 @@ const LayoutPrivate = () => {
       setProjectList(response.data.projects);
       setcontributionList(response.data.contributions)
       setProfileDetail(response.data)
-
+      setIsLoading(false)
+      return
      }
 
   useEffect(() => {
-    setIsLoading(true)
     FetchProfileData(token)
-    setIsLoading(false)
   },[]);
 
     return (       
@@ -62,6 +60,7 @@ const LayoutPrivate = () => {
                 <NavigationSideBar 
                 projectList={projectList}
                 contributionList={contributionList}
+                isLoading={isLoading}
                 className="sideBar" />
              <div className="profile-container">
               <Outlet />

@@ -22,7 +22,7 @@ import {
   Pagination,
 } from '@mui/material';
 // CSS
-import { projectCardStyles } from './styles';
+import { projectCardStyles } from "./styles";
 
 function ProjectCardList({ result, isLoading, cardPerPages }) {
   const [filterResult, setFilterResult] = useState(result);

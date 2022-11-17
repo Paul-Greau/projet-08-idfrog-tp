@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import PropTypes from 'prop-types';
+import { handleSubmitProfil } from "../../Utils/Utils";
 
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
 import {
@@ -19,11 +20,11 @@ import {
   Alert,
 } from '@mui/material';
 // Yup Schema
-import { validationSchema } from '../validatePersonSchema.js';
+import { validationSchema } from "../validatePersonSchema.js";
 //Formik
 import { useFormik } from 'formik';
 // CSS
-import { postParticulierStyles } from './styles';
+import { postParticulierStyles } from "./styles";
 
 function ProfileForm({
   // eslint-disable-next-line react/prop-types
@@ -36,23 +37,16 @@ function ProfileForm({
   const [loginError, setLoginError] = useState('');
   const [alertStyle, setAlertStyle] = useState('error');
 
-  const handleSubmit = (response) => {
-    if (response.status === 201) {
-      setAlertStyle('success');
-      setLoginError({
-        status: null,
-        message: 'Profile mis à jour',
-      });
-      setShowError(true);
-      return;
-    }
+ const handleSubmit = (response) => {
+    const alertMessage = handleSubmitProfil(response, 201)
+    setAlertStyle(alertMessage.alertStyle)
     setLoginError({
-      status: response.status,
-      message: response.data.message,
-    });
-    setShowError(true);
-    return;
-  };
+      status : alertMessage.errorStatus,
+      message: alertMessage.message
+    })
+    setShowError(alertMessage.showMessage)
+    return
+  }; 
 
   const formik = useFormik({
     initialValues: {
@@ -70,18 +64,14 @@ function ProfileForm({
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      // alert(JSON.stringify(values, null, 2));
-      console.log('values du form', values);
       if (person === null) {
-        console.log('profile vide');
+        console.log('profil vide');
         const response = await postFIllProfileDetails(token, values);
-        console.log(response);
         handleSubmit(response);
         return;
       } else {
-        console.log('person exist deja');
+        console.log("personne déjà existante");
         const response = await patchProfileDetails(token, values);
-        console.log(response);
         handleSubmit(response);
         return;
       }

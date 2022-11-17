@@ -11,6 +11,7 @@ import { validationSchema } from './validateSocietySchema';
 import { useFormik } from 'formik';
 // CSS
 import { postEntrepriseStyles } from './styles';
+import { handleSubmitProfil } from '../../Utils/Utils';
 
 function EntrepriseProfileForm({
   society,  
@@ -23,22 +24,15 @@ function EntrepriseProfileForm({
   const [alertStyle, setAlertStyle] = useState('error')
 
   const handleSubmit = (response) => {
-    if (response.status === 201){
-      setAlertStyle('success')
-      setLoginError({
-        status : null,
-        message: 'Profile mis à jour'
-      })
-      setShowError(true)
-      return
-    }
+    const alertMessage = handleSubmitProfil(response, 201)
+    setAlertStyle(alertMessage.alertStyle)
     setLoginError({
-      status : response.status,
-      message: response.data.message
+      status : alertMessage.errorStatus,
+      message: alertMessage.message
     })
-    setShowError(true)
+    setShowError(alertMessage.showMessage)
     return
-  } 
+  };  
 
   const formik = useFormik({
     initialValues: {
@@ -55,13 +49,13 @@ function EntrepriseProfileForm({
       // alert(JSON.stringify(values, null, 2));
        console.log('values du form', values);
        if(society === null){
-         console.log('profile vide');
+         console.log('profil vide');
          const response = await postFIllProfileDetails(token, values);
          console.log(response);
          handleSubmit(response)
          return      
        } else {
-         console.log('society existe deja');
+         console.log('société déjà existante');
          const response = await patchProfileDetails(token, values);
          console.log(response);
          handleSubmit(response)

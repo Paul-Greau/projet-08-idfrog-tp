@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { patchProject, postProject } from '../../../../services/projectService';
+import { patchProject, postProject } from "../../../../services/projectService";
 
 // import PropTypes from 'prop-types';
 
 // Components
-import UploadImages from './uploadImg/UploadImages';
+import UploadImages from "./uploadImg/UploadImages";
 
 // Materail UI
 import {
@@ -26,26 +26,26 @@ import {
   Select,
   MenuItem,
   Alert,
-} from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import StarHalfIcon from '@mui/icons-material/StarHalf';
+} from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
 // Yup Schema
-import { validationSchema } from './validatePostProjectSchema';
+import { validationSchema } from "./validatePostProjectSchema";
 //Formik
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 // CSS
-import { postProjectStyles } from './styles';
-import palette from '../../../../assets/styles/_vars.scss';
+import { postProjectStyles } from "./styles";
+import palette from "../../../../assets/styles/_vars.scss";
 // Tableau des categories
-import { category } from './category';
-import { uploadProjectImage } from '../../../../services/imgService';
+import { category } from "./category";
+import { uploadProjectImage } from "../../../../services/imgService";
 
 function PostProjectForm({ token, profileStatus }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [img_url, setImageUrl] = useState(null);
   const [showError, setShowError] = useState(false);
-  const [projectError, setProjectError] = useState('');
-  const [alertStyle, setAlertStyle] = useState('error');
+  const [projectError, setProjectError] = useState("");
+  const [alertStyle, setAlertStyle] = useState("error");
 
   const handleSubmit = async (response, imgUploadedUrl) => {
     if (response.status === 201) {
@@ -53,15 +53,15 @@ function PostProjectForm({ token, profileStatus }) {
         img_url: imgUploadedUrl,
       });
       console.log(patchResponse);
-      setAlertStyle('success');
+      setAlertStyle("success");
       setProjectError({
         status: null,
-        message: 'Projet créé avec succès',
+        message: "Projet créé avec succès",
       });
       setShowError(true);
       return;
     }
-    setAlertStyle('error');
+    setAlertStyle("error");
     setProjectError({
       status: response.status,
       message: response.data.message,
@@ -73,16 +73,16 @@ function PostProjectForm({ token, profileStatus }) {
   const formik = useFormik({
     initialValues: {
       // img_url: '',
-      name: '',
-      title: '',
-      category_id: '',
-      resume: '',
-      description: '',
-      amount_target: '',
-      invest_type: '',
-      rate: '',
-      end_time: '',
-      website: '',
+      name: "",
+      title: "",
+      category_id: "",
+      resume: "",
+      description: "",
+      amount_target: "",
+      invest_type: "",
+      rate: "",
+      end_time: "",
+      website: "",
       status: profileStatus,
       visibility: false,
     },
@@ -92,7 +92,7 @@ function PostProjectForm({ token, profileStatus }) {
         projectImage: selectedImage,
       });
       if (uploadUrl.status !== 201) {
-        setAlertStyle('error');
+        setAlertStyle("error");
         setProjectError({
           status: uploadUrl.status,
           message: uploadUrl.statusText,
@@ -109,7 +109,7 @@ function PostProjectForm({ token, profileStatus }) {
   }, []);
 
   const handleImgUpload = (img) => {
-    console.log('formproject', img);
+    console.log("formproject", img);
     setSelectedImage(img);
     setImageUrl(URL.createObjectURL(img));
   };
@@ -121,7 +121,7 @@ function PostProjectForm({ token, profileStatus }) {
     >
       <Typography
         variant="h1"
-        sx={{ fontSize: '2em', mb: 2, color: palette.secondary }}
+        sx={{ fontSize: "2em", mb: 2, color: palette.secondary }}
       >
         Quel est votre projet&nbsp;?
       </Typography>
@@ -229,7 +229,7 @@ function PostProjectForm({ token, profileStatus }) {
         <FormControl fullWidth sx={{ mb: 1 }}>
           <InputLabel htmlFor="amount_target">Montant</InputLabel>
           <OutlinedInput
-            startAdornment={<InputAdornment position="end"></InputAdornment>}
+            endAdornment={<InputAdornment position="end">€</InputAdornment>}
             label="Montant"
             name="amount_target"
             id="amount_target"
@@ -260,7 +260,7 @@ function PostProjectForm({ token, profileStatus }) {
           onBlur={formik.handleBlur}
           value={formik.values.invest_type}
         >
-          <Card sx={{ width: '100%', mb: 4 }}>
+          <Card sx={{ width: "100%", mb: 4 }}>
             <CardHeader
               avatar={<StarHalfIcon sx={{ color: palette.primary }} />}
               action={
@@ -279,8 +279,7 @@ function PostProjectForm({ token, profileStatus }) {
             />
           </Card>
         </RadioGroup>
-
-        {formik.values.invest_type === 'pret' && (
+        {formik.values.invest_type === "pret" && (
           <>
             <InputLabel sx={{ color: palette.secondary }}>
               Taux de retour sur investissement:
@@ -353,7 +352,7 @@ function PostProjectForm({ token, profileStatus }) {
               setShowError(false);
             }}
           >
-            {projectError.status ? `'Erreur' ${projectError.status}` : ''} -{' '}
+            {projectError.status ? `'Erreur' ${projectError.status}` : ""} -{" "}
             {projectError.message}
           </Alert>
         )}
