@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import PropTypes from 'prop-types';
 
-// Components
-import ProjectCard from '../ProjectCard/ProjectCard';
-import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
-import { categorys, financingTypes } from './categaryFilter';
+// Copoments
+import ProjectCard from "../ProjectCard/ProjectCard";
+import PlaceHolder from "../../components/ProjectCard/ProjectCardPlaceholder";
+
+import { categorys, financingTypes } from "./categaryFilter";
+
 // Material UI
 import {
   Container,
@@ -15,22 +17,23 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from '@mui/material';
+  LinearProgress,
+} from "@mui/material";
+
 // CSS
-import { projectCardStyles } from './styles';
+import { projectCardStyles } from "./styles";
 
 function ProjectCardList({ result, isLoading }) {
-  // console.log(result);
-  // isLoading = true;
+  console.log(result);
 
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [financingTypeFilter, setFinancingTypeFilter] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [financingTypeFilter, setFinancingTypeFilter] = useState("");
 
   const filterByCategoryAndType = (res) =>
     (res.category.name.includes(categoryFilter) ||
-      categoryFilter === 'TOUTES CATEGORIES') &&
+      categoryFilter === "TOUTES CATEGORIES") &&
     (res.invest_type.includes(financingTypeFilter) ||
-      financingTypeFilter === 'Tout type de financement');
+      financingTypeFilter === "Tout type de financement");
 
   return (
     <>
@@ -45,7 +48,7 @@ function ProjectCardList({ result, isLoading }) {
           >
             <Grid item xs={12} md={4} sm={6}>
               <FormControl fullWidth>
-                <InputLabel>Catégorie</InputLabel>
+                <InputLabel id="demo-simple-select-label">Catégorie</InputLabel>
                 <Select
                   sx={projectCardStyles.selectInput}
                   id="category"
@@ -64,7 +67,9 @@ function ProjectCardList({ result, isLoading }) {
 
             <Grid item xs={12} md={4} sm={6}>
               <FormControl fullWidth>
-                <InputLabel>Type de financement</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                  Type de financement
+                </InputLabel>
                 <Select
                   sx={projectCardStyles.selectInput}
                   id="invest_type"
@@ -100,10 +105,21 @@ function ProjectCardList({ result, isLoading }) {
               </Grid>
             ))}
           {isLoading && (
-            <Grid container justifyContent="space-evenly" alignItems="stretch">
-              <CardPlaceholder />
-              <CardPlaceholder />
-              <CardPlaceholder />
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{
+                padding: "16px 0 0 16px",
+              }}
+            >
+              <Box sx={{ width: "100%", marginBottom: "20px" }}>
+                <LinearProgress />
+              </Box>
+              <PlaceHolder />
+              <PlaceHolder />
+              <PlaceHolder />
             </Grid>
           )}
         </Grid>

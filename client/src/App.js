@@ -13,10 +13,7 @@ import RouterAuth from './pages/Authentification/RouterAuth'
 import NavigationHeader from './components/Navigation/NavigationHeader/NavigationHeader'
 import Footer from "./components/Footer/Footer";
 import AuthProvider from "./pages/Authentification/AuthProvider";
-
-import Project from "../src/pages/Public/Project/Project"
-
-
+import Project from "./pages/Private/Project/Project"
 
 function App() {
 
