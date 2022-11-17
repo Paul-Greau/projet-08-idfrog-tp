@@ -10,21 +10,21 @@ BEGIN;
 --
 
 INSERT INTO "profile" ("email", "password", "pseudo", "is_admin") VALUES
-('alex@idfrog.com', 'passalex', 'pseudoalex', TRUE),
-('paul@idfrog.com', 'passpaul', 'pseudopaul', TRUE),
-('nico@idfrog.com', 'passnico', 'pseudonico', TRUE),
-('ramses@idfrog.com', 'passramses', 'pseudoramses', TRUE),
-('userlambda1@idfrog.com', '1234', 'pseudolambda1', FALSE),
-('userlambda2@idfrog.com', '1234', 'pseudolambda2', FALSE),
+('alex@idfrog.com', '$2a$10$ImYxeX958gK9F7RVNEcJv.vtGK5CqzowJqDuhsl.5Q1W8/F/qfCdy', 'pseudoalex', TRUE),
+('paul@idfrog.com', '$2a$10$dJAjAH33YDNu2hU4LKAHaePFkj8KzEleYiHwWhMEFEnjfWsfAoShi', 'pseudopaul', TRUE),
+('nico@idfrog.com', '$2a$10$tounNntMwsNPr5nNg1FvdOsb85NHnP2bTdYftSAQRL6EgiHA4VoyC', 'pseudonico', TRUE),
+('ramses@idfrog.com', '$2a$10$RAn941/UroP1OgN01VwEneaOdy.Jh0mNE5WtXAENKdZBhEi/uaeSS', 'pseudoramses', TRUE),
+('userlambda1@idfrog.com', '$2a$10$KfoDxBtcgAwXoEkHImxtzehQzMOWjabJAIInCs2bxYmmdMVu8YaL.', 'pseudolambda1', FALSE),
+('userlambda2@idfrog.com', '$2a$10$kov83g8LQCkKw6Rb5yepYOvXg3eqYED6mqYgHggb8/LjlMqRd6oiy', 'pseudolambda2', FALSE),
 ---
-('alexa@actiively.com', 'passalexa', 'pseudoalexa', FALSE),
-('aline@adoptetonmhumain.com', 'passaline', 'pseudoaline', FALSE),
-('clement@metrix.com', 'passclement', 'pseudoclement', FALSE),
-('margaux@nomdunvin.com', 'passmargaux', 'pseudomargaux', FALSE),
-('dylan@ofood.com', 'passdylan', 'pseudodylan', FALSE),
-('antoine@trapr.com', 'passantoine', 'pseudoantoine', FALSE),
-('jerome@miimosa.com', 'passjerome', 'pseudojerome', FALSE),
-('steve@delorean.com', 'passsteve', 'pseudosteve', FALSE);
+('alexa@actiively.com', '$2a$10$d9DiBlhGmxRRk/yfznL6hu7Dtc1vKxyqwr5NGC66vLOMk0xl3aYpa', 'pseudoalexa', FALSE),
+('aline@adoptetonmhumain.com', '$2a$10$lZIyMFJZXezUQfkXLO5XQeLv6YJMRWrb8p6QhIZB/bPeflH3teVUq', 'pseudoaline', FALSE),
+('clement@metrix.com', '$2a$10$68REtH5qIHOplV3VJ5npRud6o40YM/QU6gti0vdMgLat9Vz.oeype', 'pseudoclement', FALSE),
+('margaux@nomdunvin.com', '$2a$10$BN7GedjAS8CbRyJKJQ2jcOlNaUxYWsG5jtYebhFGvTivZRRlhXgue', 'pseudomargaux', FALSE),
+('dylan@ofood.com', '$2a$10$kbRmHTld75OBxxfvjPdPweu/MY0.Bc6QC89lmRK7HayvuiJkLADNO', 'pseudodylan', FALSE),
+('antoine@trapr.com', '$2a$10$L6Th4E0iUhgczWxd1iNVG.2rduyWBfE/7ug.p9HYHSQK1MhMdkFfC', 'pseudoantoine', FALSE),
+('jerome@miimosa.com', '$2a$10$Jl.Kt3z2RnbQilbJPW1r5uoPP9x3exIJWn1L57RL7ovDBeFONq6Yu', 'pseudojerome', FALSE),
+('steve@delorean.com', '$2a$10$jdRzgw6jbWV2S0H51vWhRu.vtdbtPXx8yGkiM7EL/2SsDT3XAYGDO', 'pseudosteve', FALSE);
 
 --
 -- Déchargement des données de la table "category"
