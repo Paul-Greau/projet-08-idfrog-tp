@@ -13,10 +13,13 @@ import { projectCardStyles } from './styles';
 
 import topCardImage from '../../assets/images/PlaceholderImage.jpg';
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
+import { Link } from 'react-router-dom';
 
-function ProjectCard({projet, amount, description, profile}) {
+function ProjectCard({projet, amount, description, profile, id, date}) {
+
   return (
     <Card sx={{ maxWidth: '100%', marginBottom: '30px', marginTop: '30px' }}>
+      <Link to={`/project/${id}`}>
       <CardMedia
         component="img"
         height="140"
@@ -25,7 +28,7 @@ function ProjectCard({projet, amount, description, profile}) {
       />
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
-          {profile} • 4 Feb 2022
+          {profile} • {date}
         </Typography>
         <Typography color="secondary" gutterBottom variant="h5" component="div">
           {projet}
@@ -34,7 +37,7 @@ function ProjectCard({projet, amount, description, profile}) {
         {description}
         </Typography>
       </CardContent>
-
+      </Link>
       <CardContent>
         <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
           403 630€ sur <span style={{ fontSize: 24 }}>{amount}€</span>
@@ -43,9 +46,11 @@ function ProjectCard({projet, amount, description, profile}) {
       </CardContent>
 
       <CardActions sx={projectCardStyles.cardAction}>
+        <Link to={`/project/${id}`}>
         <Button size="small" sx={projectCardStyles.btnPrimary}>
           Contribuer au projet &gt;
         </Button>
+        </Link>
         <Button size="small" sx={projectCardStyles.btnSecondary}>
           Partager +
         </Button>

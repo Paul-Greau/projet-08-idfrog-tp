@@ -20,6 +20,9 @@ function ProjectCardList({result}) {
                 amount={res.amount_target}
                 description={res.description}
                 profile={res.profile.pseudo}
+                id={res.id}
+                date={res.category.created_at}
+
                 />
             </Grid>
           )))}

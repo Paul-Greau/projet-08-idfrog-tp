@@ -1,6 +1,6 @@
 const sequelize = require('sequelize');
 const {
-	Project,
+	Project, Profile,
 } = require('../models');
 
 const { escape } = require('sanitizer');
@@ -77,18 +77,39 @@ const projectController = {
 
 	// console.log(req.session);
 
+	// Check to be sure that the session ID = the profile_id requested
 	if (!profile_id) {
 		const error = new Error(`'profile_id' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
 	if (!req.session.profile) {
-		const error = new Error(`'You must login`);
+		const error = new Error(`You must login`);
 		return res.status(401).json({ message: error.message });
 	}	
 	if (profile_id !== req.session.profile.id) {
-		const error = new Error(`'You must login before post a project`);
+		const error = new Error(`You must login before post a project`);
 		return res.status(401).json({ message: error.message });
 	}
+
+	const creatorProfile = await Profile.findByPk(profile_id,{
+		include: [
+		'person',
+		'society'
+		]
+	})
+
+	// console.log(creatorProfile);
+	if (!creatorProfile) {
+		const error = new Error(`Your account was not found`);
+		return res.status(404).json({ message: error.message });
+	}
+
+	// check if the profile is completed before posting a project
+	if (!creatorProfile.person && !creatorProfile.society) {
+		const error = new Error(`You must complete your Profile before post a project`);
+		return res.status(403).json({ message: error.message });
+	}
+
 	if (!category_id) {
 		const error = new Error(`'category_id' property is missing`);
 		return res.status(400).json({ message: error.message });
