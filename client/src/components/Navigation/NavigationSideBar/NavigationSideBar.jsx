@@ -17,19 +17,16 @@ import './navigationSideBarStyles.scss';
 
 import palette from '../../../assets/styles/_vars.scss';
 import { navSideBarStyles } from './styles';
-import { useRecoilValue } from 'recoil';
-import { isLoadingState } from '../../../atomes/profileAtomes';
 
-function NavigationSideBar({projectList,
-  contributionList
-}) {
-
-
-  const isLoading = useRecoilValue(isLoadingState)
-  
+function NavigationSideBar({
+  projectList,
+  contributionList,
+  isLoading
+}) { 
 
   // Open toogle mobile
   const [mobileOpen, setMobileOpen] = useState(false);
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

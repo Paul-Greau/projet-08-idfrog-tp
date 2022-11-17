@@ -44,6 +44,7 @@ const ProjectDetails = () => {
         <TabContext value={value} sx={projectDetailStyles.content}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList
+              variant='scrollable'
               onChange={handleChange}
               sx={{ backgroundColor: '#f9f9f9' }}
             >
