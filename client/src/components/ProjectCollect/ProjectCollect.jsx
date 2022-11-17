@@ -24,8 +24,15 @@ import { projectCollectStyles } from './styles';
 
 // import PropTypes from "prop-types";
 
-// import topCardImage from '../../assets/images/PlaceholderImage.jpg';
-import ProjectProgress from '../ProjectProgress/ProjectProgress';
+function ProjectCollect({
+  amount,
+  profile,
+  createdAt,
+  contributions,
+  project_id,
+}) {
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
+
 
 function ProjectCollect({ id, projet, amount, description, profile, createdAt, contributions }) {
 
@@ -57,33 +64,55 @@ useEffect(() => {
 
   return (
     <>
-          <Card sx={{ maxWidth: '100%' }}>
-      <Link to={`/project/${id}`}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
-          {profile} • {new Date (createdAt).toLocaleDateString("fr-FR", options)}
-        </Typography>
-        <Typography color="secondary" gutterBottom variant="h5" component="div">
-          {projet}
-        </Typography>
-        <Typography color="secondary.light" sx={projectCollectStyles.summary}>
-          {description}
-        </Typography>
-      </CardContent>
-      </Link>
-      <CardContent>
-        <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
-        {totalContributions}€ sur <span style={{ fontSize: 24 }}>{amount}€</span>
-        </Typography>
-        <ProjectProgress 
-        progressRate = {progressRatio}
-        />
-      </CardContent>
+    <Card sx={{ mx: 4, mt: 5, m: { xl: 2, md: 2, xs: 2 } }}>
+        <CardContent>
+          <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
+            {profile} •{' '}
+            {new Date(createdAt).toLocaleDateString('fr-FR', options)}
+          </Typography>
+          <Typography
+            color="secondary"
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
+            Modalités d&apos;investissement
+          </Typography>
+          <Typography variant="body2" color="secondary.light">
+            Votre contribution vous sera intégralement remboursée si le projet
+            n&apos;atteint pas 100% de son objectif.
+          </Typography>
+        </CardContent>
 
-      <CardActions sx={projectCollectStyles.cardAction}>
-        <Link to="subscribe">
-          <Button size="small" sx={projectCollectStyles.btnPrimary}>
-            Contribuer au projet &gt;
+        <CardContent>
+          <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
+            {totalContributions}€ sur{' '}
+            <span style={{ fontSize: 24 }}>{amount}€</span>
+          </Typography>
+          <ProjectProgress progressRate={progressRatio} />
+        </CardContent>
+
+        <CardActions sx={projectCollectStyles.carAction}>
+          {!ProfileInfo.isLogged ? (
+            <Link to="/subscribe">
+              <Button
+                size="small"
+                sx={projectCollectStyles.btnPrimary}
+                id={project_id}
+              >
+                Contribuer au projet &gt;
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/profile/contribut">
+              <Button size="small" sx={projectCollectStyles.btnPrimary}>
+                Contribuer au projet &gt;
+              </Button>
+            </Link>
+          )}
+
+          <Button size="small" sx={projectCollectStyles.btnSecondary}>
+            Partager +
           </Button>
         </Link>
         <Button size="small" sx={projectCollectStyles.btnSecondary}>
