@@ -1,11 +1,14 @@
 /* eslint-disable react/prop-types */
 
-import { useRecoilValue, useResetRecoilState, useSetRecoilState} from "recoil";
-import { profileConnexionstate, profileDetailState } from "../../../atomes/profileAtomes";
-import { getLogout } from "../../../services/loginService";
-
+import { useRecoilValue, useResetRecoilState } from 'recoil';
+import {
+  profileConnexionstate,
+  profileDetailState,
+} from '../../../atomes/profileAtomes';
+import { getLogout } from '../../../services/loginService';
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import IdfrogLogo from '../../../assets/images/logo-mini.png';
 
 // Material UI
@@ -23,7 +26,6 @@ import {
   Box,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
 
 // CSS
 import { navHeaderStyles } from './styles';
@@ -31,13 +33,10 @@ import { navHeaderStyles } from './styles';
 function ResponsiveAppBar() {
   const ProfileInfo = useRecoilValue(profileConnexionstate);
 
-  const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
-  const ResetProfileDetailState = useResetRecoilState(profileDetailState)
+  const ResetProfileInfo = useResetRecoilState(profileConnexionstate);
+  const ResetProfileDetailState = useResetRecoilState(profileDetailState);
 
-  
-  
- // console.log('ProfileInfo dans la navbar', ProfileInfo);
- 
+  // console.log('ProfileInfo dans la navbar', ProfileInfo);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -53,11 +52,10 @@ function ResponsiveAppBar() {
     const res = await getLogout();
     console.log(res);
 
-    ResetProfileInfo()
-    ResetProfileDetailState()
-    localStorage.clear()
-  }
-
+    ResetProfileInfo();
+    ResetProfileDetailState();
+    localStorage.clear();
+  };
 
   return (
     <AppBar position="sticky">

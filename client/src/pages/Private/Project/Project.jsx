@@ -16,12 +16,8 @@ const Project = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState([]);
   const { id } = useParams();
-
   const flag = useRef(false);
-
   let navigate = useNavigate()
-
-
 
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
@@ -43,9 +39,7 @@ const Project = () => {
     return () => (flag.current = true);
   },[id]);
 
-
   return (
-
     <>
       {!isLoading ? (
         <Grid container spacing={5}>
@@ -82,7 +76,6 @@ const Project = () => {
         </>
       )}
     </>
-
   );
 };
 
