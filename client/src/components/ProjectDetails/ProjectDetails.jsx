@@ -47,7 +47,6 @@ const ProjectDetails = () => {
               variant='scrollable'
               onChange={handleChange}
               sx={{ backgroundColor: '#f9f9f9' }}
-              variant="scrollable"
               allowScrollButtonsMobile
             >
               <Tab label="PROJET" value="1" />
