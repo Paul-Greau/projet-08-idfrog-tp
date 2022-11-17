@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 
 // Components
 import SideBarItems from './SideBarItems';
 import ButtonProject from './ButtonProject';
+import SideBarPlaceholder from '../../UI/Placeholder/SideBarPlaceholder';
 // Material UI
 import { Button, Drawer, Box, Divider } from '@mui/material';
 
@@ -19,6 +19,10 @@ import palette from '../../../assets/styles/_vars.scss';
 import { navSideBarStyles } from './styles';
 
 function NavigationSideBar() {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
   // Open toogle mobile
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
@@ -49,11 +53,16 @@ function NavigationSideBar() {
           <img src={FrogMenu} alt="MenuIdfrog" />
         </Button>
       </Box>
-
-      <div className="navigationSideBar">
-        <ButtonProject />
-        <SideBarItems />
-      </div>
+      {!isLoading ? (
+        <div className="navigationSideBar">
+          <ButtonProject />
+          <SideBarItems />
+        </div>
+      ) : (
+        <div className="navigationSideBar">
+          <SideBarPlaceholder />
+        </div>
+      )}
 
       <div className="drawerMobile">
         {['left'].map((anchor) => (

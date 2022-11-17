@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { profileConnexionstate } from '../../../atomes/profileAtomes';
 import { profileDetailState } from '../../../atomes/profileAtomes';
@@ -11,22 +11,37 @@ import PostProjectForm from '../../../components/UI/forms/PostProjectForm/PostPr
 
 // CSS
 import './postProjectStyles.scss';
+import PostProjectPlaceholder from '../../../components/UI/Placeholder/PostProjectPlaceholder';
 
 function PostProject() {
+  const { token } = useRecoilValue(profileConnexionstate);
+  const profileDetail = useRecoilValue(profileDetailState);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
-const {token} = useRecoilValue(profileConnexionstate)
-const profileDetail = useRecoilValue(profileDetailState);
-
-console.log('PostProject', profileDetail);
+  console.log('PostProject', profileDetail);
   return (
-    <div className="post-project-container">
-      {profileDetail.id &&
-      <PostProjectForm
-      token={token}
-      profileStatus={profileDetail.person?.status ?? profileDetail.society?.status}
-      />
-      } 
-      </div>
+    <>
+      {!isLoading ? (
+        <div className="post-project-container">
+          {profileDetail.id && (
+            <PostProjectForm
+              token={token}
+              profileStatus={
+                profileDetail.person?.status ?? profileDetail.society?.status
+              }
+            />
+          )}
+        </div>
+      ) : (
+        <div className="post-project-container">
+          <PostProjectPlaceholder />
+        </div>
+      )}
+    </>
+
   );
 }
 PostProject.propTypes = {};
