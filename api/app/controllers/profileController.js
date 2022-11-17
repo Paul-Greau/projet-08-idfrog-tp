@@ -68,7 +68,6 @@ const profileController = {
                 pseudo} = req.body
 
         try {
-            
             // vérifie que le format de l'email est valide ex: user@user.com
             if (!emailValidator.validate(req.body.email)) {
                 const error = new Error("Email format is not valid");
