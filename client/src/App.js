@@ -1,5 +1,11 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import ProjectCard from "./components/ProjectCard/ProjectCard";
+import ProjectCollect from "./components/ProjectCollect/ProjectCollect";
+import Footer from './components/Footer/Footer'
+import Navigation from "./components/Navigation/Navigation";
+import NotFound from "./components/NotFound/NotFound";
+
 
 import RouterPublic from './pages/Public/RouterPublic'
 import RouterPrivate from './pages/Private/RouterPrivate'

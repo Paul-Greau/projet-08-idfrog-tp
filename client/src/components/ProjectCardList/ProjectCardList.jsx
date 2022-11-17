@@ -112,8 +112,8 @@ function ProjectCardList({ result, isLoading }) {
   );
 }
 
-ProjectCardList.PropType = {};
+// ProjectCardList.PropType = {};
 
-ProjectCardList.defaultProps = {};
+// ProjectCardList.defaultProps = {};
 
 export default React.memo(ProjectCardList);

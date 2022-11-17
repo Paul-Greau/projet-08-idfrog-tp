@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -98,20 +99,11 @@ function ProjectCard({
       </CardContent>
 
       <CardActions sx={projectCardStyles.cardAction}>
-        {!ProfileInfo.isLogged ? (
-          <Link to="/subscribe">
-            <Button size="small" sx={projectCardStyles.btnPrimary}>
-              Contribuer au projet &gt;
-            </Button>
-          </Link>
-        ) : (
-          <Link to={`/profile/contribut`}>
-            <Button size="small" sx={projectCardStyles.btnPrimary}>
-              Contribuer au projet &gt;
-            </Button>
-          </Link>
-        )}
-
+        <Link to={`/project/${id}`}>
+        <Button size="small" sx={projectCardStyles.btnPrimary}>
+          Contribuer au projet &gt;
+        </Button>
+        </Link>
         <Button size="small" sx={projectCardStyles.btnSecondary}>
           Partager +
         </Button>
