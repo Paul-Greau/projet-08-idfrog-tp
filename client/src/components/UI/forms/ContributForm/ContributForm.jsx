@@ -9,9 +9,9 @@ import {
   Box,
   Typography,
   Alert,
-  FormControlLabel,
+/*   FormControlLabel,
   RadioGroup,
-  Radio,
+  Radio, */
   FormControl,
 } from '@mui/material';
 // Yup Schema
@@ -27,7 +27,6 @@ import { postContribution } from '../../../../services/contributionService';
 import { postComment } from '../../../../services/CommentService';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../../../atomes/profileAtomes';
-
 
 function ContributForm({
   projectId,

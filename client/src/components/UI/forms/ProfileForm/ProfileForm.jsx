@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../../../atomes/profileAtomes';
 import { patchProfile } from '../../../../services/profileService';
+import { handleSubmitProfil } from '../Utils/Utils';
 
 // Compoments
 import Particulier from './Particulier/Particulier';
@@ -42,27 +43,7 @@ function ProfileForm({
   const [loginError, setLoginError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
 
-
   console.log("profileDetail in profileForm", profileDetail);
-
-  const handleSubmit = (response) => {
-    if (response.status === 201){
-      setAlertStyle('success')
-      setLoginError({
-        status : null,
-        message: 'Profil mis à jour'
-      })
-      setShowError(true)
-      return
-    }
-    setAlertStyle('error')
-    setLoginError({
-      status : response.status,
-      message: response.data.message
-    })
-    setShowError(true)
-    return
-  } 
 
   let formik = useFormik({
     initialValues: {
@@ -76,7 +57,14 @@ function ProfileForm({
       console.log(values);
       // alert(JSON.stringify(values, null, 2));
       const response = await patchProfile(token, values)
-      handleSubmit(response)
+      const alertMessage = handleSubmitProfil(response, 201)
+      setAlertStyle(alertMessage.alertStyle)
+      setLoginError({
+        status : alertMessage.errorStatus,
+        message: alertMessage.message
+      })
+      setShowError(alertMessage.showMessage)
+      return
       //console.log(response);
     },
   });  
