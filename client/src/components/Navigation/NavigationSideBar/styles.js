@@ -1,6 +1,3 @@
-
-
-
 import palette from '../../../assets/styles/_vars.scss'
 const drawerWidth = 310;
 
@@ -36,4 +33,3 @@ export const navSideBarStyles ={
       }
       
 };
-

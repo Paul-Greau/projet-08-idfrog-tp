@@ -8,14 +8,14 @@ import { Navigate } from "react-router-dom";
 
 const AuthProvider = ({children}) => {
 
-    const ProfileInfo = useRecoilValue(profileConnexionstate);
+const ProfileInfo = useRecoilValue(profileConnexionstate);
   
-    if(!ProfileInfo.isLogged){
+if(!ProfileInfo.isLogged){
 
-        return <Navigate to="/login"/>
-    }
-   
-    return children
+    return <Navigate to="/login"/>
+}
+
+return children
 };
 
 AuthProvider.propTypes = {

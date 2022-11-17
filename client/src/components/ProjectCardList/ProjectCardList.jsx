@@ -4,13 +4,22 @@ import React, { useState, useEffect } from 'react';
 
 // import PropTypes from 'prop-types';
 
+<<<<<<< HEAD
 // Components
 import ProjectCard from '../ProjectCard/ProjectCard';
 
 import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
 import {category, financingTypes } from '../UI/forms/PostProjectForm/category';
+=======
+// Copoments
+import ProjectCard from "../ProjectCard/ProjectCard";
+import PlaceHolder from "../../components/ProjectCard/ProjectCardPlaceholder";
+
+import { categorys, financingTypes } from "./categaryFilter";
+>>>>>>> origin/fix-gitflow-process
 
 // Material UI
+
 import {
   Container,
   Grid,
@@ -19,12 +28,54 @@ import {
   InputLabel,
   Select,
   MenuItem,
+<<<<<<< HEAD
   Pagination,
 
 } from '@mui/material';
 // CSS
 import { projectCardStyles } from "./styles";
 
+=======
+  LinearProgress,
+} from "@mui/material";
+
+// CSS
+import { projectCardStyles } from "./styles";
+
+
+function ProjectCardList({ result, isLoading }) {
+  console.log(result);
+
+  const categories = [
+    "TOUTES CATEGORIES",
+    "ANIMAUX",
+    "ART & PHOTO",
+    "ARTISANAT & CUISINE",
+    "AUTOMOBILE",
+    "BD",
+    "EDITION & JOURNAL.",
+    "ENFANCE & EDUC.",
+    "ENVIRONNEMENT",
+    "FILM & VIDÉO",
+    "JEUX",
+    "MODE & DESIGN",
+    "MUSIQUE",
+    "SANTÉ & BIEN-ÊTRE",
+    "SOLIDAIRE & CITOYEN",
+    "SPECTACLE VIVANT",
+    "SPORTS",
+    "TECHNOLOGIE",
+    "AUTRES PROJETS",
+
+  ]
+
+  const financingTypes = [
+    "Tout type de financement",
+    "Investissement par don",
+    "Investissement avec prêt",
+    "capital"
+  ]
+>>>>>>> origin/fix-gitflow-process
 
 function ProjectCardList({
   result, isLoading, cardPerPages,
@@ -34,6 +85,7 @@ function ProjectCardList({
   const [categoryFilter, setCategoryFilter] = useState('');
   const [financingTypeFilter, setFinancingTypeFilter] = useState('');
 
+<<<<<<< HEAD
 // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(cardPerPages);
@@ -75,6 +127,14 @@ useEffect(() => {
   setCurrentPage(1)
 
 },[categoryFilter, financingTypeFilter, result]);
+=======
+  const filterByCategoryAndType = (res) => 
+    (res.category.name.includes(categoryFilter) || categoryFilter === "TOUTES CATEGORIES") 
+    && (res.invest_type.includes(financingTypeFilter) || financingTypeFilter === "Tout type de financement")
+    
+  
+
+>>>>>>> origin/fix-gitflow-process
 
   useEffect(() => {
   
@@ -154,6 +214,7 @@ useEffect(() => {
               </Grid>
             ))}
 
+<<<<<<< HEAD
           </Grid>
         ) : (
           <Grid container spacing={2} alignItems="stretch">
@@ -169,13 +230,34 @@ useEffect(() => {
             onChange={handleChange}
             sx={{ p: 2 }}
           /> 
+=======
+          {isLoading && (
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{
+                padding: "16px 0 0 16px",
+              }}
+            >
+              <Box sx={{ width: "100%", marginBottom: "20px" }}>
+                <LinearProgress />
+              </Box>
+              <PlaceHolder />
+              <PlaceHolder />
+              <PlaceHolder />
+            </Grid>
+          )}
+        </Grid>
+>>>>>>> origin/fix-gitflow-process
       </Container>
     </>
   );
 }
 
-ProjectCardList.PropType = {};
+// ProjectCardList.PropType = {};
 
-ProjectCardList.defaultProps = {};
+// ProjectCardList.defaultProps = {};
 
 export default React.memo(ProjectCardList);
