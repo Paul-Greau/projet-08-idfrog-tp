@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-
-// import PropTypes from "prop-types";
 
 // Material UI
 import {
@@ -24,9 +22,7 @@ import ProjectProgress from '../ProjectProgress/ProjectProgress';
 // CSS
 import { projectCollectStyles } from './styles';
 
-// RECOIL
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../atomes/profileAtomes';
+// import PropTypes from "prop-types";
 
 function ProjectCollect({
   amount,
@@ -37,41 +33,38 @@ function ProjectCollect({
 }) {
   const ProfileInfo = useRecoilValue(profileConnexionstate);
 
-  const options = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+function ProjectCollect({ id, projet, amount, description, profile, createdAt, contributions }) {
 
-  const [totalContributions, setTotalContributions] = useState(0);
-  const [progressRatio, setProgressRatio] = useState(0);
+    console.log({contributions})
 
-  const progressRate = (contributionslist) => {
-    let totalContribution = 0;
-    if (contributionslist?.length === 0) {
-      setTotalContributions(0);
-      setProgressRatio(0);
-    }
-    contributionslist?.map(
-      (contribution) => (totalContribution += contribution.invested_amount)
-    );
-    const rate = Number((100 * totalContribution) / amount);
-    setTotalContributions(totalContribution);
-    setProgressRatio(rate);
-  };
+    const options = { /* weekday: 'long' ,*/ year: 'numeric', month: 'short', day: 'numeric' };
 
-  useEffect(() => {
-    progressRate(contributions);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [progressRate]);
+const [totalContributions, setTotalContributions] = useState(0)
+const [progressRatio, setProgressRatio] = useState(0)
+
+const progressRate = (contributionslist) => {
+  let totalContribution = 0;
+  if(contributionslist?.length === 0){
+    setTotalContributions(0)
+    setProgressRatio(0)
+  }
+  contributionslist?.map((contribution) => (
+    totalContribution += contribution.invested_amount
+  ));
+  const rate = Number((100 * totalContribution / amount))
+  setTotalContributions(totalContribution)
+  setProgressRatio(rate)
+}  
+
+useEffect(() => {
+  progressRate(contributions)
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[progressRate])
 
   return (
     <>
-      <Card sx={{ mx: 4, mt: 5, m: { xl: 2, md: 2, xs: 2 } }}>
+    <Card sx={{ mx: 4, mt: 5, m: { xl: 2, md: 2, xs: 2 } }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
             {profile} •{' '}
@@ -121,8 +114,12 @@ function ProjectCollect({
           <Button size="small" sx={projectCollectStyles.btnSecondary}>
             Partager +
           </Button>
-        </CardActions>
-      </Card>
+        </Link>
+        <Button size="small" sx={projectCollectStyles.btnSecondary}>
+          Partager +
+        </Button>
+      </CardActions>
+    </Card>
       <Card sx={projectCollectStyles.card}>
         <CardContent>
           <Typography
@@ -196,7 +193,6 @@ function ProjectCollect({
     </>
   );
 }
-
 ProjectCollect.propTypes = {};
 
 ProjectCollect.defaultProps = {};
