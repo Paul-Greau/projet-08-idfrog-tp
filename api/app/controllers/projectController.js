@@ -57,9 +57,9 @@ const projectController = {
 
   createProject: async (req, res) => {
   try {
+	const tokenId = req.auth.userId
+	// const profile_id = Number(req.params.id);
 
-	const profile_id = Number(req.params.id);
-	console.log(profile_id);
     const {
 		category_id,
 		name,
@@ -78,20 +78,12 @@ const projectController = {
 	// console.log(req.session);
 
 	// Check to be sure that the session ID = the profile_id requested
-	if (!profile_id) {
+	if (!tokenId) {
 		const error = new Error(`'profile_id' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
-	if (!req.session.profile) {
-		const error = new Error(`You must login`);
-		return res.status(401).json({ message: error.message });
-	}	
-	if (profile_id !== req.session.profile.id) {
-		const error = new Error(`You must login before post a project`);
-		return res.status(401).json({ message: error.message });
-	}
-
-	const creatorProfile = await Profile.findByPk(profile_id,{
+	
+	const creatorProfile = await Profile.findByPk(tokenId,{
 		include: [
 		'person',
 		'society'
@@ -126,7 +118,7 @@ const projectController = {
 		const error = new Error(`'amount_target' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
-	if (!rate) {
+	if (invest_type === 'pret' && !rate) {
 		const error = new Error(`'rate' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
@@ -146,14 +138,15 @@ const projectController = {
 		const error = new Error(`'description' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
-	if (!visibility) {
+
+	if (visibility === null || typeof(visibility) === 'undefined') {
 		const error = new Error(`'visibility' property is missing`);
 		return res.status(400).json({ message: error.message });
 	}
 	
 
     const newProject = Project.build({
-      profile_id,
+	  profile_id: tokenId,
 	  category_id,
 	  name: escape(name), // On empêche l'injection de code HTML et JS. On se protège contre la faille XSS
 	  invest_type,
@@ -178,6 +171,137 @@ const projectController = {
   }
 },
 
+patchProject: async (req, res) => {
+	try {
+	    const tokenId = req.auth.userId;
+		const project_id = Number(req.params.projectId);
+
+	   // console.log(profile_id);
+	    const {
+	  	  category_id,
+	  	  name,
+	  	  invest_type,
+	  	  amount_target,
+	  	  rate,
+	  	  end_time,
+	  	  img_url,	// allow Null in table
+	  	  web_url,	// allow Null in table
+	  	  title,
+	  	  resume,
+	  	  description,
+	  	  visibility
+	    } = req.body;
+
+		// Check to be sure that the session ID = the profile_id requested
+		if (!tokenId) {
+			const error = new Error(`'profile_id' property is missing`);
+			return res.status(400).json({ message: error.message });
+		}
+		
+
+		const projectToPatch = await Project.findByPk(project_id,{
+			include: 'contributions'
+		});
+
+		if(projectToPatch.contributions.length !== 0){
+			const error = new Error(`You can't change a project with contributions`);
+			return res.status(400).json({ message: error.message });
+		}
+		if(projectToPatch.profile_id !== tokenId){
+			const error = new Error(`You are not the owner of this project`);
+			return res.status(401).json({ message: error.message });
+		}
+
+		if (category_id) {
+			projectToPatch.category_id = category_id
+		}
+		if (name) {
+			projectToPatch.name = name
+		}
+		if (invest_type) {
+			projectToPatch.invest_type = invest_type
+		}
+		if (amount_target) {
+			projectToPatch.amount_target = amount_target
+		}
+		if (rate) {
+			projectToPatch.rate = rate
+		}
+		if (end_time) {
+			projectToPatch.end_time = end_time
+		}
+		if (title) {
+			projectToPatch.title = title
+		}
+		if (resume) {
+			projectToPatch.resume = resume
+		}
+		if (description) {
+			projectToPatch.description = description
+		}
+		if (visibility) {
+			projectToPatch.visibility = visibility
+		}
+		if (img_url) {
+			projectToPatch.img_url = img_url
+		}
+		if (web_url) {
+			projectToPatch.web_url = web_url
+		}
+
+		await projectToPatch.save();
+
+	  
+		  res.status(201).json(projectToPatch);
+
+	} // fin du try
+	catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+ 	}
+
+},
+
+deleteProject: async (req, res) => {
+	try {
+	    const profile_id = Number(req.params.profileId);
+		const project_id = Number(req.params.projectId);
+
+
+		// Check to be sure that the session ID = the profile_id requested
+		if (!profile_id) {
+			const error = new Error(`'profile_id' property is missing`);
+			return res.status(400).json({ message: error.message });
+		}
+		if (!req.session.profile) {
+			const error = new Error(`You must login`);
+			return res.status(401).json({ message: error.message });
+		}	
+		if (profile_id !== req.session.profile.id) {
+			const error = new Error(`You must login before delete a project`);
+			return res.status(401).json({ message: error.message });
+		}
+
+		const projectToDelete = await Project.findByPk(project_id,{
+			include: 'contributions'
+		});
+
+		if(projectToDelete.contributions.length > 0){
+			const error = new Error(`You can't delete a project with contributions`);
+			return res.status(400).json({ message: error.message });
+		}
+		
+		await projectToDelete.destroy();
+
+	  
+		  res.status(201).json(projectToDelete);
+
+	} // fin du try
+	catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+ 	}
+},
 
 };
 

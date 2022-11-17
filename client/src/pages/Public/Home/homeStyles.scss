@@ -1,5 +1,6 @@
-@use '/src/assets/styles/vars';
+@use "/src/assets/styles/vars";
 
 .allCards {
   background-color: vars.$primary;
+  padding-top: 5px;
 }

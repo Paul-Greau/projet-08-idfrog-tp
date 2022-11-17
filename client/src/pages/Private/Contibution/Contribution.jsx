@@ -2,11 +2,17 @@ import React from 'react';
 
 //import PropTypes from 'prop-types';
 
+import ContributForm from '../../../components/UI/forms/ContributForm/ContributForm';
+
 // CSS
 import './contributionStyles.scss';
 
 function Contribution() {
-  return <div className="contribut-container">Contribution Page</div>;
+  return (
+    <div className="contribut-container">
+      <ContributForm />
+    </div>
+  );
 }
 Contribution.propTypes = {};
 
