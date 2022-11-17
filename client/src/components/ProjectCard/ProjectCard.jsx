@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 // Material UI
 import {
@@ -10,18 +10,18 @@ import {
   CardMedia,
   Typography,
   Button,
-} from '@mui/material';
+} from "@mui/material";
 
 // CSS
-import { projectCardStyles } from './styles';
+import { projectCardStyles } from "./styles";
 
 // import PropTypes from "prop-types";
 
 // import topCardImage from '../../assets/images/PlaceholderImage.jpg';
-import ProjectProgress from '../ProjectProgress/ProjectProgress';
-import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../atomes/profileAtomes';
+import ProjectProgress from "../ProjectProgress/ProjectProgress";
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../atomes/profileAtomes";
 
 function ProjectCard({
   id,
@@ -33,9 +33,9 @@ function ProjectCard({
   contributions,
 }) {
   const options = {
-    /* weekday: 'long' ,*/ year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+    /* weekday: 'long' ,*/ year: "numeric",
+    month: "short",
+    day: "numeric",
   };
 
   const [totalContributions, setTotalContributions] = useState(0);
@@ -43,11 +43,11 @@ function ProjectCard({
 
   const progressRate = (contributionslist) => {
     let totalContribution = 0;
-    if (contributionslist.length === 0) {
+    if (contributionslist?.length === 0) {
       setTotalContributions(0);
       setProgressRatio(0);
     }
-    contributionslist.map(
+    contributionslist?.map(
       (contribution) => (totalContribution += contribution.invested_amount)
     );
     const rate = Number((100 * totalContribution) / amount);
@@ -63,7 +63,7 @@ function ProjectCard({
   const ProfileInfo = useRecoilValue(profileConnexionstate);
 
   return (
-    <Card sx={{ maxWidth: '100%' }}>
+    <Card sx={{ maxWidth: "100%" }}>
       <Link to={`/project/${id}`}>
         <CardMedia
           component="img"
@@ -73,8 +73,8 @@ function ProjectCard({
         />
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
-            {profile} •{' '}
-            {new Date(createdAt).toLocaleDateString('fr-FR', options)}
+            {profile} •{" "}
+            {new Date(createdAt).toLocaleDateString("fr-FR", options)}
           </Typography>
           <Typography
             color="secondary"
@@ -91,7 +91,7 @@ function ProjectCard({
       </Link>
       <CardContent>
         <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
-          {totalContributions}€ sur{' '}
+          {totalContributions}€ sur{" "}
           <span style={{ fontSize: 24 }}>{amount}€</span>
         </Typography>
         <ProjectProgress progressRate={progressRatio} />
@@ -105,7 +105,7 @@ function ProjectCard({
             </Button>
           </Link>
         ) : (
-          <Link to={`/profile/contribut`}>
+          <Link to={`project/${id}`}>
             <Button size="small" sx={projectCardStyles.btnPrimary}>
               Contribuer au projet &gt;
             </Button>
