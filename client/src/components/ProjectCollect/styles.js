@@ -4,13 +4,13 @@ import palette from '../../assets/styles/_vars.scss'
 
 export const projectCollectStyles = {
 
-    summary:{
-      display: '-webkit-box',
-      overflow: 'hidden',
-      WebkitBoxOrient: 'vertical',
-      WebkitLineClamp: 3,
+  summary:{
+    display: '-webkit-box',
+    overflow: 'hidden',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: 3,
+  },
 
-    },
 
     btnPrimary: {
         fontSize: 14,

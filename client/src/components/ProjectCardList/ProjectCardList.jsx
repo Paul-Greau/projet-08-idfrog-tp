@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+
 import React, { useState } from "react";
 // import PropTypes from 'prop-types';
 
@@ -9,6 +10,7 @@ import PlaceHolder from "../../components/ProjectCard/ProjectCardPlaceholder";
 import { categorys, financingTypes } from "./categaryFilter";
 
 // Material UI
+
 import {
   Container,
   Grid,
@@ -26,73 +28,111 @@ import { projectCardStyles } from "./styles";
 function ProjectCardList({ result, isLoading }) {
   console.log(result);
 
-  const [categoryFilter, setCategoryFilter] = useState("");
-  const [financingTypeFilter, setFinancingTypeFilter] = useState("");
+  const categories = [
+    "TOUTES CATEGORIES",
+    "ANIMAUX",
+    "ART & PHOTO",
+    "ARTISANAT & CUISINE",
+    "AUTOMOBILE",
+    "BD",
+    "EDITION & JOURNAL.",
+    "ENFANCE & EDUC.",
+    "ENVIRONNEMENT",
+    "FILM & VIDÉO",
+    "JEUX",
+    "MODE & DESIGN",
+    "MUSIQUE",
+    "SANTÉ & BIEN-ÊTRE",
+    "SOLIDAIRE & CITOYEN",
+    "SPECTACLE VIVANT",
+    "SPORTS",
+    "TECHNOLOGIE",
+    "AUTRES PROJETS",
 
-  const filterByCategoryAndType = (res) =>
-    (res.category.name.includes(categoryFilter) ||
-      categoryFilter === "TOUTES CATEGORIES") &&
-    (res.invest_type.includes(financingTypeFilter) ||
-      financingTypeFilter === "Tout type de financement");
+  ]
+
+  const financingTypes = [
+    "Tout type de financement",
+    "Investissement par don",
+    "Investissement avec prêt",
+    "capital"
+  ]
+
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [financingTypeFilter, setFinancingTypeFilter] = useState('');
+
+  const filterByCategoryAndType = (res) => 
+    (res.category.name.includes(categoryFilter) || categoryFilter === "TOUTES CATEGORIES") 
+    && (res.invest_type.includes(financingTypeFilter) || financingTypeFilter === "Tout type de financement")
+    
+  
+
 
   return (
     <>
-      <Container component="section" sx={{ mt: 5 }} maxWidth="lg">
-        <Box component="section">
-          <Grid
-            container
-            spacing={0}
-            alignItems="stretch"
-            justifyContent="center"
-            sx={projectCardStyles.selectBox}
-          >
-            <Grid item xs={12} md={4} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Catégorie</InputLabel>
-                <Select
-                  sx={projectCardStyles.selectInput}
-                  id="category"
-                  value={categoryFilter}
-                  label="Catégories"
-                  onChange={(event) => setCategoryFilter(event.target.value)}
-                >
-                  {categorys.map((category, index) => (
-                    <MenuItem key={index} value={category}>
-                      {category}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} md={4} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
-                  Type de financement
-                </InputLabel>
-                <Select
-                  sx={projectCardStyles.selectInput}
-                  id="invest_type"
-                  value={financingTypeFilter}
-                  label="Type de financement"
-                  onChange={(event) =>
-                    setFinancingTypeFilter(event.target.value)
-                  }
-                >
-                  {financingTypes.map((financingType, index) => (
-                    <MenuItem key={index} value={financingType}>
-                      {financingType}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-        </Box>
-        <Grid container spacing={2} alignItems="stretch">
-          {!isLoading &&
-            result.filter(filterByCategoryAndType).map((res) => (
-              <Grid item xs={12} md={4} sm={6} key={res.id}>
+      <Grid container spacing={2} alignItems="stretch" justifyContent="center" sx={{pb: "20px"}}>
+        <Grid item xs={12} md={4} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label" >Catégorie</InputLabel>
+            <Select
+          sx={{
+            mt: 2,
+            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
+            display: { xs: 'row', md: 'colum' },
+          }}
+          id="category"
+          value={categoryFilter}
+          label="Catégories"
+          onChange={(event) => setCategoryFilter(event.target.value)}
+        >
+          {categories.map((category, index) => (
+            <MenuItem key={index} value={category}>
+              {category}
+            </MenuItem>
+          ))}
+        </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} md={4} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Type de financement</InputLabel>
+            <Select
+          sx={{
+            mt: 2,
+            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
+            display: { xs: 'row', md: 'colum' },
+          }}
+          id="invest_type"
+          value={financingTypeFilter}
+          label="Type de financement"
+          onChange={event => setFinancingTypeFilter(event.target.value)}
+        >
+          {financingTypes.map((financingType, index) => (
+            <MenuItem key={index} value={financingType}>
+              {financingType}
+            </MenuItem>
+          ))}
+        </Select>
+          </FormControl>
+        </Grid>  
+      </Grid>
+      <Box component="section" maxWidth="medium">
+        <Container component="section" maxWidth="lg">
+          <Grid container spacing={2} alignItems="stretch">
+            {/* {result &&
+              result.map((res) => (
+                <Grid item xs={12} md={4} sm={6} key={res.id}>
+                  <ProjectCard
+                    id={res.id}
+                    projet={res.name}
+                    amount={res.amount_target}
+                    description={res.description}
+                    profile={res.profile.pseudo}
+                  />
+                </Grid>
+              ))} */}
+                  {result.filter(filterByCategoryAndType)
+              .map(res => <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
                   createdAt={res.created_at}
