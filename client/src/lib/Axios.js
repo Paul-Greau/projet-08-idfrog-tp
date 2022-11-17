@@ -8,6 +8,8 @@ const axios = Axios.create({
   }
 });
 
+
+
 export const sendGetRequest = async (url, params = {}, headers = {}) => {
   try{
     let response =  await axios.get(url, 
