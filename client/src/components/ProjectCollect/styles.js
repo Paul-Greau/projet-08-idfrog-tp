@@ -37,10 +37,11 @@ export const projectCollectStyles = {
         mt: 4,
         mx:4,
         textAlign: 'center',
-        m: { xl: 2, md: 2, xs: 2 }
+        marginTop: "16px",
+
     },
 
-    carAction:{
+    cardAction:{
         display: 'flex',
         justifyContent: 'space-between',
         mb: 1,

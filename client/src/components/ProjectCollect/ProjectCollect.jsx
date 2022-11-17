@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-// import PropTypes from "prop-types";
 
 // Material UI
 import {
@@ -24,95 +24,46 @@ import ProjectProgress from '../ProjectProgress/ProjectProgress';
 // CSS
 import { projectCollectStyles } from './styles';
 
-// RECOIL
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../atomes/profileAtomes';
+// import PropTypes from "prop-types";
 
-function ProjectCollect({ amount, profile, createdAt, contributions }) {
-  const ProfileInfo = useRecoilValue(profileConnexionstate);
+// import topCardImage from '../../assets/images/PlaceholderImage.jpg';
+import ProjectProgress from '../ProjectProgress/ProjectProgress';
 
-  const options = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const [totalContributions, setTotalContributions] = useState(0);
-  const [progressRatio, setProgressRatio] = useState(0);
-
-  const progressRate = (contributionslist) => {
-    let totalContribution = 0;
-    if (contributionslist?.length === 0) {
-      setTotalContributions(0);
-      setProgressRatio(0);
-    }
-    contributionslist?.map(
-      (contribution) => (totalContribution += contribution.invested_amount)
-    );
-    const rate = Number((100 * totalContribution) / amount);
-    setTotalContributions(totalContribution);
-    setProgressRatio(rate);
-  };
-
-  useEffect(() => {
-    progressRate(contributions);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [progressRate]);
-
+function projectCollect({ id, projet, amount, description, profile }) {
   return (
     <>
-      <Card sx={{ mx: 4, mt: 5, m: { xl: 2, md: 2, xs: 2 } }}>
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
-            {profile} •{' '}
-            {new Date(createdAt).toLocaleDateString('fr-FR', options)}
-          </Typography>
-          <Typography
-            color="secondary"
-            gutterBottom
-            variant="h5"
-            component="div"
-          >
-            Modalités d&apos;investissement
-          </Typography>
-          <Typography variant="body2" color="secondary.light">
-            Votre contribution vous sera intégralement remboursée si le projet
-            n&apos;atteint pas 100% de son objectif.
-          </Typography>
-        </CardContent>
+          <Card sx={{ maxWidth: '100%' }}>
+      <Link to={`/project/${id}`}>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
+          {profile} • 4 Feb 2022
+        </Typography>
+        <Typography color="secondary" gutterBottom variant="h5" component="div">
+          {projet}
+        </Typography>
+        <Typography color="secondary.light" sx={projectCollectStyles.summary}>
+          {description}
+        </Typography>
+      </CardContent>
+      </Link>
+      <CardContent>
+        <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
+          403 630€ sur <span style={{ fontSize: 24 }}>{amount}€</span>
+        </Typography>
+        <ProjectProgress></ProjectProgress>
+      </CardContent>
 
-        <CardContent>
-          <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
-            {totalContributions}€ sur{' '}
-            <span style={{ fontSize: 24 }}>{amount}€</span>
-          </Typography>
-          <ProjectProgress progressRate={progressRatio} />
-        </CardContent>
-
-        <CardActions sx={projectCollectStyles.carAction}>
-          {!ProfileInfo.isLogged ? (
-            <Link to="/subscribe">
-              <Button size="small" sx={projectCollectStyles.btnPrimary}>
-                Contribuer au projet &gt;
-              </Button>
-            </Link>
-          ) : (
-            <Link to="/profile/contribut">
-              <Button size="small" sx={projectCollectStyles.btnPrimary}>
-                Contribuer au projet &gt;
-              </Button>
-            </Link>
-          )}
-
-          <Button size="small" sx={projectCollectStyles.btnSecondary}>
-            Partager +
+      <CardActions sx={projectCollectStyles.cardAction}>
+        <Link to="subscribe">
+          <Button size="small" sx={projectCollectStyles.btnPrimary}>
+            Contribuer au projet &gt;
           </Button>
-        </CardActions>
-      </Card>
+        </Link>
+        <Button size="small" sx={projectCollectStyles.btnSecondary}>
+          Partager +
+        </Button>
+      </CardActions>
+    </Card>
       <Card sx={projectCollectStyles.card}>
         <CardContent>
           <Typography
