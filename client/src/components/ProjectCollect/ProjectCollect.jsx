@@ -1,57 +1,75 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Switch from '@mui/material/Switch';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // import PropTypes from "prop-types";
 
+// Material UI
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Typography,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+  FormControl,
+  Modal,
+  Box,
+} from '@mui/material';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 import ProjectProgress from '../ProjectProgress/ProjectProgress';
+// CSS
+import { projectCollectStyles } from './styles';
 
-import './projectCollectStyles.scss';
+// RECOIL
+import { useRecoilValue } from 'recoil';
+import { profileConnexionstate } from '../../atomes/profileAtomes';
 
-function projectCollect() {
-  const buttonPrimaryStyles = {
-    fontSize: 14,
-    backgroundColor: '#5de4d5',
-    border: '2px solid #5de4d5',
-    color: '#ffffff',
-    fontWeight: 700,
-    textTransform: 'none',
-    borderRadius: '50px',
-    padding: '5px 10px',
-    '&:hover': {
-      color: '#5de4d5',
-    },
+function ProjectCollect({ amount, profile, createdAt, contributions }) {
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
+
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   };
-  const buttonSecondaryStyles = {
-    fontSize: 14,
-    backgroundColor: '#d9d9d9',
-    border: '2px solid #d9d9d9',
-    color: '#ffffff',
-    textTransform: 'none',
-    borderRadius: '50px',
-    padding: '5px 10px',
-    '&:hover': {
-      backgroundColor: '#f5f5f5',
-      color: '#30394e',
-    },
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [totalContributions, setTotalContributions] = useState(0);
+  const [progressRatio, setProgressRatio] = useState(0);
+
+  const progressRate = (contributionslist) => {
+    let totalContribution = 0;
+    if (contributionslist?.length === 0) {
+      setTotalContributions(0);
+      setProgressRatio(0);
+    }
+    contributionslist?.map(
+      (contribution) => (totalContribution += contribution.invested_amount)
+    );
+    const rate = Number((100 * totalContribution) / amount);
+    setTotalContributions(totalContribution);
+    setProgressRatio(rate);
   };
+
+  useEffect(() => {
+    progressRate(contributions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progressRate]);
 
   return (
     <>
-      <Card sx={{ maxWidth: 345, marginBottom: '30px' }}>
+      <Card sx={{ mx: 4, mt: 5, m: { xl: 2, md: 2, xs: 2 } }}>
         <CardContent>
-          <Typography
-            sx={{ fontSize: 14, marginTop: '20px', marginBottom: '2rem' }}
-            color="primary"
-          >
-            John Doe • 4 Feb 2022
+          <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
+            {profile} •{' '}
+            {new Date(createdAt).toLocaleDateString('fr-FR', options)}
           </Typography>
           <Typography
             color="secondary"
@@ -69,34 +87,33 @@ function projectCollect() {
 
         <CardContent>
           <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
-            403 630€ sur <span style={{ fontSize: 24 }}>702 000€</span>
+            {totalContributions}€ sur{' '}
+            <span style={{ fontSize: 24 }}>{amount}€</span>
           </Typography>
-          <ProjectProgress></ProjectProgress>
+          <ProjectProgress progressRate={progressRatio} />
         </CardContent>
 
-        <CardActions
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '1rem',
-            padding: '15px',
-          }}
-        >
-          <Button size="small" sx={buttonPrimaryStyles}>
-            Contribuer au projet &gt;
-          </Button>
-          <Button size="small" sx={buttonSecondaryStyles}>
+        <CardActions sx={projectCollectStyles.carAction}>
+          {!ProfileInfo.isLogged ? (
+            <Link to="/subscribe">
+              <Button size="small" sx={projectCollectStyles.btnPrimary}>
+                Contribuer au projet &gt;
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/profile/contribut">
+              <Button size="small" sx={projectCollectStyles.btnPrimary}>
+                Contribuer au projet &gt;
+              </Button>
+            </Link>
+          )}
+
+          <Button size="small" sx={projectCollectStyles.btnSecondary}>
             Partager +
           </Button>
         </CardActions>
       </Card>
-      <Card
-        sx={{
-          maxWidth: 345,
-          marginBottom: '30px',
-          textAlign: 'center',
-        }}
-      >
+      <Card sx={projectCollectStyles.card}>
         <CardContent>
           <Typography
             color="secondary"
@@ -134,12 +151,44 @@ function projectCollect() {
             public votre projet sera visible en page d’acceuil
           </Typography>
         </CardContent>
+        <CardActions>
+          <Button color="error" onClick={handleOpen}>
+            SUPRIMER LE PROJET
+          </Button>
+          <Modal open={open} onClose={handleClose}>
+            <Box sx={projectCollectStyles.modal}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                <WarningAmberIcon color="error" /> Valider la suppression
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ my: 2 }}>
+                Souhaitez vous réellement supprimer votre projet ?
+              </Typography>
+              <Button
+                color="error"
+                sx={{ mr: 2, width: '47%' }}
+                variant="outlined"
+                onClick={handleClose}
+              >
+                ANNULER
+              </Button>
+              <Button
+                color="primary"
+                sx={{ width: '47%' }}
+                variant="outlined"
+                onClick={console.log('projet supprimer')}
+              >
+                VALIDER
+              </Button>
+            </Box>
+          </Modal>
+        </CardActions>
       </Card>
     </>
   );
 }
-projectCollect.propTypes = {};
 
-projectCollect.defaultProps = {};
+ProjectCollect.propTypes = {};
 
-export default React.memo(projectCollect);
+ProjectCollect.defaultProps = {};
+
+export default React.memo(ProjectCollect);

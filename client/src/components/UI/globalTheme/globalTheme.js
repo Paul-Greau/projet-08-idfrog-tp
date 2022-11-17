@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import palette from '../../../assets/styles/_vars.scss'
 
 export const globalTheme = createTheme({
   MuiButton: {
@@ -11,39 +12,39 @@ export const globalTheme = createTheme({
   palette: {
     primary: {
       light:'#AFF7EE',
-      main: '#5de4d5',
+      main: palette.primary,
       dark: '#4FC2B4',
       contrastText: 'rgba(0, 0, 0, 0.87)',
     },
 
     secondary: {
       light:'#686D75',
-      main: '#2D3A4D',
+      main: palette.secondary,
       dark: '#DBE6F7',
       contrastText: 'rgba(0, 0, 0, 0.87)',
     },
 
     warning:{
       light:'#D9E5F7',
-      main: '#F27035',
+      main: palette.warning,
       dark: '#A64C24',
     },
 
     error: {
       light:'#F47F7F',
-      main: '#D32F2F',
+      main: palette.error,
       dark: '#733C3C',
     },
 
     info:{
       light:'#F5F5F5',
-      main: '#D9D9D9',
+      main: palette.info,
       dark: '#7D7D7D',
     },
 
     success:{
       light:'#A4E8E0',
-      main: '#5DE4D5',
+      main: palette.success,
       dark: '#37B0A2',
     },
 
@@ -69,6 +70,8 @@ export const globalTheme = createTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    
   },
+  
   //spacing: [0, 4, 8, 16, 32, 64],
 });

@@ -2,23 +2,30 @@
 
 import React from 'react';
 // import PropTypes from "prop-types";
-import { Grid } from '@mui/material';
-// import { Link } from "@mui/material";
-import headImg from '../../assets/images/head-img.svg';
-import { Typography } from '@mui/material';
-import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
+
+import headImg from '../../assets/images/logo-bigfrog.png';
+
+// Material UI
+import { Typography, Grid, Button, Container } from '@mui/material';
 import InputIcon from '@mui/icons-material/Input';
 import AddchartIcon from '@mui/icons-material/Addchart';
-import { Container } from '@mui/material';
+
+// CSS
+import palette from '../../assets/styles/_vars.scss';
+import { headStyles } from './styles';
 import './headStyles.scss';
 
+import { useRecoilValue } from 'recoil';
+import { profileConnexionstate } from '../../atomes/profileAtomes';
 
 function Head() {
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
   return (
     <div className="head">
       <Container component="section" maxWidth="lg">
-        <Grid container justifyContent="center" alignItems="center" sx={{}}>
-          <Grid item xs={12} md={6} sx={{}}>
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item xs={12} md={6}>
             <Typography
               variant="h1"
               color="secondary"
@@ -35,8 +42,8 @@ function Head() {
                 fontWeight: 'bold',
               }}
             >
-              <span style={{ color: '#5de4d5' }}>JE DONNE </span>
-              VIE ! <span style={{ color: '#5de4d5' }}>à mes idées</span>.
+              <span style={{ color: palette.primary }}>JE DONNE </span>
+              VIE ! <span style={{ color: palette.primary }}>à mes idées</span>.
             </Typography>
             <Typography
               variant="h2"
@@ -60,37 +67,54 @@ function Head() {
                 paddingTop: '50px',
               }}
             >
-              <Grid item xs={12} md={6} sx={{}}>
-                <Button
-                  variant="outlined"
-                  endIcon={<InputIcon />}
-                  size="medium"
-                  sx={{
-                    width: '100%',
-                    fontWeight: 700,
-                    border: '2px solid #5de4d5',
-                    '&:hover': {
-                      color: '#30394e',
-                      border: '2px solid #30394e',
-                      background: ' rgba(0, 0, 0, 0.1)',
-                    },
-                  }}
-                >
-                  Contribuer au projet
-                </Button>
+              <Grid item xs={12} md={6}>
+                {!ProfileInfo.isLogged ? (
+                  <Link to="/subscribe">
+                    <Button
+                      variant="outlined"
+                      endIcon={<InputIcon />}
+                      size="medium"
+                      sx={headStyles.btn}
+                    >
+                      Contribuer au projet
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/profile/contribut">
+                    <Button
+                      variant="outlined"
+                      endIcon={<InputIcon />}
+                      size="medium"
+                      sx={headStyles.btn}
+                    >
+                      Contribuer au projet
+                    </Button>
+                  </Link>
+                )}
               </Grid>
 
               <Grid item xs={12} md={6}>
-                <Button
-                  variant="contained"
-                  endIcon={<AddchartIcon />}
-                  sx={{
-                    width: '100%',
-                    color: '#fff',
-                  }}
-                >
-                  Déposer mon projet
-                </Button>
+                {!ProfileInfo.isLogged ? (
+                  <Link to="/subscribe">
+                    <Button
+                      variant="contained"
+                      endIcon={<AddchartIcon />}
+                      sx={headStyles.btnWith}
+                    >
+                      Déposer mon projet
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/profile/postproject">
+                    <Button
+                      variant="contained"
+                      endIcon={<AddchartIcon />}
+                      sx={headStyles.btnWith}
+                    >
+                      Déposer mon projet
+                    </Button>
+                  </Link>
+                )}
               </Grid>
             </Grid>
           </Grid>
