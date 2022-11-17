@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, Skeleton, Grid, CardActions, CardContent } from "@mui/material";
+import React from 'react';
+import { Card, Skeleton, Grid, CardActions, CardContent } from '@mui/material';
 
 const ProjectCardPlaceholder = () => {
   return (
@@ -24,7 +24,7 @@ const ProjectCardPlaceholder = () => {
           height="220px"
           width="99%"
           variant="rectangular"
-          style={{ marginBottom: 6, marginTop: "-20px" }}
+          style={{ marginBottom: 6, marginTop: '-20px' }}
         />
         <Skeleton
           animation="wave"

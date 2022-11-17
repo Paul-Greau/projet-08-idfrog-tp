@@ -10,23 +10,21 @@ BEGIN;
 --
 
 INSERT INTO "profile" ("email", "password", "pseudo", "is_admin") VALUES
-('alex@idfrog.com', 'passalex', 'pseudoalex', TRUE),
-('paul@idfrog.com', 'passpaul', 'pseudopaul', TRUE),
-('nico@idfrog.com', 'passnico', 'pseudonico', TRUE),
-('ramses@idfrog.com', 'passramses', 'pseudoramses', TRUE),
-('userlambda1@idfrog.com', '1234', 'pseudolambda1', FALSE),
-('userlambda2@idfrog.com', '1234', 'pseudolambda2', FALSE),
+('alex@idfrog.com', '$2a$10$ImYxeX958gK9F7RVNEcJv.vtGK5CqzowJqDuhsl.5Q1W8/F/qfCdy', 'pseudoalex', TRUE),
+('paul@idfrog.com', '$2a$10$dJAjAH33YDNu2hU4LKAHaePFkj8KzEleYiHwWhMEFEnjfWsfAoShi', 'pseudopaul', TRUE),
+('nico@idfrog.com', '$2a$10$tounNntMwsNPr5nNg1FvdOsb85NHnP2bTdYftSAQRL6EgiHA4VoyC', 'pseudonico', TRUE),
+('ramses@idfrog.com', '$2a$10$RAn941/UroP1OgN01VwEneaOdy.Jh0mNE5WtXAENKdZBhEi/uaeSS', 'pseudoramses', TRUE),
+('userlambda1@idfrog.com', '$2a$10$KfoDxBtcgAwXoEkHImxtzehQzMOWjabJAIInCs2bxYmmdMVu8YaL.', 'pseudolambda1', FALSE),
+('userlambda2@idfrog.com', '$2a$10$kov83g8LQCkKw6Rb5yepYOvXg3eqYED6mqYgHggb8/LjlMqRd6oiy', 'pseudolambda2', FALSE),
 ---
-
-('alexa@actiively.com', 'passalexa', 'pseudoalexa', FALSE),
-
-('aline@adoptetonmhumain.com', 'passaline', 'pseudoaline', FALSE),
-('clement@metrix.com', 'passclement', 'pseudoclement', FALSE),
-('margaux@nomdunvin.com', 'passmargaux', 'pseudomargaux', FALSE),
-('dylan@ofood.com', 'passdylan', 'pseudodylan', FALSE),
-('antoine@trapr.com', 'passantoine', 'pseudoantoine', FALSE),
-('jerome@miimosa.com', 'passjerome', 'pseudojerome', FALSE),
-('steve@delorean.com', 'passsteve', 'pseudosteve', FALSE);
+('alexa@actiively.com', '$2a$10$d9DiBlhGmxRRk/yfznL6hu7Dtc1vKxyqwr5NGC66vLOMk0xl3aYpa', 'pseudoalexa', FALSE),
+('aline@adoptetonmhumain.com', '$2a$10$lZIyMFJZXezUQfkXLO5XQeLv6YJMRWrb8p6QhIZB/bPeflH3teVUq', 'pseudoaline', FALSE),
+('clement@metrix.com', '$2a$10$68REtH5qIHOplV3VJ5npRud6o40YM/QU6gti0vdMgLat9Vz.oeype', 'pseudoclement', FALSE),
+('margaux@nomdunvin.com', '$2a$10$BN7GedjAS8CbRyJKJQ2jcOlNaUxYWsG5jtYebhFGvTivZRRlhXgue', 'pseudomargaux', FALSE),
+('dylan@ofood.com', '$2a$10$kbRmHTld75OBxxfvjPdPweu/MY0.Bc6QC89lmRK7HayvuiJkLADNO', 'pseudodylan', FALSE),
+('antoine@trapr.com', '$2a$10$L6Th4E0iUhgczWxd1iNVG.2rduyWBfE/7ug.p9HYHSQK1MhMdkFfC', 'pseudoantoine', FALSE),
+('jerome@miimosa.com', '$2a$10$Jl.Kt3z2RnbQilbJPW1r5uoPP9x3exIJWn1L57RL7ovDBeFONq6Yu', 'pseudojerome', FALSE),
+('steve@delorean.com', '$2a$10$jdRzgw6jbWV2S0H51vWhRu.vtdbtPXx8yGkiM7EL/2SsDT3XAYGDO', 'pseudosteve', FALSE);
 
 
 --
@@ -102,8 +100,8 @@ INSERT INTO "society" ("siret", "profile_id", "name", "status") VALUES
 
 
 INSERT INTO "project" ("profile_id", "category_id", "name", "invest_type", "amount_target", "rate", "end_time", "img_url", "web_url", "title", "resume", "description", "visibility") VALUES
-(17, 2, 'Delorean 2022', 'capital', '200000', 2.5, '2022-12-16', '/home/student/Bureau/html/idfrog/projet-08-idfrog/api/data/ProjectsImages/project-1668411645261-delorean_2022.png', 'https://delorean2k22.com', 'Delorean 2K22', 'En hommage à retour vers le futur', 'Une super voiture qui vous permettra de voyager dans le temps', false),
-(21, 9, 'Actiively', 'capital', '150000', 3,  '2023-12-31', '/home/student/Bureau/html/idfrog/projet-08-idfrog/api/data/ProjectsImages/project-1668411715471-actiively.png', 'https://actiively', 'Actiively', "Trouvez une activité sportive/artistique qui correspond à vos critères !", "Une plateforme pour rechercher des activités (sportives, artistiques…) en fonction de critères précis : lieu, tarif, niveau (débutant, confirmé…), jour de la semaine, genre (mixte, femmes, hommes), inscription possible ou non à un instant T
+(17, 2, 'Delorean 2022', 'capital', '200000', 2.5, '2022-12-16', '/data/ProjectsImages/project-1668411645261-delorean_2022.png', 'https://delorean2k22.com', 'Delorean 2K22', 'En hommage à retour vers le futur', 'Une super voiture qui vous permettra de voyager dans le temps', false),
+(21, 9, 'Actiively', 'capital', '150000', 3,  '2023-12-31', '/data/ProjectsImages/project-1668411715471-actiively.png', 'https://actiively', 'Actiively', "Trouvez une activité sportive/artistique qui correspond à vos critères !", "Une plateforme pour rechercher des activités (sportives, artistiques…) en fonction de critères précis : lieu, tarif, niveau (débutant, confirmé…), jour de la semaine, genre (mixte, femmes, hommes), inscription possible ou non à un instant T
 L’objectif est de faciliter la recherche d’activités en fournissant des résultats le plus précis possible. Cela permettrait aux utilisateurs de trouver rapidement l’activité qui correspond à leurs besoins et aux associations/clubs de se faire connaître.",
  false),
 <<<<<<< HEAD
@@ -141,7 +139,7 @@ Nom d’un vin ! vous fait (re)découvrir des petites pépites grâce à sa box 
 ex: André, Ostréiculteur à Cancale pars en vacances à Paris Plage et propose un arrêt livraison dans les villes suivantes : Rennes, Le Mans, Chartres et (Paris du coup). Eden, avec quelques copines du quartier, regardent notre site régulièrement pour voir quels "produits" passent par chez eux, au Mans, et surprise, ils remarquent André et ses huitres, et décident de lui en acheter 6 douzaines.
 Greg, de Paris, et ses amis, souhaiteraient prendre 8 douzaines eux ! André peut alors préparer son départ et charger 14 douzaines d'huitres, amortissant en partie le trajet de ses vacances et promouvant ses produits au passage. Il ne s'arrêtera donc pas à Rennes ni Chartres ( ils sont pas drôles, y'a pas eu de commande).",
  false),
-(27, 18, 'Idfrog', 'capital', '200000', 3, '2023-12-31', '/home/student/Bureau/html/idfrog/projet-08-idfrog/api/data/ProjectsImages/project-1668413376823-idfrog.png', 'https://idfrog', 'Idfrog', 'La boîte à idées', "idFrog est une plateforme qui permet donc à une personne lambda ayant une idée ou plusieurs de la partager avec ses amis afin de la faire évoluer pour qu'au final il puisse la poster dans un environnement sécurisé où elle sera regardée par des investisseurs potentiellement intéressé par celle-ci."
+(27, 18, 'Idfrog', 'capital', '200000', 3, '2023-12-31', '/data/ProjectsImages/project-1668413376823-idfrog.png', 'https://idfrog', 'Idfrog', 'La boîte à idées', "idFrog est une plateforme qui permet donc à une personne lambda ayant une idée ou plusieurs de la partager avec ses amis afin de la faire évoluer pour qu'au final il puisse la poster dans un environnement sécurisé où elle sera regardée par des investisseurs potentiellement intéressé par celle-ci."
  false),
 <<<<<<< HEAD
 (28, 18, 'Miimosa', 'capital', '100000', 2,5, '2022-12-31', '/home/student/Bureau/html/idfrog/projet-08-idfrog/api/data/ProjectsImages/project-1668416737515-miimosa.png', 'https://miimosa.com', 'Miimosa', 'Le financement participatif dédié à la transition agricole et alimentaire', 'Sur MiiMOSA, l’agriculture et l’alimentation de demain se financent aujourd’hui. Depuis 2015, nous proposons aux citoyens et aux entreprises de financer des projets d’agriculture et d’alimentation durables sur le modèle du don avec contrepartie ou du prêt rémunéré.', 

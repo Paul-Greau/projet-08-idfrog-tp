@@ -18,12 +18,8 @@ const Project = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState([]);
   const { id } = useParams();
-
   const flag = useRef(false);
-
   let navigate = useNavigate()
-
-
 
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
@@ -36,7 +32,7 @@ const Project = () => {
           setResult(res.data);
           setIsLoading(false)
           console.log('reponse dans project', res); 
-          if (res.status === 404) {
+          if (res.status === 404) {            
             return navigate("/");
           } 
         })
@@ -45,9 +41,7 @@ const Project = () => {
     return () => (flag.current = true);
   },[id]);
 
-
   return (
-
     <>
       {!isLoading ? (
         <Grid container spacing={5}>
@@ -64,7 +58,7 @@ const Project = () => {
           </Grid>
           <Grid item xs={12} md={4}>
             <ProjectCollect
-              id={result.id}
+              project_id={result.id}
               createdAt={result.created_at}
               projet={result.name}
               amount={result.amount_target}
@@ -84,7 +78,6 @@ const Project = () => {
         </>
       )}
     </>
-
   );
 };
 

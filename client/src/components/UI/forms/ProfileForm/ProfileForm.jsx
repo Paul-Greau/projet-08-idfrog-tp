@@ -1,10 +1,12 @@
+/* eslint-disable react/prop-types */
 
 import React, { useEffect, useState } from 'react';
 
 // import PropTypes from 'prop-types';
 import { useRecoilValue } from 'recoil';
-import { profileConnexionstate, profileDetailState } from '../../../../atomes/profileAtomes';
+import { profileConnexionstate } from '../../../../atomes/profileAtomes';
 import { patchProfile } from '../../../../services/profileService';
+import { handleSubmitProfil } from '../Utils/Utils';
 
 // Compoments
 import Particulier from './Particulier/Particulier';
@@ -31,35 +33,17 @@ import { useFormik } from 'formik';
 import { postProfileStyles } from './styles';
 
 
-function ProfileForm() {
+function ProfileForm({
+  profileDetail,
+  profileStatus,
+  handlestatus
+}) {
   const {token} = useRecoilValue(profileConnexionstate)
   const [showError, setShowError] = useState(false)
   const [loginError, setLoginError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
-  const [profileStatus, setProfileStatus] = useState('');
-
-  const profileDetail = useRecoilValue(profileDetailState);
 
   console.log("profileDetail in profileForm", profileDetail);
-
-  const handleSubmit = (response) => {
-    if (response.status === 201){
-      setAlertStyle('success')
-      setLoginError({
-        status : null,
-        message: 'Profile mis à jour'
-      })
-      setShowError(true)
-      return
-    }
-    setAlertStyle('error')
-    setLoginError({
-      status : response.status,
-      message: response.data.message
-    })
-    setShowError(true)
-    return
-  } 
 
   let formik = useFormik({
     initialValues: {
@@ -73,18 +57,18 @@ function ProfileForm() {
       console.log(values);
       // alert(JSON.stringify(values, null, 2));
       const response = await patchProfile(token, values)
-      handleSubmit(response)
+      const alertMessage = handleSubmitProfil(response, 201)
+      setAlertStyle(alertMessage.alertStyle)
+      setLoginError({
+        status : alertMessage.errorStatus,
+        message: alertMessage.message
+      })
+      setShowError(alertMessage.showMessage)
+      return
       //console.log(response);
     },
   });  
 
-  
-
-
-  useEffect(() => {  
-    const status = profileDetail.person?.status ?? profileDetail.society?.status
-    setProfileStatus(status)
-  },[profileDetail])
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -101,7 +85,7 @@ function ProfileForm() {
 
         <><form onSubmit={formik.handleSubmit} autoComplete="off">
           <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">
-            Votre Profile:
+            Votre Profil:
           </Typography>          
 
           <TextField
@@ -175,7 +159,7 @@ function ProfileForm() {
             variant="contained"
             sx={{ mt: 4, mb: 4, mr: 2 }}
           >
-            ENREGISTRER VOTRE PROFILE
+            ENREGISTRER VOTRE PROFIL
           </Button>
 
           <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
@@ -193,7 +177,7 @@ function ProfileForm() {
         <RadioGroup
       row
       name="status"
-      onChange={(e) => setProfileStatus(e.target.value)}
+      onChange={(e) => handlestatus(e.target.value)}
       value={profileStatus}
       >
         <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">

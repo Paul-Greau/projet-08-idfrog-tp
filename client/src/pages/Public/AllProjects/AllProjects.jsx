@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
-import CardPlaceholder from '../../../components/UI/Placeholder/CardPlaceholder';
 // Services
 import { getProjectsList } from '../../../services/projectService';
 

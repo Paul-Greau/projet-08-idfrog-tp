@@ -280,7 +280,6 @@ function PostProjectForm({ token, profileStatus }) {
             />
           </Card>
         </RadioGroup>
-
         {formik.values.invest_type === "pret" && (
           <>
             <InputLabel sx={{ color: palette.secondary }}>

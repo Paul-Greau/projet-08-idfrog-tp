@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { isLoadingState, profileDetailState } from "../../../atomes/profileAtomes";
 import ProfileForm from "../../../components/UI/forms/ProfileForm/ProfileForm";
 import ProfilePlaceholder from "../../../components/UI/Placeholder/ProfilePlaceholder";
 // import PropTypes from 'prop-types';
@@ -7,15 +9,29 @@ import ProfilePlaceholder from "../../../components/UI/Placeholder/ProfilePlaceh
 import "./profileStyles.scss";
 
 function Profile() {
-  const [isLoading, setIsLoading] = useState(true);
+  
+  const isLoading = useRecoilValue(isLoadingState);
+  const [profileStatus, setProfileStatus] = useState('');
+  const profileDetail = useRecoilValue(profileDetailState);
+
+  const handleStatusChange = (e) => {
+    setProfileStatus(e)
+  }
 
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    const status = profileDetail.person?.status ?? profileDetail.society?.status
+    setProfileStatus(status)
+  }, [profileDetail]);
 
   return (
     <div className="profile">
-      {!isLoading ? <ProfileForm /> : <ProfilePlaceholder />}
+      {!isLoading ?
+      <ProfileForm
+      profileDetail={profileDetail}
+      profileStatus={profileStatus}
+      handlestatus={handleStatusChange}
+      />
+      : <ProfilePlaceholder />}
     </div>
   );
 }
