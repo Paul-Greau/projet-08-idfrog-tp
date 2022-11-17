@@ -1,4 +1,4 @@
--- Deploy idfrog:1.init to pg
+-- Revert idfrog:1.init from pg
 
 BEGIN;
 
