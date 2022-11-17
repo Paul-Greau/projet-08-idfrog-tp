@@ -9,9 +9,9 @@ import {
   Box,
   Typography,
   Alert,
-  FormControlLabel,
+/*   FormControlLabel,
   RadioGroup,
-  Radio,
+  Radio, */
   FormControl,
 } from '@mui/material';
 // Yup Schema
@@ -21,34 +21,22 @@ import { useFormik } from 'formik';
 // CSS
 import { postContributStyles } from './styles';
 import { useState } from 'react';
-import { getProjectById } from '../../../../services/projectService';
-import { Link, useNavigate } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
 import { postContribution } from '../../../../services/contributionService';
 import { postComment } from '../../../../services/CommentService';
 import { useRecoilValue } from 'recoil';
 import { profileConnexionstate } from '../../../../atomes/profileAtomes';
 
-
 function ContributForm({
-  projectId
+  projectId,
+  projectDetail,
+
 }) {
-
-  let navigate = useNavigate()
-
   const {token} = useRecoilValue(profileConnexionstate);
-  const [projectDetail, setProjectDetail] = useState('');
   const [showError, setShowError] = useState(false)
   const [projectError, setProjectError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
-
-  const FetchProjectDetail = async () => {
-    const response = await getProjectById(projectId);
-    console.log(response);
-    if (response.status !== 200){
-      return navigate("/");
-    }
-    setProjectDetail(response.data)
-  }
 
   const formik = useFormik({
     initialValues: {
@@ -101,8 +89,6 @@ function ContributForm({
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    FetchProjectDetail()
-
   }, []);
 
   return (

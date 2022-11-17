@@ -131,7 +131,7 @@ function ResponsiveAppBar() {
                   onClick={handleCloseNavMenu}
                   sx={navHeaderStyles.btnPostProject}
                 >
-                  Mon Profile
+                  Mon Profil
                 </Button>
               </Link>
             ) : (
