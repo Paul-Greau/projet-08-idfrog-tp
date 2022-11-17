@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import { Grid, CardMedia } from '@mui/material';
 // Services
 import {getProjectById} from '../../../services/projects';
@@ -12,27 +12,31 @@ import ProjectCollect from "../../../components/ProjectCollect/ProjectCollect";
 
 const Project = () => {
 
+    const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState([]);
     const { id } = useParams();
-
-
+    let navigate = useNavigate()
     const flag = useRef(false)
 
     // Récupération de la liste des utilisateurs à l'affichage
     useEffect(() => {
-        if(flag.current === false){
-            getProjectById(id)
-                .then(res => {
-                    // Liste dans le state
-                    setResult(res.data)
-                    console.log(res.data)
-                })
-                .catch(err => console.log(err))
-        }
-
-        return () => flag.current = true
-
-    }, [id])
+        setIsLoading(true)
+        window.scrollTo(0, 0);
+        if (flag.current === false) {
+          getProjectById(id)
+            .then((res) => {
+              // Liste dans le state
+              setResult(res.data);
+              setIsLoading(false)
+              console.log('reponse dans project', res); 
+              if (res.status === 404) {            
+                return navigate("/");
+              } 
+            })
+            .catch((err) =>console.log(err)
+            )}
+        return () => (flag.current = true);
+      },[id]);
 
     return (
         <Grid container spacing={5} sx={{p: "0 50px", mt: "5px", maxWidth: "80%", margin: "auto"}}>

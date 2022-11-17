@@ -31,7 +31,6 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(cardPerPages);
 
   const handleChange = (event, value) => {
     event.preventDefault();
@@ -39,15 +38,14 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
     //setCardsPerPage;
   };
 
-  const nbPage = Math.ceil(filterResult.length / cardsPerPage);
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const nbPage = Math.ceil(filterResult.length / cardPerPages);
+  const indexOfLastCard = currentPage * cardPerPages;
+  const indexOfFirstCard = indexOfLastCard - cardPerPages;
   const currentCards = filterResult.slice(indexOfFirstCard, indexOfLastCard);
 
   useEffect(() => {
     let filteredResults = result.filter((item) => {
       // Boucle sur chaque projet de l'objet result
-
       if (
         categoryFilter === item.category_id &&
         financingTypeFilter === item.invest_type
@@ -79,8 +77,6 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
     setFilterResult(filteredResults);
     setCurrentPage(1);
   }, [categoryFilter, financingTypeFilter, result]);
-
-  useEffect(() => {}, []);
 
   return (
     <>
@@ -159,6 +155,12 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
             <CardPlaceholder />
             <CardPlaceholder />
             <CardPlaceholder />
+            {cardPerPages === 6 && 
+            <>
+             <CardPlaceholder />
+             <CardPlaceholder />
+             <CardPlaceholder />
+             </>}
           </Grid>
         )}
         <Container
