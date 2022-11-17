@@ -4,6 +4,14 @@ import palette from '../../assets/styles/_vars.scss'
 
 export const projectCollectStyles = {
 
+  summary:{
+    display: '-webkit-box',
+    overflow: 'hidden',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: 3,
+  },
+
+
     btnPrimary: {
         fontSize: 14,
         backgroundColor: palette.primary,
@@ -37,10 +45,11 @@ export const projectCollectStyles = {
         mt: 4,
         mx:4,
         textAlign: 'center',
-        m: { xl: 2, md: 2, xs: 2 }
+        marginTop: "16px",
+
     },
 
-    carAction:{
+    cardAction:{
         display: 'flex',
         justifyContent: 'space-between',
         mb: 1,

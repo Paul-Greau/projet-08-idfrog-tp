@@ -1,6 +1,8 @@
 
 export const postProjectStyles = {
 
+
+
     leftInput: {
         flexFlow: 1,
             mt: 2,

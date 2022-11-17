@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+
 import React from 'react';
 // import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
@@ -123,6 +124,7 @@ function Head() {
           </Grid>
         </Grid>
       </Container>
+
     </div>
   );
 }
