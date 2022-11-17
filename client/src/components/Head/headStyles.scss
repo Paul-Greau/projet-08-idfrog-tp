@@ -1,7 +1,7 @@
 @use '../../assets/styles/vars';
 
 .head {
-  margin-top: vars.$gutter;
+  padding: vars.$gutter vars.$gutter * 2 0 vars.$gutter * 2;
   &-logo {
     width: 100%;
     max-width: '500px';
@@ -10,3 +10,4 @@
     justify-content: center;
   }
 }
+

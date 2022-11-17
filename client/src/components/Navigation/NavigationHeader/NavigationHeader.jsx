@@ -1,4 +1,10 @@
 /* eslint-disable react/prop-types */
+
+import { useRecoilValue, useResetRecoilState, useSetRecoilState} from "recoil";
+import { profileConnexionstate, profileDetailState } from "../../../atomes/profileAtomes";
+import { getLogout } from "../../../services/loginService";
+
+
 import React, { useState } from 'react';
 import IdfrogLogo from '../../../assets/images/logo-mini.png';
 
@@ -23,8 +29,15 @@ import { Link } from 'react-router-dom';
 import { navHeaderStyles } from './styles';
 
 function ResponsiveAppBar() {
-  const user = { name: 'IdFrog', id: 24 };
-  const isLogged = false;
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
+
+  const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
+  const ResetProfileDetailState = useResetRecoilState(profileDetailState)
+
+  
+  
+ // console.log('ProfileInfo dans la navbar', ProfileInfo);
+ 
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -36,11 +49,21 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
+  const handleLogout = async () => {
+    const res = await getLogout();
+    console.log(res);
+
+    ResetProfileInfo()
+    ResetProfileDetailState()
+    localStorage.clear()
+  }
+
+
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="100%">
         <Toolbar disableGutters>
-          <Link to="">
+          <Link to="/">
             <img
               src={IdfrogLogo}
               alt="Mini Logo Idfrog"
@@ -80,11 +103,19 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography color="primary.dark">
-                  <Link to="subscribe">Lancer mon projet</Link>
-                </Typography>
-              </MenuItem>
+              {ProfileInfo.isLogged ? (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography color="primary.dark">
+                    <Link to="profile">Mon Profile</Link>
+                  </Typography>
+                </MenuItem>
+              ) : (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography color="primary.dark">
+                    <Link to="subscribe">Lancer mon projet</Link>
+                  </Typography>
+                </MenuItem>
+              )}
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography color="primary.dark">
                   <Link to="projects">Liste des Projets</Link>
@@ -94,7 +125,7 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {isLogged ? (
+            {ProfileInfo.isLogged ? (
               <Link to="profile">
                 <Button
                   onClick={handleCloseNavMenu}
@@ -125,10 +156,10 @@ function ResponsiveAppBar() {
 
           <Box>
             <div>
-              {isLogged ? (
+              {ProfileInfo.isLogged ? (
                 <Grid container>
-                  <Grid item xs={5}>
-                    <Link to={`profile/${user.id}`}>
+                  <Grid item sx={{ xs: 6 }}>
+                    <Link to={`/profile/`}>
                       <div style={navHeaderStyles.loginUser}>
                         <Avatar
                           sx={{ bgcolor: '#2D3A4D' }}
@@ -137,13 +168,27 @@ function ResponsiveAppBar() {
                         >
                           IF
                         </Avatar>
-                        <p style={navHeaderStyles.p}>{user.name}</p>
+                        <Box
+                          sx={{
+                            flexGrow: 1,
+                            px: 1,
+                            display: { xs: 'none', md: 'flex' },
+                          }}
+                        >
+                          {ProfileInfo.pseudo}
+                        </Box>
                       </div>
                     </Link>
                   </Grid>
-                  <Grid item xs={7}>
-                    <Link to={`profile/${user.id}/logout`}>
-                      <Button size="small" sx={navHeaderStyles.btnSecondary}>
+                  <Grid item sx={{ xs: 6 }}>
+                    <Link to={`/profile/logout`}>
+                      <Button
+                        size="small"
+                        sx={navHeaderStyles.btnSecondary}
+                        onClick={() => {
+                          handleLogout();
+                        }}
+                      >
                         Se déconnecter
                       </Button>
                     </Link>

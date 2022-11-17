@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
+
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+
 
 // Material UI
 import {
@@ -13,8 +15,12 @@ import {
   FormGroup,
   FormControlLabel,
   FormControl,
+  Modal,
+  Box,
 } from '@mui/material';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
+import ProjectProgress from '../ProjectProgress/ProjectProgress';
 // CSS
 import { projectCollectStyles } from './styles';
 
@@ -96,12 +102,44 @@ function projectCollect({ id, projet, amount, description, profile }) {
             public votre projet sera visible en page d’acceuil
           </Typography>
         </CardContent>
+        <CardActions>
+          <Button color="error" onClick={handleOpen}>
+            SUPRIMER LE PROJET
+          </Button>
+          <Modal open={open} onClose={handleClose}>
+            <Box sx={projectCollectStyles.modal}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                <WarningAmberIcon color="error" /> Valider la suppression
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ my: 2 }}>
+                Souhaitez vous réellement supprimer votre projet ?
+              </Typography>
+              <Button
+                color="error"
+                sx={{ mr: 2, width: '47%' }}
+                variant="outlined"
+                onClick={handleClose}
+              >
+                ANNULER
+              </Button>
+              <Button
+                color="primary"
+                sx={{ width: '47%' }}
+                variant="outlined"
+                onClick={console.log('projet supprimer')}
+              >
+                VALIDER
+              </Button>
+            </Box>
+          </Modal>
+        </CardActions>
       </Card>
     </>
   );
 }
-projectCollect.propTypes = {};
 
-projectCollect.defaultProps = {};
+ProjectCollect.propTypes = {};
 
-export default React.memo(projectCollect);
+ProjectCollect.defaultProps = {};
+
+export default React.memo(ProjectCollect);

@@ -7,6 +7,7 @@ import Home from '../Public/Home/Home'
 import AllProjects from '../Public/AllProjects/AllProjects'
 import  NotFound  from '../../components/UI/NotFound/NotFound'
 import Connection from '../Authentification/Connection/Connection';
+import FaqPage from './FaqPage/FaqPage'
 
 
 
@@ -18,9 +19,9 @@ const PublicRouter = () => {
 
             <Route path="" element={<Home />} />
             <Route path="projects" element={<AllProjects />} />
+            <Route path="faq" element={<FaqPage />} />
             <Route path="login" element={<Connection/>}/>
  
-
             <Route path="*" element={<NotFound />} />
           </Route>
 

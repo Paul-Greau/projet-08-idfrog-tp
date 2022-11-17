@@ -17,28 +17,41 @@ const contributionController = {
         invested_amount,
         sold,
       } = req.body;
-      
-        // console.log(req.session);
 
       
+      
+        // console.log(req.session);      
 
 	      if (!profile_id) {
 		    const error = new Error(`'profile_id' property is missing`);
 		    return res.status(400).json({ message: error.message });
 	      }
-        if (!req.session.profile) {
+
+        // With Session
+       /*  if (!req.session.profile) {
             const error = new Error(`'You must login`);
             return res.status(401).json({ message: error.message });
         }	
         if (profile_id !== req.session.profile.id) {
             const error = new Error(`'You must login before making a contribution`);
             return res.status(401).json({ message: error.message });
-        }
+        } */
+
+        //decrypter le token
+        const userId = req.auth.userId
+        console.log(userId);
+
+        // verifier que l'id dans le token = profile_id
+        if (profile_id !== userId) {
+          const error = new Error(`'You must login before making a contribution`);
+          return res.status(401).json({ message: error.message });
+        }     
+
         if (!invested_amount) {
             const error = new Error(`'invested_amount' property is missing`);
             return res.status(400).json({ message: error.message });
         }
-        if (!sold) {
+        if (sold === null || typeof(sold) === 'undefined') {
           const error = new Error(`'sold' property is missing`);
           return res.status(400).json({ message: error.message });
         }

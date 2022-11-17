@@ -25,7 +25,6 @@ function ProjectDescription({result}) {
           <Typography paragraph={true}>{result.resume}</Typography>
         </Grid>
       </Grid>
-
     </div>
   );
 }

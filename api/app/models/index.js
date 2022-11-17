@@ -50,7 +50,9 @@ Project.hasMany(Contribution, {
 	as: 'contributions',
 	foreignKey:'project_id'
 });
-Contribution.belongsTo(Project);
+Contribution.belongsTo(Project, {
+	as:'project',
+});
 
 // Association Project et Comment
 Project.hasMany(Comment, {

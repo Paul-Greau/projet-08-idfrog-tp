@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
 
 // Services
-import { getProjectsList } from '../../../services/projects';
+import { getProjectsList } from '../../../services/projectService';
 
 // Material UI
 import { Pagination, Container } from '@mui/material';
