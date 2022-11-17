@@ -2,17 +2,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-//Mui List
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
+// Material UI
+import {
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+  Divider,
+} from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-
-//icons
 import AppsIcon from '@mui/icons-material/Apps';
 
 function DropDownProjectList({ projectList }) {
@@ -40,6 +42,7 @@ function DropDownProjectList({ projectList }) {
         <ListItemText primary="Liste des projets" />
         {openProject ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
+
       <Collapse in={openProject} timeout="auto" unmountOnExit>
         <List
           component="div"
@@ -47,12 +50,15 @@ function DropDownProjectList({ projectList }) {
           sx={{ backgroundColor: '#ffffff80' }}
         >
           {projectList?.map((project, index) => (
-            <ListItemButton key={index} sx={{ pl: 4 }}>
-              <ListItemText
-                sx={{ textAlign: 'center' }}
-                primary={project.name}
-              />
-            </ListItemButton>
+            <Link key={index} to={`/project/${project.id}`}>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemText
+                  sx={{ textAlign: 'center' }}
+                  primary={project.name}
+                />
+              </ListItemButton>
+              <Divider />
+            </Link>
           ))}
         </List>
       </Collapse>

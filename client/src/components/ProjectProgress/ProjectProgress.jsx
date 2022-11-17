@@ -1,36 +1,44 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import LinearProgress from '@mui/material/LinearProgress';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import React from 'react';
+// import PropTypes from 'prop-types';
 
-function ProgressLine(props) {
+// Material UI
+import { LinearProgress, Typography, Box } from '@mui/material';
+
+// CSS
+import { projectProgressStyles } from './styles';
+
+function ProgressLine({rate}) {
+
+  const maxRate = (value) => {
+    if(value > 100){
+      return 100
+    }
+    return value
+  };
+  
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: '100%', mr: 1 }}>
-        <LinearProgress variant="determinate" {...props} />
+    <Box sx={projectProgressStyles.box1}>
+      <Box sx={projectProgressStyles.box2}>
+        <LinearProgress variant='determinate' value={maxRate(rate)} />
       </Box>
       <Box sx={{ minWidth: 35 }}>
         <Typography variant="body2" color="text.secondary">{`${Math.round(
-          props.value
+        rate
         )}%`}</Typography>
       </Box>
     </Box>
   );
 }
 
-export default function ProjectProgress() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    setProgress(progress + 50);
-  }, []);
+export default function ProjectProgress({
+  progressRate
+}) {
 
   return (
     <Box sx={{ width: '100%' }}>
       <Typography></Typography>
-      <ProgressLine value={progress} />
+      <ProgressLine rate={progressRate}/>
     </Box>
   );
 }

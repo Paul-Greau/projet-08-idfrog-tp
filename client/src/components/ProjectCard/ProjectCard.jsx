@@ -1,51 +1,117 @@
 /* eslint-disable react/prop-types */
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-import { projectCardStyles } from './styles';
+// Material UI
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+} from "@mui/material";
+
+// CSS
+import { projectCardStyles } from "./styles";
 
 // import PropTypes from "prop-types";
 
-import topCardImage from '../../assets/images/PlaceholderImage.jpg';
-import ProjectProgress from '../ProjectProgress/ProjectProgress';
+// import topCardImage from '../../assets/images/PlaceholderImage.jpg';
+import ProjectProgress from "../ProjectProgress/ProjectProgress";
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../atomes/profileAtomes";
 
-function ProjectCard({projet, amount, description, profile}) {
+function ProjectCard({
+  id,
+  projet,
+  amount,
+  description,
+  profile,
+  createdAt,
+  contributions,
+}) {
+  const options = {
+    /* weekday: 'long' ,*/ year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+  const [totalContributions, setTotalContributions] = useState(0);
+  const [progressRatio, setProgressRatio] = useState(0);
+
+  const progressRate = (contributionslist) => {
+    let totalContribution = 0;
+    if (contributionslist?.length === 0) {
+      setTotalContributions(0);
+      setProgressRatio(0);
+    }
+    contributionslist?.map(
+      (contribution) => (totalContribution += contribution.invested_amount)
+    );
+    const rate = Number((100 * totalContribution) / amount);
+    setTotalContributions(totalContribution);
+    setProgressRatio(rate);
+  };
+
+  useEffect(() => {
+    progressRate(contributions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
+
   return (
-    <Card sx={{ maxWidth: '100%', marginBottom: '30px', marginTop: '30px' }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={topCardImage}
-        alt="image du projet"
-      />
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
-          {profile} • 4 Feb 2022
-        </Typography>
-        <Typography color="secondary" gutterBottom variant="h5" component="div">
-          {projet}
-        </Typography>
-        <Typography color="secondary.light" sx={projectCardStyles.summary}>
-        {description}
-        </Typography>
-      </CardContent>
-
+    <Card sx={{ maxWidth: "100%" }}>
+      <Link to={`/project/${id}`}>
+        <CardMedia
+          component="img"
+          height="140"
+          src={`https://picsum.photos/1200/800?random=${id}`}
+          alt={projet}
+        />
+        <CardContent>
+          <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
+            {profile} •{" "}
+            {new Date(createdAt).toLocaleDateString("fr-FR", options)}
+          </Typography>
+          <Typography
+            color="secondary"
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
+            {projet}
+          </Typography>
+          <Typography color="secondary.light" sx={projectCardStyles.summary}>
+            {description}
+          </Typography>
+        </CardContent>
+      </Link>
       <CardContent>
         <Typography sx={{ fontSize: 16 }} color="secondary" gutterBottom>
-          403 630€ sur <span style={{ fontSize: 24 }}>{amount}€</span>
+          {totalContributions}€ sur{" "}
+          <span style={{ fontSize: 24 }}>{amount}€</span>
         </Typography>
-        <ProjectProgress></ProjectProgress>
+        <ProjectProgress progressRate={progressRatio} />
       </CardContent>
 
       <CardActions sx={projectCardStyles.cardAction}>
-        <Button size="small" sx={projectCardStyles.btnPrimary}>
-          Contribuer au projet &gt;
-        </Button>
+        {!ProfileInfo.isLogged ? (
+          <Link to="/subscribe">
+            <Button size="small" sx={projectCardStyles.btnPrimary}>
+              Contribuer au projet &gt;
+            </Button>
+          </Link>
+        ) : (
+          <Link to={`project/${id}`}>
+            <Button size="small" sx={projectCardStyles.btnPrimary}>
+              Contribuer au projet &gt;
+            </Button>
+          </Link>
+        )}
+
         <Button size="small" sx={projectCardStyles.btnSecondary}>
           Partager +
         </Button>

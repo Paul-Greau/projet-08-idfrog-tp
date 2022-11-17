@@ -40,6 +40,7 @@ useEffect(
         console.log(error);
       }
     };
+
     // mon effet s'executera sur le mount
     FetchData(); // fetchData est asynchrone je l'appele simplement sans attendre la suite
   },
@@ -49,10 +50,6 @@ useEffect(
 const indexOfLastCard = currentPage * cardsPerPage;
 const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 const currentCards = result.slice(indexOfFirstCard, indexOfLastCard)
-
-
-
-
 
   return (
     <>

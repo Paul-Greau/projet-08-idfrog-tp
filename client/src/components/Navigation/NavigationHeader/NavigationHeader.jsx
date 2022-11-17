@@ -1,22 +1,44 @@
 /* eslint-disable react/prop-types */
+
+import { useRecoilValue, useResetRecoilState, useSetRecoilState} from "recoil";
+import { profileConnexionstate, profileDetailState } from "../../../atomes/profileAtomes";
+import { getLogout } from "../../../services/loginService";
+
+
 import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import { Typography } from '@mui/material';
-
-import { Link } from 'react-router-dom';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-
 import IdfrogLogo from '../../../assets/images/logo-mini.png';
 
-function ResponsiveAppBar({ userDetails, isLogged }) {
+// Material UI
+import {
+  Avatar,
+  Typography,
+  MenuItem,
+  Button,
+  Grid,
+  Container,
+  Menu,
+  IconButton,
+  Toolbar,
+  AppBar,
+  Box,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
+
+// CSS
+import { navHeaderStyles } from './styles';
+
+function ResponsiveAppBar() {
+  const ProfileInfo = useRecoilValue(profileConnexionstate);
+
+  const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
+  const ResetProfileDetailState = useResetRecoilState(profileDetailState)
+
+  
+  
+ // console.log('ProfileInfo dans la navbar', ProfileInfo);
+ 
+
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -26,39 +48,20 @@ function ResponsiveAppBar({ userDetails, isLogged }) {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const buttonPrimaryStyles = {
-    fontSize: 14,
-    backgroundColor: '#ffffff',
-    color: '#5de4d5',
-    fontWeight: 700,
-    margin: '4px',
-    textTransform: 'none',
-    borderRadius: '50px',
-    padding: '4px 10px',
-    '&:hover': {
-      color: '#ffffff',
-      border: '2px solid #ffffff',
-    },
-  };
 
-  const buttonSecondaryStyles = {
-    fontSize: 14,
-    backgroundColor: '#5de4d5',
-    background: ' rgba(0, 0, 0, 0.2)',
-    color: '#2D3A4D',
-    fontWeight: 700,
-    margin: '4px',
-    textTransform: 'none',
-    borderRadius: '50px',
-    padding: '4px 10px',
-    '&:hover': {
-      color: '#2D3A4D',
-      border: '2px solid #2D3A4D',
-    },
-  };
+  const handleLogout = async () => {
+    const res = await getLogout();
+    console.log(res);
+
+    ResetProfileInfo()
+    ResetProfileDetailState()
+    localStorage.clear()
+  }
+
+
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position="sticky">
+      <Container maxWidth="100%">
         <Toolbar disableGutters>
           <Link to="/">
             <img
@@ -69,9 +72,9 @@ function ResponsiveAppBar({ userDetails, isLogged }) {
                 mr: 1,
                 padding: '0.4em',
               }}
-            />{' '}
+            />
           </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 2, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -100,90 +103,109 @@ function ResponsiveAppBar({ userDetails, isLogged }) {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              {ProfileInfo.isLogged ? (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography color="primary.dark">
+                    <Link to="profile">Mon Profile</Link>
+                  </Typography>
+                </MenuItem>
+              ) : (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography color="primary.dark">
+                    <Link to="subscribe">Lancer mon projet</Link>
+                  </Typography>
+                </MenuItem>
+              )}
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography color="primary.dark">
-                  <Link to="/login">Lancer mon projet</Link>
-                </Typography>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Typography color="primary.dark">
-                  <Link to="/projects">Liste des Projets</Link>
+                  <Link to="projects">Liste des Projets</Link>
                 </Typography>
               </MenuItem>
             </Menu>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Typography color="primary.dark">
+            {ProfileInfo.isLogged ? (
+              <Link to="profile">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={navHeaderStyles.btnPostProject}
+                >
+                  Mon Profile
+                </Button>
+              </Link>
+            ) : (
+              <Link to="subscribe">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={navHeaderStyles.btnPostProject}
+                >
+                  Lancer mon projet
+                </Button>
+              </Link>
+            )}
+            <Link to="projects">
               <Button
-                href="/signin"
                 onClick={handleCloseNavMenu}
-                sx={{
-                  pt: 4,
-                  pb: 4,
-                  mx: 1,
-                  color: 'white',
-                  display: 'block',
-                  '&:hover': {
-                    backgroundColor: '#5de4d5',
-                    background: 'rgba(0, 0, 0, 0.1)',
-                    borderRadius: '0px',
-                  },
-                }}
+                sx={navHeaderStyles.btnListProject}
               >
-                Lancer mon dprojet
+                Liste des Projets
               </Button>
-            </Typography>
-            <Button
-              href="/projects"
-              onClick={handleCloseNavMenu}
-              sx={{
-                pt: 4,
-                pb: 4,
-                color: 'white',
-                display: 'block',
-                '&:hover': {
-                  backgroundColor: '#5de4d5',
-                  background: 'rgba(0, 0, 0, 0.1)',
-                  borderRadius: '0px',
-                },
-              }}
-            >
-              Liste des Projets
-            </Button>
+            </Link>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <div className="navigtionHeader-login">
-              {isLogged ? (
-                <>
-                  <Link to={`/profile/${userDetails.id}`}>
-                    <div className="navigtionHeader-login-user">
-                      <AccountCircleRoundedIcon />
-                      <p>{userDetails.name}</p>
-                    </div>
-                  </Link>
-                  <Button
-                    href={`/profile/${userDetails.id}/logout`}
-                    size="small"
-                    sx={buttonSecondaryStyles}
-                  >
-                    Se déconnecter
-                  </Button>
-                </>
+          <Box>
+            <div>
+              {ProfileInfo.isLogged ? (
+                <Grid container>
+                  <Grid item sx={{ xs: 6 }}>
+                    <Link to={`/profile/`}>
+                      <div style={navHeaderStyles.loginUser}>
+                        <Avatar
+                          sx={{ bgcolor: '#2D3A4D' }}
+                          alt="IdFrog"
+                          src="/broken-image.jpg"
+                        >
+                          IF
+                        </Avatar>
+                        <Box
+                          sx={{
+                            flexGrow: 1,
+                            px: 1,
+                            display: { xs: 'none', md: 'flex' },
+                          }}
+                        >
+                          {ProfileInfo.pseudo}
+                        </Box>
+                      </div>
+                    </Link>
+                  </Grid>
+                  <Grid item sx={{ xs: 6 }}>
+                    <Link to={`/profile/logout`}>
+                      <Button
+                        size="small"
+                        sx={navHeaderStyles.btnSecondary}
+                        onClick={() => {
+                          handleLogout();
+                        }}
+                      >
+                        Se déconnecter
+                      </Button>
+                    </Link>
+                  </Grid>
+                </Grid>
               ) : (
                 <>
-                  <Button href="/signup" size="small" sx={buttonPrimaryStyles}>
-                    S&apos;inscrire
-                  </Button>
-
-                  <Button
-                    href="/signin"
-                    size="small"
-                    sx={buttonSecondaryStyles}
-                  >
-                    Se connecter
-                  </Button>
+                  <Link to="subscribe">
+                    <Button size="small" sx={navHeaderStyles.btnPrimary}>
+                      inscription
+                    </Button>
+                  </Link>
+                  <Link to="login">
+                    <Button size="small" sx={navHeaderStyles.btnSecondary}>
+                      connexion
+                    </Button>
+                  </Link>
                 </>
               )}
             </div>

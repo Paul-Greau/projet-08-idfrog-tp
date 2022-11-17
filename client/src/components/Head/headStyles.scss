@@ -4,9 +4,10 @@
   padding: vars.$gutter vars.$gutter * 2 0 vars.$gutter * 2;
   &-logo {
     width: 100%;
-    max-width: '535px';
+    max-width: '500px';
     display: flex;
     align-items: center;
     justify-content: center;
   }
 }
+
