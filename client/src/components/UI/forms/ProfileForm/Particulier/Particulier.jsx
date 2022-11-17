@@ -1,73 +1,152 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
+
+import UploadAvatar from '../UploadAvatar/UploadAvatar';
+import { patchProfileDetails, postFIllProfileDetails } from '../../../../../services/profileService';
 
 // Materail UI
 import {
   TextField,
   Box,
   RadioGroup,
-  Typography,
   FormControlLabel,
   Radio,
+  Button,
+  Alert
 } from '@mui/material';
-
 // Yup Schema
-import { validationSchema } from '../validateProfileSchema';
-
+import { validationSchema } from '../validatePersonSchema.js';
 //Formik
-import { useFormik } from 'formik';
+import { useFormik} from 'formik';
+// CSS
+import { postParticulierStyles } from './styles';
 
-function ProfileForm() {
+function ProfileForm({
+  // eslint-disable-next-line react/prop-types
+  person,
+  profileStatus,
+  token,
+}){
+
+  console.log("person", person);
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
+
+  const handleSubmit = (response) => {
+    if (response.status === 201){
+      setAlertStyle('success')
+      setLoginError({
+        status : null,
+        message: 'Profile mis à jour'
+      })
+      setShowError(true)
+      return
+    }
+    setLoginError({
+      status : response.status,
+      message: response.data.message
+    })
+    setShowError(true)
+    return
+  } 
+
   const formik = useFormik({
     initialValues: {
-      birth_date: '',
-      birth_place: '',
-      nationality: '',
-      city: '',
-      zip_code: '',
-      phone_number: '',
-      adress: '',
+      gender:person?.gender ?? "",
+      first_name:person?.first_name ?? "",
+      last_name:person?.last_name ?? "",
+      status: profileStatus,
+      birth_date: person?.birth_date ?? "",
+      birth_place: person?.birth_place ?? "",
+      nationality: person?.nationality ?? "",
+      city: person?.city ?? "",
+      zip_code: person?.zip_code ?? "",
+      phone_number: person?.phone_number ?? "",
+      adress: person?.adress ?? "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+     // alert(JSON.stringify(values, null, 2));
+      console.log('values du form', values);
+      if(person === null){
+        console.log('profile vide');
+        const response = await postFIllProfileDetails(token, values);
+        console.log(response);
+        handleSubmit(response)
+        return      
+      } else {
+        console.log('person exist deja');
+        const response = await patchProfileDetails(token, values);
+        console.log(response);
+        handleSubmit(response)
+        return
+      }
+         
     },
   });
 
   return (
     <Box className="profileForm">
-      <RadioGroup row name="status">
-        <Typography sx={{ pr: 2, pt: 0.5 }} color="Secondary" variant="h5">
-          Votre Statut :
-        </Typography>
-        <FormControlLabel
-          value="particulier"
-          control={<Radio id="2" />}
-          label="un particulier"
-        />
-        <FormControlLabel
-          value="madame"
-          control={<Radio id="3" />}
-          label="une association"
-        />
-      </RadioGroup>
+      <form onSubmit={formik.handleSubmit} autoComplete="off">
+
+      <RadioGroup
+          row
+          name="gender"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.gender}
+          >
+         
+            <FormControlLabel
+              value="male"
+              control={<Radio />}
+              label="Monsieur" />
+
+            <FormControlLabel
+            value="female"
+            control={<Radio />}
+            label="Madame" />
+
+            <UploadAvatar />
+
+          </RadioGroup>
+
       <TextField
-        sx={{
-          flexFlow: 1,
-          mt: 2,
-          mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-          width: {
-            xs: '100%',
-            sm: '100%',
-            md: '46.2%',
-            lg: '48.2%',
-            xl: '48.7%',
-          },
-          display: { xs: 'row', md: 'colum' },
-        }}
+            sx={postParticulierStyles.leftInput}
+            required
+            margin="dense"
+            type="text"
+            name="last_name"
+            id="last_name"
+            label="Nom"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.last_name}
+            helperText={formik.touched.first_name && formik.errors.first_name}
+            error={formik.errors.first_name && formik.touched.first_name} />
+
+          <TextField
+            sx={postParticulierStyles.rightInput}
+            fullWidth
+            required
+            margin="dense"
+            type="text"
+            name="first_name"
+            id="first_name"
+            label="Prenom"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.first_name}
+            helperText={formik.touched.first_name && formik.errors.first_name}
+            error={formik.errors.first_name && formik.touched.first_name} />
+
+      <TextField
+        sx={postParticulierStyles.leftInput}
         required
         margin="dense"
-        type="text"
+        type="date"
         name="birth_date"
         id="birth_date"
         label="Date de naissance"
@@ -77,12 +156,9 @@ function ProfileForm() {
         helperText={formik.touched.birth_date && formik.errors.birth_date}
         error={formik.errors.birth_date && formik.touched.birth_date}
       />
+
       <TextField
-        sx={{
-          mt: 2,
-          width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-          display: { xs: 'row', md: 'colum' },
-        }}
+        sx={postParticulierStyles.rightInput}
         required
         margin="dense"
         type="text"
@@ -95,21 +171,9 @@ function ProfileForm() {
         helperText={formik.touched.birth_place && formik.errors.birth_place}
         error={formik.errors.birth_place && formik.touched.birth_place}
       />
+
       <TextField
-        sx={{
-          flexFlow: 1,
-          mt: 2,
-          mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-          width: {
-            xs: '100%',
-            sm: '100%',
-            md: '46.2%',
-            lg: '48.2%',
-            xl: '48.7%',
-          },
-          display: { xs: 'row', md: 'colum' },
-        }}
-        fullWidth
+        sx={postParticulierStyles.leftInput}
         required
         margin="dense"
         type="text"
@@ -118,18 +182,13 @@ function ProfileForm() {
         name="nationality"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        values={formik.values.nationality}
+        value={formik.values.nationality}
         helperText={formik.touched.nationality && formik.errors.nationality}
         error={formik.errors.nationality && formik.touched.nationality}
       />
 
       <TextField
-        sx={{
-          mt: 2,
-          width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-          display: { xs: 'row', md: 'colum' },
-        }}
-        fullWidth
+        sx={postParticulierStyles.rightInput}
         required
         margin="dense"
         type="text"
@@ -138,26 +197,13 @@ function ProfileForm() {
         name="city"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        values={formik.values.city}
+        value={formik.values.city}
         helperText={formik.touched.city && formik.errors.city}
         error={formik.errors.city && formik.touched.city}
       />
 
       <TextField
-        sx={{
-          flexFlow: 1,
-          mt: 2,
-          mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-          width: {
-            xs: '100%',
-            sm: '100%',
-            md: '46.2%',
-            lg: '48.2%',
-            xl: '48.7%',
-          },
-          display: { xs: 'row', md: 'colum' },
-        }}
-        fullWidth
+        sx={postParticulierStyles.leftInput}
         required
         margin="dense"
         type="text"
@@ -166,16 +212,13 @@ function ProfileForm() {
         name="zip_code"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        values={formik.values.zip_code}
+        value={formik.values.zip_code}
         helperText={formik.touched.zip_code && formik.errors.zip_code}
         error={formik.errors.zip_code && formik.touched.zip_code}
       />
+
       <TextField
-        sx={{
-          mt: 2,
-          width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-          display: { xs: 'row', md: 'colum' },
-        }}
+        sx={postParticulierStyles.rightInput}
         fullWidth
         required
         margin="dense"
@@ -185,13 +228,13 @@ function ProfileForm() {
         name="phone_number"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        values={formik.values.phone_number}
+        value={formik.values.phone_number}
         helperText={formik.touched.phone_number && formik.errors.phone_number}
         error={formik.errors.phone_number && formik.touched.phone_number}
       />
 
       <TextField
-        sx={{ mt: 2 }}
+        sx={postParticulierStyles.marginTop}
         fullWidth
         required
         margin="dense"
@@ -205,9 +248,47 @@ function ProfileForm() {
         helperText={formik.touched.adress && formik.errors.adress}
         error={formik.errors.adress && formik.touched.adress}
       />
+{/* 
+      <TextField  // TODO ajouter ce champs dans la bdd
+          sx={postParticulierStyles.leftInput}
+          fullWidth
+          margin="dense"
+          type="text"
+          id="website"
+          label="Liens de vos résaux social et site web"
+          defaultValue="https://"
+          name="website"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          values={formik.values.website}
+          helperText={formik.touched.website && formik.errors.website}
+          error={formik.errors.website && formik.touched.website}
+        /> */}
+
+      <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            sx={{ mt: 4, mb: 4, mr: 2 }}
+          >
+            ENREGISTRER VOS INFORMATIONS
+        </Button>
+
+      <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
+            ANNULER
+      </Button>
+      {showError &&
+    <Alert severity={alertStyle}
+    onClose={() => {setShowError(false)}}
+    >
+    {loginError.status ? `'Erreur' ${loginError.status}` : ''} - {loginError.message}
+    </Alert>
+    } 
+      </form>
     </Box>
   );
 }
+
 ProfileForm.propTypes = {};
 
 ProfileForm.defaultProps = {};

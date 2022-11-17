@@ -1,30 +1,74 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
+import { patchProfileDetails, postFIllProfileDetails } from '../../../../../services/profileService';
 
 // Materail UI
-import { TextField, Box, Typography } from '@mui/material';
-
+import { TextField, Box, Typography, Button, Alert } from '@mui/material';
 // Yup Schema
-import { validationSchema } from '../validateProfileSchema';
-
+import { validationSchema } from './validateSocietySchema';
 //Formik
 import { useFormik } from 'formik';
+// CSS
+import { postEntrepriseStyles } from './styles';
 
-function ProfileForm() {
+function EntrepriseProfileForm({
+  society,  
+  profileStatus,
+  token
+}) {
+
+  const [showError, setShowError] = useState(false)
+  const [loginError, setLoginError] = useState('')
+  const [alertStyle, setAlertStyle] = useState('error')
+
+  const handleSubmit = (response) => {
+    if (response.status === 201){
+      setAlertStyle('success')
+      setLoginError({
+        status : null,
+        message: 'Profile mis à jour'
+      })
+      setShowError(true)
+      return
+    }
+    setLoginError({
+      status : response.status,
+      message: response.data.message
+    })
+    setShowError(true)
+    return
+  } 
+
   const formik = useFormik({
     initialValues: {
-      siret: '',
-      profile_id: '',
-      name: '',
-      city: '',
+      siret: society?.siret ?? '',
+      name: society?.name ?? '',
+      status: profileStatus,
+      /* city: '',
       zip_code: '',
       phone_number: '',
-      adress: '',
+      adress: '', */
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
+    onSubmit: async (values) => {
+      // alert(JSON.stringify(values, null, 2));
+       console.log('values du form', values);
+       if(society === null){
+         console.log('profile vide');
+         const response = await postFIllProfileDetails(token, values);
+         console.log(response);
+         handleSubmit(response)
+         return      
+       } else {
+         console.log('society existe deja');
+         const response = await patchProfileDetails(token, values);
+         console.log(response);
+         handleSubmit(response)
+         return
+       }
+          
+     },
   });
 
   return (
@@ -35,19 +79,7 @@ function ProfileForm() {
         </Typography>
 
         <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '49.2%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postEntrepriseStyles.leftInput}
           required
           margin="dense"
           type="text"
@@ -61,11 +93,7 @@ function ProfileForm() {
           error={formik.errors.siret && formik.touched.siret}
         />
         <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.2%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+          sx={postEntrepriseStyles.rightInput}
           required
           margin="dense"
           type="text"
@@ -79,84 +107,8 @@ function ProfileForm() {
           error={formik.errors.name && formik.touched.name}
         />
 
-        <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '48.7%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
-          required
-          margin="dense"
-          type="text"
-          name="birth_date"
-          id="birth_date"
-          label="Date de naissance"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.birth_date}
-          helperText={formik.touched.birth_date && formik.errors.birth_date}
-          error={formik.errors.birth_date && formik.touched.birth_date}
-        />
-        <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
-          required
-          margin="dense"
-          type="text"
-          name="birth_place"
-          id="birth_place"
-          label="Lieu de naissance"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.birth_place}
-          helperText={formik.touched.birth_place && formik.errors.birth_place}
-          error={formik.errors.birth_place && formik.touched.birth_place}
-        />
-        <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '48.7%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
-          fullWidth
-          required
-          margin="dense"
-          type="text"
-          id="nationality"
-          label="Nationalité"
-          name="nationality"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          values={formik.values.nationality}
-          helperText={formik.touched.nationality && formik.errors.nationality}
-          error={formik.errors.nationality && formik.touched.nationality}
-        />
-
-        <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+        {/* <TextField
+          sx={postEntrepriseStyles.leftInput}
           fullWidth
           required
           margin="dense"
@@ -169,22 +121,10 @@ function ProfileForm() {
           values={formik.values.city}
           helperText={formik.touched.city && formik.errors.city}
           error={formik.errors.city && formik.touched.city}
-        />
+        /> */}
 
-        <TextField
-          sx={{
-            flexFlow: 1,
-            mt: 2,
-            mr: { xs: 2, sm: 2, md: 3, lg: 2, xl: 3 },
-            width: {
-              xs: '100%',
-              sm: '100%',
-              md: '46.2%',
-              lg: '48.2%',
-              xl: '48.7%',
-            },
-            display: { xs: 'row', md: 'colum' },
-          }}
+       {/*  <TextField
+          sx={postEntrepriseStyles.rightInput}
           fullWidth
           required
           margin="dense"
@@ -197,13 +137,10 @@ function ProfileForm() {
           values={formik.values.zip_code}
           helperText={formik.touched.zip_code && formik.errors.zip_code}
           error={formik.errors.zip_code && formik.touched.zip_code}
-        />
-        <TextField
-          sx={{
-            mt: 2,
-            width: { xs: '100%', sm: '100%', md: '48.2%', lg: '48.7%' },
-            display: { xs: 'row', md: 'colum' },
-          }}
+        /> */}
+
+       {/*  <TextField
+          sx={postEntrepriseStyles.leftInput}
           fullWidth
           required
           margin="dense"
@@ -216,10 +153,10 @@ function ProfileForm() {
           values={formik.values.phone_number}
           helperText={formik.touched.phone_number && formik.errors.phone_number}
           error={formik.errors.phone_number && formik.touched.phone_number}
-        />
+        /> */}
 
-        <TextField
-          sx={{ mt: 2 }}
+         {/* <TextField
+          sx={postEntrepriseStyles.marginTop}
           fullWidth
           required
           margin="dense"
@@ -232,13 +169,32 @@ function ProfileForm() {
           value={formik.values.adress}
           helperText={formik.touched.adress && formik.errors.adress}
           error={formik.errors.adress && formik.touched.adress}
-        />
+        /> */} 
+        <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            sx={{ mt: 4, mb: 4, mr: 2 }}
+          >
+            ENREGISTRER VOS INFORMATIONS
+        </Button>
+
+        <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
+              ANNULER
+        </Button>
+        {showError &&
+        <Alert severity={alertStyle}
+          onClose={() => {setShowError(false)}}
+        >
+        {loginError.status ? `'Erreur' ${loginError.status}` : ''} - {loginError.message}
+        </Alert>
+        } 
       </form>
     </Box>
   );
 }
-ProfileForm.propTypes = {};
+EntrepriseProfileForm.propTypes = {};
 
-ProfileForm.defaultProps = {};
+EntrepriseProfileForm.defaultProps = {};
 
-export default ProfileForm;
+export default EntrepriseProfileForm;
