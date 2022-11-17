@@ -46,6 +46,7 @@ function Signin() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      console.log(values);
       let res = await postSignin(values);
       HandleSignin(res);
     },
