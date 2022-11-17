@@ -2,8 +2,8 @@ import { sendPostRequest } from "../lib/Axios";
 import { sendGetRequest } from "../lib/Axios";
 
 export const postLogin = async (data) => {
-  console.log(data);   
-  return sendPostRequest(`/login`, data);
+  console.log('logindata request', data);   
+  return sendPostRequest(`/login`,null, data);
   };
 
 export const getLogout = async () => {     

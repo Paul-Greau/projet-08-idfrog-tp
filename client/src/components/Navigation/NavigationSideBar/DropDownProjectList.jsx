@@ -11,6 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
+  Divider,
 } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -56,6 +57,7 @@ function DropDownProjectList({ projectList }) {
                   primary={project.name}
                 />
               </ListItemButton>
+              <Divider />
             </Link>
           ))}
         </List>

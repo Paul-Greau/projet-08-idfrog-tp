@@ -2,9 +2,15 @@
 import * as yup from "yup";
 
 export const validationSchema = yup.object().shape({
+  name: yup
+  .string("string")
+  .required("Ce champ est requis !"),
   title: yup
     .string("string")
     .required("Ce champ est requis !"),
+  category_id: yup
+  .string("string")
+  .required("Ce champ est requis !"),
   resume: yup
     .string("string")
     .required("Ce champ est requis !"),
@@ -15,26 +21,11 @@ export const validationSchema = yup.object().shape({
     .string("string")
     .required("Ce champ est requis !"),
   invest_type: yup
-    .boolean()
-    .required()
-    .oneOf([0 , 1], 'Sélectionez un type de financement'),
-  status: yup
-    .boolean()
-    .required()
-    .oneOf([2 , 3], 'Sélectionez un type de financement'),
-  birth_date: yup
     .string("string")
-    .required("Ce champ est requis !"),
-  birth_place: yup
-    .string("string")
-    .required("Ce champ est requis !"),
-  nationality: yup
-    .string("string")
-    .required("Ce champ est requis !"),
-  city: yup
-    .string("string")
-    .required("Ce champ est requis !"),
-  zip_code: yup
+    .required("Sélectionez un type de financement"),
+  rate: yup
+    .string("string"),
+  end_time: yup
     .string("string")
     .required("Ce champ est requis !"),
   phone_number: yup
@@ -43,7 +34,17 @@ export const validationSchema = yup.object().shape({
   adress: yup
     .string("string")
     .required("Ce champ est requis !"),
+  end_time: yup
+    .string("string")
+    .nullable()
+    .required("Ce champ est requis !"),
+
   website: yup
     .string()
-    .url()
+    .url(),
+  status: yup
+    .string(),
+  visibility: yup
+    .boolean(),
 });
+

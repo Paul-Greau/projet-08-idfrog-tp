@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // import PropTypes from 'prop-types';
 
 //  Services
-import { getProjectsList } from '../../../services/projectService';
+import { getProjectsList } from "../../../services/projectService";
 // Components
-import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
-import Head from '../../../components/Head/Head';
-import TopFooter from '../../../components/TopFooter/TopFooter';
+import ProjectCardList from "../../../components/ProjectCardList/ProjectCardList";
+import Head from "../../../components/Head/Head";
+import TopFooter from "../../../components/TopFooter/TopFooter";
 
 // Material UI
-import { Container, Box, Pagination } from '@mui/material';
+import { Container, Box, Pagination } from "@mui/material";
 
 // CSS
-import './homeStyles.scss';
+import "./homeStyles.scss";
 
 function Home() {
   const [result, setResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(3);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (event, value) => {
     event.preventDefault();
@@ -30,17 +31,19 @@ function Home() {
 
   const FetchData = async () => {
     try {
+      setIsLoading(true);
       const response = await getProjectsList();
       console.log(response.data);
       setResult(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-      FetchData(); 
-    },[]);
+    FetchData();
+  }, []);
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -50,13 +53,13 @@ function Home() {
     <>
       <Head />
       <Box className="allCards">
-        <ProjectCardList result={currentCards} />
+        <ProjectCardList result={currentCards} isLoading={isLoading} />
         <Container
           component="section"
           maxWidth="lg"
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
           }}
         >
           <Pagination

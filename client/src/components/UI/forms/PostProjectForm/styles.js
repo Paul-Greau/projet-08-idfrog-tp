@@ -1,4 +1,7 @@
+
 export const postProjectStyles = {
+
+
 
     leftInput: {
         flexFlow: 1,
@@ -21,5 +24,6 @@ export const postProjectStyles = {
         display: { xs: 'row', md: 'colum' },
       
       },   
+    
 
 };
