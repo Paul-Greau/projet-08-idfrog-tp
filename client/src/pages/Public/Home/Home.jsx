@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // import PropTypes from 'prop-types';
 
 //  Services
-import { getProjectsList } from '../../../services/projects';
+import { getProjectsList } from "../../../services/projectService";
 // Components
-import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
-import Head from '../../../components/Head/Head';
-import TopFooter from '../../../components/TopFooter/TopFooter';
+import ProjectCardList from "../../../components/ProjectCardList/ProjectCardList";
+import Head from "../../../components/Head/Head";
+import TopFooter from "../../../components/TopFooter/TopFooter";
 
 // Material UI
-import { Container, Box, Pagination } from '@mui/material';
+import { Container, Box, Pagination } from "@mui/material";
 
 // CSS
-import './homeStyles.scss';
+import "./homeStyles.scss";
 
 function Home() {
   const [result, setResult] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(3);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (event, value) => {
     event.preventDefault();
@@ -28,22 +29,21 @@ function Home() {
 
   const nbPage = Math.ceil(result.length / cardsPerPage);
 
-  useEffect(
-    () => {
-      const FetchData = async () => {
-        try {
-          const response = await getProjectsList();
-          console.log(response.data);
-          setResult(response.data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      // mon effet s'executera sur le mount
-      FetchData(); // fetchData est asynchrone je l'appele simplement sans attendre la suite
-    },
-    [] // tableau de dependances vide => effet sur le mount
-  );
+  const FetchData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await getProjectsList();
+      console.log(response.data);
+      setResult(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    FetchData();
+  }, []);
 
   const indexOfLastCard = currentPage * cardsPerPage;
   const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -53,13 +53,13 @@ function Home() {
     <>
       <Head />
       <Box className="allCards">
-        <ProjectCardList result={currentCards} />
+        <ProjectCardList result={currentCards} isLoading={isLoading} />
         <Container
           component="section"
           maxWidth="lg"
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
           }}
         >
           <Pagination

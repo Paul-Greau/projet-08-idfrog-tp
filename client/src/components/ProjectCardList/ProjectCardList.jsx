@@ -1,28 +1,31 @@
 /* eslint-disable react/prop-types */
 
-import React, {useState} from 'react';
+import React, { useState } from "react";
 // import PropTypes from 'prop-types';
 
 // Copoments
-import ProjectCard from '../ProjectCard/ProjectCard';
+import ProjectCard from "../ProjectCard/ProjectCard";
+import PlaceHolder from "../../components/ProjectCard/ProjectCardPlaceholder";
+
+import { categorys, financingTypes } from "./categaryFilter";
 
 // Material UI
-import { 
-  Container, 
-  Grid, 
-  Box, 
-  FormControl, 
-  InputLabel, 
-  Select, 
-  MenuItem 
-} 
-from '@mui/material';
+
+import {
+  Container,
+  Grid,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  LinearProgress,
+} from "@mui/material";
 
 // CSS
-// eslint-disable-next-line no-unused-vars
-import { projectCardStyles } from '../ProjectCard/styles';
+import { projectCardStyles } from "./styles";
 
-function ProjectCardList({ result }) {
+function ProjectCardList({ result, isLoading }) {
   console.log(result);
 
   const categories = [
@@ -132,21 +135,41 @@ function ProjectCardList({ result }) {
               .map(res => <Grid item xs={12} md={4} sm={6} key={res.id}>
                 <ProjectCard
                   id={res.id}
+                  createdAt={res.created_at}
                   projet={res.name}
                   amount={res.amount_target}
                   description={res.description}
                   profile={res.profile.pseudo}
+                  contributions={res.contributions}
                 />
-              </Grid>)}
-          </Grid>
-        </Container>
-      </Box>
+              </Grid>
+            ))}
+          {isLoading && (
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{
+                padding: "16px 0 0 16px",
+              }}
+            >
+              <Box sx={{ width: "100%", marginBottom: "20px" }}>
+                <LinearProgress />
+              </Box>
+              <PlaceHolder />
+              <PlaceHolder />
+              <PlaceHolder />
+            </Grid>
+          )}
+        </Grid>
+      </Container>
     </>
   );
 }
 
-ProjectCardList.PropType = {};
+// ProjectCardList.PropType = {};
 
-ProjectCardList.defaultProps = {};
+// ProjectCardList.defaultProps = {};
 
 export default React.memo(ProjectCardList);

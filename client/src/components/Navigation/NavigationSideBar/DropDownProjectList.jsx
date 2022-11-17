@@ -11,6 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
+  Divider,
 } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -49,13 +50,14 @@ function DropDownProjectList({ projectList }) {
           sx={{ backgroundColor: '#ffffff80' }}
         >
           {projectList?.map((project, index) => (
-            <Link key={index} to={`project`}>
+            <Link key={index} to={`/project/${project.id}`}>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemText
                   sx={{ textAlign: 'center' }}
                   primary={project.name}
                 />
               </ListItemButton>
+              <Divider />
             </Link>
           ))}
         </List>
