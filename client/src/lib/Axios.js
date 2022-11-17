@@ -1,7 +1,7 @@
 import { default as Axios } from "axios";
 
 const axios = Axios.create({
-  baseURL:  "nicolasortigue-server.cloud:8080",
+  baseURL:  "http://nicolasortigue-server.eddi.cloud:8080",
   timeout: 10000,
   headers: {
     // 'CSRF-Token': csrfToken
