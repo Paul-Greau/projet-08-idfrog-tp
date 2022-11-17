@@ -1,15 +1,15 @@
-//? Import All from Yup
+// Validation Yup
 import * as yup from "yup";
 
-export const validatinSchema = yup.object().shape({
+export const validationSchema = yup.object().shape({
   email: yup
     .string("string")
-    .email("Email is not Valid")
+    .email("Email non valide")
     .required("Ce champ est requis !"),
   password: yup
     .string("string")
     .required("Ce champ est requis !")
-    .min(4, "Le mot de passe doit comporter plus de 4 caractères")
+    .min('4', "Le mot de passe doit comporter plus de 4 caractères")
     .max(120, "Le mot de passe doit comporter moins de 120 caractères"),
 
 });

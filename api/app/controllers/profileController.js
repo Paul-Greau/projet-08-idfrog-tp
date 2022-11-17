@@ -7,12 +7,14 @@ const bcrypt = require('bcrypt');
 
 const jsonwebtoken = require('jsonwebtoken');
 
-
-
 const profileController = {
 
+        /** connexion */
+
     login: async (req,res) => {
+
      const jwtSecret = process.env.JWT_SECRET;
+
      const {email, password} = req.body
      try {
         const searchedProfile = await Profile.scope('withPassword').findOne({
@@ -35,23 +37,21 @@ const profileController = {
             });
         }
 
-        /* if (password !== searchedProfile.password){
-            const error = new Error("Login error, Email or Password Invalid");
-            return res.status(401).json({
-                message: error.message
-            });
-        } */
 
-        // si tout va bien, rajoute l'utilisateur dans la session
-        req.session.profile = searchedProfile.dataValues;
-        // pour éviter tout problème, on va supprimer le mdp de la session
-
-        req.session.profile.password = null;
         searchedProfile.password = null
 
-        console.log(req.session.profile)
-        // maintenant que l'user est loggé, on renvoie le json avec les données du profile
-        res.status(200).json(searchedProfile);
+        const jwtContent = { userId: searchedProfile.id };
+        const jwtOptions = { 
+        algorithm: 'HS256', 
+        expiresIn: '3h' 
+        };
+
+        console.log('<< 200', searchedProfile.email);
+
+        res.status(200).json({ 
+            pseudo: searchedProfile.pseudo,
+            token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
+        });
 
         } catch(error) {
             console.log(error);
@@ -64,19 +64,11 @@ const profileController = {
 
         const{  email,
                 password,
-               // confirmPassword,
+                confirmPassword,
                 pseudo} = req.body
 
         try {
-            const searchedProfile = await Profile.findOne({
-                where: {
-                    email: email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
-                }
-            });
-            console.log(searchedProfile);
-            if (searchedProfile) {
-                throw new Error("Email already exists");
-            }
+            
             // vérifie que le format de l'email est valide ex: user@user.com
             if (!emailValidator.validate(req.body.email)) {
                 const error = new Error("Email format is not valid");
@@ -86,10 +78,32 @@ const profileController = {
                 const error = new Error("Password is missing");
                 return res.status(400).json({ message: error.message });
             }
+            if (!confirmPassword) {
+                const error = new Error("Confirm Password is missing");
+                return res.status(400).json({ message: error.message });
+            }
+            if (confirmPassword !== password) {
+                const error = new Error("Password and Confirm Password are different");
+                return res.status(400).json({ message: error.message });
+            }
             if (!pseudo) {
                 const error = new Error("Pseudo is missing");
                 return res.status(400).json({ message: error.message });
             }
+
+            const searchedProfile = await Profile.findOne({
+                where: {
+                    email: email // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
+                }
+            });
+
+            //console.log(searchedProfile);
+
+            if (searchedProfile) {
+                const error = new Error("Email already exists");
+                return res.status(400).json({ message: error.message });
+            }
+
             const pseudoValidator = await Profile.findOne({
                 where: {
                     pseudo: pseudo // on récupère l'email passé dans le post, qui va nous servir à compléter la condition where
@@ -122,31 +136,66 @@ const profileController = {
         }
       },
         
+      patchProfileById: async (req, res) => {
+
+        const tokenId = req.auth.userId
+
+        const {
+            pseudo,
+            email,
+            } = req.body;
+
+        try{
+        const profileToPatch = await Profile.findByPk(tokenId);
+
+        if(pseudo){
+            profileToPatch.pseudo = pseudo
+        }
+
+        if (email){
+            profileToPatch.email = email
+        }
+
+        await profileToPatch.save()
+       //  console.log('in Patch Profile', tokenId);
+        res.status(201).json(profileToPatch);
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).json({ message: error.message });
+        }
+
+      },
 
     getProfileById: async (req,res) => {
 		try {
             //console.log(req.session);
-			const profileId = Number(req.params.id);
+			//const profileId = Number(req.params.id);
+            const tokenId = req.auth.userId;
 
-            //console.log(profileId);
+            console.log('getProfileById session', req.session.profile)           
 
-            if (!profileId) {
+           /*  if (!profileId) {
                 const error = new Error(`'profileId' property is missing`);
                 return res.status(400).json({ message: error.message });
-            }
-            if (!req.session.profile) {
+            } */
+            if (!tokenId) {
                 const error = new Error(`You must login`);
                 return res.status(401).json({ message: error.message });
             }
-            if (profileId !== req.session.profile.id) {
+          /*   if (profileId !== tokenId) {
                 const error = new Error(`You must login`);
                 return res.status(401).json({ message: error.message });
-            }
+            } */
 
-			const profile = await Profile.findByPk(profileId, {
+			const profile = await Profile.findByPk(tokenId, {
 				include: [
+                    {
+                        association: 'contributions',
+                        include: 'project',
+                        },
 					'projects',
-                    'contributions',
+                   /*  'contributions', */
                     'society',
                     'person'                    
 				],
@@ -172,7 +221,8 @@ const profileController = {
 
     fillProfil : async (req, res) => {
 
-        const profileIdparams = req.params.id
+        const tokenId = req.auth.userId;
+       // const profileIdparams = req.params.id
         const {
             status,
             // Details for a person :
@@ -193,19 +243,10 @@ const profileController = {
             } = req.body;
 
         // Global check:             
-	    if (!profileIdparams) {
+	    if (!tokenId) {
 	    	const error = new Error(`'profile_id' property is missing`);
 	    	return res.status(400).json({ message: error.message });
 	    }
-	    if (!req.session.profile) {
-	    	const error = new Error(`You must login`);
-	    	return res.status(401).json({ message: error.message });
-	    }	
-	    if (Number(profileIdparams) !== Number(req.session.profile.id)) {
-	    	const error = new Error(`You must login before complete a profil`);
-	    	return res.status(401).json({ message: error.message });
-	    }
-
         if (!status) {
 	    	const error = new Error(`'status' property is missing`);
 	    	return res.status(401).json({ message: error.message });
@@ -213,7 +254,7 @@ const profileController = {
 
         try{
             
-            const profileToFill = await Profile.findByPk(profileIdparams, {
+            const profileToFill = await Profile.findByPk(tokenId, {
 				include: [
                     'society',
                     'person'                    
@@ -221,7 +262,7 @@ const profileController = {
 			});
 
 			if (!profileToFill) { // Si `profile` == null || undefined || false
-				const error = new Error(`profile not found with id ${ profileIdparams }`);
+				const error = new Error(`profile not found with id ${ tokenId }`);
 				return res.status(404).json({
 					message: error.message
 				});
@@ -287,7 +328,7 @@ const profileController = {
                 
 
                 const fillPerson = Person.build({
-                    profile_id: Number(profileIdparams),
+                    profile_id: Number(tokenId),
                     status,
                     first_name: first_name.trim(),
                     last_name: last_name.trim(),
@@ -323,7 +364,7 @@ const profileController = {
                 }
 
                 const fillSociety = Society.build({
-                    profile_id: Number(profileIdparams),
+                    profile_id: Number(tokenId),
                     siret: Number(siret),
                     name: name.trim(),
                     status,
@@ -345,7 +386,7 @@ const profileController = {
 
     patchProfil : async (req, res) => {
 
-        const profileIdparams = req.params.id
+        const profileIdparams = req.auth.userId;
         const {
             status,
             // Details for a person :
@@ -370,15 +411,7 @@ const profileController = {
 	    	const error = new Error(`'profile_id' property is missing`);
 	    	return res.status(400).json({ message: error.message });
 	    }
-	    if (!req.session.profile) {
-	    	const error = new Error(`You must login`);
-	    	return res.status(401).json({ message: error.message });
-	    }	
-	    if (Number(profileIdparams) !== Number(req.session.profile.id)) {
-	    	const error = new Error(`You must login before complete a profil`);
-	    	return res.status(401).json({ message: error.message });
-	    }
-
+	    
         if (!status) {
 	    	const error = new Error(`'status' property is missing`);
 	    	return res.status(401).json({ message: error.message });

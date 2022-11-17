@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import PropTypes from "prop-types";
 import logoFooter from '../../assets/images/logo-mini.png';
 
 // Material UI
-import { Grid, Link, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -23,34 +24,24 @@ function Footer() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginLeft: '-22px',
+
           marginBottom: '10px',
           paddingBottom: '5px',
           paddingTop: '30px',
         }}
       >
         <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link
-            href="#"
-            color="secondary"
-            variant="subtitle2"
-            underline="hover"
-          >
+          <Link className="lien" to="#">
             Conditions d'utilisation
           </Link>
         </Grid>
         <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link
-            href="#"
-            color="secondary"
-            variant="subtitle2"
-            underline="hover"
-          >
+          <Link className="lien" to="#">
             Mentions légales
           </Link>
         </Grid>
         <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link href="#">
+          <Link to="#">
             <img
               src={logoFooter}
               className="footer-logo"
@@ -59,22 +50,12 @@ function Footer() {
           </Link>
         </Grid>
         <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link
-            href="#"
-            color="secondary"
-            variant="subtitle2"
-            underline="hover"
-          >
+          <Link className="lien" to="#">
             Politique de confidentialité
           </Link>
         </Grid>
         <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link
-            href="#"
-            color="secondary"
-            variant="subtitle2"
-            underline="hover"
-          >
+          <Link className="lien" to="/faq">
             FAQ
           </Link>
         </Grid>

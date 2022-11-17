@@ -1,55 +1,102 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // Components
-import DropDownProjectList from './DropDownProjectList';
-import DropDownContributionList from './DropDownContributionList';
-
+import SideBarItems from './SideBarItems';
+import ButtonProject from './ButtonProject';
+import SideBarPlaceholder from '../../UI/Placeholder/SideBarPlaceholder';
 // Material UI
-import { Button } from '@mui/material';
-import WorkIcon from '@mui/icons-material/Work';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { Button, Drawer, Box, Divider } from '@mui/material';
 
+import IdfrogLogo from '../../../assets/images/logo-mini.png';
+import FrogMenu from '../../../assets/images/frogmenu.png';
 // CSS
 import './navigationSideBarStyles.scss';
 
-function NavigationSideBar() {
-  const projectList = [
-    { name: 'Projet1' },
-    { name: 'Projet2' },
-    { name: 'Projet3' },
-  ];
-  const contributionList = [
-    { name: 'Contribution1' },
-    { name: 'Contribution2' },
-    { name: 'Contribution3' },
-  ];
+import palette from '../../../assets/styles/_vars.scss';
+import { navSideBarStyles } from './styles';
+
+function NavigationSideBar({
+  projectList,
+  contributionList,
+  isLoading
+}) { 
+
+  // Open toogle mobile
+  const [mobileOpen, setMobileOpen] = useState(false);
+  
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  useEffect(() => {
+    console.log("NavigationSideBar is loading", isLoading);
+  },[isLoading]);
+
+  const list = () => (
+    <Box sx={navSideBarStyles.drawerMobileBox}>
+      <Link to="/">
+        <img src={IdfrogLogo} alt="Mini Logo Idfrog" />
+      </Link>
+      <Box
+        role="presentation"
+        onClick={handleDrawerToggle}
+        onKeyDown={handleDrawerToggle}
+      >
+        <ButtonProject />
+        <Divider />
+      </Box>
+      <SideBarItems
+      projectList={projectList}
+      contributionList={contributionList}
+      />
+    </Box>
+  );
 
   return (
-    <div className="navigationSideBar">
-      <Link to={`/profile/postproject`}>
-        <Button
-          color="secondary"
-          className="navigationSideBar-button"
-          variant="text"
-          fullWidth={true}
-          sx={{
-            backgroundColor: '#ffffff!important',
-            justifyContent: 'space-between',
-            margin: '0.5rem 0',
-            padding: '0.5rem 20px ',
-          }}
-          startIcon={<WorkIcon color="secondary" />}
-          endIcon={<PlayArrowIcon color="secondary" />}
-        >
-          Nouveau Projet
+    <>
+      <Box sx={navSideBarStyles.frogMenu}>
+        <Button onClick={handleDrawerToggle}>
+          <img src={FrogMenu} alt="MenuIdfrog" />
         </Button>
-      </Link>
+      </Box>
+      {projectList ? (
+        <div className="navigationSideBar">
+          <ButtonProject />
+          <SideBarItems
+      projectList={projectList}
+      contributionList={contributionList}
+      />
+        </div>
+      ) : (
+        <div className="navigationSideBar">
+          <SideBarPlaceholder />
+        </div>
+      )}
 
-      <DropDownProjectList projectList={projectList} />
-      <DropDownContributionList contributionList={contributionList} />
-    </div>
+      <div className="drawerMobile">
+        {['left'].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Drawer
+              variant="temporary"
+              anchor={anchor}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              PaperProps={{
+                sx: {
+                  backgroundColor: palette.primary,
+                  border: 'none',
+                },
+              }}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))}
+      </div>
+    </>
   );
 }
 

@@ -4,6 +4,7 @@ const { Project } = require('../models');
 const projectCardController = {
 
   getAllProjectCards: async (req, res) => {
+    console.log('getAllProjectCards');
     try {
       const ProjectCard = await Project.findAll(
         {

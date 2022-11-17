@@ -1,9 +1,13 @@
+
+// CSS VARS
+import palette from '../../assets/styles/_vars.scss'
+
 export const projectCollectStyles = {
 
     btnPrimary: {
         fontSize: 14,
-        backgroundColor: '#5de4d5',
-        border: '2px solid #5de4d5',
+        backgroundColor: palette.primary,
+        border: '2px solid palette.primary',
         color: '#ffffff',
         fontWeight: 700,
         textTransform: 'none',
@@ -29,16 +33,32 @@ export const projectCollectStyles = {
       },
 
     card:{
-        maxWidth: 345,
-        marginBottom: '30px',
+        maxWidth: '100%',
+        mt: 4,
+        mx:4,
         textAlign: 'center',
+        m: { xl: 2, md: 2, xs: 2 }
     },
 
     carAction:{
         display: 'flex',
         justifyContent: 'space-between',
-        marginBottom: '1rem',
-        padding: '15px',
+        mb: 1,
+        p: 1,
+    },
+    
+    modal:{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '100%',
+      maxWidth: '400px',
+      bgcolor: 'background.paper',
+      border: '2px solid palette.primary',
+      boxShadow: 24,
+      p: 2,
+    
     }
     
 
