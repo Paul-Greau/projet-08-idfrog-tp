@@ -6,6 +6,8 @@ import { useRecoilValue } from 'recoil';
 
 // Componenets
 import PostProjectForm from '../../../components/UI/forms/PostProjectForm/PostProjectForm';
+// Materail UI
+
 
 // CSS
 import './postProjectStyles.scss';
@@ -23,8 +25,8 @@ console.log('PostProject', profileDetail);
       token={token}
       profileStatus={profileDetail.person?.status ?? profileDetail.society?.status}
       />
-      }      
-    </div>
+      } 
+      </div>
   );
 }
 PostProject.propTypes = {};

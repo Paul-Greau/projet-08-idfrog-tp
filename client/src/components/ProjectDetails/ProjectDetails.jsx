@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-// Services
-import {getProjectById} from '../../services/projectService'
+import React, { useState } from "react";
+
 // Components
 import Project from './Project/Project';
 import Faq from './FAQ/Faq';
@@ -12,17 +10,20 @@ import Comments from './Comments/Comments';
 import { Tab, Box } from '@mui/material';
 import { TabList, TabContext } from '@mui/lab';
 // CSS
-import { projectDetailStyles } from './styles';
-import './projectDetailsStyles.scss';
+import "./projectDetailsStyles.scss"
 
-const ProjectDetails = () => {
-  const [value, setValue] = useState('1');
-  const [result, setResult] = useState([]);
-  const { id } = useParams();
+
+
+const ProjectDetails = ({result}) => {
+    const [value, setValue] = useState("1")
+    const handleChange = (e, newValue) => {
+        setValue(newValue)
+    }
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
+
 
   const handleResult = async (projectId) => {
     try {
