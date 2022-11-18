@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // import PropTypes from 'prop-types';
 
 // Materail UI
@@ -9,22 +9,22 @@ import {
   Typography,
   Link,
   Alert,
-} from '@mui/material';
+} from "@mui/material";
 // Yup Schema
-import { validationSchema } from './validateSigninSchema';
+import { validationSchema } from "./validateSigninSchema";
 
 //Formik
-import { useFormik } from 'formik';
-import { postSignin } from '../../../../services/loginService';
-import { useNavigate } from 'react-router-dom';
+import { useFormik } from "formik";
+import { postSignin } from "../../../../services/loginService";
+import { useNavigate } from "react-router-dom";
 
 function Signin() {
   let navigate = useNavigate();
   const [showError, setShowError] = useState(false);
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState("");
 
   const HandleSignin = async (response) => {
-    console.log('HandleSignin', response);
+    //console.log("HandleSignin", response);
 
     if (response.status !== 201) {
       setLoginError({
@@ -34,19 +34,19 @@ function Signin() {
       setShowError(true);
       return;
     }
-    return navigate('/login');
+    return navigate("/login");
   };
 
   const formik = useFormik({
     initialValues: {
-      pseudo: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      pseudo: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      //console.log(values);
       let res = await postSignin(values);
       HandleSignin(res);
     },
@@ -141,7 +141,7 @@ function Signin() {
         </Button>
 
         <Typography sx={{ mt: 2 }}>
-          Vous n&apos;avez pas encore de compte ?{' '}
+          Vous n&apos;avez pas encore de compte ?{" "}
           <Link href="#">S&apos;inscrire</Link>
         </Typography>
       </form>

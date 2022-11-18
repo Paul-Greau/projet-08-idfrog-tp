@@ -1,24 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import headImg from '../../assets/images/BigFrog.svg';
-import HeadPlaceholder from '../UI/Placeholder/HeadPlaceholder';
+import headImg from "../../assets/images/BigFrog.svg";
+import HeadPlaceholder from "../UI/Placeholder/HeadPlaceholder";
 // Material UI
-import { Typography, Grid, Button, Container } from '@mui/material';
-import InputIcon from '@mui/icons-material/Input';
-import AddchartIcon from '@mui/icons-material/Addchart';
+import { Typography, Grid, Button, Container } from "@mui/material";
+import InputIcon from "@mui/icons-material/Input";
+import AddchartIcon from "@mui/icons-material/Addchart";
 
 // CSS
-import palette from '../../assets/styles/_vars.scss';
-import { headStyles } from './styles';
-import './headStyles.scss';
+import palette from "../../assets/styles/_vars.scss";
+import { headStyles } from "./styles";
+import "./headStyles.scss";
 
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../atomes/profileAtomes';
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../atomes/profileAtomes";
 
 function Head() {
   const ProfileInfo = useRecoilValue(profileConnexionstate);
@@ -36,7 +36,7 @@ function Head() {
               <Typography
                 variant="h1"
                 color="secondary"
-                sx={{ fontSize: '2rem', fontWeight: 'bold' }}
+                sx={{ fontSize: "2rem", fontWeight: "bold" }}
               >
                 Avec les solutions IdFrog
               </Typography>
@@ -44,26 +44,26 @@ function Head() {
                 variant="h2"
                 color="secondary"
                 sx={{
-                  fontSize: '2rem',
-                  marginBottom: '20px',
-                  fontWeight: 'bold',
+                  fontSize: "2rem",
+                  marginBottom: "20px",
+                  fontWeight: "bold",
                 }}
               >
                 <span style={{ color: palette.primary }}>JE DONNE </span>
-                VIE !{' '}
+                VIE !{" "}
                 <span style={{ color: palette.primary }}>à mes idées</span>.
               </Typography>
               <Typography
                 variant="h2"
                 color="secondary"
-                sx={{ fontSize: '1rem', marginBottom: '10px', fontWeight: 700 }}
+                sx={{ fontSize: "1rem", marginBottom: "10px", fontWeight: 700 }}
               >
                 Vous lancez un projet qui tient à cœur ?
               </Typography>
               <Typography
                 color="secondary"
                 variant="h2"
-                sx={{ fontSize: '1rem', fontWeight: 700 }}
+                sx={{ fontSize: "1rem", fontWeight: 700 }}
               >
                 Et Vous avez besoin d'un coup de pouce financier ?
               </Typography>
@@ -73,7 +73,7 @@ function Head() {
                 container
                 spacing={5}
                 sx={{
-                  paddingTop: '50px',
+                  paddingTop: "50px",
                 }}
               >
                 <Grid item xs={12} md={6}>

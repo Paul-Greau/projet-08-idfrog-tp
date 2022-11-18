@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // Services
-import { getProjectById } from '../../services/projectService';
+import { getProjectById } from "../../services/projectService";
 // Components
 import Project from "./Project/Project";
 import Faq from "./FAQ/Faq";
@@ -29,7 +29,7 @@ const ProjectDetails = () => {
     try {
       const response = await getProjectById(projectId);
       setResult(response.data);
-      console.log(response.data);
+      //console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +52,7 @@ const ProjectDetails = () => {
             <TabList
               variant='scrollable'
               onChange={handleChange}
-              sx={{ backgroundColor: '#f9f9f9' }}
+              sx={{ backgroundColor: "#f9f9f9" }}
               allowScrollButtonsMobile
             >
               <Tab label="PROJET" value="1" />

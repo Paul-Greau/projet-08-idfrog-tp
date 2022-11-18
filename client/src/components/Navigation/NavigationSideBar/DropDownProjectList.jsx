@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 // Material UI
 import {
@@ -12,10 +12,10 @@ import {
   ListItemText,
   Collapse,
   Divider,
-} from '@mui/material';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import AppsIcon from '@mui/icons-material/Apps';
+} from "@mui/material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import AppsIcon from "@mui/icons-material/Apps";
 
 function DropDownProjectList({ projectList }) {
   const [openProject, setOpenProject] = useState(false);
@@ -26,13 +26,13 @@ function DropDownProjectList({ projectList }) {
 
   return (
     <List // liste projets
-      sx={{ width: '100%', justifyContent: 'space-between' }}
+      sx={{ width: "100%", justifyContent: "space-between" }}
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
       <ListItemButton
         sx={{
-          backgroundColor: '#ffffff!important',
+          backgroundColor: "#ffffff!important",
         }}
         onClick={handleClickProject}
       >
@@ -47,13 +47,13 @@ function DropDownProjectList({ projectList }) {
         <List
           component="div"
           disablePadding
-          sx={{ backgroundColor: '#ffffff80' }}
+          sx={{ backgroundColor: "#ffffff80" }}
         >
           {projectList?.map((project, index) => (
             <Link key={index} to={`/project/${project.id}`}>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemText
-                  sx={{ textAlign: 'center' }}
+                  sx={{ textAlign: "center" }}
                   primary={project.name}
                 />
               </ListItemButton>

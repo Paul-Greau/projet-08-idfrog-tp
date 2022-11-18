@@ -18,7 +18,7 @@ const contributionController = {
         //decrypter le token
         const userId = req.auth.userId
 
-        console.log(userId);
+        //console.log(userId);
 
         // verifier que l'id dans le token = profile_id
         if (sold === null || typeof(sold) === 'undefined') {

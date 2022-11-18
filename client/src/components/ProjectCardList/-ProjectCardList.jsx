@@ -23,7 +23,7 @@ import {
 import { projectCardStyles } from "../ProjectCard/styles";
 
 function ProjectCardList({ result, isLoading }) {
-  console.log(result);
+  //console.log(result);
 
   const categories = [
     "TOUTES CATEGORIES",

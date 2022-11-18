@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 // import PropTypes from 'prop-types';
 
-import './signInStyles.scss';
+import "./signInStyles.scss";
 
 function SignIn() {
   return <></>;

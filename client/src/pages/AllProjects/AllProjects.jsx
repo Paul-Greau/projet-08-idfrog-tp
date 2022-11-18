@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import ProjectCardList from '../../components/ProjectCardList/ProjectCardList';
-import Footer from '../../components/Footer/Footer';
-import NavigationHeader from '../../components/Navigation/NavigationHeader/NavigationHeader';
-import { getProjectsList } from '../../services/projects';
-import  Pagination  from '@mui/material/Pagination';
-import  Container  from '@mui/material/Container';
+import React, { useEffect, useState } from "react";
+import ProjectCardList from "../../components/ProjectCardList/ProjectCardList";
+import Footer from "../../components/Footer/Footer";
+import NavigationHeader from "../../components/Navigation/NavigationHeader/NavigationHeader";
+import { getProjectsList } from "../../services/projects";
+import  Pagination  from "@mui/material/Pagination";
+import  Container  from "@mui/material/Container";
 
 // import PropTypes from 'prop-types';
 
@@ -23,9 +23,9 @@ function Home() {
     () => {
       const FetchData = async () => {
         try{
-         const response = await getProjectsList();
-         console.log(response.data);
-         setResult(response.data);
+          const response = await getProjectsList();
+          //console.log(response.data);
+          setResult(response.data);
         }
         catch (error) {
           console.log(error);
@@ -45,11 +45,11 @@ function Home() {
     <>
       <NavigationHeader />
       <ProjectCardList 
-      result={currentCards}
+        result={currentCards}
       />
-              <Container component="section" maxWidth="lg" sx={{display: "flex", justifyContent: "center", paddingBottom: "20px"}}>
-              <Pagination count={nbPage} page={currentPage} onChange={handleChange} />
-        </Container>
+      <Container component="section" maxWidth="lg" sx={{display: "flex", justifyContent: "center", paddingBottom: "20px"}}>
+        <Pagination count={nbPage} page={currentPage} onChange={handleChange} />
+      </Container>
       <Footer />
     </>
   );

@@ -10,7 +10,7 @@ import Head from "../../../components/Head/Head";
 import TopFooter from "../../../components/TopFooter/TopFooter";
 
 // Material UI
-import { Container, Box } from '@mui/material';
+import { Container, Box } from "@mui/material";
 
 // CSS
 import "./homeStyles.scss";
@@ -23,7 +23,7 @@ function Home() {
     try {
       setIsLoading(true)
       const response = await getProjectsList();
-      console.log(response.data);
+      //console.log(response.data);
       setResult(response.data);
       // TODO redirect vers 404 si status 404
     } catch (error) {
@@ -42,8 +42,8 @@ function Home() {
       <Box className="allCards">
         {result && 
         <ProjectCardList result={result}
-        cardPerPages={3}
-        isLoading={isLoading}
+          cardPerPages={3}
+          isLoading={isLoading}
         />
         }
         

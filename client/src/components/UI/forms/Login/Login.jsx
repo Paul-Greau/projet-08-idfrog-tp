@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // import PropTypes from 'prop-types';
 
 // Materail UI
@@ -9,15 +9,15 @@ import {
   Typography,
   Link,
   Alert,
-} from '@mui/material';
+} from "@mui/material";
 // Yup Schema
-import { validationSchema } from './validateLoginSchema';
+import { validationSchema } from "./validateLoginSchema";
 //Formik
-import { useFormik } from 'formik';
-import { postLogin } from '../../../../services/loginService';
-import { useSetRecoilState } from 'recoil';
-import { profileConnexionstate } from '../../../../atomes/profileAtomes';
-import { useNavigate } from 'react-router-dom';
+import { useFormik } from "formik";
+import { postLogin } from "../../../../services/loginService";
+import { useSetRecoilState } from "recoil";
+import { profileConnexionstate } from "../../../../atomes/profileAtomes";
+import { useNavigate } from "react-router-dom";
 
 // Services
 // import {getLogin} from "../../../../services/profileService"
@@ -26,10 +26,10 @@ function Login() {
   let navigate = useNavigate();
   const setProfileInfo = useSetRecoilState(profileConnexionstate);
   const [showError, setShowError] = useState(false);
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState("");
 
   const HandleLogin = (response) => {
-    console.log('handleLogin', response);
+    //console.log("handleLogin", response);
     if (response.status !== 200) {
       setLoginError({
         status: response.status,
@@ -40,13 +40,13 @@ function Login() {
     }
     response.data.isLogged = true;
     setProfileInfo(response.data);
-    return navigate('/profile');
+    return navigate("/profile");
   };
 
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
