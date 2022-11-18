@@ -25,7 +25,6 @@ import {
   InputAdornment,
   Select,
   MenuItem,
-  Container,
   Alert,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -53,7 +52,7 @@ function PostProjectForm({ token, profileStatus }) {
       const patchResponse = await patchProject(response.data.id, token, {
         img_url: imgUploadedUrl,
       });
-      //console.log(patchResponse);
+      console.log(patchResponse);
       setAlertStyle("success");
       setProjectError({
         status: null,
@@ -89,6 +88,7 @@ function PostProjectForm({ token, profileStatus }) {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      console.log(values);
       const uploadUrl = await uploadProjectImage(token, {
         projectImage: selectedImage,
       });
@@ -102,6 +102,7 @@ function PostProjectForm({ token, profileStatus }) {
         return;
       }
       const response = await postProject(token, values);
+      console.log(response);
       handleSubmit(response, uploadUrl.data.path);
     },
   });
@@ -333,7 +334,6 @@ function PostProjectForm({ token, profileStatus }) {
           helperText={formik.touched.website && formik.errors.website}
           error={formik.errors.website && formik.touched.website}
         />
-
         <Button
           type="submit"
           color="primary"

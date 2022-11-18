@@ -3,14 +3,14 @@ import * as yup from "yup";
 
 export const validationSchema = yup.object().shape({
   name: yup
-  .string("string")
-  .required("Ce champ est requis !"),
+    .string("string")
+    .required("Ce champ est requis !"),
   title: yup
     .string("string")
     .required("Ce champ est requis !"),
   category_id: yup
-  .string("string")
-  .required("Ce champ est requis !"),
+    .string("string")
+    .required("Ce champ est requis !"),
   resume: yup
     .string("string")
     .required("Ce champ est requis !"),
@@ -27,13 +27,7 @@ export const validationSchema = yup.object().shape({
     .string("string"),
   end_time: yup
     .string("string")
-    .required("Ce champ est requis !"),
-  phone_number: yup
-    .string("string")
-    .required("Ce champ est requis !"),
-  adress: yup
-    .string("string")
-    .required("Ce champ est requis !"),
+    .required("Sélectionez une date de fin de campagne"), 
   website: yup
     .string()
     .url(),
@@ -42,4 +36,3 @@ export const validationSchema = yup.object().shape({
   visibility: yup
     .boolean(),
 });
-
