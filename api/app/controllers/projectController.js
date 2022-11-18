@@ -239,8 +239,8 @@ patchProject: async (req, res) => {
 		if (description) {
 			projectToPatch.description = description
 		}
-		if (visibility) {
-			projectToPatch.visibility = visibility
+		if (visibility !== null && typeof(visibility) !== 'undefined') {
+			projectToPatch.visibility=visibility
 		}
 		if (img_url) {
 			projectToPatch.img_url = img_url

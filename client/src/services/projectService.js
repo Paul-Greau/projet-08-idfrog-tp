@@ -19,6 +19,7 @@ export const postProject = async (token, data) => {
 }
 
 export const patchProject = async (projectId, token, data) => {
+  console.log('data', data);
   const config = {
       headers: { Authorization: `Bearer ${token}` }
   };

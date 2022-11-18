@@ -45,7 +45,7 @@ function ProjectCollect({
 
   const ProfileInfo = useRecoilValue(profileConnexionstate);
   const ProfileDetail = useRecoilValue(profileDetailState)
-  const [visibilityState, setvisibilityState ]=useState(visibility);
+  const [visibilityState, setvisibilityState ]= useState(visibility);
   const [showError, setShowError] = useState(false)
   const [loginError, setLoginError] = useState('')
   const [alertStyle, setAlertStyle] = useState('error')
@@ -61,7 +61,7 @@ function ProjectCollect({
   const handleVisibilityState = async () => {
    
   const response = await patchProject(project_id, ProfileInfo.token, {visibility: !visibilityState})
-  console.log(response);
+  console.log('visibility batch response', response);
   setvisibilityState(!visibilityState)
   if (response.status === 201){
     setAlertStyle('success')
@@ -188,21 +188,27 @@ console.log('visibility', visibilityState);
         </Typography>
         <FormControl component="fieldset" sx={{ margin: '0.5em' }}>
         <FormGroup aria-label="position" row
-        value={visibility}
+    /*     value={visibility}
+        onChange={() => handleVisibilityState()} */
         >
-          <FormControlLabel
-            checked={!visibilityState}
-            onChange={() => handleVisibilityState()}
-            value="false"
-            control={<Switch color="primary" />}
+          <FormControlLabel            
+            
+            control={
+            <Switch color="primary"
+                value={!visibilityState}
+                checked={!visibilityState}
+                onChange={() => handleVisibilityState()}
+            />}
             label="Privé"
             labelPlacement="end"
           />
           <FormControlLabel
-            checked={visibilityState}
-            onChange={() => handleVisibilityState()}
-            value="true"
-            control={<Switch color="primary" />}
+            control={
+            <Switch color="primary"
+              value={visibilityState}
+              checked={visibilityState}
+              onChange={() => handleVisibilityState()}
+            />}
             label="Public"
             labelPlacement="end"
           />

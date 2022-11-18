@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/fix-gitflow-process
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate} from 'react-router-dom';
 import { Grid, CardMedia } from '@mui/material';
@@ -63,6 +58,7 @@ const Project = () => {
                 amount={result.amount_target}
                 description={result.description}
                 profile={result.profile?.pseudo}
+                visibility={result.visibility}
                 />
             </Grid>
             <Grid item xs={12} md={12}>
