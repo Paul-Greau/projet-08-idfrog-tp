@@ -4,8 +4,8 @@
 export const projectCardStyles = {
 
   selectInput:{
-    width: { xs: '100%', sm: '95%', md: '95%', lg: '97%' },
-    display: { xs: 'row', md: 'colum'}, 
+    width: { xs: "100%", sm: "95%", md: "95%", lg: "97%" },
+    display: { xs: "row", md: "colum"}, 
     mt:0,
     mb:2,
     pl: 0.3
@@ -18,12 +18,12 @@ export const projectCardStyles = {
     mb: 3,
     mt: -4,
     pr: 2,
-    borderRadius: '5px',
-    backgroundColor: '#FFF',
+    borderRadius: "5px",
+    backgroundColor: "#FFF",
     opacity: .8,
-    boxShadow: '1px 1px 1px 2px rgba(0, 0, 0, 0.2)',
+    boxShadow: "1px 1px 1px 2px rgba(0, 0, 0, 0.2)",
   
   }
   
 
-  };
+};
