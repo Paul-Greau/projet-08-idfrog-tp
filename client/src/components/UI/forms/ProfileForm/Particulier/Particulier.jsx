@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
-import { handleSubmitProfil } from "../../Utils/Utils";
+import { handleSubmitProfil } from '../../Utils/Utils';
 
 import UploadAvatar from '../UploadAvatar/UploadAvatar';
 import {
@@ -18,13 +18,14 @@ import {
   Radio,
   Button,
   Alert,
+  InputLabel,
 } from '@mui/material';
 // Yup Schema
-import { validationSchema } from "../validatePersonSchema.js";
+import { validationSchema } from '../validatePersonSchema.js';
 //Formik
 import { useFormik } from 'formik';
 // CSS
-import { postParticulierStyles } from "./styles";
+import { postParticulierStyles } from './styles';
 
 function ProfileForm({
   // eslint-disable-next-line react/prop-types
@@ -37,16 +38,16 @@ function ProfileForm({
   const [loginError, setLoginError] = useState('');
   const [alertStyle, setAlertStyle] = useState('error');
 
- const handleSubmit = (response) => {
-    const alertMessage = handleSubmitProfil(response, 201)
-    setAlertStyle(alertMessage.alertStyle)
+  const handleSubmit = (response) => {
+    const alertMessage = handleSubmitProfil(response, 201);
+    setAlertStyle(alertMessage.alertStyle);
     setLoginError({
-      status : alertMessage.errorStatus,
-      message: alertMessage.message
-    })
-    setShowError(alertMessage.showMessage)
-    return
-  }; 
+      status: alertMessage.errorStatus,
+      message: alertMessage.message,
+    });
+    setShowError(alertMessage.showMessage);
+    return;
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -70,7 +71,7 @@ function ProfileForm({
         handleSubmit(response);
         return;
       } else {
-        console.log("personne déjà existante");
+        console.log('personne déjà existante');
         const response = await patchProfileDetails(token, values);
         handleSubmit(response);
         return;
@@ -125,7 +126,7 @@ function ProfileForm({
           helperText={formik.touched.first_name && formik.errors.first_name}
           error={formik.errors.first_name && formik.touched.first_name}
         />
-
+        <InputLabel sx={{ mb: -2, mt: 1 }}>Date de naissance :</InputLabel>
         <TextField
           sx={postParticulierStyles.leftInput}
           required
@@ -133,7 +134,6 @@ function ProfileForm({
           type="date"
           name="birth_date"
           id="birth_date"
-          label="Date de naissance"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.birth_date}

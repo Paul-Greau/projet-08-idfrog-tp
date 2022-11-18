@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 // Material UI
-import { Button, Box, List } from '@mui/material';
+import { Button, List } from '@mui/material';
 
 import WorkIcon from '@mui/icons-material/Work';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 function ButtonProject() {
-  // Open toogle mobile
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
   return (
     <>
       <List>

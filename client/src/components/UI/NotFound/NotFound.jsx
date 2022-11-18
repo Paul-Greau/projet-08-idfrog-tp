@@ -26,7 +26,7 @@ function NotFound() {
             Oups ! <span style={{ color: palette.primary }}>La page</span> que
             vous recherchez
             <span style={{ color: palette.primary }}>
-              semble introuvable...
+              &nbsp; semble introuvable...
             </span>
           </Typography>
           <Grid item xs={12} md={6}>
