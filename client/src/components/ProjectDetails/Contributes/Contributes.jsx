@@ -2,11 +2,11 @@
 import React from "react";
 
 // Material UI
-import { Grid, Typography, Box } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Grid, Typography, Box, Avatar } from "@mui/material";
 // CSS
 import palette from "../../../assets/styles/_vars.scss";
 import { projectContributStyles } from "./styles";
+import AvatarLog from "../../../assets/images/avatar-user.png";
 
 const Comments = ({ contributes }) => {
   const options = {
@@ -20,9 +20,11 @@ const Comments = ({ contributes }) => {
       {contributes.map((contribute) => (
         <Grid item xs={12} md={6} key={contribute.id} sx={{ p: 1 }}>
           <Box sx={projectContributStyles.avatarBox}>
-            <AccountCircleIcon
-              sx={{ color: palette.primary, fontSize: "2.5rem" }}
-            />
+            <Avatar
+              sx={{ width: 30, height: 30 }}
+              alt="IdFrog"
+              src={AvatarLog}
+            ></Avatar>
             <Box sx={projectContributStyles.pseudoBox}>
               <Typography sx={{ fontWeight: "bold", color: palette.primary }}>
                 {contribute.profile.pseudo}
