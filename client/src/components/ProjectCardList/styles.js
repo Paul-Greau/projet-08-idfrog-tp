@@ -10,6 +10,7 @@ export const projectCardStyles = {
     mb:2,
     pl: 0.3
   },
+
   selectBox:{
     px: 4,
     pt:3,

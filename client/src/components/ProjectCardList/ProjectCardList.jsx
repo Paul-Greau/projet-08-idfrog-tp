@@ -11,6 +11,7 @@ import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
 import { category, financingTypes } from '../UI/forms/PostProjectForm/category';
 
 // Material UI
+
 import {
   Container,
   Grid,
@@ -185,8 +186,8 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
   );
 }
 
-ProjectCardList.PropType = {};
+// ProjectCardList.PropType = {};
 
-ProjectCardList.defaultProps = {};
+// ProjectCardList.defaultProps = {};
 
 export default React.memo(ProjectCardList);

@@ -27,7 +27,13 @@ export const validationSchema = yup.object().shape({
     .string("string"),
   end_time: yup
     .string("string")
-    .required("Sélectionez une date de fin de campagne"), 
+    .required("Ce champ est requis !"),
+  phone_number: yup
+    .string("string")
+    .required("Ce champ est requis !"),
+  adress: yup
+    .string("string")
+    .required("Ce champ est requis !"),
   website: yup
     .string()
     .url(),

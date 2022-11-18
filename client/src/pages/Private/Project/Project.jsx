@@ -3,13 +3,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Grid, CardMedia } from '@mui/material';
 // Services
-import { getProjectById } from '../../../services/projectService';
+import {getProjectById} from '../../../services/projects';
 // Components
-import ProjectDescription from '../../../components/ProjectDescription/ProjectDescription';
+import ProjectDescription from '../../../components/ProjectDescription/ProjectDescription'
 import ProjectDetails from '../../../components/ProjectDetails/ProjectDetails';
+
 import ProjectCollect from '../../../components/ProjectCollect/ProjectCollect';
 import ProjectPageSkeleton from '../../../components/UI/Placeholder/ProjectPageSkeleton';
 import LoadingBar from '../../../components/UI/Placeholder/LoadingBar';
+
 
 const Project = () => {
 

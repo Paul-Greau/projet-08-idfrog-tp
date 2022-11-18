@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, Skeleton, CardActions, Box } from '@mui/material';
+import React from "react";
+import { Card, Skeleton, CardActions, Box } from "@mui/material";
 
 const ProjectCardPlaceholder = () => {
   return (
@@ -11,15 +11,15 @@ const ProjectCardPlaceholder = () => {
         variant="rectangular"
       />
       <Box sx={{ p: 2 }}>
-        <Skeleton height={18} style={{ width: '20%', marginBottom: 10 }} />
-        <Skeleton height={30} style={{ width: '40%', marginTop: 0 }} />
+        <Skeleton height={18} style={{ width: "20%", marginBottom: 10 }} />
+        <Skeleton height={30} style={{ width: "40%", marginTop: 0 }} />
         <Skeleton height={16} style={{ marginTop: 0 }} />
         <Skeleton height={16} style={{ marginTop: 0 }} />
         <Skeleton height={16} style={{ marginTop: 0 }} />
         <Skeleton height={16} style={{ marginBottom: 60 }} />
         <Skeleton
           height={20}
-          style={{ marginTop: 22, width: '40%', height: 20 }}
+          style={{ marginTop: 22, width: "40%", height: 20 }}
         />
         <Skeleton height={10} count={3} style={{ marginTop: 4 }} />
       </Box>

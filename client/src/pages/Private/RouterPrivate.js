@@ -18,7 +18,6 @@ const AdminRouter = () => {
             <Route path="postproject" element={<PostProject/>}/>
             <Route path="project" element={<Project/>}/>
             <Route path="contribut/:id" element={<Contribution/>}/>
-            
             <Route path="*" element={<NotFound/>}/>
         </Route>
         </Routes>

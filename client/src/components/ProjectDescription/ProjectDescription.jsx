@@ -1,38 +1,31 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+/* eslint-disable react/no-unescaped-entities */
+import React from "react";
 // import PropTypes from "prop-types";
+import { Grid } from "@mui/material";
+// import { Link } from "@mui/material";
+import { Typography } from "@mui/material";
 
-// Material UI
-import { Grid, Typography, CardMedia } from '@mui/material';
-// CSS
-// import palette from '../../assets/styles/_vars.scss';
-import { projectDescriptionStyles } from './styles';
+import "./styles.js";
 
-function ProjectDescription({ id, result }) {
+function ProjectDescription({result}) {
   return (
     <div className="projectdescription">
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={12} sx={{ mx: 2, mt: -3 }}>
-          <Typography variant="h1" sx={projectDescriptionStyles.title}>
-            {result.name}
-          </Typography>
+      <Grid 
+        container 
+        spacing={2}
+        sx={{
+          
+        }}
+      >
+        <Grid item xs={12} md={12} sx={{borderBottom: "1px solid black"}}>
+          <Typography variant="h1" sx={{fontSize: "2rem"}}>{result.name}</Typography>
         </Grid>
-        <CardMedia
-          component="img"
-          height="240"
-          src={`https://picsum.photos/1200/800?random=${id}`}
-          alt={result.projet}
-          sx={projectDescriptionStyles.img}
-        />
-        <Grid item xs={12} md={12} sx={{ mx: 4 }}>
-          <Typography variant="h6" sx={projectDescriptionStyles.title2}>
-            Description du projet :
-          </Typography>
-          <Typography paragraph={true} sx={projectDescriptionStyles.subtitle}>
-            {result.resume}
-          </Typography>
+        <Grid item xs={12} md={12}>
+          <Typography paragraph={true}>{result.resume}</Typography>
         </Grid>
       </Grid>
+
     </div>
   );
 }
