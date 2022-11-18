@@ -46,7 +46,7 @@ const profileController = {
         expiresIn: '3h' 
         };
 
-        console.log('<< 200', searchedProfile.email);
+        //console.log('<< 200', searchedProfile.email);
 
         res.status(200).json({ 
             pseudo: searchedProfile.pseudo,
@@ -172,9 +172,7 @@ const profileController = {
 			//const profileId = Number(req.params.id);
             const tokenId = req.auth.userId;
 
-            console.log('getProfileById session', req.session.profile)           
-
-           /*  if (!profileId) {
+            /*  if (!profileId) {
                 const error = new Error(`'profileId' property is missing`);
                 return res.status(400).json({ message: error.message });
             } */
