@@ -60,7 +60,7 @@ INSERT INTO "person" ("profile_id", "first_name", "last_name", "birth_date", "bi
 (1, 'alex', 'leg', '1988-02-16', 'bagnolet', 'male', 'person', 'fr', '7rue fkldfkdfkl', 'st-pierre', 97410, '0601020304', '' ),
 (5, 'jean-pierre', 'adidole', '1990-03-17', 'mexico', 'male', 'person', 'fr', '7rue du mexique', 'paris', 75019, '0601020304', '' ),
 (3, 'marcel', 'patulacci', '1988-02-16', 'bagnolet', 'male', 'person', 'fr', '7rue fkldfkdfkl', 'st-pierre', 97410, '0601020304', '' ),
-(4, 'veronique', 'sonsan', '1972-08-21', 'jouy-en-josas', 'female', 'person', 'fr', '29 rue ravier', 78350, '0668592587', '' ),
+(4, 'veronique', 'sonsan', '1972-08-21', 'jouy-en-josas', 'female', 'person', 'fr', '29 rue ravier', 'jouy-en-josas', 78350, '0668592587', '' ),
 (7, 'beatrice', 'dolle', '1974-04-13', 'brest', 'female', 'person', 'fr', '14 avenue du general leclerc', 'brest', 29200, '0165898787', '' ),
 (9, 'alain', 'deloin', '1969-09-23', 'dijon', 'male', 'person', 'fr', '39 rue du mistral', 'poitiers' , 86000, '0157982132', '' ),
 (11, 'michelle', 'obamo', '1978-01-28', 'marseille', 'female', 'person', 'fr', '59 rue du velodrome', 'marseille' , 13000, '0157982132', '' ),
@@ -70,13 +70,13 @@ INSERT INTO "person" ("profile_id", "first_name", "last_name", "birth_date", "bi
 (17, 'steve', 'jabs', '1976-10-06', 'lyon', 'male', 'person', 'fr', '7 rue de la pomme', 'lyon', 69001, '0188574162', '' ),
 (18, 'mylene', 'fermar', '1991-03-17', 'mont-de-marsan', 'female', 'person', 'fr', '29 rue libertine', 'paris', 69001, '0615468988', '' ),
 
-(21, 'alexa', 'dupin', '1989-06-14', 'paris', 'female', 'person', 'fr', '25 rue gallieni', 'Alfortville', 94140, '0612323358', '' ), 
+(21, 'alexa', 'dupin', '1989-06-14', 'paris', 'female', 'person', 'fr', '25 rue gallieni', 'alfortville', 94140, '0612323358', '' ), 
 (22, 'aline', 'massard', '1997-05-22', 'orleans', 'female', 'person', 'fr', '8 rue salvador dali', 'orleans', 45000, '0655239537', '' ),
 (23, 'clement', 'guillaud-saumur', '1991-05-01', 'clermont-ferrand', 'male', 'person', 'fr', '6 rue escudier', 'clermont-ferrand', 63000, '0625654410', '' ),
 (24, 'margaux', 'perrier', '1998-02-08', 'nice', 'female', 'person', 'fr', '12 boulevard du midi', 'nice',06000, '0677983681', '' ),
 (25, 'dylan', 'stockinger', '1998-07-23', 'paris', 'male', 'person', 'fr', '36 rue varenne', 'saint-ouen', 93400, '0625663134', '' ),
 (26, 'antoine', 'deshayes', '1994-02-07', 'clermont-ferrand', 'male', 'person', 'fr', '5 rue hoche', 'clermont-ferrand', 63000, '0637584550', '' ),
-(27, 'nicolas', 'ortigue', '1980-06-15', 'paris', 'male', 'person', 'fr', '11 rue pivert', 'Noisy-le-Grand', 93160, '0665543210', '' ),
+(27, 'nicolas', 'ortigue', '1980-06-15', 'paris', 'male', 'person', 'fr', '11 rue pivert', 'noisy-le-Grand', 93160, '0665543210', '' ),
 (28, 'jerome', 'commandant', '1978-12-25', 'caen', 'male', 'person', 'fr', '24 avenue de la villardière', 'caen', 14000, '0667892812', '' );
 
 --
@@ -110,14 +110,14 @@ Momentum lors des mints
 Répartition des tokens sur les adresses propriétaires
 etc.",
  false),
-(24, 11, "Nom d'un vin", 'capital', '200000', 4, '2022-12-31', '/data/ProjectsImages/project-1668411792948-nomdunvin.png', '' "Nom d'un vin ! ", 'Trouvez la bouteille idéale à coup sûr !', 'Vous aimez le vin … mais vous n’y connaissez rien ? Vous ne savez pas quel vin choisir ? Pas de panique ! Avec Nom d’un vin ! vous trouverez la bouteille idéale à coup sûr 😉
+(24, 11, "Nom d'un vin", 'capital', '200000', 4, '2022-12-31', '/data/ProjectsImages/project-1668411792948-nomdunvin.png', "Nom d'un vin ! ", 'Trouvez la bouteille idéale à coup sûr !', 'Vous aimez le vin … mais vous n’y connaissez rien ? Vous ne savez pas quel vin choisir ? Pas de panique ! Avec Nom d’un vin ! vous trouverez la bouteille idéale à coup sûr 😉
 Nom d’un vin ! est un site de vente en ligne de vins, simple d’utilisation, qui dépoussière le monde du vin (pas de chichi entre nous !).
 Nom d’un vin ! peut vous aider à trouver la bouteille idéale rapidement grâce à son « caviste virtuel » (un chatbot quoi..).
 Nom d’un vin ! vous fait (re)découvrir des petites pépites grâce à sa box mensuelle et à ses évènements : dégustations, visites de domaines viticoles.',
  false),
-(25, 11, 'Ofood', 'capital', '150000', 3, '2023-08-31', '/data/ProjectsImages/project-1668411830945-ofood.png', '' 'Ofood', 'Les meilleures recettes en ligne', "Ofood est une plateforme en ligne offrant des milliers de recettes allant de plats les plus populaires aux plus exotiques et loufoques", false),
+(25, 11, 'Ofood', 'capital', '150000', 3, '2023-08-31', '/data/ProjectsImages/project-1668411830945-ofood.png', '', 'Ofood', 'Les meilleures recettes en ligne', "Ofood est une plateforme en ligne offrant des milliers de recettes allant de plats les plus populaires aux plus exotiques et loufoques", false),
 (26, 18 , 'Trapr', 'capital', '250000', 4, '2024-06-15', '/data/ProjectsImages/project-1668413366397-trapr.png', '', 'Trapr', 'Faites livrer vos produits différemment', "Cette application Web serait utile aux producteurs et artisans afin de livrer leurs produits lors de différents déplacements.
-ex: André, Ostréiculteur à Cancale pars en vacances à Paris Plage et propose un arrêt livraison dans les villes suivantes : Rennes, Le Mans, Chartres et (Paris du coup). Eden, avec quelques copines du quartier, regardent notre site régulièrement pour voir quels "produits" passent par chez eux, au Mans, et surprise, ils remarquent André et ses huitres, et décident de lui en acheter 6 douzaines.
+ex: André, Ostréiculteur à Cancale pars en vacances à Paris Plage et propose un arrêt livraison dans les villes suivantes : Rennes, Le Mans, Chartres et (Paris du coup). Eden, avec quelques copines du quartier, regardent notre site régulièrement pour voir quels produits passent par chez eux, au Mans, et surprise, ils remarquent André et ses huitres, et décident de lui en acheter 6 douzaines.
 Greg, de Paris, et ses amis, souhaiteraient prendre 8 douzaines eux ! André peut alors préparer son départ et charger 14 douzaines d'huitres, amortissant en partie le trajet de ses vacances et promouvant ses produits au passage. Il ne s'arrêtera donc pas à Rennes ni Chartres ( ils sont pas drôles, y'a pas eu de commande).",
  false),
 (27, 18, 'Idfrog', 'capital', '200000', 3, '2023-12-31', '/data/ProjectsImages/project-1668413376823-idfrog.png', '', 'Idfrog', 'La boîte à idées', "idFrog est une plateforme qui permet donc à une personne lambda ayant une idée ou plusieurs de la partager avec ses amis afin de la faire évoluer pour qu'au final il puisse la poster dans un environnement sécurisé où elle sera regardée par des investisseurs potentiellement intéressé par celle-ci."
@@ -149,10 +149,8 @@ Pour l'aménagement intérieur: 3 000€
 Pour l'isolation du local et la petite plomberie: 2 500€
 (Isolant, PE pour raccord eau, robinetterie, plomberie, bac à graisse, bois...)
 
-Je te remercie de m'avoir lu, j'espère t'avoir donné envie de m'aider à concrétiser ce projet, et j'espère te rencontrer sur ma parcelle, dans mon joli labo pour passer un agréable moment en ta compagnie! "
+Je te remercie de m'avoir lu, j'espère t'avoir donné envie de m'aider à concrétiser ce projet, et j'espère te rencontrer sur ma parcelle, dans mon joli labo pour passer un agréable moment en ta compagnie! ",
  false);
-
-
 
 
 --
@@ -175,9 +173,8 @@ INSERT INTO "comment" ("profile_id", "project_id", "text") VALUES
 (19, 7, "Dans notre ville on aurait bien besoin d'un projet comme celui-ci !"),
 (9, 7, 'Hâte de voir le projet abouti !'),
 (3, 8, 'Super projet !!'),
-(14, 8, "Pressée de voir ce projet fini. J'ai un projet perso que j'aimerais pousser.");
+(14, 8, "Pressée de voir ce projet fini. J'ai un projet perso que j'aimerais pousser."),
 (18, 9, 'Curieuse de voir ce projet abouti!');
-
 
 --
 -- Déchargement des données de la table "contribution"
@@ -191,7 +188,7 @@ INSERT INTO "contribution" ("profile_id", "project_id", "invested_amount", "sold
 (8, 3, 20700, false),
 (4, 3, 14000, false),
 (16, 4, 20400, false),
-(3, 4, 16000, false);
+(3, 4, 16000, false),
 (15, 5, 100800, false),
 (2, 5, 103000, false),
 (7, 6, 31000, false),
