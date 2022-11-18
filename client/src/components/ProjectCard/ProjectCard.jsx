@@ -32,7 +32,6 @@ function ProjectCard({
   createdAt,
   contributions,
 }) {
-
   const options = {
     /* weekday: 'long' ,*/ year: "numeric",
     month: "short",
