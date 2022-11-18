@@ -15,6 +15,8 @@ const port = process.env.PORT || 3002;
 // vars
 const app = express();
 
+app.use(express.static('data/ProjectsImages'));
+
 app.use(cors({
   "origin": "*",
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
