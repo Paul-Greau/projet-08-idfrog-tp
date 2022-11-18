@@ -16,11 +16,11 @@ export const sendGetRequest = async (url, params = {}, headers = {}) => {
       params,
       headers,   
     )
-    console.log("sendGetRequest axios", response);
+    //console.log("sendGetRequest axios", response);
     return (response)
   }
   catch (error){
-    console.log(error);
+    //console.log(error);
     return (error.response)
   } 
 };
@@ -31,11 +31,11 @@ export const sendPostRequest = async (url, params = {}, headers = {}, ) => {
       headers,
       params,       
     )
-    console.log("sendPostRequest axios", response);
+    //console.log("sendPostRequest axios", response);
     return (response)
   }
   catch (error){
-    console.log(error);
+    //console.log(error);
     return (error.response)
   } 
 
@@ -47,11 +47,11 @@ export const sendPatchRequest = async (url, params = {}, headers = {}, ) => {
       headers,   
       params,      
     )
-    console.log("sendPatchRequest axios", response);
+    //console.log("sendPatchRequest axios", response);
     return (response)
   }
   catch (error){
-    console.log(error);
+    //console.log(error);
     return (error.response)
   } 
  
@@ -66,7 +66,7 @@ export const sendDeleteRequest = async (url, headers = {}, ) => {
     return (response)
   }
   catch (error){
-    console.log(error);
+    //console.log(error);
     return (error.response)
   } 
  

@@ -1,22 +1,22 @@
 /* eslint-disable react/prop-types */
 
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // Components
-import SideBarItems from './SideBarItems';
-import ButtonProject from './ButtonProject';
-import SideBarPlaceholder from '../../UI/Placeholder/SideBarPlaceholder';
+import SideBarItems from "./SideBarItems";
+import ButtonProject from "./ButtonProject";
+import SideBarPlaceholder from "../../UI/Placeholder/SideBarPlaceholder";
 // Material UI
-import { Button, Drawer, Box, Divider } from '@mui/material';
+import { Button, Drawer, Box, Divider } from "@mui/material";
 
-import IdfrogLogo from '../../../assets/images/logo-mini.png';
-import FrogMenu from '../../../assets/images/frogmenu.png';
+import IdfrogLogo from "../../../assets/images/logo-mini.png";
+import FrogMenu from "../../../assets/images/frogmenu.png";
 // CSS
-import './navigationSideBarStyles.scss';
+import "./navigationSideBarStyles.scss";
 
-import palette from '../../../assets/styles/_vars.scss';
-import { navSideBarStyles } from './styles';
+import palette from "../../../assets/styles/_vars.scss";
+import { navSideBarStyles } from "./styles";
 
 function NavigationSideBar({
   projectList,
@@ -32,7 +32,7 @@ function NavigationSideBar({
   };
 
   useEffect(() => {
-    console.log("NavigationSideBar is loading", isLoading);
+    //console.log("NavigationSideBar is loading", isLoading);
   },[isLoading]);
 
   const list = () => (
@@ -49,8 +49,8 @@ function NavigationSideBar({
         <Divider />
       </Box>
       <SideBarItems
-      projectList={projectList}
-      contributionList={contributionList}
+        projectList={projectList}
+        contributionList={contributionList}
       />
     </Box>
   );
@@ -66,9 +66,9 @@ function NavigationSideBar({
         <div className="navigationSideBar">
           <ButtonProject />
           <SideBarItems
-      projectList={projectList}
-      contributionList={contributionList}
-      />
+            projectList={projectList}
+            contributionList={contributionList}
+          />
         </div>
       ) : (
         <div className="navigationSideBar">
@@ -77,7 +77,7 @@ function NavigationSideBar({
       )}
 
       <div className="drawerMobile">
-        {['left'].map((anchor) => (
+        {["left"].map((anchor) => (
           <React.Fragment key={anchor}>
             <Drawer
               variant="temporary"
@@ -87,7 +87,7 @@ function NavigationSideBar({
               PaperProps={{
                 sx: {
                   backgroundColor: palette.primary,
-                  border: 'none',
+                  border: "none",
                 },
               }}
             >

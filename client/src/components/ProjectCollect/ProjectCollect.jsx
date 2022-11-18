@@ -55,13 +55,13 @@ function ProjectCollect({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  console.log("ProfileInfo", ProfileDetail);
-  console.log("profile", profile);
+  //console.log("ProfileInfo", ProfileDetail);
+  //console.log("profile", profile);
 
   const handleVisibilityState = async () => {
    
     const response = await patchProject(project_id, ProfileInfo.token, {visibility: !visibilityState})
-    console.log("visibility batch response", response);
+    //console.log("visibility batch response", response);
     setvisibilityState(!visibilityState)
     if (response.status === 201){
       setAlertStyle("success")
@@ -80,7 +80,7 @@ function ProjectCollect({
     return
   }
 
-  console.log("visibility", visibilityState);
+  //console.log("visibility", visibilityState);
 
   const options = {
     year: "numeric",
@@ -104,7 +104,7 @@ function ProjectCollect({
 
   const handleDeleteProject = async () => {
     const response = await deleteProject(project_id, ProfileInfo.token)
-    console.log(response);
+    //console.log(response);
     if (response.status === 201){
       return navigate("/");
     }

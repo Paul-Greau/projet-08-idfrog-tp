@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Grid, CardMedia } from '@mui/material';
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Grid, CardMedia } from "@mui/material";
 // Services
-import {getProjectById} from '../../../services/projects';
+import {getProjectById} from "../../../services/projects";
 // Components
-import ProjectDescription from '../../../components/ProjectDescription/ProjectDescription'
-import ProjectDetails from '../../../components/ProjectDetails/ProjectDetails';
+import ProjectDescription from "../../../components/ProjectDescription/ProjectDescription"
+import ProjectDetails from "../../../components/ProjectDetails/ProjectDetails";
 
-import ProjectCollect from '../../../components/ProjectCollect/ProjectCollect';
-import ProjectPageSkeleton from '../../../components/UI/Placeholder/ProjectPageSkeleton';
-import LoadingBar from '../../../components/UI/Placeholder/LoadingBar';
+import ProjectCollect from "../../../components/ProjectCollect/ProjectCollect";
+import ProjectPageSkeleton from "../../../components/UI/Placeholder/ProjectPageSkeleton";
+import LoadingBar from "../../../components/UI/Placeholder/LoadingBar";
 
 
 const Project = () => {
@@ -31,7 +31,7 @@ const Project = () => {
           // Liste dans le state
           setResult(res.data);
           setIsLoading(false)
-          console.log('reponse dans project', res); 
+          //console.log("reponse dans project", res); 
           if (res.status === 404) {            
             return navigate("/");
           } 

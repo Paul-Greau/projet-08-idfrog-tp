@@ -53,7 +53,7 @@ function PostProjectForm({ token, profileStatus }) {
       const patchResponse = await patchProject(response.data.id, token, {
         img_url: imgUploadedUrl,
       });
-      console.log(patchResponse);
+      //console.log(patchResponse);
       setAlertStyle("success");
       setProjectError({
         status: null,
@@ -110,7 +110,7 @@ function PostProjectForm({ token, profileStatus }) {
   }, []);
 
   const handleImgUpload = (img) => {
-    console.log("formproject", img);
+    //console.log("formproject", img);
     setSelectedImage(img);
     setImageUrl(URL.createObjectURL(img));
   };

@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 // import PropTypes from 'prop-types';
 
 // Materail UI
-import { Skeleton, Box } from '@mui/material';
+import { Skeleton, Box } from "@mui/material";
 // Yup Schema
 
 function ProfileForm() {
@@ -15,14 +15,14 @@ function ProfileForm() {
     <Box className="profileForm" sx={{ p: 9 }}>
       <Skeleton variant="text" height={50} width="15%" />
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{ display: "flex", justifyContent: "space-between" }}
         width="100%"
       >
         <Skeleton variant="text" width="48%" height={50} />
         <Skeleton variant="text" width="48%" height={50} />
       </Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between', mb: '8px' }}
+        sx={{ display: "flex", justifyContent: "space-between", mb: "8px" }}
         width="40%"
       >
         <Skeleton variant="text" width="50%" height={50} />
@@ -30,19 +30,19 @@ function ProfileForm() {
       </Box>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '10px',
-          width: '60%',
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "10px",
+          width: "60%",
         }}
       >
         <Skeleton variant="text" width="20%" sx={{ mr: 2 }} />
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '10px',
-            width: '80%',
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "10px",
+            width: "80%",
           }}
         >
           <Skeleton variant="circular" width={20} height={20} sx={{ mr: 2 }} />
@@ -55,10 +55,10 @@ function ProfileForm() {
       </Box>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '10px',
-          width: '40%',
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "10px",
+          width: "40%",
         }}
       >
         <Skeleton variant="circular" width={20} height={20} sx={{ mr: 2 }} />
@@ -68,28 +68,28 @@ function ProfileForm() {
         <Skeleton variant="rounded" width={120} height={20} />
       </Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{ display: "flex", justifyContent: "space-between" }}
         width="100%"
       >
         <Skeleton variant="text" width="48%" height={50} />
         <Skeleton variant="text" width="48%" height={50} />
       </Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{ display: "flex", justifyContent: "space-between" }}
         width="100%"
       >
         <Skeleton variant="text" width="48%" height={50} />
         <Skeleton variant="text" width="48%" height={50} />
       </Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{ display: "flex", justifyContent: "space-between" }}
         width="100%"
       >
         <Skeleton variant="text" width="48%" height={50} />
         <Skeleton variant="text" width="48%" height={50} />
       </Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        sx={{ display: "flex", justifyContent: "space-between" }}
         width="100%"
       >
         <Skeleton variant="text" width="48%" height={50} />
@@ -97,7 +97,7 @@ function ProfileForm() {
       </Box>
       <Skeleton variant="text" width="100%" height={50} />
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between', mb: '8px' }}
+        sx={{ display: "flex", justifyContent: "space-between", mb: "8px" }}
         width="40%"
       >
         <Skeleton variant="text" width="50%" height={50} />

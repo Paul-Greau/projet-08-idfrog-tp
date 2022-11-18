@@ -7,7 +7,7 @@ export const validationSchema = yup.object().shape({
     .required("Ce champ est requis !")
     .min(4, "moins de 4 caractères")
     .max(100, "plus de 100 caractères"),
-   email: yup
+  email: yup
     .string("string")
     .email("Email non valide")
     .required("Ce champ est requis !"),
@@ -20,4 +20,4 @@ export const validationSchema = yup.object().shape({
     .string("string")
     .oneOf([yup.ref("password")], "Le mot de passe ne correspond pas")
     .required("Confirmer votre mot de passe"), */
-  });
+});

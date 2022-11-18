@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // import PropTypes from 'prop-types';
 
 // Components
-import ProjectCard from '../ProjectCard/ProjectCard';
+import ProjectCard from "../ProjectCard/ProjectCard";
 
-import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
-import { category, financingTypes } from '../UI/forms/PostProjectForm/category';
+import CardPlaceholder from "../UI/Placeholder/CardPlaceholder";
+import { category, financingTypes } from "../UI/forms/PostProjectForm/category";
 
 // Material UI
 
@@ -21,14 +21,14 @@ import {
   Select,
   MenuItem,
   Pagination,
-} from '@mui/material';
+} from "@mui/material";
 // CSS
 import { projectCardStyles } from "./styles";
 
 function ProjectCardList({ result, isLoading, cardPerPages }) {
   const [filterResult, setFilterResult] = useState(result);
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [financingTypeFilter, setFinancingTypeFilter] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [financingTypeFilter, setFinancingTypeFilter] = useState("");
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,20 +54,20 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
         return true;
       }
       if (
-        (categoryFilter === '' || categoryFilter === 0) &&
+        (categoryFilter === "" || categoryFilter === 0) &&
         financingTypeFilter === item.invest_type
       ) {
         return true;
       }
       if (
-        (financingTypeFilter === '' || financingTypeFilter === 'all') &&
+        (financingTypeFilter === "" || financingTypeFilter === "all") &&
         categoryFilter === item.category_id
       ) {
         return true;
       }
       if (
-        (categoryFilter === '' || categoryFilter === 0) &&
-        (financingTypeFilter === '' || financingTypeFilter === 'all')
+        (categoryFilter === "" || categoryFilter === 0) &&
+        (financingTypeFilter === "" || financingTypeFilter === "all")
       ) {
         return true;
       }
@@ -158,19 +158,19 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
             <CardPlaceholder />
             {cardPerPages === 6 && 
             <>
-             <CardPlaceholder />
-             <CardPlaceholder />
-             <CardPlaceholder />
-             </>}
+              <CardPlaceholder />
+              <CardPlaceholder />
+              <CardPlaceholder />
+            </>}
           </Grid>
         )}
         <Container
           component="section"
           maxWidth="lg"
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            paddingBottom: '15px',
+            display: "flex",
+            justifyContent: "center",
+            paddingBottom: "15px",
           }}
         >
           <Pagination

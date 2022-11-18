@@ -11,7 +11,7 @@ import "./profileStyles.scss";
 function Profile() {
   
   const isLoading = useRecoilValue(isLoadingState);
-  const [profileStatus, setProfileStatus] = useState('');
+  const [profileStatus, setProfileStatus] = useState("");
   const profileDetail = useRecoilValue(profileDetailState);
 
   const handleStatusChange = (e) => {
@@ -26,12 +26,12 @@ function Profile() {
   return (
     <div className="profile">
       {!isLoading ?
-      <ProfileForm
-      profileDetail={profileDetail}
-      profileStatus={profileStatus}
-      handlestatus={handleStatusChange}
-      />
-      : <ProfilePlaceholder />}
+        <ProfileForm
+          profileDetail={profileDetail}
+          profileStatus={profileStatus}
+          handlestatus={handleStatusChange}
+        />
+        : <ProfilePlaceholder />}
     </div>
   );
 }

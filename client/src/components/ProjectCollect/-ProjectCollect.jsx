@@ -1,8 +1,8 @@
-import * as React from 'react';
+import * as React from "react";
 // import PropTypes from "prop-types";
 
 // Components
-import ProjectProgress from '../ProjectProgress/ProjectProgress';
+import ProjectProgress from "../ProjectProgress/ProjectProgress";
 
 // Material UI
 import {
@@ -15,18 +15,18 @@ import {
   FormGroup,
   FormControlLabel,
   FormControl,
-} from '@mui/material';
+} from "@mui/material";
 
 // CSS
-import { projectCollectStyles } from './styles';
+import { projectCollectStyles } from "./styles";
 
 function projectCollect() {
   return (
     <>
-      <Card sx={{ maxWidth: 345, marginBottom: '30px' }}>
+      <Card sx={{ maxWidth: 345, marginBottom: "30px" }}>
         <CardContent>
           <Typography
-            sx={{ fontSize: 14, marginTop: '20px', marginBottom: '2rem' }}
+            sx={{ fontSize: 14, marginTop: "20px", marginBottom: "2rem" }}
             color="primary"
           >
             John Doe • 4 Feb 2022
@@ -68,11 +68,11 @@ function projectCollect() {
             gutterBottom
             variant="h7"
             component="div"
-            sx={{ fontWeight: '500' }}
+            sx={{ fontWeight: "500" }}
           >
             Souhaitez vous que votre projet soit :
           </Typography>
-          <FormControl component="fieldset" sx={{ margin: '0.5em' }}>
+          <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
             <FormGroup aria-label="position" row>
               <FormControlLabel
                 value="prive"
@@ -93,7 +93,7 @@ function projectCollect() {
             gutterBottom
             variant="p"
             component="div"
-            sx={{ fontWeight: '100', fontSize: '12px' }}
+            sx={{ fontWeight: "100", fontSize: "12px" }}
           >
             privé: votre projet ne sera pas publié sur la page d&apos;acceuil
             public votre projet sera visible en page d’acceuil
