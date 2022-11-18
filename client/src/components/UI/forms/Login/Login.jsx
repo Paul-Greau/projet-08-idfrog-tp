@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 
 // Materail UI
-import {
-  TextField,
-  Button,
-  Container,
-  Typography,
-  Link,
-  Alert,
-} from "@mui/material";
+import { TextField, Button, Container, Typography, Alert } from "@mui/material";
 // Yup Schema
 import { validationSchema } from "./validateLoginSchema";
 //Formik
@@ -18,6 +12,8 @@ import { postLogin } from "../../../../services/loginService";
 import { useSetRecoilState } from "recoil";
 import { profileConnexionstate } from "../../../../atomes/profileAtomes";
 import { useNavigate } from "react-router-dom";
+//CSS
+import palette from "../../../../assets/styles/_vars.scss";
 
 // Services
 // import {getLogin} from "../../../../services/profileService"
@@ -29,7 +25,7 @@ function Login() {
   const [loginError, setLoginError] = useState("");
 
   const HandleLogin = (response) => {
-    //console.log("handleLogin", response);
+    console.log("handleLogin", response);
     if (response.status !== 200) {
       setLoginError({
         status: response.status,
@@ -55,9 +51,6 @@ function Login() {
       HandleLogin(res);
     },
   });
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <Container maxWidth="md">
@@ -113,7 +106,13 @@ function Login() {
         </Button>
 
         <Typography sx={{ mt: 2 }}>
-          Avez-vous déjà un compte ? <Link href="#">Se connecter</Link>
+          Vous n&apos;avez pas encore de compte ?{" "}
+          <Link
+            to="/subscribe"
+            style={{ color: palette.primary, textDecoration: "underline" }}
+          >
+            S&apos;inscrire
+          </Link>
         </Typography>
       </form>
     </Container>
@@ -124,3 +123,4 @@ Login.propTypes = {};
 Login.defaultProps = {};
 
 export default Login;
+

@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 
 // Materail UI
-import {
-  TextField,
-  Button,
-  Container,
-  Typography,
-  Link,
-  Alert,
-} from "@mui/material";
+import { TextField, Button, Container, Typography, Alert } from "@mui/material";
 // Yup Schema
 import { validationSchema } from "./validateSigninSchema";
+// CSS
+import palette from "../../../../assets/styles/_vars.scss";
 
 //Formik
 import { useFormik } from "formik";
@@ -24,7 +20,7 @@ function Signin() {
   const [loginError, setLoginError] = useState("");
 
   const HandleSignin = async (response) => {
-    //console.log("HandleSignin", response);
+    console.log("HandleSignin", response);
 
     if (response.status !== 201) {
       setLoginError({
@@ -46,14 +42,10 @@ function Signin() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      //console.log(values);
       let res = await postSignin(values);
       HandleSignin(res);
     },
   });
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <Container maxWidth="md">
@@ -141,8 +133,13 @@ function Signin() {
         </Button>
 
         <Typography sx={{ mt: 2 }}>
-          Vous n&apos;avez pas encore de compte ?{" "}
-          <Link href="#">S&apos;inscrire</Link>
+          Avez-vous déjà un compte ?{" "}
+          <Link
+            to="/login"
+            style={{ color: palette.primary, textDecoration: "underline" }}
+          >
+            Se connecter
+          </Link>
         </Typography>
       </form>
     </Container>
@@ -153,3 +150,4 @@ Signin.propTypes = {};
 Signin.defaultProps = {};
 
 export default Signin;
+
