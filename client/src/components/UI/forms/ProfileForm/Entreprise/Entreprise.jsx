@@ -1,16 +1,17 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import PropTypes from 'prop-types';
-import { patchProfileDetails, postFIllProfileDetails } from '../../../../../services/profileService';
+import { patchProfileDetails, postFIllProfileDetails } from "../../../../../services/profileService";
 
 // Materail UI
-import { TextField, Box, Typography, Button, Alert } from '@mui/material';
+import { TextField, Box, Typography, Button, Alert } from "@mui/material";
 // Yup Schema
-import { validationSchema } from './validateSocietySchema';
+import { validationSchema } from "./validateSocietySchema";
 //Formik
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 // CSS
-import { postEntrepriseStyles } from './styles';
+import { postEntrepriseStyles } from "./styles";
+import { handleSubmitProfil } from "../../Utils/Utils";
 
 function EntrepriseProfileForm({
   society,  
@@ -19,31 +20,24 @@ function EntrepriseProfileForm({
 }) {
 
   const [showError, setShowError] = useState(false)
-  const [loginError, setLoginError] = useState('')
-  const [alertStyle, setAlertStyle] = useState('error')
+  const [loginError, setLoginError] = useState("")
+  const [alertStyle, setAlertStyle] = useState("error")
 
   const handleSubmit = (response) => {
-    if (response.status === 201){
-      setAlertStyle('success')
-      setLoginError({
-        status : null,
-        message: 'Profile mis à jour'
-      })
-      setShowError(true)
-      return
-    }
+    const alertMessage = handleSubmitProfil(response, 201)
+    setAlertStyle(alertMessage.alertStyle)
     setLoginError({
-      status : response.status,
-      message: response.data.message
+      status : alertMessage.errorStatus,
+      message: alertMessage.message
     })
-    setShowError(true)
+    setShowError(alertMessage.showMessage)
     return
-  } 
+  };  
 
   const formik = useFormik({
     initialValues: {
-      siret: society?.siret ?? '',
-      name: society?.name ?? '',
+      siret: society?.siret ?? "",
+      name: society?.name ?? "",
       status: profileStatus,
       /* city: '',
       zip_code: '',
@@ -53,22 +47,22 @@ function EntrepriseProfileForm({
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       // alert(JSON.stringify(values, null, 2));
-       console.log('values du form', values);
-       if(society === null){
-         console.log('profile vide');
-         const response = await postFIllProfileDetails(token, values);
-         console.log(response);
-         handleSubmit(response)
-         return      
-       } else {
-         console.log('society existe deja');
-         const response = await patchProfileDetails(token, values);
-         console.log(response);
-         handleSubmit(response)
-         return
-       }
+      //console.log("values du form", values);
+      if(society === null){
+        //console.log("profil vide");
+        const response = await postFIllProfileDetails(token, values);
+        //console.log(response);
+        handleSubmit(response)
+        return      
+      } else {
+        //console.log("société déjà existante");
+        const response = await patchProfileDetails(token, values);
+        //console.log(response);
+        handleSubmit(response)
+        return
+      }
           
-     },
+    },
   });
 
   return (
@@ -123,7 +117,7 @@ function EntrepriseProfileForm({
           error={formik.errors.city && formik.touched.city}
         /> */}
 
-       {/*  <TextField
+        {/*  <TextField
           sx={postEntrepriseStyles.rightInput}
           fullWidth
           required
@@ -139,7 +133,7 @@ function EntrepriseProfileForm({
           error={formik.errors.zip_code && formik.touched.zip_code}
         /> */}
 
-       {/*  <TextField
+        {/*  <TextField
           sx={postEntrepriseStyles.leftInput}
           fullWidth
           required
@@ -155,7 +149,7 @@ function EntrepriseProfileForm({
           error={formik.errors.phone_number && formik.touched.phone_number}
         /> */}
 
-         {/* <TextField
+        {/* <TextField
           sx={postEntrepriseStyles.marginTop}
           fullWidth
           required
@@ -171,11 +165,11 @@ function EntrepriseProfileForm({
           error={formik.errors.adress && formik.touched.adress}
         /> */} 
         <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-            sx={{ mt: 4, mb: 4, mr: 2 }}
-          >
+          type="submit"
+          color="primary"
+          variant="contained"
+          sx={{ mt: 4, mb: 4, mr: 2 }}
+        >
             ENREGISTRER VOS INFORMATIONS
         </Button>
 
@@ -186,7 +180,7 @@ function EntrepriseProfileForm({
         <Alert severity={alertStyle}
           onClose={() => {setShowError(false)}}
         >
-        {loginError.status ? `'Erreur' ${loginError.status}` : ''} - {loginError.message}
+          {loginError.status ? `'Erreur' ${loginError.status}` : ""} - {loginError.message}
         </Alert>
         } 
       </form>

@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React from "react";
 // import PropTypes from "prop-types";
 
 // Material UI
-import { Grid, Typography, CardMedia } from '@mui/material';
+import { Grid, Typography, CardMedia } from "@mui/material";
 // CSS
 // import palette from '../../assets/styles/_vars.scss';
-import { projectDescriptionStyles } from './styles';
+import { projectDescriptionStyles } from "./styles";
 
 function ProjectDescription({ id, result }) {
   return (

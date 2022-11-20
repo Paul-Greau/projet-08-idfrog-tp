@@ -1,43 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 
-// Materail UI 
-import { TextField, Button, Container, Typography, Link, Alert } from "@mui/material"
+// Materail UI
+import { TextField, Button, Container, Typography, Alert } from "@mui/material";
 // Yup Schema
 import { validationSchema } from "./validateLoginSchema";
-//Formik 
+//Formik
 import { useFormik } from "formik";
-import { postLogin } from '../../../../services/loginService';
-import { useSetRecoilState } from 'recoil';
-import { profileConnexionstate } from '../../../../atomes/profileAtomes';
-import { useNavigate } from 'react-router-dom'
-
+import { postLogin } from "../../../../services/loginService";
+import { useSetRecoilState } from "recoil";
+import { profileConnexionstate } from "../../../../atomes/profileAtomes";
+import { useNavigate } from "react-router-dom";
+//CSS
+import palette from "../../../../assets/styles/_vars.scss";
 
 // Services
 // import {getLogin} from "../../../../services/profileService"
 
 function Login() {
+  let navigate = useNavigate();
+  const setProfileInfo = useSetRecoilState(profileConnexionstate);
+  const [showError, setShowError] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
-let navigate = useNavigate()
-const setProfileInfo = useSetRecoilState(profileConnexionstate)
-const [showError, setShowError] = useState(false)
-const [loginError, setLoginError] = useState('')
-
-
- const HandleLogin = (response) => {
-  console.log('handleLogin', response);
-    if(response.status!==200){
+  const HandleLogin = (response) => {
+    console.log("handleLogin", response);
+    if (response.status !== 200) {
       setLoginError({
-        status : response.status,
-        message: response.data.message
-      })
-      setShowError(true)
-      return      
+        status: response.status,
+        message: response.data.message,
+      });
+      setShowError(true);
+      return;
     }
-    response.data.isLogged = true    
-    setProfileInfo(response.data)
-    return navigate("/profile");    
-    }
+    response.data.isLogged = true;
+    setProfileInfo(response.data);
+    return navigate("/profile");
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -46,26 +46,25 @@ const [loginError, setLoginError] = useState('')
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-     
-     let res = await postLogin(values)
-    // console.log('response dans login', res.data);
-     HandleLogin(res)    
+      let res = await postLogin(values);
+      // console.log('response dans login', res.data);
+      HandleLogin(res);
     },
-
   });
 
-
   return (
-    <Container maxWidth="md">    
-
-  <form onSubmit={formik.handleSubmit} autoComplete="off">
-    {showError &&
-    <Alert severity="error"
-    onClose={() => {setShowError(false)}}
-    >
-    {`Erreur ${loginError.status} - ${loginError.message}`}
-    </Alert>
-    }  
+    <Container maxWidth="md">
+      <form onSubmit={formik.handleSubmit} autoComplete="off">
+        {showError && (
+          <Alert
+            severity="error"
+            onClose={() => {
+              setShowError(false);
+            }}
+          >
+            {`Erreur ${loginError.status} - ${loginError.message}`}
+          </Alert>
+        )}
 
         <TextField
           fullWidth
@@ -97,18 +96,24 @@ const [loginError, setLoginError] = useState('')
         />
 
         <Button
-        type="submit"
-        color="primary"
-        variant="contained"
-        fullWidth
-        sx={{ mt: 4 }}
-      >
-        Validez
-      </Button>
+          type="submit"
+          color="primary"
+          variant="contained"
+          fullWidth
+          sx={{ mt: 4 }}
+        >
+          Validez
+        </Button>
 
-      <Typography sx={{ mt: 2 }}>
-        Avez-vous déjà un compte ? <Link href="#">Se connecter</Link>
-      </Typography>
+        <Typography sx={{ mt: 2 }}>
+          Vous n&apos;avez pas encore de compte ?{" "}
+          <Link
+            to="/subscribe"
+            style={{ color: palette.primary, textDecoration: "underline" }}
+          >
+            S&apos;inscrire
+          </Link>
+        </Typography>
       </form>
     </Container>
   );
@@ -118,3 +123,4 @@ Login.propTypes = {};
 Login.defaultProps = {};
 
 export default Login;
+

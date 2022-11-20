@@ -1,71 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // import PropTypes from 'prop-types';
 
 //  Services
-import { getProjectsList } from '../../../services/projectService';
+import { getProjectsList } from "../../../services/projectService";
 // Components
-import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
-import Head from '../../../components/Head/Head';
-import TopFooter from '../../../components/TopFooter/TopFooter';
+import ProjectCardList from "../../../components/ProjectCardList/ProjectCardList";
+import Head from "../../../components/Head/Head";
+import TopFooter from "../../../components/TopFooter/TopFooter";
 
 // Material UI
-import { Container, Box, Pagination } from '@mui/material';
+import { Container, Box } from "@mui/material";
 
 // CSS
-import './homeStyles.scss';
+import "./homeStyles.scss";
 
 function Home() {
   const [result, setResult] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(3);
-
-  const handleChange = (event, value) => {
-    event.preventDefault();
-    setCurrentPage(value);
-    setCardsPerPage;
-  };
-
-  const nbPage = Math.ceil(result.length / cardsPerPage);
+  const [isLoading, setIsLoading] = useState([false]);
 
   const FetchData = async () => {
     try {
+      setIsLoading(true)
       const response = await getProjectsList();
-      console.log(response.data);
+      //console.log(response.data);
       setResult(response.data);
+      // TODO redirect vers 404 si status 404
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false)
   };
 
   useEffect(() => {
-      FetchData(); 
-    },[]);
-
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = result.slice(indexOfFirstCard, indexOfLastCard);
+    FetchData();
+  }, []);
 
   return (
     <>
       <Head />
       <Box className="allCards">
-        <ProjectCardList result={currentCards} />
+        {result && 
+        <ProjectCardList result={result}
+          cardPerPages={3}
+          isLoading={isLoading}
+        />
+        }
+        
         <Container
           component="section"
           maxWidth="lg"
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          <Pagination
-            count={nbPage}
-            page={currentPage}
-            onChange={handleChange}
-            sx={{ p: 2 }}
-          />
-        </Container>
+        </Container> 
       </Box>
       <TopFooter />
     </>

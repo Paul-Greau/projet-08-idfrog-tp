@@ -1,29 +1,39 @@
 /* eslint-disable react/prop-types */
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // Components
-import SideBarItems from './SideBarItems';
-import ButtonProject from './ButtonProject';
+import SideBarItems from "./SideBarItems";
+import ButtonProject from "./ButtonProject";
+import SideBarPlaceholder from "../../UI/Placeholder/SideBarPlaceholder";
 // Material UI
-import { Button, Drawer, Box, Divider } from '@mui/material';
+import { Button, Drawer, Box, Divider } from "@mui/material";
 
-import IdfrogLogo from '../../../assets/images/logo-mini.png';
-import FrogMenu from '../../../assets/images/frogmenu.png';
+import IdfrogLogo from "../../../assets/images/logo-mini.png";
+import FrogMenu from "../../../assets/images/frogmenu.png";
 // CSS
-import './navigationSideBarStyles.scss';
+import "./navigationSideBarStyles.scss";
 
-import palette from '../../../assets/styles/_vars.scss';
-import { navSideBarStyles } from './styles';
+import palette from "../../../assets/styles/_vars.scss";
+import { navSideBarStyles } from "./styles";
 
-function NavigationSideBar() {
+function NavigationSideBar({
+  projectList,
+  contributionList,
+  isLoading
+}) { 
+
   // Open toogle mobile
   const [mobileOpen, setMobileOpen] = useState(false);
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    //console.log("NavigationSideBar is loading", isLoading);
+  },[isLoading]);
 
   const list = () => (
     <Box sx={navSideBarStyles.drawerMobileBox}>
@@ -38,7 +48,10 @@ function NavigationSideBar() {
         <ButtonProject />
         <Divider />
       </Box>
-      <SideBarItems />
+      <SideBarItems
+        projectList={projectList}
+        contributionList={contributionList}
+      />
     </Box>
   );
 
@@ -49,14 +62,22 @@ function NavigationSideBar() {
           <img src={FrogMenu} alt="MenuIdfrog" />
         </Button>
       </Box>
-
-      <div className="navigationSideBar">
-        <ButtonProject />
-        <SideBarItems />
-      </div>
+      {projectList ? (
+        <div className="navigationSideBar">
+          <ButtonProject />
+          <SideBarItems
+            projectList={projectList}
+            contributionList={contributionList}
+          />
+        </div>
+      ) : (
+        <div className="navigationSideBar">
+          <SideBarPlaceholder />
+        </div>
+      )}
 
       <div className="drawerMobile">
-        {['left'].map((anchor) => (
+        {["left"].map((anchor) => (
           <React.Fragment key={anchor}>
             <Drawer
               variant="temporary"
@@ -66,7 +87,7 @@ function NavigationSideBar() {
               PaperProps={{
                 sx: {
                   backgroundColor: palette.primary,
-                  border: 'none',
+                  border: "none",
                 },
               }}
             >

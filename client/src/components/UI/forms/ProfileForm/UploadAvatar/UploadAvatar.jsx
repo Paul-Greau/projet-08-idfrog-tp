@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // import PropTypes from 'prop-types';
 
-import { Box, Button } from '@mui/material';
-import DownloadingTwoToneIcon from '@mui/icons-material/DownloadingTwoTone';
+import { Box, Button } from "@mui/material";
+import DownloadingTwoToneIcon from "@mui/icons-material/DownloadingTwoTone";
 
-import './uploadAvatarStyle.scss';
+import "./uploadAvatarStyle.scss";
 
 function UploadImages() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -22,7 +22,7 @@ function UploadImages() {
         accept="image/*"
         type="file"
         id="select-image"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         onChange={(e) => setSelectedImage(e.target.files[0])}
       />
 

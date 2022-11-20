@@ -1,29 +1,22 @@
-import React, { useEffect, useState, useRef } from 'react';
-import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
-
+import React, { useEffect, useState, useRef } from "react";
+import ProjectCardList from "../../../components/ProjectCardList/ProjectCardList";
 // Services
-import { getProjectsList } from '../../../services/projectService';
+import { getProjectsList } from "../../../services/projectService";
 
 // Material UI
-import { Pagination, Container } from '@mui/material';
+import { Container } from "@mui/material";
 
 // CSS
-import './allProjectsStyles.scss';
+import "./allProjectsStyles.scss";
 
 // import PropTypes from 'prop-types';
 
 function AllProject() {
-  const [result, setResult] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(6);
-  const flag = useRef(false);
-  const nbPage = Math.ceil(result.length / cardsPerPage);
 
-  const handleChange = (event, value) => {
-    event.preventDefault();
-    setCurrentPage(value);
-    setCardsPerPage;
-  };
+  const [result, setResult] = useState([]);
+  const flag = useRef(false);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (flag.current === false) {
@@ -31,6 +24,7 @@ function AllProject() {
         .then((res) => {
           // Liste dans le state
           setResult(res.data);
+          setIsLoading(false);
         })
         .catch((err) => console.log(err));
     }
@@ -38,27 +32,20 @@ function AllProject() {
     return () => (flag.current = true);
   }, []);
 
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = result.slice(indexOfFirstCard, indexOfLastCard);
-
   return (
     <div className="allProjects">
-      <ProjectCardList result={currentCards} />
+      <ProjectCardList result={result}
+        cardPerPages={6}
+        isLoading={isLoading}
+      />
       <Container
         component="section"
         maxWidth="lg"
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <Pagination
-          count={nbPage}
-          page={currentPage}
-          onChange={handleChange}
-          sx={{ pt: 4 }}
-        />
       </Container>
     </div>
   );

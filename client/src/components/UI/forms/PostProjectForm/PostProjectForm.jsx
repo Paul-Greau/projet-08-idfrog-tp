@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { patchProject, postProject } from '../../../../services/projectService';
+import { patchProject, postProject } from "../../../../services/projectService";
 
 // import PropTypes from 'prop-types';
 
 // Components
-import UploadImages from './uploadImg/UploadImages';
+import UploadImages from "./uploadImg/UploadImages";
 
 // Materail UI
 import {
@@ -26,116 +26,115 @@ import {
   Select,
   MenuItem,
   Alert,
-} from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import StarHalfIcon from '@mui/icons-material/StarHalf';
+} from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
 // Yup Schema
-import { validationSchema } from './validatePostProjectSchema';
+import { validationSchema } from "./validatePostProjectSchema";
 //Formik
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 // CSS
-import { postProjectStyles } from './styles';
-import palette from '../../../../assets/styles/_vars.scss';
+import { postProjectStyles } from "./styles";
+import palette from "../../../../assets/styles/_vars.scss";
 // Tableau des categories
-import { category } from './category';
-import { uploadProjectImage } from '../../../../services/imgService';
+import { category } from "./category";
+import { uploadProjectImage } from "../../../../services/imgService";
 
-
-function PostProjectForm({
-  token,
-  profileStatus,
-}) {
-  
+function PostProjectForm({ token, profileStatus }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [img_url, setImageUrl] = useState(null);
-  const [showError, setShowError] = useState(false)
-  const [projectError, setProjectError] = useState('')
-  const [alertStyle, setAlertStyle] = useState('error')
+  const [showError, setShowError] = useState(false);
+  const [projectError, setProjectError] = useState("");
+  const [alertStyle, setAlertStyle] = useState("error");
 
-    const handleSubmit = async (response, imgUploadedUrl) => {
-      if (response.status === 201){          
-      const patchResponse = await patchProject(response.data.id, token, {img_url:imgUploadedUrl})
+  const handleSubmit = async (response, imgUploadedUrl) => {
+    if (response.status === 201) {
+      const patchResponse = await patchProject(response.data.id, token, {
+        img_url: imgUploadedUrl,
+      });
       console.log(patchResponse);
-        setAlertStyle('success')
-        setProjectError({
-          status : null,
-          message: 'Projet créé avec succès'
-        })
-        setShowError(true)
-        return
-      }
-      setAlertStyle('error')
+      setAlertStyle("success");
       setProjectError({
-        status : response.status,
-        message: response.data.message
-      })
-      setShowError(true)
-      return
-    } 
+        status: null,
+        message: "Projet créé avec succès",
+      });
+      setShowError(true);
+      return;
+    }
+    setAlertStyle("error");
+    setProjectError({
+      status: response.status,
+      message: response.data.message,
+    });
+    setShowError(true);
+    return;
+  };
 
   const formik = useFormik({
     initialValues: {
-     // img_url: '',
-      name: '', 
-      title: '',
-      category_id: '',
-      resume: '',
-      description: '',
-      amount_target: '',
-      invest_type: '',
-      rate:'',
-      end_time: '',
-      website: '',
+      // img_url: '',
+      name: "",
+      title: "",
+      category_id: "",
+      resume: "",
+      description: "",
+      amount_target: "",
+      invest_type: "",
+      rate: "",
+      end_time: "",
+      website: "",
       status: profileStatus,
       visibility: false,
     },
-     validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
-    const uploadUrl = await uploadProjectImage(token, {projectImage :selectedImage})
-    if(uploadUrl.status !== 201){
-      setAlertStyle('error')
-      setProjectError({
-        status : uploadUrl.status,
-        message: uploadUrl.statusText
-      })
-      setShowError(true)
-      return
-    }
-     const response = await postProject(token, values)
-     handleSubmit(response, uploadUrl.data.path)
+      console.log(values);
+      const uploadUrl = await uploadProjectImage(token, {
+        projectImage: selectedImage,
+      });
+      if (uploadUrl.status !== 201) {
+        setAlertStyle("error");
+        setProjectError({
+          status: uploadUrl.status,
+          message: uploadUrl.statusText,
+        });
+        setShowError(true);
+        return;
+      }
+      const response = await postProject(token, values);
+      console.log(response);
+      handleSubmit(response, uploadUrl.data.path);
     },
   });
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-
-const handleImgUpload = (img) => {
-    console.log('formproject', img);
-    setSelectedImage(img)
-    setImageUrl(URL.createObjectURL(img))
-  }
+  const handleImgUpload = (img) => {
+    //console.log("formproject", img);
+    setSelectedImage(img);
+    setImageUrl(URL.createObjectURL(img));
+  };
 
   return (
-    
     <Box
       className="postProjectForm"
       sx={{ px: { xl: 2, md: 2, xs: 0 }, mt: { xl: 1, md: 0, xs: 5 } }}
     >
       <Typography
         variant="h1"
-        sx={{ fontSize: '2em', mb: 2, color: palette.secondary }}
+        sx={{ fontSize: "2em", mb: 2, color: palette.secondary }}
       >
         Quel est votre projet&nbsp;?
       </Typography>
-      <UploadImages 
-      handleImgUpload={handleImgUpload}
-      img_url={img_url}
-      selectedImage={selectedImage}
+      <UploadImages
+        handleImgUpload={handleImgUpload}
+        img_url={img_url}
+        selectedImage={selectedImage}
       />
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">
-      <TextField
+        <TextField
           sx={postProjectStyles.leftInput}
           fullWidth
           required
@@ -150,7 +149,7 @@ const handleImgUpload = (img) => {
           helperText={formik.touched.name && formik.errors.name}
           error={formik.errors.name && formik.touched.name}
         />
-        
+
         <TextField
           sx={postProjectStyles.leftInput}
           fullWidth
@@ -232,7 +231,7 @@ const handleImgUpload = (img) => {
         <FormControl fullWidth sx={{ mb: 1 }}>
           <InputLabel htmlFor="amount_target">Montant</InputLabel>
           <OutlinedInput
-            startAdornment={<InputAdornment position="end"></InputAdornment>}
+            endAdornment={<InputAdornment position="end">€</InputAdornment>}
             label="Montant"
             name="amount_target"
             id="amount_target"
@@ -256,13 +255,14 @@ const handleImgUpload = (img) => {
           </Typography>
         </FormControl>
 
-        <RadioGroup row
-        name="invest_type"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.invest_type}
+        <RadioGroup
+          row
+          name="invest_type"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.invest_type}
         >
-          <Card sx={{ width: '100%', mb: 4 }}>
+          <Card sx={{ width: "100%", mb: 4 }}>
             <CardHeader
               avatar={<StarHalfIcon sx={{ color: palette.primary }} />}
               action={
@@ -281,32 +281,29 @@ const handleImgUpload = (img) => {
             />
           </Card>
         </RadioGroup>
+        {formik.values.invest_type === "pret" && (
+          <>
+            <InputLabel sx={{ color: palette.secondary }}>
+              Taux de retour sur investissement:
+            </InputLabel>
 
-       {formik.values.invest_type === 'pret' &&
-       <>
-       <InputLabel
-       sx={{ color: palette.secondary }}
-       >
-      Taux de retour sur investissement:
-      </InputLabel>
-          
-       <FormControl fullWidth sx={{ mb: 1 }}>
-         <OutlinedInput
-           startAdornment={<InputAdornment position="end"></InputAdornment>}
-           name="rate"
-           id="rate"
-           onChange={formik.handleChange}
-           onBlur={formik.handleBlur}
-           value={formik.values.rate}
-           error={formik.errors.rate && formik.touched.rate}
-         />
-       </FormControl>
-       </>
-       } 
-        
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <OutlinedInput
+                startAdornment={
+                  <InputAdornment position="end"></InputAdornment>
+                }
+                name="rate"
+                id="rate"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.rate}
+                error={formik.errors.rate && formik.touched.rate}
+              />
+            </FormControl>
+          </>
+        )}
 
-        <InputLabel>Date de fin de la campagne:
-        </InputLabel>
+        <InputLabel>Date de fin de la campagne:</InputLabel>
 
         <TextField
           sx={postProjectStyles.leftInput}
@@ -337,7 +334,6 @@ const handleImgUpload = (img) => {
           helperText={formik.touched.website && formik.errors.website}
           error={formik.errors.website && formik.touched.website}
         />
-
         <Button
           type="submit"
           color="primary"
@@ -350,13 +346,17 @@ const handleImgUpload = (img) => {
         <Button type="submit" color="primary" sx={{ mt: 4, mb: 4 }}>
           ANNULER
         </Button>
-        {showError &&
-          <Alert severity={alertStyle}
-          onClose={() => {setShowError(false)}}
+        {showError && (
+          <Alert
+            severity={alertStyle}
+            onClose={() => {
+              setShowError(false);
+            }}
           >
-          {projectError.status ? `'Erreur' ${projectError.status}` : ''} - {projectError.message}
+            {projectError.status ? `'Erreur' ${projectError.status}` : ""} -{" "}
+            {projectError.message}
           </Alert>
-        } 
+        )}
       </form>
     </Box>
   );
