@@ -10,6 +10,7 @@ import { getLogout } from "../../../services/loginService";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import IdfrogLogo from "../../../assets/images/logo-mini.png";
+import AvatarLog from "../../../assets/images/avatar-connect.png";
 
 // Material UI
 import {
@@ -162,10 +163,8 @@ function ResponsiveAppBar() {
                         <Avatar
                           sx={{ bgcolor: "#2D3A4D" }}
                           alt="IdFrog"
-                          src="/broken-image.jpg"
-                        >
-                          IF
-                        </Avatar>
+                          src={AvatarLog}
+                        ></Avatar>
                         <Box
                           sx={{
                             flexGrow: 1,
