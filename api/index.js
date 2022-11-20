@@ -14,17 +14,14 @@ const port = process.env.PORT || 3002;
 
 // vars
 const app = express();
+app.use('/data/ProjectsImages', express.static('./data/ProjectsImages'));
 
 app.use(cors({
   "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+/*   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
-  "optionsSuccessStatus": 204
+  "optionsSuccessStatus": 204 */
 }));
-
-app.use(express.static('data/ProjectsImages'))
-
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -35,19 +32,12 @@ preserveExtension: 4,
 abortOnLimit: true,
 }));
 
-
-
-
 app.use(session({
   saveUninitialized: true,
   resave: true,
   secret: process.env.SESSION_SECRET
 }))
 app.use(profileMiddleware);
-
-
-
-
 
 app.use(router);
 
