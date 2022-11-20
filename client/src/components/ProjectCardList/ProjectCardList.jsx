@@ -45,6 +45,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
   const currentCards = filterResult.slice(indexOfFirstCard, indexOfLastCard);
 
   useEffect(() => {
+    console.log(result);
     let filteredResults = result.filter((item) => {
       // Boucle sur chaque projet de l'objet result
       if (
@@ -147,6 +148,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
                   description={res.description}
                   profile={res.profile.pseudo}
                   contributions={res.contributions}
+                  img_url={res.img_url}
                 />
               </Grid>
             ))}

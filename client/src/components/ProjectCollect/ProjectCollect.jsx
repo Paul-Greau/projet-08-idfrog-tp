@@ -192,39 +192,34 @@ function ProjectCollect({
             >
               Souhaitez vous que votre projet soit :
             </Typography>
-            <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
-              <FormGroup
-                aria-label="position"
-                row
-                /*     value={visibility}
+ <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
+            <FormGroup aria-label="position" row
+              /*     value={visibility}
         onChange={() => handleVisibilityState()} */
-              >
-                <FormControlLabel
-                  control={
-                    <Switch
-                      color="primary"
-                      value={!visibilityState}
-                      checked={!visibilityState}
-                      onChange={() => handleVisibilityState()}
-                    />
-                  }
-                  label="Privé"
-                  labelPlacement="end"
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      color="primary"
-                      value={visibilityState}
-                      checked={visibilityState}
-                      onChange={() => handleVisibilityState()}
-                    />
-                  }
-                  label="Public"
-                  labelPlacement="end"
-                />
-              </FormGroup>
-            </FormControl>
+            >
+              <FormControlLabel            
+            
+                control={
+                  <Switch color="primary"
+                    value={!visibilityState}
+                    checked={!visibilityState}
+                    onChange={() => handleVisibilityState()}
+                  />}
+                label="Privé"
+                labelPlacement="end"
+              />
+              <FormControlLabel
+                control={
+                  <Switch color="primary"
+                    value={visibilityState}
+                    checked={visibilityState}
+                    onChange={() => handleVisibilityState()}
+                  />}
+                label="Public"
+                labelPlacement="end"
+              />
+            </FormGroup>
+          </FormControl>
 
             <Typography
               color="secondary"

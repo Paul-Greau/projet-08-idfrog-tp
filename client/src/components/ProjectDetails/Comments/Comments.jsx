@@ -2,12 +2,11 @@
 import React from "react";
 
 // Material UI
-import { Grid, Typography, Box } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Grid, Typography, Box, Avatar } from "@mui/material";
 // CSS
 import palette from "../../../assets/styles/_vars.scss";
 import { projectCommentStyles } from "./styles";
-
+import AvatarLog from "../../../assets/images/avatar-user.png";
 const Comments = ({ comments }) => {
   const options = {
     weekday: "long",
@@ -20,9 +19,11 @@ const Comments = ({ comments }) => {
       {comments.map((comment) => (
         <Grid item xs={12} md={6} key={comment.id} sx={{ p: 1 }}>
           <Box sx={projectCommentStyles.avatarBox}>
-            <AccountCircleIcon
-              sx={{ color: palette.primary, fontSize: "2.5rem" }}
-            />
+            <Avatar
+              sx={{ width: 30, height: 30 }}
+              alt="IdFrog"
+              src={AvatarLog}
+            ></Avatar>
             <Box sx={projectCommentStyles.pseudoBox}>
               <Typography sx={{ fontWeight: "bold", color: palette.primary }}>
                 {comment.profile.pseudo}
