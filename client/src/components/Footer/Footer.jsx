@@ -41,7 +41,7 @@ function Footer() {
           </Link>
         </Grid>
         <Grid item xs={12} sm={2} sx={{ textAlign: "center" }}>
-          <Link to="#">
+          <Link to="/">
             <img
               src={logoFooter}
               className="footer-logo"
