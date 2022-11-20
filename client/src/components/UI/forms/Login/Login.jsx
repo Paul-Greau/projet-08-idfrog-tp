@@ -25,7 +25,7 @@ function Login() {
   const [loginError, setLoginError] = useState("");
 
   const HandleLogin = (response) => {
-    console.log("handleLogin", response);
+    //console.log("handleLogin", response);
     if (response.status !== 200) {
       setLoginError({
         status: response.status,

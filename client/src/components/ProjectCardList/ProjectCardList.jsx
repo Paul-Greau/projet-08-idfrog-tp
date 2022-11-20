@@ -45,7 +45,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
   const currentCards = filterResult.slice(indexOfFirstCard, indexOfLastCard);
 
   useEffect(() => {
-    console.log(result);
+    //console.log(result);
     let filteredResults = result.filter((item) => {
       // Boucle sur chaque projet de l'objet result
       if (

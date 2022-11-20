@@ -36,7 +36,6 @@ function ProjectCard({
   img_url,
 }) {
 
-  console.log();
   const baseUrl = process.env.REACT_APP_BASEURL
   
   const options = {

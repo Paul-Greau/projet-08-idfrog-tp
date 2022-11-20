@@ -29,10 +29,7 @@ import { projectCollectStyles } from "./styles";
 
 // RECOIL
 import { useRecoilValue } from "recoil";
-import {
-  profileConnexionstate,
-  profileDetailState,
-} from "../../atomes/profileAtomes";
+import { profileConnexionstate } from "../../atomes/profileAtomes";
 import { deleteProject, patchProject } from "../../services/projectService";
 
 function ProjectCollect({
@@ -47,7 +44,7 @@ function ProjectCollect({
   let navigate = useNavigate();
 
   const ProfileInfo = useRecoilValue(profileConnexionstate);
-  const ProfileDetail = useRecoilValue(profileDetailState);
+  /*   const ProfileDetail = useRecoilValue(profileDetailState); */
   const [visibilityState, setvisibilityState] = useState(visibility);
   const [showError, setShowError] = useState(false);
   const [loginError, setLoginError] = useState("");
@@ -192,34 +189,34 @@ function ProjectCollect({
             >
               Souhaitez vous que votre projet soit :
             </Typography>
- <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
-            <FormGroup aria-label="position" row
+            <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
+              <FormGroup aria-label="position" row
               /*     value={visibility}
         onChange={() => handleVisibilityState()} */
-            >
-              <FormControlLabel            
+              >
+                <FormControlLabel            
             
-                control={
-                  <Switch color="primary"
-                    value={!visibilityState}
-                    checked={!visibilityState}
-                    onChange={() => handleVisibilityState()}
-                  />}
-                label="Privé"
-                labelPlacement="end"
-              />
-              <FormControlLabel
-                control={
-                  <Switch color="primary"
-                    value={visibilityState}
-                    checked={visibilityState}
-                    onChange={() => handleVisibilityState()}
-                  />}
-                label="Public"
-                labelPlacement="end"
-              />
-            </FormGroup>
-          </FormControl>
+                  control={
+                    <Switch color="primary"
+                      value={!visibilityState}
+                      checked={!visibilityState}
+                      onChange={() => handleVisibilityState()}
+                    />}
+                  label="Privé"
+                  labelPlacement="end"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch color="primary"
+                      value={visibilityState}
+                      checked={visibilityState}
+                      onChange={() => handleVisibilityState()}
+                    />}
+                  label="Public"
+                  labelPlacement="end"
+                />
+              </FormGroup>
+            </FormControl>
 
             <Typography
               color="secondary"

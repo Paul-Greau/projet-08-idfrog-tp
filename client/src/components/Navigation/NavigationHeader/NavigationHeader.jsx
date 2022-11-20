@@ -50,6 +50,7 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = async () => {
+    // eslint-disable-next-line no-unused-vars
     const res = await getLogout();
     //console.log(res);
 

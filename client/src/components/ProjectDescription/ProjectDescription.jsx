@@ -8,7 +8,7 @@ import { Grid, Typography, CardMedia } from "@mui/material";
 // import palette from '../../assets/styles/_vars.scss';
 import { projectDescriptionStyles } from "./styles";
 
-function ProjectDescription({ id, result }) {
+function ProjectDescription({ result }) {
   const baseUrl = process.env.REACT_APP_BASEURL
 
   return (

@@ -88,7 +88,7 @@ function PostProjectForm({ token, profileStatus }) {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      //console.log(values);
       const uploadUrl = await uploadProjectImage(token, {
         projectImage: selectedImage,
       });
@@ -102,7 +102,7 @@ function PostProjectForm({ token, profileStatus }) {
         return;
       }
       const response = await postProject(token, values);
-      console.log(response);
+      //console.log(response);
       handleSubmit(response, uploadUrl.data.path);
     },
   });
