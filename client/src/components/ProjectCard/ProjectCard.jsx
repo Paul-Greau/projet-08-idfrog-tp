@@ -31,8 +31,10 @@ function ProjectCard({
   profile,
   createdAt,
   contributions,
+  img_url,
 }) {
-
+  console.log();
+  const baseUrl = process.env.REACT_APP_BASEURL
   const options = {
     /* weekday: 'long' ,*/ year: "numeric",
     month: "short",
@@ -69,7 +71,7 @@ function ProjectCard({
         <CardMedia
           component="img"
           height="140"
-          src={`https://picsum.photos/1200/800?random=${id}`}
+          src={`${baseUrl}${img_url}`}
           alt={projet}
         />
         <CardContent>

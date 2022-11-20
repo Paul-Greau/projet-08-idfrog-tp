@@ -112,7 +112,8 @@ INSERT INTO "society" ("siret", "profile_id", "name", "status") VALUES
 --
 
 INSERT INTO "project" ("profile_id", "category_id", "name", "invest_type", "amount_target", "rate", "end_time", "img_url", "web_url", "title", "resume", "description", "visibility") VALUES
-(17, 2, 'Delorean 2022', 'capital', '200000', 2.5, '2022-12-16', '/data/ProjectsImages/project-1668411645261-delorean.jpg', '', 'Delorean 2K22', 'En hommage à retour vers le futur', 'Une super voiture qui vous permettra de voyager dans le temps', false),
+(1, 5, 'Delorean 2022', 'capital', '200000', 2.5, '2022-12-16', '/data/ProjectsImages/project-1668411645261-delorean.png
+', '', 'Delorean 2K22', 'En hommage à retour vers le futur', 'Une super voiture qui vous permettra de voyager dans le temps', false),
 (21, 9, 'Actiively', 'capital', '150000', 3,  '2023-12-31', '/data/ProjectsImages/project-1668411715471-actiively.png', '', 'Actiively', 'Trouvez une activité sportive/artistique qui correspond à vos critères !', 'Une plateforme pour rechercher des activités (sportives, artistiques…) en fonction de critères précis : lieu, tarif, niveau (débutant, confirmé…), jour de la semaine, genre (mixte, femmes, hommes), inscription possible ou non à un instant T
 L''objectif est de faciliter la recherche d''activités en fournissant des résultats le plus précis possible. Cela permettrait aux utilisateurs de trouver rapidement l''activité qui correspond à leurs besoins et aux associations/clubs de se faire connaître.',
  false),

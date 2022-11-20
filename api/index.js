@@ -22,6 +22,10 @@ app.use(cors({
   "optionsSuccessStatus": 204
 }));
 
+app.use(express.static('data'))
+
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(fileUpload({
