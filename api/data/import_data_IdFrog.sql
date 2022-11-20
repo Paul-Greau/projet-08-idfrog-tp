@@ -203,14 +203,7 @@ INSERT INTO "contribution" ("profile_id", "project_id", "invested_amount", "sold
 (18, 8, 32000, false),
 (2, 9, 9000, false),
 (20, 9, 8000, false);
-<<<<<<< HEAD
 
 
 
 COMMIT;
-=======
-
-
-
-COMMIT;
->>>>>>> 5a2ee67a0c79b525c87d97628e5a8c3edf6b6e3c
