@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { SimpleShareButtons } from "react-simple-share";
 // Material UI
 import {
   Card,
@@ -10,6 +11,7 @@ import {
   CardMedia,
   Typography,
   Button,
+  Box,
 } from "@mui/material";
 
 // CSS
@@ -33,8 +35,10 @@ function ProjectCard({
   contributions,
   img_url,
 }) {
+
   console.log();
   const baseUrl = process.env.REACT_APP_BASEURL
+  
   const options = {
     /* weekday: 'long' ,*/ year: "numeric",
     month: "short",
@@ -115,9 +119,13 @@ function ProjectCard({
           </Link>
         )}
 
-        <Button size="small" sx={projectCardStyles.btnSecondary}>
-          Partager +
-        </Button>
+        <Box size="small" sx={projectCardStyles.btnSecondary}>
+          Partager sur&nbsp;:&nbsp;
+          <SimpleShareButtons
+            whitelist={["Facebook", "Twitter", "LinkedIn"]}
+            size="28px"
+          />
+        </Box>
       </CardActions>
     </Card>
   );

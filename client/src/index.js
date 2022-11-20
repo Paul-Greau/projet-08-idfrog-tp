@@ -13,9 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(  
   <RecoilRoot>
     <ThemeProvider theme={globalTheme}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <App />
     </ThemeProvider>
   </RecoilRoot>
 );

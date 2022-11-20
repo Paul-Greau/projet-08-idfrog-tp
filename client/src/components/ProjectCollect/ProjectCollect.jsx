@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { SimpleShareButtons } from "react-simple-share";
+
 // import PropTypes from "prop-types";
 
 // Material UI
@@ -169,9 +171,13 @@ function ProjectCollect({
             </Link>
           )}
 
-          <Button size="small" sx={projectCollectStyles.btnSecondary}>
-            Partager +
-          </Button>
+          <Box size="small" sx={projectCollectStyles.btnSecondary}>
+            Partager sur&nbsp;:&nbsp;
+            <SimpleShareButtons
+              whitelist={["Facebook", "Twitter", "LinkedIn"]}
+              size="28px"
+            />
+          </Box>
         </CardActions>
       </Card>
       {ProfileInfo.pseudo === profile && (
@@ -186,26 +192,34 @@ function ProjectCollect({
             >
               Souhaitez vous que votre projet soit :
             </Typography>
-            <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
-              <FormGroup aria-label="position" row value={visibility}>
-                <FormControlLabel
-                  checked={!visibilityState}
-                  onChange={() => handleVisibilityState()}
-                  value="false"
-                  control={<Switch color="primary" />}
-                  label="Privé"
-                  labelPlacement="end"
-                />
-                <FormControlLabel
-                  checked={visibilityState}
-                  onChange={() => handleVisibilityState()}
-                  value="true"
-                  control={<Switch color="primary" />}
-                  label="Public"
-                  labelPlacement="end"
-                />
-              </FormGroup>
-            </FormControl>
+ <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
+            <FormGroup aria-label="position" row
+              /*     value={visibility}
+        onChange={() => handleVisibilityState()} */
+            >
+              <FormControlLabel            
+            
+                control={
+                  <Switch color="primary"
+                    value={!visibilityState}
+                    checked={!visibilityState}
+                    onChange={() => handleVisibilityState()}
+                  />}
+                label="Privé"
+                labelPlacement="end"
+              />
+              <FormControlLabel
+                control={
+                  <Switch color="primary"
+                    value={visibilityState}
+                    checked={visibilityState}
+                    onChange={() => handleVisibilityState()}
+                  />}
+                label="Public"
+                labelPlacement="end"
+              />
+            </FormGroup>
+          </FormControl>
 
             <Typography
               color="secondary"

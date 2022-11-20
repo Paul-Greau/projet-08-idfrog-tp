@@ -1,4 +1,3 @@
-
 // CSS VARS
 import palette from "../../assets/styles/_vars.scss"
 
@@ -18,18 +17,13 @@ export const projectCollectStyles = {
     },
   },
 
-  btnSecondary: {
+  btnSecondary:{
     fontSize: 14,
-    backgroundColor: "#d9d9d9",
-    border: "2px solid #d9d9d9",
-    color: "#ffffff",
+    color: palette.secondary,
+    fontWeight: "400",
     textTransform: "none",
     borderRadius: "50px",
     padding: "5px 10px",
-    "&:hover": {
-      backgroundColor: "#f5f5f5",
-      color: "#30394e",
-    },
   },
 
   card:{
@@ -58,6 +52,7 @@ export const projectCollectStyles = {
     boxShadow: 24,
     p: 2,
   }
-    
+
+
 
 };
