@@ -18,6 +18,7 @@ const Project = () => {
   const { id } = useParams();
   const flag = useRef(false);
   let navigate = useNavigate();
+  const baseUrl = process.env.REACT_APP_BASEURL
 
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
@@ -47,7 +48,7 @@ const Project = () => {
             <CardMedia
               component="img"
               height="20"
-              src={`https://picsum.photos/1200/800?random=${id}`}
+              src={`${baseUrl}${result.img_url}`}
               alt={result.projet}
             />
           </Grid>

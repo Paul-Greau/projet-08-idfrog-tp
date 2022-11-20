@@ -20,9 +20,9 @@ app.use(express.static('data/ProjectsImages'));
 
 app.use(cors({
   "origin": "*",
-/*   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
   "preflightContinue": false,
-  "optionsSuccessStatus": 204 */
+  "optionsSuccessStatus": 204
 }));
 
 app.use(express.urlencoded({ extended: true }));
