@@ -22,7 +22,7 @@ app.use(cors({
   "optionsSuccessStatus": 204
 }));
 
-app.use(express.static('data'))
+app.use(express.static('data/ProjectsImages'))
 
 
 
