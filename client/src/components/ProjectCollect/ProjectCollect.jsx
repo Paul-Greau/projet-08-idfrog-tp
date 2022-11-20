@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { SimpleShareButtons } from "react-simple-share";
+
 // import PropTypes from "prop-types";
 
 // Material UI
@@ -27,10 +29,7 @@ import { projectCollectStyles } from "./styles";
 
 // RECOIL
 import { useRecoilValue } from "recoil";
-import {
-  profileConnexionstate,
-  profileDetailState,
-} from "../../atomes/profileAtomes";
+import { profileConnexionstate } from "../../atomes/profileAtomes";
 import { deleteProject, patchProject } from "../../services/projectService";
 
 function ProjectCollect({
@@ -39,13 +38,13 @@ function ProjectCollect({
   createdAt,
   contributions,
   visibility,
-  project_id,
+  id,
   invest_type,
 }) {
   let navigate = useNavigate();
 
   const ProfileInfo = useRecoilValue(profileConnexionstate);
-  const ProfileDetail = useRecoilValue(profileDetailState);
+  /*   const ProfileDetail = useRecoilValue(profileDetailState); */
   const [visibilityState, setvisibilityState] = useState(visibility);
   const [showError, setShowError] = useState(false);
   const [loginError, setLoginError] = useState("");
@@ -60,7 +59,7 @@ function ProjectCollect({
   //console.log("profile", profile);
 
   const handleVisibilityState = async () => {
-    const response = await patchProject(project_id, ProfileInfo.token, {
+    const response = await patchProject(id, ProfileInfo.token, {
       visibility: !visibilityState,
     });
     //console.log("visibility batch response", response);
@@ -105,7 +104,7 @@ function ProjectCollect({
   };
 
   const handleDeleteProject = async () => {
-    const response = await deleteProject(project_id, ProfileInfo.token);
+    const response = await deleteProject(id, ProfileInfo.token);
     //console.log(response);
     if (response.status === 201) {
       return navigate("/");
@@ -162,16 +161,20 @@ function ProjectCollect({
               </Button>
             </Link>
           ) : (
-            <Link to={`/profile/contribut/${project_id}`}>
+            <Link to={`/profile/contribut/${id}`}>
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>
             </Link>
           )}
 
-          <Button size="small" sx={projectCollectStyles.btnSecondary}>
-            Partager +
-          </Button>
+          <Box size="small" sx={projectCollectStyles.btnSecondary}>
+            Partager sur&nbsp;:&nbsp;
+            <SimpleShareButtons
+              whitelist={["Facebook", "Twitter", "LinkedIn"]}
+              size="28px"
+            />
+          </Box>
         </CardActions>
       </Card>
       {ProfileInfo.pseudo === profile && (
@@ -187,20 +190,33 @@ function ProjectCollect({
               Souhaitez vous que votre projet soit :
             </Typography>
             <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
-              <FormGroup aria-label="position" row value={visibility}>
+              <FormGroup
+                aria-label="position"
+                row
+                /*     value={visibility}
+        onChange={() => handleVisibilityState()} */
+              >
                 <FormControlLabel
-                  checked={!visibilityState}
-                  onChange={() => handleVisibilityState()}
-                  value="false"
-                  control={<Switch color="primary" />}
+                  control={
+                    <Switch
+                      color="primary"
+                      value={!visibilityState}
+                      checked={!visibilityState}
+                      onChange={() => handleVisibilityState()}
+                    />
+                  }
                   label="Privé"
                   labelPlacement="end"
                 />
                 <FormControlLabel
-                  checked={visibilityState}
-                  onChange={() => handleVisibilityState()}
-                  value="true"
-                  control={<Switch color="primary" />}
+                  control={
+                    <Switch
+                      color="primary"
+                      value={visibilityState}
+                      checked={visibilityState}
+                      onChange={() => handleVisibilityState()}
+                    />
+                  }
                   label="Public"
                   labelPlacement="end"
                 />

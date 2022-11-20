@@ -8,7 +8,9 @@ import { Grid, Typography, CardMedia } from "@mui/material";
 // import palette from '../../assets/styles/_vars.scss';
 import { projectDescriptionStyles } from "./styles";
 
-function ProjectDescription({ id, result }) {
+function ProjectDescription({ result }) {
+  const baseUrl = process.env.REACT_APP_BASEURL
+
   return (
     <div className="projectdescription">
       <Grid container spacing={2}>
@@ -20,7 +22,7 @@ function ProjectDescription({ id, result }) {
         <CardMedia
           component="img"
           height="240"
-          src={`https://picsum.photos/1200/800?random=${id}`}
+          src={`${baseUrl}${result.img_url}`}
           alt={result.projet}
           sx={projectDescriptionStyles.img}
         />

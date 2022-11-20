@@ -45,6 +45,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
   const currentCards = filterResult.slice(indexOfFirstCard, indexOfLastCard);
 
   useEffect(() => {
+    //console.log(result);
     let filteredResults = result.filter((item) => {
       // Boucle sur chaque projet de l'objet result
       if (
@@ -54,7 +55,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
         return true;
       }
       if (
-        (categoryFilter === "" || categoryFilter === 0) &&
+        (categoryFilter === "" || categoryFilter === 1) &&
         financingTypeFilter === item.invest_type
       ) {
         return true;
@@ -66,7 +67,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
         return true;
       }
       if (
-        (categoryFilter === "" || categoryFilter === 0) &&
+        (categoryFilter === "" || categoryFilter === 1) &&
         (financingTypeFilter === "" || financingTypeFilter === "all")
       ) {
         return true;
@@ -147,6 +148,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
                   description={res.description}
                   profile={res.profile.pseudo}
                   contributions={res.contributions}
+                  img_url={res.img_url}
                 />
               </Grid>
             ))}
@@ -156,12 +158,13 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
             <CardPlaceholder />
             <CardPlaceholder />
             <CardPlaceholder />
-            {cardPerPages === 6 && 
-            <>
-              <CardPlaceholder />
-              <CardPlaceholder />
-              <CardPlaceholder />
-            </>}
+            {cardPerPages === 6 && (
+              <>
+                <CardPlaceholder />
+                <CardPlaceholder />
+                <CardPlaceholder />
+              </>
+            )}
           </Grid>
         )}
         <Container
