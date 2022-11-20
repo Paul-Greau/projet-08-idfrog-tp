@@ -14,6 +14,7 @@ const port = process.env.PORT || 3002;
 
 // vars
 const app = express();
+app.use('/data/ProjectsImages', express.static('./data/ProjectsImages'));
 
 app.use(express.static('data/ProjectsImages'));
 
