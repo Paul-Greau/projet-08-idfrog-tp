@@ -45,5 +45,5 @@ export const financingTypes = [
   {title: "Tout type de financement", value : "all"},
   {title: "Investissement par don", value : "dons"},
   {title: "Investissement avec prêt", value : "pret"},
-  {title: "capital", value : "capital"},
+  /* {title: "capital", value : "capital"}, */
 ];
