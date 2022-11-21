@@ -194,8 +194,7 @@ function ProjectCollect({
               /*     value={visibility}
         onChange={() => handleVisibilityState()} */
               >
-                <FormControlLabel            
-            
+                <FormControlLabel
                   control={
                     <Switch color="primary"
                       value={!visibilityState}
