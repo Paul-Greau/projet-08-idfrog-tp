@@ -38,7 +38,7 @@ function ProjectCollect({
   createdAt,
   contributions,
   visibility,
-  id,
+  project_id,
   invest_type,
 }) {
   let navigate = useNavigate();
@@ -59,7 +59,7 @@ function ProjectCollect({
   //console.log("profile", profile);
 
   const handleVisibilityState = async () => {
-    const response = await patchProject(id, ProfileInfo.token, {
+    const response = await patchProject(project_id, ProfileInfo.token, {
       visibility: !visibilityState,
     });
     //console.log("visibility batch response", response);
@@ -104,7 +104,7 @@ function ProjectCollect({
   };
 
   const handleDeleteProject = async () => {
-    const response = await deleteProject(id, ProfileInfo.token);
+    const response = await deleteProject(project_id, ProfileInfo.token);
     //console.log(response);
 
     if (response.status === 201) {
@@ -162,7 +162,7 @@ function ProjectCollect({
               </Button>
             </Link>
           ) : (
-            <Link to={`/profile/contribut/${id}`}>
+            <Link to={`/profile/contribut/${project_id}`}>
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>

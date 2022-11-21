@@ -92,7 +92,7 @@ function ProfileForm({
 
           <FormControlLabel value="female" control={<Radio />} label="Madame" />
 
-          <UploadAvatar />
+          {/* <UploadAvatar /> */}
         </RadioGroup>
 
         <TextField
