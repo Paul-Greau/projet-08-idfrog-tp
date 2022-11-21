@@ -11,6 +11,8 @@ import ProjectDetails from "../../../components/ProjectDetails/ProjectDetails";
 import ProjectCollect from "../../../components/ProjectCollect/ProjectCollect";
 import ProjectPageSkeleton from "../../../components/UI/Placeholder/ProjectPageSkeleton";
 import LoadingBar from "../../../components/UI/Placeholder/LoadingBar";
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../../atomes/profileAtomes";
 
 const Project = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +20,9 @@ const Project = () => {
   const { id } = useParams();
   const flag = useRef(false);
   let navigate = useNavigate();
+  const {isLogged} = useRecoilValue(profileConnexionstate);
   const baseUrl = process.env.REACT_APP_BASEURL
+
 
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
@@ -28,6 +32,9 @@ const Project = () => {
       getProjectById(id)
         .then((res) => {
           // Liste dans le state
+          if(isLogged === false && res.data.visibility === false){
+            return navigate("/");
+          }
           setResult(res.data);
           setIsLoading(false);
           //console.log("reponse dans project", res);

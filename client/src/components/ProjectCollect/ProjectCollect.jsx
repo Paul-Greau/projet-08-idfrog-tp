@@ -247,12 +247,18 @@ function ProjectCollect({
             )}
           </CardContent>
 
-          <CardActions>
+          <CardActions
+            sx={{
+              diplay: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <Button color="error" onClick={handleOpen}>
               SUPRIMER LE PROJET
             </Button>
             <Link to={`/profile/patchproject/${project_id}`}>
-              <Button color="warning" onClick={handleOpen}>
+              <Button color="primary" >
               EDITER LE PROJET
               </Button>
             </Link>            

@@ -156,6 +156,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
                   profile={res.profile.pseudo}
                   contributions={res.contributions}
                   img_url={res.img_url}
+                  visibility={res.visibility}
                 />
               </Grid>            
             ))}
