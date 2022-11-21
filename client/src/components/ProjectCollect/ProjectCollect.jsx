@@ -105,7 +105,7 @@ function ProjectCollect({
 
   const handleDeleteProject = async () => {
     const response = await deleteProject(project_id, ProfileInfo.token);
-    //console.log(response);
+    console.log(response);
     if (response.status === 201) {
       return navigate("/");
     }
