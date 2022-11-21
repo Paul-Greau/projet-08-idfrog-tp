@@ -55,7 +55,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
         return true;
       }
       if (
-        (categoryFilter === "" || categoryFilter === 0) &&
+        (categoryFilter === "" || categoryFilter === 1) &&
         financingTypeFilter === item.invest_type
       ) {
         return true;
@@ -67,7 +67,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
         return true;
       }
       if (
-        (categoryFilter === "" || categoryFilter === 0) &&
+        (categoryFilter === "" || categoryFilter === 1) &&
         (financingTypeFilter === "" || financingTypeFilter === "all")
       ) {
         return true;
