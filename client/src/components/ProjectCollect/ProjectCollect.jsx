@@ -38,7 +38,7 @@ function ProjectCollect({
   createdAt,
   contributions,
   visibility,
-  project_id,
+  id,
   invest_type,
 }) {
   let navigate = useNavigate();
@@ -59,7 +59,7 @@ function ProjectCollect({
   //console.log("profile", profile);
 
   const handleVisibilityState = async () => {
-    const response = await patchProject(project_id, ProfileInfo.token, {
+    const response = await patchProject(id, ProfileInfo.token, {
       visibility: !visibilityState,
     });
     //console.log("visibility batch response", response);
@@ -104,8 +104,9 @@ function ProjectCollect({
   };
 
   const handleDeleteProject = async () => {
-    const response = await deleteProject(project_id, ProfileInfo.token);
-    console.log(response);
+    const response = await deleteProject(id, ProfileInfo.token);
+    //console.log(response);
+
     if (response.status === 201) {
       return navigate("/");
     }
@@ -161,7 +162,7 @@ function ProjectCollect({
               </Button>
             </Link>
           ) : (
-            <Link to={`/profile/contribut/${project_id}`}>
+            <Link to={`/profile/contribut/${id}`}>
               <Button size="small" sx={projectCollectStyles.btnPrimary}>
                 Contribuer au projet &gt;
               </Button>
@@ -190,27 +191,33 @@ function ProjectCollect({
               Souhaitez vous que votre projet soit :
             </Typography>
             <FormControl component="fieldset" sx={{ margin: "0.5em" }}>
-              <FormGroup aria-label="position" row
-              /*     value={visibility}
+              <FormGroup
+                aria-label="position"
+                row
+                /*     value={visibility}
         onChange={() => handleVisibilityState()} */
               >
                 <FormControlLabel
                   control={
-                    <Switch color="primary"
+                    <Switch
+                      color="primary"
                       value={!visibilityState}
                       checked={!visibilityState}
                       onChange={() => handleVisibilityState()}
-                    />}
+                    />
+                  }
                   label="Privé"
                   labelPlacement="end"
                 />
                 <FormControlLabel
                   control={
-                    <Switch color="primary"
+                    <Switch
+                      color="primary"
                       value={visibilityState}
                       checked={visibilityState}
                       onChange={() => handleVisibilityState()}
-                    />}
+                    />
+                  }
                   label="Public"
                   labelPlacement="end"
                 />

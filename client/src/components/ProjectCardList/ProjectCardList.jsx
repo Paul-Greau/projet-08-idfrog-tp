@@ -165,12 +165,13 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
             <CardPlaceholder />
             <CardPlaceholder />
             <CardPlaceholder />
-            {cardPerPages === 6 && 
-            <>
-              <CardPlaceholder />
-              <CardPlaceholder />
-              <CardPlaceholder />
-            </>}
+            {cardPerPages === 6 && (
+              <>
+                <CardPlaceholder />
+                <CardPlaceholder />
+                <CardPlaceholder />
+              </>
+            )}
           </Grid>
         )}
         <Container

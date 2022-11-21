@@ -68,7 +68,6 @@ function Head() {
                 Et Vous avez besoin d'un coup de pouce financier ?
               </Typography>
 
-
               <Grid
                 container
                 spacing={5}
@@ -89,7 +88,7 @@ function Head() {
                       </Button>
                     </Link>
                   ) : (
-                    <Link to="/profile/contribut">
+                    <Link to="/projects">
                       <Button
                         variant="outlined"
                         endIcon={<InputIcon />}
@@ -125,7 +124,6 @@ function Head() {
                     </Link>
                   )}
                 </Grid>
-
               </Grid>
             </Grid>
 
@@ -137,7 +135,6 @@ function Head() {
       ) : (
         <HeadPlaceholder />
       )}
-
     </div>
   );
 }
