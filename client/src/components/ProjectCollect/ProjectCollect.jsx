@@ -244,6 +244,11 @@ function ProjectCollect({
             <Button color="error" onClick={handleOpen}>
               SUPRIMER LE PROJET
             </Button>
+            <Link to={`/profile/patchproject/${project_id}`}>
+              <Button color="warning" onClick={handleOpen}>
+              EDITER LE PROJET
+              </Button>
+            </Link>            
             <Modal open={open} onClose={handleClose}>
               <Box sx={projectCollectStyles.modal}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
