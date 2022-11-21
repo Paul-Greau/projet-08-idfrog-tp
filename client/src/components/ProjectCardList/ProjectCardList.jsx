@@ -24,8 +24,11 @@ import {
 } from "@mui/material";
 // CSS
 import { projectCardStyles } from "./styles";
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../atomes/profileAtomes";
 
 function ProjectCardList({ result, isLoading, cardPerPages }) {
+  const {isLogged} = useRecoilValue(profileConnexionstate)
   const [filterResult, setFilterResult] = useState(result);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [financingTypeFilter, setFinancingTypeFilter] = useState("");
@@ -48,6 +51,9 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
     //console.log(result);
     let filteredResults = result.filter((item) => {
       // Boucle sur chaque projet de l'objet result
+      if(isLogged === false && item.visibility === false){
+        return false;
+      }
       if (
         categoryFilter === item.category_id &&
         financingTypeFilter === item.invest_type
@@ -105,6 +111,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
                   }
                 >
                   {category.map((category, index) => (
+                    
                     <MenuItem key={index} value={category.id}>
                       {category.name}
                     </MenuItem>
@@ -150,7 +157,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
                   contributions={res.contributions}
                   img_url={res.img_url}
                 />
-              </Grid>
+              </Grid>            
             ))}
           </Grid>
         ) : (
