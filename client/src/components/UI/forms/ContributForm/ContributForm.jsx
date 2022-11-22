@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 // import PropTypes from 'prop-types';
 
 // Materail UI
@@ -10,20 +10,20 @@ import {
   Typography,
   Alert,
   FormControl,
-} from '@mui/material';
+} from "@mui/material";
 // Yup Schema
-import { validationSchema } from './validationContributSchema';
+import { validationSchema } from "./validationContributSchema";
 //Formik
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 // CSS
-import { postContributStyles } from './styles';
-import { useState } from 'react';
+import { postContributStyles } from "./styles";
+import { useState } from "react";
 
-import { Link } from 'react-router-dom';
-import { postContribution } from '../../../../services/contributionService';
-import { postComment } from '../../../../services/CommentService';
-import { useRecoilValue } from 'recoil';
-import { profileConnexionstate } from '../../../../atomes/profileAtomes';
+import { Link } from "react-router-dom";
+import { postContribution } from "../../../../services/contributionService";
+import { postComment } from "../../../../services/CommentService";
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../../../atomes/profileAtomes";
 
 function ContributForm({
   projectId,
@@ -32,12 +32,12 @@ function ContributForm({
 }) {
   const {token} = useRecoilValue(profileConnexionstate);
   const [showError, setShowError] = useState(false)
-  const [projectError, setProjectError] = useState('')
-  const [alertStyle, setAlertStyle] = useState('error')
+  const [projectError, setProjectError] = useState("")
+  const [alertStyle, setAlertStyle] = useState("error")
   const formik = useFormik({
     initialValues: {
-      invested_amount: '',
-      text: '',
+      invested_amount: "",
+      text: "",
       sold: false,
       /*   card_number: '',
       expiry_date: '',
@@ -47,10 +47,10 @@ function ContributForm({
     onSubmit: async (values, { resetForm }) => {
       // alert(JSON.stringify(values, null, 2));
       const response = await postContribution(token, projectId, values);
-      console.log(response);
+      //console.log(response);
       if (response.status !== 201) {
-        console.log('error in contribution');
-        setAlertStyle('error');
+        console.log("error in contribution");
+        setAlertStyle("error");
         setProjectError({
           status: response.status,
           message: response.data.message,
@@ -61,8 +61,8 @@ function ContributForm({
       // Si ok on envoie le comment
       const res = await postComment(token, projectId, values);
       if (res.status !== 201) {
-        console.log('error in comment');
-        setAlertStyle('error');
+        console.log("error in comment");
+        setAlertStyle("error");
         setProjectError({
           status: response.status,
           message: response.data.message,
@@ -71,10 +71,10 @@ function ContributForm({
         return;
       }
       // Si tout ok message succès
-      setAlertStyle('success');
+      setAlertStyle("success");
       setProjectError({
         status: null,
-        message: 'Contribution envoyée avec succès',
+        message: "Contribution envoyée avec succès",
       });
       setShowError(true);
       resetForm();
@@ -92,7 +92,7 @@ function ContributForm({
         <Typography sx={postContributStyles.titre} variant="h5">
           Quel type de contribution souhaitez vous faire pour le projet:
           <Link to={`/project/${projectDetail.id}`}>
-            {' '}
+            {" "}
             &apos;{projectDetail.name}&apos;?
           </Link>
           <br />
@@ -227,7 +227,7 @@ function ContributForm({
               setShowError(false);
             }}
           >
-            {projectError.status ? `'Erreur' ${projectError.status}` : ''} -{' '}
+            {projectError.status ? `'Erreur' ${projectError.status}` : ""} -{" "}
             {projectError.message}
           </Alert>
         )}

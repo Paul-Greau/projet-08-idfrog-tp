@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // import PropTypes from 'prop-types';
 
 //  Services
-import { getProjectsList } from '../../../services/projectService';
+import { getProjectsList } from "../../../services/projectService";
 // Components
-import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
-import Head from '../../../components/Head/Head';
-import TopFooter from '../../../components/TopFooter/TopFooter';
+import ProjectCardList from "../../../components/ProjectCardList/ProjectCardList";
+import Head from "../../../components/Head/Head";
+import TopFooter from "../../../components/TopFooter/TopFooter";
 
 // Material UI
-import { Container, Box } from '@mui/material';
+import { Container, Box } from "@mui/material";
 
 // CSS
-import './homeStyles.scss';
+import "./homeStyles.scss";
 
 function Home() {
   const [result, setResult] = useState([]);
@@ -23,7 +23,7 @@ function Home() {
     try {
       setIsLoading(true)
       const response = await getProjectsList();
-      console.log(response.data);
+      //console.log(response.data);
       setResult(response.data);
       // TODO redirect vers 404 si status 404
     } catch (error) {
@@ -33,8 +33,8 @@ function Home() {
   };
 
   useEffect(() => {
-      FetchData(); 
-    },[]);
+    FetchData();
+  }, []);
 
   return (
     <>
@@ -42,8 +42,8 @@ function Home() {
       <Box className="allCards">
         {result && 
         <ProjectCardList result={result}
-        cardPerPages={3}
-        isLoading={isLoading}
+          cardPerPages={3}
+          isLoading={isLoading}
         />
         }
         
@@ -51,8 +51,8 @@ function Home() {
           component="section"
           maxWidth="lg"
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
           }}
         >
         </Container> 

@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React from "react";
 // import PropTypes from 'prop-types';
 
 // Material UI
-import { LinearProgress, Typography, Box } from '@mui/material';
+import { LinearProgress, Typography, Box } from "@mui/material";
 
 // CSS
-import { projectProgressStyles } from './styles';
+import { projectProgressStyles } from "./styles";
 
 function ProgressLine({rate}) {
 
@@ -24,7 +24,7 @@ function ProgressLine({rate}) {
       </Box>
       <Box sx={{ minWidth: 35 }}>
         <Typography variant="body2" color="text.secondary">{`${Math.round(
-        rate
+          rate
         )}%`}</Typography>
       </Box>
     </Box>
@@ -36,7 +36,7 @@ export default function ProjectProgress({
 }) {
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Typography></Typography>
       <ProgressLine rate={progressRate}/>
     </Box>

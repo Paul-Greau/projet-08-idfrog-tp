@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
-import ProjectCardList from '../../../components/ProjectCardList/ProjectCardList';
+import React, { useEffect, useState, useRef } from "react";
+import ProjectCardList from "../../../components/ProjectCardList/ProjectCardList";
 // Services
-import { getProjectsList } from '../../../services/projectService';
+import { getProjectsList } from "../../../services/projectService";
 
 // Material UI
-import { Container } from '@mui/material';
+import { Container } from "@mui/material";
 
 // CSS
-import './allProjectsStyles.scss';
+import "./allProjectsStyles.scss";
 
 // import PropTypes from 'prop-types';
 
@@ -35,15 +35,15 @@ function AllProject() {
   return (
     <div className="allProjects">
       <ProjectCardList result={result}
-      cardPerPages={6}
-      isLoading={isLoading}
+        cardPerPages={6}
+        isLoading={isLoading}
       />
       <Container
         component="section"
         maxWidth="lg"
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
+          display: "flex",
+          justifyContent: "center",
         }}
       >
       </Container>

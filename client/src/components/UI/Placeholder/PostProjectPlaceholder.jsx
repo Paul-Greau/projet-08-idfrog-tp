@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Skeleton, CardContent, Card } from '@mui/material';
+import React from "react";
+import { Box, Skeleton, CardContent, Card } from "@mui/material";
 
 function PostProjectPlaceholder() {
   return (
@@ -9,7 +9,7 @@ function PostProjectPlaceholder() {
     >
       <Skeleton animation="wave" height={70} width="30%" />
       <Skeleton animation="wave" height={70} width="100%" sx={{ mt: -1 }} />
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: "flex" }}>
         <Skeleton
           animation="wave"
           height={90}
@@ -45,9 +45,9 @@ function PostProjectPlaceholder() {
         <Skeleton animation="wave" height={70} width="60%" />
         <Skeleton animation="wave" height={20} width="70%" />
 
-        <Card sx={{ width: '100%', mb: 4, mt: 2 }}>
+        <Card sx={{ width: "100%", mb: 4, mt: 2 }}>
           <CardContent sx={{ m: 1 }}>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: "flex" }}>
               <Skeleton
                 animation="wave"
                 height={30}
@@ -70,10 +70,10 @@ function PostProjectPlaceholder() {
                 height={30}
                 width={30}
                 variant="circular"
-                sx={{ ml: '60%' }}
+                sx={{ ml: "60%" }}
               />
             </Box>
-            <Box sx={{ display: 'flex', mt: 4 }}>
+            <Box sx={{ display: "flex", mt: 4 }}>
               <Skeleton
                 animation="wave"
                 height={30}
@@ -96,7 +96,7 @@ function PostProjectPlaceholder() {
                 height={30}
                 width={30}
                 variant="circular"
-                sx={{ ml: '60%' }}
+                sx={{ ml: "60%" }}
               />
             </Box>
           </CardContent>
@@ -104,7 +104,7 @@ function PostProjectPlaceholder() {
 
         <Skeleton animation="wave" height={30} width="30%" />
 
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: "flex" }}>
           <Skeleton
             animation="wave"
             height={90}
@@ -115,7 +115,7 @@ function PostProjectPlaceholder() {
           <Skeleton animation="wave" height={90} width="100%" sx={{ mt: -1 }} />
         </Box>
 
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: "flex" }}>
           <Skeleton
             animation="wave"
             height={70}

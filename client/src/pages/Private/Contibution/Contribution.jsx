@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import { useParams } from 'react-router-dom';
-import { getProjectById } from '../../../services/projectService';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import { getProjectById } from "../../../services/projectService";
+import { useNavigate } from "react-router-dom";
 
 //import PropTypes from 'prop-types';
 
@@ -18,14 +18,14 @@ function Contribution() {
   let navigate = useNavigate()
   
   const [isLoading, setIsLoading] = useState(false)
-  const [projectDetail, setProjectDetail] = useState('');
+  const [projectDetail, setProjectDetail] = useState("");
   const { id } = useParams()
-  console.log('contributions', id, isLoading);
+  //console.log("contributions", id, isLoading);
 
   const FetchProjectDetail = async () => {
     setIsLoading(true)
     const response = await getProjectById(id);
-    console.log(response);
+    //console.log(response);
     setIsLoading(false)
     if (response.status !== 200){
       return navigate("/");
@@ -43,8 +43,8 @@ function Contribution() {
     <div className="contribut-container">
 
       {isLoading ? <ContributPlaceholder /> :  <ContributForm 
-      projectId={id}
-      projectDetail={projectDetail}
+        projectId={id}
+        projectDetail={projectDetail}
       />}
 
     </div>

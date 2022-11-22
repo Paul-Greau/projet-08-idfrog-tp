@@ -3,11 +3,11 @@ import React, { useState } from "react";
 // import PropTypes from 'prop-types';
 import { handleSubmitProfil } from "../../Utils/Utils";
 
-import UploadAvatar from '../UploadAvatar/UploadAvatar';
+import UploadAvatar from "../UploadAvatar/UploadAvatar";
 import {
   patchProfileDetails,
   postFIllProfileDetails,
-} from '../../../../../services/profileService';
+} from "../../../../../services/profileService";
 
 // Materail UI
 import {
@@ -18,11 +18,11 @@ import {
   Radio,
   Button,
   Alert,
-} from '@mui/material';
+} from "@mui/material";
 // Yup Schema
 import { validationSchema } from "../validatePersonSchema.js";
 //Formik
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 // CSS
 import { postParticulierStyles } from "./styles";
 
@@ -32,12 +32,12 @@ function ProfileForm({
   profileStatus,
   token,
 }) {
-  console.log('person', person);
+  //console.log("person", person);
   const [showError, setShowError] = useState(false);
-  const [loginError, setLoginError] = useState('');
-  const [alertStyle, setAlertStyle] = useState('error');
+  const [loginError, setLoginError] = useState("");
+  const [alertStyle, setAlertStyle] = useState("error");
 
- const handleSubmit = (response) => {
+  const handleSubmit = (response) => {
     const alertMessage = handleSubmitProfil(response, 201)
     setAlertStyle(alertMessage.alertStyle)
     setLoginError({
@@ -50,27 +50,27 @@ function ProfileForm({
 
   const formik = useFormik({
     initialValues: {
-      gender: person?.gender ?? '',
-      first_name: person?.first_name ?? '',
-      last_name: person?.last_name ?? '',
+      gender: person?.gender ?? "",
+      first_name: person?.first_name ?? "",
+      last_name: person?.last_name ?? "",
       status: profileStatus,
-      birth_date: person?.birth_date ?? '',
-      birth_place: person?.birth_place ?? '',
-      nationality: person?.nationality ?? '',
-      city: person?.city ?? '',
-      zip_code: person?.zip_code ?? '',
-      phone_number: person?.phone_number ?? '',
-      adress: person?.adress ?? '',
+      birth_date: person?.birth_date ?? "",
+      birth_place: person?.birth_place ?? "",
+      nationality: person?.nationality ?? "",
+      city: person?.city ?? "",
+      zip_code: person?.zip_code ?? "",
+      phone_number: person?.phone_number ?? "",
+      adress: person?.adress ?? "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       if (person === null) {
-        console.log('profil vide');
+        //console.log("profil vide");
         const response = await postFIllProfileDetails(token, values);
         handleSubmit(response);
         return;
       } else {
-        console.log("personne déjà existante");
+        //console.log("personne déjà existante");
         const response = await patchProfileDetails(token, values);
         handleSubmit(response);
         return;
@@ -92,7 +92,7 @@ function ProfileForm({
 
           <FormControlLabel value="female" control={<Radio />} label="Madame" />
 
-          <UploadAvatar />
+          {/* <UploadAvatar /> */}
         </RadioGroup>
 
         <TextField
@@ -268,7 +268,7 @@ function ProfileForm({
               setShowError(false);
             }}
           >
-            {loginError.status ? `'Erreur' ${loginError.status}` : ''} -{' '}
+            {loginError.status ? `'Erreur' ${loginError.status}` : ""} -{" "}
             {loginError.message}
           </Alert>
         )}

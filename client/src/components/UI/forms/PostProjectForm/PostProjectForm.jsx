@@ -39,8 +39,12 @@ import palette from "../../../../assets/styles/_vars.scss";
 // Tableau des categories
 import { category } from "./category";
 import { uploadProjectImage } from "../../../../services/imgService";
+import { handlePatchProject } from "../Utils/Utils";
 
-function PostProjectForm({ token, profileStatus }) {
+function PostProjectForm({ token, profileStatus, projectDetail }) {
+
+  console.log(projectDetail);
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [img_url, setImageUrl] = useState(null);
   const [showError, setShowError] = useState(false);
@@ -70,38 +74,60 @@ function PostProjectForm({ token, profileStatus }) {
     return;
   };
 
+
   const formik = useFormik({
     initialValues: {
-      // img_url: '',
-      name: "",
-      title: "",
-      category_id: "",
-      resume: "",
-      description: "",
-      amount_target: "",
-      invest_type: "",
-      rate: "",
-      end_time: "",
-      website: "",
+      img_url: projectDetail?.img_url ?? "",
+      name: projectDetail?.name ?? "",
+      title: projectDetail?.title ?? "",
+      category_id: projectDetail?.category_id ?? "",
+      resume: projectDetail?.resume ?? "",
+      description: projectDetail?.description ?? "",
+      amount_target: projectDetail?.amount_target ?? "",
+      invest_type: projectDetail?.invest_type ?? "",
+      rate: projectDetail?.rate ?? "",
+      end_time: projectDetail?.end_time ?? "",
+      website: projectDetail?.website ?? "",
       status: profileStatus,
-      visibility: false,
+      visibility: projectDetail?.website ?? false,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const uploadUrl = await uploadProjectImage(token, {
-        projectImage: selectedImage,
-      });
-      if (uploadUrl.status !== 201) {
-        setAlertStyle("error");
+      //console.log(values);
+      if(projectDetail){
+        const response = await patchProject (projectDetail.id, token, values)
+        console.log(response);
+        const alertStyle = handlePatchProject(response, 201)
+        setAlertStyle(alertStyle.alertStyle)
         setProjectError({
-          status: uploadUrl.status,
-          message: uploadUrl.statusText,
+          status: alertStyle.errorStatus,
+          message: alertStyle.message,
+        })
+        setShowError(alertStyle.showMessage);
+        return
+      }
+      if(selectedImage){
+        const uploadUrl = await uploadProjectImage(token, {
+          projectImage: selectedImage,
         });
-        setShowError(true);
-        return;
+        if (uploadUrl.status !== 201) {
+          setAlertStyle("error");
+          setProjectError({
+            status: uploadUrl.status,
+            message: uploadUrl.statusText,
+          });
+          setShowError(true);
+          return;
+        }        
+        const response = await postProject(token, values);
+        //console.log(response);
+        handleSubmit(response, uploadUrl?.data.path);
+        return
       }
       const response = await postProject(token, values);
-      handleSubmit(response, uploadUrl.data.path);
+      //console.log(response);
+      handleSubmit(response, "/data/ProjectsImages/idfrog2.png");
+      return
     },
   });
   useEffect(() => {
@@ -109,7 +135,7 @@ function PostProjectForm({ token, profileStatus }) {
   }, []);
 
   const handleImgUpload = (img) => {
-    console.log("formproject", img);
+    //console.log("formproject", img);
     setSelectedImage(img);
     setImageUrl(URL.createObjectURL(img));
   };
@@ -123,13 +149,16 @@ function PostProjectForm({ token, profileStatus }) {
         variant="h1"
         sx={{ fontSize: "2em", mb: 2, color: palette.secondary }}
       >
-        Quel est votre projet&nbsp;?
+        {!projectDetail ? ("Quel est votre projet ?")  : ("Editer votre project") }
       </Typography>
-      <UploadImages
-        handleImgUpload={handleImgUpload}
-        img_url={img_url}
-        selectedImage={selectedImage}
-      />
+      {projectDetail? "" :
+        <UploadImages
+          handleImgUpload={handleImgUpload}
+          img_url={img_url}
+          selectedImage={selectedImage}
+        />
+      }
+      
 
       <form onSubmit={formik.handleSubmit} autoComplete="off">
         <TextField
@@ -332,7 +361,6 @@ function PostProjectForm({ token, profileStatus }) {
           helperText={formik.touched.website && formik.errors.website}
           error={formik.errors.website && formik.touched.website}
         />
-
         <Button
           type="submit"
           color="primary"
