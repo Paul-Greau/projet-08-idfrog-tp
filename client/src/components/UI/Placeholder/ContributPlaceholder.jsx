@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
+
 import React, { useEffect } from "react";
 // import PropTypes from 'prop-types';
 
 // Materail UI
 import { Skeleton, Box } from "@mui/material";
+
 // Yup Schema
 
 function ProfileFormPlaceholder() {

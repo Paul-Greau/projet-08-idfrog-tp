@@ -14,6 +14,7 @@ const port = process.env.PORT || 3002;
 
 // vars
 const app = express();
+app.use('/data/ProjectsImages', express.static('./data/ProjectsImages'));
 
 app.use(cors({
   "origin": "*",
@@ -31,19 +32,12 @@ preserveExtension: 4,
 abortOnLimit: true,
 }));
 
-
-
-
 app.use(session({
   saveUninitialized: true,
   resave: true,
   secret: process.env.SESSION_SECRET
 }))
 app.use(profileMiddleware);
-
-
-
-
 
 app.use(router);
 

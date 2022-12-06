@@ -1,51 +1,53 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Grid, CardMedia } from '@mui/material';
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Grid, CardMedia } from "@mui/material";
 // Services
-import { getProjectById } from '../../../services/projectService';
+import { getProjectById } from "../../../services/projects";
 // Components
-import ProjectDescription from '../../../components/ProjectDescription/ProjectDescription';
-import ProjectDetails from '../../../components/ProjectDetails/ProjectDetails';
-import ProjectCollect from '../../../components/ProjectCollect/ProjectCollect';
-import ProjectPageSkeleton from '../../../components/UI/Placeholder/ProjectPageSkeleton';
-import LoadingBar from '../../../components/UI/Placeholder/LoadingBar';
+import ProjectDescription from "../../../components/ProjectDescription/ProjectDescription";
+import ProjectDetails from "../../../components/ProjectDetails/ProjectDetails";
+
+import ProjectCollect from "../../../components/ProjectCollect/ProjectCollect";
+import ProjectPageSkeleton from "../../../components/UI/Placeholder/ProjectPageSkeleton";
+import LoadingBar from "../../../components/UI/Placeholder/LoadingBar";
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../../atomes/profileAtomes";
 
 const Project = () => {
-
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState([]);
   const { id } = useParams();
-
   const flag = useRef(false);
-
-  let navigate = useNavigate()
-
+  let navigate = useNavigate();
+  const {isLogged} = useRecoilValue(profileConnexionstate);
+  const baseUrl = process.env.REACT_APP_BASEURL
 
 
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     window.scrollTo(0, 0);
     if (flag.current === false) {
       getProjectById(id)
         .then((res) => {
           // Liste dans le state
-          setResult(res.data);
-          setIsLoading(false)
-          console.log('reponse dans project', res); 
-          if (res.status === 404) {            
+          if(isLogged === false && res.data.visibility === false){
             return navigate("/");
-          } 
+          }
+          setResult(res.data);
+          setIsLoading(false);
+          //console.log("reponse dans project", res);
+          if (res.status === 404) {
+            return navigate("/");
+          }
         })
-        .catch((err) =>console.log(err)
-        )}
+        .catch((err) => console.log(err));
+    }
     return () => (flag.current = true);
-  },[id]);
-
+  }, [id]);
 
   return (
-
     <>
       {!isLoading ? (
         <Grid container spacing={5}>
@@ -53,7 +55,7 @@ const Project = () => {
             <CardMedia
               component="img"
               height="20"
-              src={`https://picsum.photos/1200/800?random=${id}`}
+              src={`${baseUrl}${result.img_url}`}
               alt={result.projet}
             />
           </Grid>
@@ -82,7 +84,6 @@ const Project = () => {
         </>
       )}
     </>
-
   );
 };
 

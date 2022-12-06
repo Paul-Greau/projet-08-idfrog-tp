@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 // import PropTypes from "prop-types";
-import headImg from '../../../assets/images/notFound.svg';
+import headImg from "../../../assets/images/notFound.svg";
 
 // Material UI
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography } from "@mui/material";
 
 // CSS
-import './notFoundStyles.scss';
-import palette from '../../../assets/styles/_vars.scss';
+import "./notFoundStyles.scss";
+import palette from "../../../assets/styles/_vars.scss";
 
 function NotFound() {
   return (
@@ -17,10 +17,10 @@ function NotFound() {
           <Typography
             variant="h1"
             sx={{
-              fontSize: '2rem',
-              fontWeight: 'bold',
+              fontSize: "2rem",
+              fontWeight: "bold",
               pb: 2,
-              width: { xl: '50%', xs: '100%' },
+              width: { xl: "50%", xs: "100%" },
             }}
           >
             Oups ! <span style={{ color: palette.primary }}>La page</span> que

@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 // Components
-import DropDownProjectList from './DropDownProjectList';
-import DropDownContributionList from './DropDownContributionList';
+import DropDownProjectList from "./DropDownProjectList";
+import DropDownContributionList from "./DropDownContributionList";
 
 // Material UI
-import { Box, List } from '@mui/material';
+import { Box, List } from "@mui/material";
 
 // CSS
-import './navigationSideBarStyles.scss';
+import "./navigationSideBarStyles.scss";
 
 function SideBarItems({
   projectList,
@@ -21,8 +21,8 @@ function SideBarItems({
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
     ) {
       return;
     }

@@ -1,34 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 
-// Materail UI 
-import { TextField, Button, Container, Typography, Link, Alert } from "@mui/material"
+// Materail UI
+import { TextField, Button, Container, Typography, Alert } from "@mui/material";
 // Yup Schema
 import { validationSchema } from "./validateSigninSchema";
+// CSS
+import palette from "../../../../assets/styles/_vars.scss";
 
-//Formik 
+//Formik
 import { useFormik } from "formik";
-import { postSignin } from '../../../../services/loginService';
-import { useNavigate } from 'react-router-dom'
+import { postSignin } from "../../../../services/loginService";
+import { useNavigate } from "react-router-dom";
 
 function Signin() {
-  let navigate = useNavigate()
-  const [showError, setShowError] = useState(false)
-  const [loginError, setLoginError] = useState('')
+  let navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const HandleSignin = async (response) => {
-    console.log('HandleSignin', response);
+    console.log("HandleSignin", response);
 
-      if(response.status!==201){
-        setLoginError({
-          status : response.status,
-          message: response.data.message
-        })
-        setShowError(true)
-        return      
-      } 
+    if (response.status !== 201) {
+      setLoginError({
+        status: response.status,
+        message: response.data.message,
+      });
+      setShowError(true);
+      return;
+    }
     return navigate("/login");
-      }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -39,21 +42,24 @@ function Signin() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      let res = await postSignin(values)
-      HandleSignin(res)
+      let res = await postSignin(values);
+      HandleSignin(res);
     },
   });
 
   return (
     <Container maxWidth="md">
-  <form onSubmit={formik.handleSubmit} autoComplete="off">
-  {showError &&
-    <Alert severity="error"
-    onClose={() => {setShowError(false)}}
-    >
-    {`Erreur ${loginError.status} - ${loginError.message}`}
-    </Alert>
-    }  
+      <form onSubmit={formik.handleSubmit} autoComplete="off">
+        {showError && (
+          <Alert
+            severity="error"
+            onClose={() => {
+              setShowError(false);
+            }}
+          >
+            {`Erreur ${loginError.status} - ${loginError.message}`}
+          </Alert>
+        )}
         <TextField
           fullWidth
           required
@@ -68,7 +74,7 @@ function Signin() {
           helperText={formik.touched.pseudo && formik.errors.pseudo}
           error={formik.errors.pseudo && formik.touched.pseudo}
         />
-    
+
         <TextField
           fullWidth
           required
@@ -109,22 +115,32 @@ function Signin() {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           values={formik.values.confirmPassword}
-          helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-          error={formik.errors.confirmPassword && formik.touched.confirmPassword}
+          helperText={
+            formik.touched.confirmPassword && formik.errors.confirmPassword
+          }
+          error={
+            formik.errors.confirmPassword && formik.touched.confirmPassword
+          }
         />
         <Button
-        type="submit"
-        color="primary"
-        variant="contained"
-        fullWidth
-        sx={{ mt: 4 }}
-      >
-        Validez
-      </Button>
+          type="submit"
+          color="primary"
+          variant="contained"
+          fullWidth
+          sx={{ mt: 4 }}
+        >
+          Validez
+        </Button>
 
-      <Typography sx={{ mt: 2 }}>
-      Vous n&apos;avez pas encore de compte ? <Link href="#">S&apos;inscrire</Link>
-      </Typography>
+        <Typography sx={{ mt: 2 }}>
+          Avez-vous déjà un compte ?{" "}
+          <Link
+            to="/login"
+            style={{ color: palette.primary, textDecoration: "underline" }}
+          >
+            Se connecter
+          </Link>
+        </Typography>
       </form>
     </Container>
   );
@@ -134,3 +150,4 @@ Signin.propTypes = {};
 Signin.defaultProps = {};
 
 export default Signin;
+

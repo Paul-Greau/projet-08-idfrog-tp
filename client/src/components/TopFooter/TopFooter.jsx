@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 // import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 // Matrerial UI
-import { Typography, Button, Grid, Container } from '@mui/material';
+import { Typography, Button, Grid, Container } from "@mui/material";
 
 // CSS
 import palette from '../../assets/styles/_vars.scss';
@@ -71,3 +71,4 @@ function TopFooter() {
 TopFooter.defaultProps = {};
 
 export default React.memo(TopFooter);
+

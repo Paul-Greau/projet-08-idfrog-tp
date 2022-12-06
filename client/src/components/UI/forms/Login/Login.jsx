@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 
 // Materail UI
-import {
-  TextField,
-  Button,
-  Container,
-  Typography,
-  Link,
-  Alert,
-} from '@mui/material';
+import { TextField, Button, Container, Typography, Alert } from "@mui/material";
 // Yup Schema
-import { validationSchema } from './validateLoginSchema';
+import { validationSchema } from "./validateLoginSchema";
 //Formik
-import { useFormik } from 'formik';
-import { postLogin } from '../../../../services/loginService';
-import { useSetRecoilState } from 'recoil';
-import { profileConnexionstate } from '../../../../atomes/profileAtomes';
-import { useNavigate } from 'react-router-dom';
+import { useFormik } from "formik";
+import { postLogin } from "../../../../services/loginService";
+import { useSetRecoilState } from "recoil";
+import { profileConnexionstate } from "../../../../atomes/profileAtomes";
+import { useNavigate } from "react-router-dom";
+//CSS
+import palette from "../../../../assets/styles/_vars.scss";
 
 // Services
 // import {getLogin} from "../../../../services/profileService"
@@ -26,10 +22,10 @@ function Login() {
   let navigate = useNavigate();
   const setProfileInfo = useSetRecoilState(profileConnexionstate);
   const [showError, setShowError] = useState(false);
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState("");
 
   const HandleLogin = (response) => {
-    console.log('handleLogin', response);
+    //console.log("handleLogin", response);
     if (response.status !== 200) {
       setLoginError({
         status: response.status,
@@ -40,7 +36,7 @@ function Login() {
     }
     response.data.isLogged = true;
     setProfileInfo(response.data);
-    return navigate('/profile');
+    return navigate("/profile");
   };
 
   const formik = useFormik({
@@ -110,7 +106,13 @@ function Login() {
         </Button>
 
         <Typography sx={{ mt: 2 }}>
-          Avez-vous déjà un compte ? <Link href="#">Se connecter</Link>
+          Vous n&apos;avez pas encore de compte ?{" "}
+          <Link
+            to="/subscribe"
+            style={{ color: palette.primary, textDecoration: "underline" }}
+          >
+            S&apos;inscrire
+          </Link>
         </Typography>
       </form>
     </Container>

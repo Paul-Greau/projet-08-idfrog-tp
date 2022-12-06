@@ -1,16 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from "react";
 
 // import PropTypes from 'prop-types';
 
 // Components
-import ProjectCard from '../ProjectCard/ProjectCard';
+import ProjectCard from "../ProjectCard/ProjectCard";
 
-import CardPlaceholder from '../UI/Placeholder/CardPlaceholder';
-import { category, financingTypes } from '../UI/forms/PostProjectForm/category';
+import CardPlaceholder from "../UI/Placeholder/CardPlaceholder";
+import { category, financingTypes } from "../UI/forms/PostProjectForm/category";
 
 // Material UI
+
 import {
   Container,
   Grid,
@@ -20,18 +22,20 @@ import {
   Select,
   MenuItem,
   Pagination,
-} from '@mui/material';
+} from "@mui/material";
 // CSS
-import { projectCardStyles } from './styles';
+import { projectCardStyles } from "./styles";
+import { useRecoilValue } from "recoil";
+import { profileConnexionstate } from "../../atomes/profileAtomes";
 
 function ProjectCardList({ result, isLoading, cardPerPages }) {
+  const {isLogged} = useRecoilValue(profileConnexionstate)
   const [filterResult, setFilterResult] = useState(result);
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [financingTypeFilter, setFinancingTypeFilter] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [financingTypeFilter, setFinancingTypeFilter] = useState("");
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(cardPerPages);
 
   const handleChange = (event, value) => {
     event.preventDefault();
@@ -39,15 +43,18 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
     //setCardsPerPage;
   };
 
-  const nbPage = Math.ceil(filterResult.length / cardsPerPage);
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const nbPage = Math.ceil(filterResult.length / cardPerPages);
+  const indexOfLastCard = currentPage * cardPerPages;
+  const indexOfFirstCard = indexOfLastCard - cardPerPages;
   const currentCards = filterResult.slice(indexOfFirstCard, indexOfLastCard);
 
   useEffect(() => {
+    //console.log(result);
     let filteredResults = result.filter((item) => {
       // Boucle sur chaque projet de l'objet result
-
+      if(isLogged === false && item.visibility === false){
+        return false;
+      }
       if (
         categoryFilter === item.category_id &&
         financingTypeFilter === item.invest_type
@@ -55,20 +62,20 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
         return true;
       }
       if (
-        (categoryFilter === '' || categoryFilter === 0) &&
+        (categoryFilter === "" || categoryFilter === 1) &&
         financingTypeFilter === item.invest_type
       ) {
         return true;
       }
       if (
-        (financingTypeFilter === '' || financingTypeFilter === 'all') &&
+        (financingTypeFilter === "" || financingTypeFilter === "all") &&
         categoryFilter === item.category_id
       ) {
         return true;
       }
       if (
-        (categoryFilter === '' || categoryFilter === 0) &&
-        (financingTypeFilter === '' || financingTypeFilter === 'all')
+        (categoryFilter === "" || categoryFilter === 1) &&
+        (financingTypeFilter === "" || financingTypeFilter === "all")
       ) {
         return true;
       }
@@ -79,8 +86,6 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
     setFilterResult(filteredResults);
     setCurrentPage(1);
   }, [categoryFilter, financingTypeFilter, result]);
-
-  useEffect(() => {}, []);
 
   return (
     <>
@@ -107,6 +112,7 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
                   }
                 >
                   {category.map((category, index) => (
+                    
                     <MenuItem key={index} value={category.id}>
                       {category.name}
                     </MenuItem>
@@ -150,8 +156,10 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
                   description={res.description}
                   profile={res.profile.pseudo}
                   contributions={res.contributions}
+                  img_url={res.img_url}
+                  visibility={res.visibility}
                 />
-              </Grid>
+              </Grid>            
             ))}
           </Grid>
         ) : (
@@ -159,22 +167,39 @@ function ProjectCardList({ result, isLoading, cardPerPages }) {
             <CardPlaceholder />
             <CardPlaceholder />
             <CardPlaceholder />
+            {cardPerPages === 6 && (
+              <>
+                <CardPlaceholder />
+                <CardPlaceholder />
+                <CardPlaceholder />
+              </>
+            )}
           </Grid>
         )}
-        <Pagination
-          siblingCount={0}
-          count={nbPage}
-          page={currentPage}
-          onChange={handleChange}
-          sx={{ p: 2 }}
-        />
+        <Container
+          component="section"
+          maxWidth="lg"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            paddingBottom: "15px",
+          }}
+        >
+          <Pagination
+            siblingCount={0}
+            count={nbPage}
+            page={currentPage}
+            onChange={handleChange}
+            sx={{ p: 2 }}
+          />
+        </Container>
       </Container>
     </>
   );
 }
 
-ProjectCardList.PropType = {};
+// ProjectCardList.PropType = {};
 
-ProjectCardList.defaultProps = {};
+// ProjectCardList.defaultProps = {};
 
 export default React.memo(ProjectCardList);

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 // import PropTypes from "prop-types";
 
@@ -12,11 +12,11 @@ import {
   ListItemText,
   Collapse,
   Divider,
-} from '@mui/material';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarIcon from '@mui/icons-material/Star';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+} from "@mui/material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import StarIcon from "@mui/icons-material/Star";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
 function DropDownContributionList({ contributionList }) {
   const [openContribution, setOpenContribution] = useState(false);
@@ -27,13 +27,13 @@ function DropDownContributionList({ contributionList }) {
 
   return (
     <List // liste projets
-      sx={{ width: '100%', justifyContent: 'space-between' }}
+      sx={{ width: "100%", justifyContent: "space-between" }}
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
       <ListItemButton
         sx={{
-          backgroundColor: '#ffffff!important',
+          backgroundColor: "#ffffff!important",
         }}
         onClick={handleClickContribution}
       >
@@ -48,14 +48,14 @@ function DropDownContributionList({ contributionList }) {
         <List
           component="div"
           disablePadding
-          sx={{ backgroundColor: '#ffffff80' }}
+          sx={{ backgroundColor: "#ffffff80" }}
         >
           {contributionList?.map((contribution, index) => (
             <Link key={index} to={`/project/${contribution.project.id}`}>
               <ListItemButton sx={{ pl: 4 }}>
                 <StarIcon color="secondary" />
                 <ListItemText
-                  sx={{ textAlign: 'center' }}
+                  sx={{ textAlign: "center" }}
                   primary={`${contribution.project.name} / ${contribution.invested_amount}€`}
                 />
               </ListItemButton>

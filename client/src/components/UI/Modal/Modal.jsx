@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@mui/material';
+} from "@mui/material";
 
 const useConfirm = (title, message) => {
   const [promise, setPromise] = useState(null);

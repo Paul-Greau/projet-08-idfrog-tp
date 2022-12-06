@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
 
-import { useRecoilValue, useResetRecoilState, useSetRecoilState} from "recoil";
-import { profileConnexionstate, profileDetailState } from "../../../atomes/profileAtomes";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import {
+  profileConnexionstate,
+  profileDetailState,
+} from "../../../atomes/profileAtomes";
 import { getLogout } from "../../../services/loginService";
 
-
-import React, { useState } from 'react';
-import IdfrogLogo from '../../../assets/images/logo-mini.png';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import IdfrogLogo from "../../../assets/images/logo-mini.png";
+import AvatarLog from "../../../assets/images/avatar-connect.png";
 
 // Material UI
 import {
@@ -21,23 +25,19 @@ import {
   Toolbar,
   AppBar,
   Box,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 // CSS
-import { navHeaderStyles } from './styles';
+import { navHeaderStyles } from "./styles";
 
 function ResponsiveAppBar() {
   const ProfileInfo = useRecoilValue(profileConnexionstate);
 
-  const ResetProfileInfo = useResetRecoilState(profileConnexionstate)
-  const ResetProfileDetailState = useResetRecoilState(profileDetailState)
+  const ResetProfileInfo = useResetRecoilState(profileConnexionstate);
+  const ResetProfileDetailState = useResetRecoilState(profileDetailState);
 
-  
-  
- // console.log('ProfileInfo dans la navbar', ProfileInfo);
- 
+  // console.log('ProfileInfo dans la navbar', ProfileInfo);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -50,14 +50,14 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = async () => {
+    // eslint-disable-next-line no-unused-vars
     const res = await getLogout();
-    console.log(res);
+    //console.log(res);
 
-    ResetProfileInfo()
-    ResetProfileDetailState()
-    localStorage.clear()
-  }
-
+    ResetProfileInfo();
+    ResetProfileDetailState();
+    localStorage.clear();
+  };
 
   return (
     <AppBar position="sticky">
@@ -68,13 +68,13 @@ function ResponsiveAppBar() {
               src={IdfrogLogo}
               alt="Mini Logo Idfrog"
               style={{
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: "none", md: "flex" },
                 mr: 1,
-                padding: '0.4em',
+                padding: "0.4em",
               }}
             />
           </Link>
-          <Box sx={{ flexGrow: 2, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 2, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -89,24 +89,24 @@ function ResponsiveAppBar() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {ProfileInfo.isLogged ? (
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography color="primary.dark">
-                    <Link to="profile">Mon Profile</Link>
+                    <Link to="profile">Mon Profil</Link>
                   </Typography>
                 </MenuItem>
               ) : (
@@ -124,7 +124,7 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {ProfileInfo.isLogged ? (
               <Link to="profile">
                 <Button
@@ -159,20 +159,18 @@ function ResponsiveAppBar() {
               {ProfileInfo.isLogged ? (
                 <Grid container>
                   <Grid item sx={{ xs: 6 }}>
-                    <Link to={`/profile/`}>
+                    <Link to={"/profile/"}>
                       <div style={navHeaderStyles.loginUser}>
                         <Avatar
-                          sx={{ bgcolor: '#2D3A4D' }}
+                          sx={{ bgcolor: "#2D3A4D" }}
                           alt="IdFrog"
-                          src="/broken-image.jpg"
-                        >
-                          IF
-                        </Avatar>
+                          src={AvatarLog}
+                        ></Avatar>
                         <Box
                           sx={{
                             flexGrow: 1,
                             px: 1,
-                            display: { xs: 'none', md: 'flex' },
+                            display: { xs: "none", md: "flex" },
                           }}
                         >
                           {ProfileInfo.pseudo}
@@ -181,7 +179,7 @@ function ResponsiveAppBar() {
                     </Link>
                   </Grid>
                   <Grid item sx={{ xs: 6 }}>
-                    <Link to={`/profile/logout`}>
+                    <Link to={"/profile/logout"}>
                       <Button
                         size="small"
                         sx={navHeaderStyles.btnSecondary}

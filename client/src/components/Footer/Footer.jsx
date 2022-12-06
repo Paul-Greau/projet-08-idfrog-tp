@@ -1,17 +1,18 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
-import logoFooter from '../../assets/images/logo-mini.png';
+import logoFooter from "../../assets/images/logo-mini.png";
 
 // Material UI
-import { Grid, Link, Typography } from '@mui/material';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import { Grid, Typography } from "@mui/material";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 // CSS
-import palette from '../../assets/styles/_vars.scss';
-import './footerStyles.scss';
+import palette from "../../assets/styles/_vars.scss";
+import "./footerStyles.scss";
 
 function Footer() {
   return (
@@ -20,37 +21,27 @@ function Footer() {
         container
         spacing={5}
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
 
-          marginBottom: '10px',
-          paddingBottom: '5px',
-          paddingTop: '30px',
+          marginBottom: "10px",
+          paddingBottom: "5px",
+          paddingTop: "30px",
         }}
       >
-        <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link
-            href="#"
-            color="secondary"
-            variant="subtitle2"
-            underline="hover"
-          >
+        <Grid item xs={12} sm={2} sx={{ textAlign: "center" }}>
+          <Link className="lien" to="#">
             Conditions d'utilisation
           </Link>
         </Grid>
-        <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link
-            href="#"
-            color="secondary"
-            variant="subtitle2"
-            underline="hover"
-          >
+        <Grid item xs={12} sm={2} sx={{ textAlign: "center" }}>
+          <Link className="lien" to="#">
             Mentions légales
           </Link>
         </Grid>
-        <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link href="#">
+        <Grid item xs={12} sm={2} sx={{ textAlign: "center" }}>
+          <Link to="/">
             <img
               src={logoFooter}
               className="footer-logo"
@@ -58,23 +49,13 @@ function Footer() {
             ></img>
           </Link>
         </Grid>
-        <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link
-            href="#"
-            color="secondary"
-            variant="subtitle2"
-            underline="hover"
-          >
+        <Grid item xs={12} sm={2} sx={{ textAlign: "center" }}>
+          <Link className="lien" to="#">
             Politique de confidentialité
           </Link>
         </Grid>
-        <Grid item xs={12} sm={2} sx={{ textAlign: 'center' }}>
-          <Link
-            href="#"
-            color="secondary"
-            variant="subtitle2"
-            underline="hover"
-          >
+        <Grid item xs={12} sm={2} sx={{ textAlign: "center" }}>
+          <Link className="lien" to="/faq">
             FAQ
           </Link>
         </Grid>
@@ -86,7 +67,7 @@ function Footer() {
         alignItems="center"
         sx={{
           borderTop: `1px solid ${palette.secondary}`,
-          paddingTop: '20px',
+          paddingTop: "20px",
         }}
       >
         <Grid>
@@ -100,7 +81,7 @@ function Footer() {
         justifyContent="flex-end"
         spacing={3}
         sx={{
-          paddingTop: '20px',
+          paddingTop: "20px",
         }}
       >
         <Grid item>
