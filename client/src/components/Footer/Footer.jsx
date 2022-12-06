@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
+
 import logoFooter from "../../assets/images/logo-mini.png";
 
 // Material UI
