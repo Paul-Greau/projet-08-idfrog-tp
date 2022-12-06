@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { patchProject, postProject } from "../../../../services/projectService";
+import { patchProject, postProject } from '../../../../services/projectService';
 
 // import PropTypes from 'prop-types';
 
 // Components
-import UploadImages from "./uploadImg/UploadImages";
+import UploadImages from './uploadImg/UploadImages';
 
 // Materail UI
 import {
@@ -26,16 +26,16 @@ import {
   Select,
   MenuItem,
   Alert,
-} from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
+} from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import StarHalfIcon from '@mui/icons-material/StarHalf';
 // Yup Schema
-import { validationSchema } from "./validatePostProjectSchema";
+import { validationSchema } from './validatePostProjectSchema';
 //Formik
-import { useFormik } from "formik";
+import { useFormik } from 'formik';
 // CSS
-import { postProjectStyles } from "./styles";
-import palette from "../../../../assets/styles/_vars.scss";
+import { postProjectStyles } from './styles';
+import palette from '../../../../assets/styles/_vars.scss';
 // Tableau des categories
 import { category } from "./category";
 import { uploadProjectImage } from "../../../../services/imgService";
@@ -48,8 +48,8 @@ function PostProjectForm({ token, profileStatus, projectDetail }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [img_url, setImageUrl] = useState(null);
   const [showError, setShowError] = useState(false);
-  const [projectError, setProjectError] = useState("");
-  const [alertStyle, setAlertStyle] = useState("error");
+  const [projectError, setProjectError] = useState('');
+  const [alertStyle, setAlertStyle] = useState('error');
 
   const handleSubmit = async (response, imgUploadedUrl) => {
     if (response.status === 201) {
@@ -57,15 +57,15 @@ function PostProjectForm({ token, profileStatus, projectDetail }) {
         img_url: imgUploadedUrl,
       });
       console.log(patchResponse);
-      setAlertStyle("success");
+      setAlertStyle('success');
       setProjectError({
         status: null,
-        message: "Projet créé avec succès",
+        message: 'Projet créé avec succès',
       });
       setShowError(true);
       return;
     }
-    setAlertStyle("error");
+    setAlertStyle('error');
     setProjectError({
       status: response.status,
       message: response.data.message,
@@ -147,7 +147,7 @@ function PostProjectForm({ token, profileStatus, projectDetail }) {
     >
       <Typography
         variant="h1"
-        sx={{ fontSize: "2em", mb: 2, color: palette.secondary }}
+        sx={{ fontSize: '2em', mb: 2, color: palette.secondary }}
       >
         {!projectDetail ? ("Quel est votre projet ?")  : ("Editer votre project") }
       </Typography>
@@ -230,7 +230,7 @@ function PostProjectForm({ token, profileStatus, projectDetail }) {
           sx={{ pb: 1, pt: 0.5, color: palette.secondary }}
           variant="h5"
         >
-          Décrivez en détail votre projet :
+          Décrivez en détail votre projet&nbsp;:
         </Typography>
 
         <TextField
@@ -252,7 +252,7 @@ function PostProjectForm({ token, profileStatus, projectDetail }) {
           sx={{ pb: 2, pt: 0.5, color: palette.secondary }}
           variant="h5"
         >
-          Montant dont vous avez besoin ?
+          Montant dont vous avez besoin&nbsp;?
         </Typography>
 
         <FormControl fullWidth sx={{ mb: 1 }}>
@@ -274,7 +274,7 @@ function PostProjectForm({ token, profileStatus, projectDetail }) {
             sx={{ pb: 0.5, pt: 0.5, color: palette.secondary }}
             variant="h5"
           >
-            Quel type de financement recherchez vous ?
+            Quel type de financement recherchez vous&nbsp;?
           </Typography>
           <Typography variant="p" sx={{ color: palette.secondary }}>
             Financement participatif non ditutif auprès d&apos;investisseurs ou
@@ -289,7 +289,7 @@ function PostProjectForm({ token, profileStatus, projectDetail }) {
           onBlur={formik.handleBlur}
           value={formik.values.invest_type}
         >
-          <Card sx={{ width: "100%", mb: 4 }}>
+          <Card sx={{ width: '100%', mb: 4 }}>
             <CardHeader
               avatar={<StarHalfIcon sx={{ color: palette.primary }} />}
               action={
@@ -380,7 +380,7 @@ function PostProjectForm({ token, profileStatus, projectDetail }) {
               setShowError(false);
             }}
           >
-            {projectError.status ? `'Erreur' ${projectError.status}` : ""} -{" "}
+            {projectError.status ? `'Erreur' ${projectError.status}` : ''} -{' '}
             {projectError.message}
           </Alert>
         )}
