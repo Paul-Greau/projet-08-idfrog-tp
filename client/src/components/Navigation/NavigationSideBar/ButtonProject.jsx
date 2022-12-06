@@ -8,11 +8,6 @@ import WorkIcon from "@mui/icons-material/Work";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 function ButtonProject() {
-  // Open toogle mobile
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
   return (
     <>
       <List>

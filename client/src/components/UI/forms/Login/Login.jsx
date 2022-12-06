@@ -41,8 +41,8 @@ function Login() {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -123,4 +123,3 @@ Login.propTypes = {};
 Login.defaultProps = {};
 
 export default Login;
-
