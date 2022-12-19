@@ -70,7 +70,7 @@ const Project = () => {
               description={result.description}
               profile={result.profile?.pseudo}
               contributions={result.contributions}
-              invest_type={result.invest_type}
+              // invest_type={result.invest_type}
             />
           </Grid>
           <Grid item xs={12} md={12} sx={{ mt: -4 }}>
