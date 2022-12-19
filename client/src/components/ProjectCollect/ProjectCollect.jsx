@@ -2,7 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { SimpleShareButtons } from "react-simple-share";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
 
 // import PropTypes from "prop-types";
 
@@ -171,10 +178,28 @@ function ProjectCollect({
 
           <Box size="small" sx={projectCollectStyles.btnSecondary}>
             Partager sur&nbsp;:&nbsp;
-            <SimpleShareButtons
-              whitelist={["Facebook", "Twitter", "LinkedIn"]}
-              size="28px"
-            />
+            <Box>
+              <FacebookShareButton
+                title="facebookshare"
+                url={`/project/${project_id}`}
+              >
+                <FacebookIcon width="30" round="true" />
+              </FacebookShareButton>
+              &nbsp;
+              <TwitterShareButton
+                title="facebookshare"
+                url={`/project/${project_id}`}
+              >
+                <TwitterIcon width="30" round="true" />
+              </TwitterShareButton>
+              &nbsp;
+              <LinkedinShareButton
+                title="facebookshare"
+                url={`/project/${project_id}`}
+              >
+                <LinkedinIcon width="30" round="true" />
+              </LinkedinShareButton>
+            </Box>
           </Box>
         </CardActions>
       </Card>
@@ -258,10 +283,8 @@ function ProjectCollect({
               SUPPRIMER LE PROJET
             </Button>
             <Link to={`/profile/patchproject/${project_id}`}>
-              <Button color="primary" >
-              EDITER LE PROJET
-              </Button>
-            </Link>            
+              <Button color="primary">EDITER LE PROJET</Button>
+            </Link>
             <Modal open={open} onClose={handleClose}>
               <Box sx={projectCollectStyles.modal}>
                 <Typography id="modal-modal-title" variant="h6" component="h2">

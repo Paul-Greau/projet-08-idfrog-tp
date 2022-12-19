@@ -2,7 +2,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { SimpleShareButtons } from "react-simple-share";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
 // Material UI
 import {
   Card,
@@ -35,9 +42,8 @@ function ProjectCard({
   contributions,
   img_url,
 }) {
+  const baseUrl = process.env.REACT_APP_BASEURL;
 
-  const baseUrl = process.env.REACT_APP_BASEURL
-  
   const options = {
     /* weekday: 'long' ,*/ year: "numeric",
     month: "short",
@@ -120,10 +126,19 @@ function ProjectCard({
 
         <Box size="small" sx={projectCardStyles.btnSecondary}>
           Partager sur&nbsp;:&nbsp;
-          <SimpleShareButtons
-            whitelist={["Facebook", "Twitter", "LinkedIn"]}
-            size="28px"
-          />
+          <Box>
+            <FacebookShareButton title="facebookshare" url={`/project/${id}`}>
+              <FacebookIcon width="30" round="true" />
+            </FacebookShareButton>
+            &nbsp;
+            <TwitterShareButton title="facebookshare" url={`/project/${id}`}>
+              <TwitterIcon width="30" round="true" />
+            </TwitterShareButton>
+            &nbsp;
+            <LinkedinShareButton title="facebookshare" url={`/project/${id}`}>
+              <LinkedinIcon width="30" round="true" />
+            </LinkedinShareButton>
+          </Box>
         </Box>
       </CardActions>
     </Card>
