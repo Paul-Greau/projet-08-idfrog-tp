@@ -46,7 +46,7 @@ function ProjectCollect({
   contributions,
   visibility,
   project_id,
-  invest_type,
+  // invest_type,
 }) {
   let navigate = useNavigate();
 
@@ -149,9 +149,9 @@ function ProjectCollect({
           <Typography variant="body2" color="secondary.light">
             Votre contribution vous sera intégralement remboursée si le projet
             n&apos;atteint pas 100% de son objectif. <br />
-            <br />
+            {/* <br />
             Type d&apos;investissement : &nbsp;
-            <span style={{ fontWeight: "bold" }}>{invest_type}</span>
+            <span style={{ fontWeight: "bold" }}>{invest_type}</span> */}
           </Typography>
         </CardContent>
 
