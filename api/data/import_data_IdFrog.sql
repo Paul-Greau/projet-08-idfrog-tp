@@ -30,7 +30,7 @@ INSERT INTO "profile" ("email", "password", "pseudo", "is_admin") VALUES
 ('marcel@patulacci.com', '$2a$10$hJ4LKeb0t3.QgqqPfITUIOgtPMEDYfS.Xu4BCQV7RvfDFb23tHyZ2', 'pseudomarcel', FALSE),
 ('mathieu@command.com', '$2a$10$0TjAXhoYICJu2i38y4Wf0.Sw2w/k5zADfzGT5Hl0clfoRfdSGBCw6', 'pseudomathieu', FALSE),
 ('veronique@sonsan.com', '$2a$10$OLybhK4fvepsNbhG5m37kO5CuaAB2RRTTTyeuu7CwkM3KruDV3O0K', 'pseudoveronique', FALSE),
-('beatrice@dolle.com', 'pass$2a$10$pW2cWm5bTxEugxYV/.XoN.m2X4kcEFuxvobtrTVmIco/coZmoevs.', 'pseudodbeatrice', FALSE),
+('beatrice@dolle.com', '$2a$10$pW2cWm5bTxEugxYV/.XoN.m2X4kcEFuxvobtrTVmIco/coZmoevs.', 'pseudodbeatrice', FALSE),
 ('alain@deloin.com', '$2a$10$Ha1EAfy9IiEOu3Gs5Cy9AurjazeriO6FoQjwWHWs9dyQoKSSd3Ip6', 'pseudoalain', FALSE),
 ('michelle@obamo.com', '$2a$10$Ks1mSTlwS.VOP/aomAIl4.RdNZgyGKSGoTGdHbXvgPBU82YUJWR/G', 'pseudomichelle', FALSE),
 ('josephine@bekker.com', '$2a$10$r098JY1xIU.yTlnP878ar.UsEITaId8860eTTGV1wnabjjiGGQqRm', 'pseudojosephine', FALSE),

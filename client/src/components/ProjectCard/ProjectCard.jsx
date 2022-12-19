@@ -127,15 +127,24 @@ function ProjectCard({
         <Box size="small" sx={projectCardStyles.btnSecondary}>
           Partager sur&nbsp;:&nbsp;
           <Box>
-            <FacebookShareButton title="facebookshare" url={`/project/${id}`}>
+            <FacebookShareButton
+              title="facebookshare"
+              url={`https://idfrog-project.onrender.com/project/project/${id}`}
+            >
               <FacebookIcon width="30" round="true" />
             </FacebookShareButton>
             &nbsp;
-            <TwitterShareButton title="facebookshare" url={`/project/${id}`}>
+            <TwitterShareButton
+              title="facebookshare"
+              url={`https://idfrog-project.onrender.com/project/project/${id}`}
+            >
               <TwitterIcon width="30" round="true" />
             </TwitterShareButton>
             &nbsp;
-            <LinkedinShareButton title="facebookshare" url={`/project/${id}`}>
+            <LinkedinShareButton
+              title="facebookshare"
+              url={`https://idfrog-project.onrender.com/project/project/${id}`}
+            >
               <LinkedinIcon width="30" round="true" />
             </LinkedinShareButton>
           </Box>

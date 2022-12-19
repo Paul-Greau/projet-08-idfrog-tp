@@ -181,21 +181,21 @@ function ProjectCollect({
             <Box>
               <FacebookShareButton
                 title="facebookshare"
-                url={`/project/${project_id}`}
+                url={`https://idfrog-project.onrender.com/project/project/${project_id}`}
               >
                 <FacebookIcon width="30" round="true" />
               </FacebookShareButton>
               &nbsp;
               <TwitterShareButton
                 title="facebookshare"
-                url={`/project/${project_id}`}
+                url={`https://idfrog-project.onrender.com/project/project/${project_id}`}
               >
                 <TwitterIcon width="30" round="true" />
               </TwitterShareButton>
               &nbsp;
               <LinkedinShareButton
                 title="facebookshare"
-                url={`/project/${project_id}`}
+                url={`https://idfrog-project.onrender.com/project/project/${project_id}`}
               >
                 <LinkedinIcon width="30" round="true" />
               </LinkedinShareButton>
