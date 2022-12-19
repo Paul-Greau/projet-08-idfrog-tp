@@ -20,9 +20,8 @@ const Project = () => {
   const { id } = useParams();
   const flag = useRef(false);
   let navigate = useNavigate();
-  const {isLogged} = useRecoilValue(profileConnexionstate);
-  const baseUrl = process.env.REACT_APP_BASEURL
-
+  const { isLogged } = useRecoilValue(profileConnexionstate);
+  const baseUrl = process.env.REACT_APP_BASEURL;
 
   // Récupération de la liste des utilisateurs à l'affichage
   useEffect(() => {
@@ -32,7 +31,7 @@ const Project = () => {
       getProjectById(id)
         .then((res) => {
           // Liste dans le state
-          if(isLogged === false && res.data.visibility === false){
+          if (isLogged === false && res.data.visibility === false) {
             return navigate("/");
           }
           setResult(res.data);
@@ -71,6 +70,7 @@ const Project = () => {
               description={result.description}
               profile={result.profile?.pseudo}
               contributions={result.contributions}
+              invest_type={result.invest_type}
             />
           </Grid>
           <Grid item xs={12} md={12} sx={{ mt: -4 }}>

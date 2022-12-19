@@ -149,7 +149,9 @@ function ProjectCollect({
           <Typography variant="body2" color="secondary.light">
             Votre contribution vous sera intégralement remboursée si le projet
             n&apos;atteint pas 100% de son objectif. <br />
-            Type d&apos;investissement: &apos;{invest_type}&apos;
+            <br />
+            Type d&apos;investissement : &nbsp;
+            <span style={{ fontWeight: "bold" }}>{invest_type}</span>
           </Typography>
         </CardContent>
 
